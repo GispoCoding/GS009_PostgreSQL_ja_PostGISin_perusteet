@@ -1,0 +1,15 @@
+# Common
+ipython-sql==0.4.0
+matplotlib==3.2.2
+pandas==1.0.5
+psycopg2-binary==2.9.3
+requests==2.27.1
+
+# Extensions
+jupyter-contrib-nbextensions>=0.5.1
+
+# Styling
+git+https://github.com/GispoCoding/jupyter-themes.git
+
+# GIS utils
+git+https://github.com/GispoCoding/ipygis.git
