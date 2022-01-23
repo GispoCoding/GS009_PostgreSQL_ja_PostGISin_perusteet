@@ -1,5 +1,4 @@
 /.idea/
-/.env
 */.ipynb_checkpoints/
 /.ipynb_checkpoints/digiroad_uusimaa.sql
 /.ipynb_checkpoints/kunnat.sql
