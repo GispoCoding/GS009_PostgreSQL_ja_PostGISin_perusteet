@@ -1,0 +1,129 @@
+# Tietotyypit
+
+Tässä osassa tutustutaan erilaisiin tietotyyppeihin.
+
+Tutustutaan aluksi tieliikenne-taulun sisältöön
+
+```{sql, eval=FALSE}
+SELECT *
+FROM tieliikenne
+LIMIT 30;
+```
+
+Tarkistetaan, kuinka monen ajoneuvon ensirekiseröinti on tapahtunut vuoden 2015 jälkeen.
+
+```{sql, eval=FALSE}
+SELECT count(*)
+FROM tieliikenne
+WHERE EXTRACT(YEAR FROM ensirekisterointipvm) > 2015;
+```
+
+Yllä oleva komento tuottaa virheen: function pg_catalog.extract(unknown, text) does not exist. Tämä vihjaisi siis, että kentän ensirekisterointipvm tietotyyppi olisi text, mikä ei suinkaan ole paras tietotyyppi päivämäärän säilyttämiseen. Tarkistetaan vielä information_schema-taulusta pvm-kenttien tietotyypit:
+
+```{sql, eval=FALSE}
+SELECT column_name, data_type
+FROM information_schema.columns 
+WHERE
+  table_name = 'tieliikenne'
+  AND column_name LIKE '%pvm%'
+;
+```
+
+Sarake ensirekisterointipvm tosiaan on tyypiltään text eikä yksi PostgreSQL:n aikatyypeistä (date, interval, timestamp...). Yksi ratkaisu ongelmaan olisi muuttaa sarakkeen tyyppi kyselyssä oikeaan muotoon:
+
+```{sql, eval=FALSE}
+SELECT count(*) FROM tieliikenne WHERE EXTRACT(YEAR FROM to_date(ensirekisterointipvm, 'YYYY-MM-DD')) > 2015;
+```
+
+Tietotyyppimuunnoksen (castaus) voi tehdä myös käyttäen ::-operaattoria:
+
+```{sql, eval=FALSE}
+SELECT count(*) FROM tieliikenne WHERE extract(YEAR FROM ensirekisterointipvm::date) > 2015;
+```
+
+Tässä tapauksessa fiksumpaa olisi kuitenkin muuttaa koko sarakkeen tyyppi oikeaksi, sillä kyseessä on selkeästi päivämääräsarake.
+
+## Harjoitus 4.1: Ota oikea tietotyyppi käyttöön
+Muuta tieliikenne-taulun ensirekisterointipvm-sarake käyttämään oikeaa date-tietotyyppiä. Käytä syntaksia:
+
+```{sql, eval=FALSE}
+ALTER TABLE taulun_nimi
+ALTER COLUMN kenttä TYPE <tyyppi>
+USING to_date(kenttä, 'päivämääräformaatti');
+```
+
+Voit tarkistaa ohjeen to_date-funktion käyttämiseen ja päivämääräformaatin muotoon PostgreSQL:n manuaalista: [https://www.postgresql.org/docs/13/functions-formatting.html#FUNCTIONS-FORMATTING-DATETIME-TABLE](https://www.postgresql.org/docs/13/functions-formatting.html#FUNCTIONS-FORMATTING-DATETIME-TABLE)
+
+```{sql, eval=FALSE}
+SELECT
+    ensirekisterointipvm,
+    kayttoonottopvm
+FROM tieliikenne
+LIMIT 10;
+```
+
+Kirjoita kentän muuttamisen lause. Muunnoksen suorittamisessa menee hetki.
+
+```{sql, eval=FALSE}
+ALTER ...
+```
+[Vastaus](#vastaus-h4.1)
+
+
+**Tarkistus:**
+Kokeile nyt uudestaan tiedoston alussa olevaa kyselyä:
+
+```{sql, eval=FALSE}
+SELECT count(*) FROM tieliikenne WHERE EXTRACT(YEAR FROM ensirekisterointipvm) > 2015;
+```
+
+## Harjoitus 4.2
+Muuta seuraavaksi myös sarake kayttoonottopvm käyttämään date-tietotyyppiä. Tässä kohtaat kaksi ongelmaa:
+
+to_date-funktio ottaa vastaan tekstimuotoista dataa, kun taas kayttoonottopvm on numeerista dataa...
+osa kayttoonottopvm arvoista on arvossa 0, jotta se on ensin muunnettava arvoksi Null, jotta funktio to_date toimisi oikein. Käytä tässä syntaksia:
+
+```{sql, eval=FALSE}
+UPDATE taulun_nimi SET kenttä = uusi_arvo WHERE kenttä = haluttu_arvo;
+```
+[Vastaus](#vastaus-h4.2)
+
+
+**Tarkistus:**
+Kokeile nyt vastaavaa kyselyä:
+
+```{sql, eval=FALSE}
+SELECT count(*) FROM tieliikenne WHERE EXTRACT(YEAR FROM kayttoonottopvm) > 2015;
+```
+Saitko Tulokseksi 710287?
+
+
+## Geometriatyyppi
+PostGIS-lisäosan mukana tulee laaja tuki erilaisille geometriatyypeille ja muunnosfunktioille.
+
+Katso taulun kunnat dataa Helsinki-rivin kautta.
+
+```{sql, eval=FALSE}
+SELECT * FROM kunnat WHERE nimi = 'Helsinki'; 
+```
+
+geom-kentän sisältö on binääristä, eikä sitä pysty tulkitsemaan. PostGISin ST_AsText-funktiolla tämä onnistuu
+
+```{sql, eval=FALSE}
+SELECT nimi, ST_AsText(geom) FROM kunnat WHERE nimi = 'Helsinki';
+```
+
+Nyt paljastuu jo, että kyseessä on polygoni, tai tarkemmin multipolygoni, joka sisältää paljon koordinaatteja. Harjoitusympäristöön on rakennettu toiminnalisuus, jolla geometriakohteita pystyy visualisoimaan interaktiivisesti
+
+## Harjoitus 4.3: Visualisoi geometrioita pgAdmilla
+Myös pgAdminilla pystyy visualisoimaan geometriakohteita interaktiivisesti. Kokeile ajaa seuraava komento ja paina sinistä nappia geometria-sarakkeen kohdalta 
+
+```{sql, eval=FALSE}
+SELECT * FROM kunnat;
+```
+
+Jotta saisit näkyviin taustakartan, on geometriat projisoitava WGSG84-koordinaattijärjestelmään, joka on muodostuu pituus- ja leveysasteista metrisen projektion sijaan.
+
+```{sql, eval=FALSE}
+SELECT nimi, ST_Transform(geom, 4326) FROM kunnat;
+```

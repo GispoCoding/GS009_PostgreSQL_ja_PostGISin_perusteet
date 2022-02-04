@@ -1,0 +1,17 @@
+---
+title: "Johdanto PostgreSQL:n käyttöön"
+author: "Gispo Oy"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+description: "Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin."
+documentclass: book
+link-citations: yes
+---
+
+# Johdanto
+
+
+Tervetuloa kurssin harjoitusten pariin!
+
+## Harjoitusmateriaalin lisenssi
+
