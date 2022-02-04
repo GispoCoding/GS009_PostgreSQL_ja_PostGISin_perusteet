@@ -1,0 +1,15 @@
+name: Render to HTML
+on:
+  pull_request:
+
+jobs:
+  render:
+    name: Render to HTML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Render Rmd to HTML
+        run: ./render.sh
+      - name: Assert index.html exists
+        run: test -f harjoitukset/build/index.html

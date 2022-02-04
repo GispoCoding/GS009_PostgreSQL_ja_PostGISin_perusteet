@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön</title>
+  <meta name="description" content="Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön" />
+  
+  <meta name="twitter:description" content="Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin." />
+  
+
+<meta name="author" content="Gispo Oy" />
+
+
+<meta name="date" content="2022-02-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="työkalujen-käyttö-pgadmin-ja-psql.html"/>
+<link rel="next" href="tietotyypit.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li>
+  <a href="./">
+    <img src="img/gispo_white_sm.png" alt="Gispo logo"/>
+  </a>
+</li>
+<li><p>Johdanto PostgreSQL:n käyttöön</p></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Johdanto</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#harjoitusmateriaalin-lisenssi"><i class="fa fa-check"></i><b>1.1</b> Harjoitusmateriaalin lisenssi</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html"><i class="fa fa-check"></i><b>2</b> Työkalujen käyttö: PgAdmin ja psql</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#pgadmin-4"><i class="fa fa-check"></i><b>2.1</b> PgAdmin 4</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#tietokantayhteyden-lisääminen"><i class="fa fa-check"></i><b>2.1.1</b> Tietokantayhteyden lisääminen</a></li>
+<li class="chapter" data-level="2.1.2" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#kyselytyökalun-käyttäminen-query-tool"><i class="fa fa-check"></i><b>2.1.2</b> Kyselytyökalun käyttäminen (Query Tool)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#tietokantayhteyden-sulkeminen"><i class="fa fa-check"></i><b>2.1.3</b> Tietokantayhteyden sulkeminen</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#psql"><i class="fa fa-check"></i><b>2.2</b> psql</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#käyttäminen"><i class="fa fa-check"></i><b>2.2.1</b> Käyttäminen</a></li>
+<li class="chapter" data-level="2.2.2" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#tietokantayhteyden-sulkeminen-1"><i class="fa fa-check"></i><b>2.2.2</b> Tietokantayhteyden sulkeminen</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="työkalujen-käyttö-pgadmin-ja-psql.html"><a href="työkalujen-käyttö-pgadmin-ja-psql.html#pg_dump-ja-pg_restore"><i class="fa fa-check"></i><b>2.3</b> pg_dump ja pg_restore</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html"><i class="fa fa-check"></i><b>3</b> Tietokannan ja taulujen luonti</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#tietokannan-luominen"><i class="fa fa-check"></i><b>3.1</b> Tietokannan luominen</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#createdb"><i class="fa fa-check"></i><b>3.1.1</b> createdb</a></li>
+<li class="chapter" data-level="3.1.2" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#pgadmin"><i class="fa fa-check"></i><b>3.1.2</b> PgAdmin</a></li>
+<li class="chapter" data-level="3.1.3" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#sql"><i class="fa fa-check"></i><b>3.1.3</b> SQL</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#tietokannan-poistaminen"><i class="fa fa-check"></i><b>3.2</b> Tietokannan poistaminen</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#dropdb"><i class="fa fa-check"></i><b>3.2.1</b> dropdb</a></li>
+<li class="chapter" data-level="3.2.2" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#sql-1"><i class="fa fa-check"></i><b>3.2.2</b> SQL</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#harjoitus-3.1-luo-uusi-tietokanta"><i class="fa fa-check"></i><b>3.3</b> Harjoitus 3.1: Luo uusi tietokanta</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#taulujen-luominen"><i class="fa fa-check"></i><b>3.3.1</b> Taulujen luominen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#rivien-lisääminen"><i class="fa fa-check"></i><b>3.3.2</b> Rivien lisääminen</a></li>
+<li class="chapter" data-level="3.3.3" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#kyselyjen-tekeminen"><i class="fa fa-check"></i><b>3.3.3</b> Kyselyjen tekeminen</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#harjoitus-3.2"><i class="fa fa-check"></i><b>3.4</b> Harjoitus 3.2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tietotyypit.html"><a href="tietotyypit.html"><i class="fa fa-check"></i><b>4</b> Tietotyypit</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="tietotyypit.html"><a href="tietotyypit.html#harjoitus-4.1-ota-oikea-tietotyyppi-käyttöön"><i class="fa fa-check"></i><b>4.1</b> Harjoitus 4.1: Ota oikea tietotyyppi käyttöön</a></li>
+<li class="chapter" data-level="4.2" data-path="tietotyypit.html"><a href="tietotyypit.html#harjoitus-4.2"><i class="fa fa-check"></i><b>4.2</b> Harjoitus 4.2</a></li>
+<li class="chapter" data-level="4.3" data-path="tietotyypit.html"><a href="tietotyypit.html#geometriatyyppi"><i class="fa fa-check"></i><b>4.3</b> Geometriatyyppi</a></li>
+<li class="chapter" data-level="4.4" data-path="tietotyypit.html"><a href="tietotyypit.html#harjoitus-4.3-visualisoi-geometrioita-pgadmilla"><i class="fa fa-check"></i><b>4.4</b> Harjoitus 4.3: Visualisoi geometrioita pgAdmilla</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="indeksit.html"><a href="indeksit.html"><i class="fa fa-check"></i><b>5</b> Indeksit</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="indeksit.html"><a href="indeksit.html#indeksien-luominen"><i class="fa fa-check"></i><b>5.1</b> Indeksien luominen</a></li>
+<li class="chapter" data-level="5.2" data-path="indeksit.html"><a href="indeksit.html#indeksien-koko"><i class="fa fa-check"></i><b>5.2</b> Indeksien koko</a></li>
+<li class="chapter" data-level="5.3" data-path="indeksit.html"><a href="indeksit.html#indeksien-poistaminen"><i class="fa fa-check"></i><b>5.3</b> Indeksien poistaminen</a></li>
+<li class="chapter" data-level="5.4" data-path="indeksit.html"><a href="indeksit.html#harjoitus-5.1-spatiaalinen-indeksi"><i class="fa fa-check"></i><b>5.4</b> Harjoitus 5.1: Spatiaalinen indeksi</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html"><i class="fa fa-check"></i><b>6</b> Käyttäjien hallinta</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#käyttäjäroolit"><i class="fa fa-check"></i><b>6.1</b> Käyttäjäroolit</a></li>
+<li class="chapter" data-level="6.2" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#harjoitus-6.1-käyttöoikeudet"><i class="fa fa-check"></i><b>6.2</b> Harjoitus 6.1: käyttöoikeudet</a></li>
+<li class="chapter" data-level="6.3" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#ryhmäroolit"><i class="fa fa-check"></i><b>6.3</b> Ryhmäroolit</a></li>
+<li class="chapter" data-level="6.4" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#roolien-käyttöä"><i class="fa fa-check"></i><b>6.4</b> Roolien käyttöä</a></li>
+<li class="chapter" data-level="6.5" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#harjoitus-6.2-roolien-luominen-pgadmin-kautta"><i class="fa fa-check"></i><b>6.5</b> Harjoitus 6.2: Roolien luominen pgAdmin kautta</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="foreign-data-wrapper-fdw.html"><a href="foreign-data-wrapper-fdw.html"><i class="fa fa-check"></i><b>7</b> Foreign Data Wrapper (fdw)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="foreign-data-wrapper-fdw.html"><a href="foreign-data-wrapper-fdw.html#file_fdw--lisäosa-tiedostojen-lukemiseen"><i class="fa fa-check"></i><b>7.1</b> file_fdw -lisäosa tiedostojen lukemiseen</a></li>
+<li class="chapter" data-level="7.2" data-path="foreign-data-wrapper-fdw.html"><a href="foreign-data-wrapper-fdw.html#harjoitus-7.1-csv-tiedostosta-lukeminen"><i class="fa fa-check"></i><b>7.2</b> Harjoitus 7.1: csv-tiedostosta lukeminen</a></li>
+<li class="chapter" data-level="7.3" data-path="foreign-data-wrapper-fdw.html"><a href="foreign-data-wrapper-fdw.html#harjoitus-7.2-toisesta-postgresql-kannasta-lukeminen"><i class="fa fa-check"></i><b>7.3</b> Harjoitus 7.2: Toisesta PostgreSQL-kannasta lukeminen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vastaukset.html"><a href="vastaukset.html"><i class="fa fa-check"></i>Vastaukset</a>
+<ul>
+<li class="chapter" data-level="" data-path="vastaukset.html"><a href="vastaukset.html#vastaus-h3.2"><i class="fa fa-check"></i>Harjoitus 3.2</a></li>
+<li class="chapter" data-level="" data-path="vastaukset.html"><a href="vastaukset.html#vastaus-h4.1"><i class="fa fa-check"></i>Harjoitus 4.1</a></li>
+<li class="chapter" data-level="" data-path="vastaukset.html"><a href="vastaukset.html#vastaus-h4.2"><i class="fa fa-check"></i>Harjoitus 4.2</a></li>
+<li class="chapter" data-level="" data-path="vastaukset.html"><a href="vastaukset.html#vastaus-h7.1"><i class="fa fa-check"></i>Harjoitus 7.1</a></li>
+<li class="chapter" data-level="" data-path="vastaukset.html"><a href="vastaukset.html#vastaus-h7.2"><i class="fa fa-check"></i>Harjoitus 7.2</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><p>
+  Gispo Oy<br/>
+  Kalevankatu 31<br/>
+  00100 Helsinki, Finland<br/>
+  info@gispo.fi
+  </p>
+</li>
+<li>
+  <img src="img/by-nd.svg" alt="licensed cc-by-nd" />
+</li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Johdanto PostgreSQL:n käyttöön</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tietokannan-ja-taulujen-luonti" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Tietokannan ja taulujen luonti</h1>
+<p>Tässä osassa luodaan tietokanta, johon lisätään erilaisia tauluja.</p>
+<div id="tietokannan-luominen" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Tietokannan luominen</h2>
+<p>Tietokannan voi luoda useammalla eri tavalla.</p>
+<div id="createdb" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> createdb</h3>
+<p>createdb on komentorivityökalu helpottamaan tietokannan luomista. Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:</p>
+<pre class="shell"><code>createdb uuden_tietokannan_nimi</code></pre>
+<div class="figure">
+<img src="img/createdb.png" alt="" />
+<p class="caption">Tietokannan luominen</p>
+</div>
+<p>Kuten psql, myös createdb lukee tietokannan yhteysparametrit ympäristömuuttujista.</p>
+</div>
+<div id="pgadmin" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> PgAdmin</h3>
+<p>Kuten miltei kaikkeen muuhunkin, PgAdmin tarjoaa myös tietokantojen luomiseen ja poistamiseen graafisen ratkaisun: Klikkaa oikealla tietokantayhteydesta &gt; Create &gt; Database. createdb_pgadmin</p>
+</div>
+<div id="sql" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> SQL</h3>
+<p>Perinteisin tapa tietokantojen luomiseen käy kuitenkin SQL:n kautta. Alla olevan komennon voi suorittaa psql:n tai PgAdminin Query Toolin) avulla:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="tietokannan-ja-taulujen-luonti.html#cb5-1" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> uuden_tietokannan_nimi fdafas;</span></code></pre></div>
+</div>
+</div>
+<div id="tietokannan-poistaminen" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Tietokannan poistaminen</h2>
+<div id="dropdb" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> dropdb</h3>
+<p>dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan tietokannan voi poistaa komennolla:</p>
+<pre class="shell"><code>dropdb poistettavan_tietokannan_nimi</code></pre>
+</div>
+<div id="sql-1" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> SQL</h3>
+<p>Samaan tapaan kuin luotaessa</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="tietokannan-ja-taulujen-luonti.html#cb7-1" aria-hidden="true"></a><span class="kw">DROP</span> <span class="kw">DATABASE</span> poistettavan_tietokannan_nimi</span></code></pre></div>
+</div>
+</div>
+<div id="harjoitus-3.1-luo-uusi-tietokanta" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Harjoitus 3.1: Luo uusi tietokanta</h2>
+<p>Luo uusi tietokanta “koulutus” createdb:n, pgAdmin:in tai psql:n avulla.</p>
+<div id="taulujen-luominen" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Taulujen luominen</h3>
+<p>PostgreSQL tarjoaa monipuolisen tavan luoda tauluja, näkymiä ja materialisoituja näkymiä.</p>
+<p>Luodaan yksinkertainen tietokantataulu kurssi siten, että sillä on kentät koodi, nimi, pvm, tyyli ja kesto.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="tietokannan-ja-taulujen-luonti.html#cb8-1" aria-hidden="true"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> kurssi <span class="kw">CASCADE</span>;</span>
+<span id="cb8-2"><a href="tietokannan-ja-taulujen-luonti.html#cb8-2" aria-hidden="true"></a></span>
+<span id="cb8-3"><a href="tietokannan-ja-taulujen-luonti.html#cb8-3" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> kurssi (</span>
+<span id="cb8-4"><a href="tietokannan-ja-taulujen-luonti.html#cb8-4" aria-hidden="true"></a>    koodi    <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">CONSTRAINT</span> firstkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb8-5"><a href="tietokannan-ja-taulujen-luonti.html#cb8-5" aria-hidden="true"></a>    nimi     text <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb8-6"><a href="tietokannan-ja-taulujen-luonti.html#cb8-6" aria-hidden="true"></a>    pvm      <span class="dt">date</span>,</span>
+<span id="cb8-7"><a href="tietokannan-ja-taulujen-luonti.html#cb8-7" aria-hidden="true"></a>    tyyli    text,</span>
+<span id="cb8-8"><a href="tietokannan-ja-taulujen-luonti.html#cb8-8" aria-hidden="true"></a>    kesto    <span class="dt">integer</span> <span class="kw">CHECK</span> (kesto <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb8-9"><a href="tietokannan-ja-taulujen-luonti.html#cb8-9" aria-hidden="true"></a>);</span>
+<span id="cb8-10"><a href="tietokannan-ja-taulujen-luonti.html#cb8-10" aria-hidden="true"></a></span>
+<span id="cb8-11"><a href="tietokannan-ja-taulujen-luonti.html#cb8-11" aria-hidden="true"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">COLUMN</span> kurssi.kesto <span class="kw">IS</span> <span class="st">&#39;Kurssin kesto tunteina&#39;</span>;</span></code></pre></div>
+<p>Tauluja voi luoda myös SQL-kyselyiden tuloksien perusteella. Luodaan yksinkertainen taulu, johon tulisi kurssi-taulun rivit, joiden kesto on yksi.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="tietokannan-ja-taulujen-luonti.html#cb9-1" aria-hidden="true"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> kurssi_1;</span>
+<span id="cb9-2"><a href="tietokannan-ja-taulujen-luonti.html#cb9-2" aria-hidden="true"></a></span>
+<span id="cb9-3"><a href="tietokannan-ja-taulujen-luonti.html#cb9-3" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> kurssi_1 <span class="kw">AS</span> (</span>
+<span id="cb9-4"><a href="tietokannan-ja-taulujen-luonti.html#cb9-4" aria-hidden="true"></a>    <span class="kw">SELECT</span> koodi, nimi, pvm, tyyli, <span class="dv">1</span> kesto <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> kesto <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-5"><a href="tietokannan-ja-taulujen-luonti.html#cb9-5" aria-hidden="true"></a>);</span></code></pre></div>
+<p>Luonnollisestikin näkymä olisi järkevämpi vaihtoehto äskeiseen:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="tietokannan-ja-taulujen-luonti.html#cb10-1" aria-hidden="true"></a><span class="kw">DROP</span> <span class="kw">VIEW</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> kurssi_1_view;</span>
+<span id="cb10-2"><a href="tietokannan-ja-taulujen-luonti.html#cb10-2" aria-hidden="true"></a></span>
+<span id="cb10-3"><a href="tietokannan-ja-taulujen-luonti.html#cb10-3" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">view</span> kurssi_1_view <span class="kw">AS</span> (</span>
+<span id="cb10-4"><a href="tietokannan-ja-taulujen-luonti.html#cb10-4" aria-hidden="true"></a>    <span class="kw">SELECT</span> koodi, nimi, pvm, tyyli, kesto <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> kesto <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-5"><a href="tietokannan-ja-taulujen-luonti.html#cb10-5" aria-hidden="true"></a>);</span></code></pre></div>
+</div>
+<div id="rivien-lisääminen" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Rivien lisääminen</h3>
+<p>Tauluun voidaan lisätä rivejä INSERT-komennoilla, tai esimerkiksi kyselyjen tuloksien avulla</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="tietokannan-ja-taulujen-luonti.html#cb11-1" aria-hidden="true"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> kurssi(koodi, nimi, pvm, tyyli, kesto) <span class="kw">VALUES</span></span>
+<span id="cb11-2"><a href="tietokannan-ja-taulujen-luonti.html#cb11-2" aria-hidden="true"></a>    (<span class="st">&#39;A1111&#39;</span>, <span class="st">&#39;PG-peruskurssi&#39;</span>, <span class="st">&#39;2020-10-01&#39;</span>, <span class="st">&#39;Jupyter&#39;</span>, <span class="st">&#39;15&#39;</span>);</span></code></pre></div>
+<p>PostgreSQL:n avulla voi lisätä myös useamman rivin yhdellä kertaa ja jos arvot ovat samassa järjestyksessä, kuin kentät, ei kenttien nimiä tarvitse antaa</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="tietokannan-ja-taulujen-luonti.html#cb12-1" aria-hidden="true"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> kurssi <span class="kw">VALUES</span></span>
+<span id="cb12-2"><a href="tietokannan-ja-taulujen-luonti.html#cb12-2" aria-hidden="true"></a>    (<span class="st">&#39;A1112&#39;</span>, <span class="st">&#39;PG-kertaus&#39;</span>, <span class="st">&#39;2020-10-03&#39;</span>, <span class="st">&#39;Jupyter&#39;</span>, <span class="st">&#39;1&#39;</span>),</span>
+<span id="cb12-3"><a href="tietokannan-ja-taulujen-luonti.html#cb12-3" aria-hidden="true"></a>    (<span class="st">&#39;C1111&#39;</span>, <span class="st">&#39;PG-peruskurssi&#39;</span>, <span class="st">&#39;2021-10-01&#39;</span>, <span class="st">&#39;Jupyter&#39;</span>, <span class="st">&#39;15&#39;</span>),</span>
+<span id="cb12-4"><a href="tietokannan-ja-taulujen-luonti.html#cb12-4" aria-hidden="true"></a>    (<span class="st">&#39;C1112&#39;</span>, <span class="st">&#39;PG-seuraavan_vuoden&#39;</span>, <span class="st">&#39;2021-10-03&#39;</span>, <span class="st">&#39;Jupyter&#39;</span>, <span class="st">&#39;1&#39;</span>);</span></code></pre></div>
+<p>Rivejä voi lisätä myös kyselyjen tuloksena. Tässä hyödynnetään samalla WITH-kyselyitä (CTE, Common Table Expressions).</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="tietokannan-ja-taulujen-luonti.html#cb13-1" aria-hidden="true"></a><span class="kw">WITH</span> alikysely <span class="kw">AS</span> (<span class="kw">SELECT</span> <span class="dv">1</span> a, <span class="dv">2</span> b)</span>
+<span id="cb13-2"><a href="tietokannan-ja-taulujen-luonti.html#cb13-2" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> alikysely <span class="kw">WHERE</span> a <span class="op">=</span> <span class="dv">1</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="tietokannan-ja-taulujen-luonti.html#cb14-1" aria-hidden="true"></a><span class="kw">WITH</span> kertauskurssi <span class="kw">AS</span> (<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> nimi <span class="kw">like</span> <span class="st">&#39;%kertaus%&#39;</span>)</span>
+<span id="cb14-2"><a href="tietokannan-ja-taulujen-luonti.html#cb14-2" aria-hidden="true"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> kurssi (</span>
+<span id="cb14-3"><a href="tietokannan-ja-taulujen-luonti.html#cb14-3" aria-hidden="true"></a>    <span class="kw">SELECT</span> <span class="st">&#39;B1111&#39;</span>,  nimi, pvm, tyyli </span>
+<span id="cb14-4"><a href="tietokannan-ja-taulujen-luonti.html#cb14-4" aria-hidden="true"></a>    <span class="kw">FROM</span> kertauskurssi</span>
+<span id="cb14-5"><a href="tietokannan-ja-taulujen-luonti.html#cb14-5" aria-hidden="true"></a>);</span></code></pre></div>
+</div>
+<div id="kyselyjen-tekeminen" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Kyselyjen tekeminen</h3>
+<p>Tarkistetaan, että rivit ilmeistyivät tauluun. Tyypillisesti tähtikyselyitä tehdessä muista käyttää LIMIT-ehtoa rajoittaaksesi rivien määrää:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="tietokannan-ja-taulujen-luonti.html#cb15-1" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<p>WITH-syntaksin avulla:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="tietokannan-ja-taulujen-luonti.html#cb16-1" aria-hidden="true"></a><span class="kw">WITH</span> kertauskurssit <span class="kw">AS</span> (<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> nimi <span class="kw">LIKE</span> <span class="st">&#39;%kertaus%&#39;</span>)</span>
+<span id="cb16-2"><a href="tietokannan-ja-taulujen-luonti.html#cb16-2" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kertauskurssit <span class="kw">ORDER</span> <span class="kw">BY</span> koodi <span class="kw">DESC</span>;</span></code></pre></div>
+<p>Tarksitetaan vielä näkymän rivit:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="tietokannan-ja-taulujen-luonti.html#cb17-1" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi_1_view <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+</div>
+</div>
+<div id="harjoitus-3.2" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Harjoitus 3.2</h2>
+<p>Harjoituksena on luoda uusi tietokantataulu etunimet, joka vastaa tiedoston etunimet.csv muotoa. Katso edeltäviä esimerkkejä kenttien tietotyyppien päättelemiseksi.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="tietokannan-ja-taulujen-luonti.html#cb18-1" aria-hidden="true"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> etunimet;</span>
+<span id="cb18-2"><a href="tietokannan-ja-taulujen-luonti.html#cb18-2" aria-hidden="true"></a></span>
+<span id="cb18-3"><a href="tietokannan-ja-taulujen-luonti.html#cb18-3" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="op">..</span>.</span></code></pre></div>
+<p>Vastaus: <a href="vastaukset.html#vastaus-h3.2">Harjoitus 3.2</a></p>
+<p>Nyt lisää tiedoston sisältö tauluun. Tämän voi tehdä SQL:n avulla seuraavasti (superuser-käyttäjällä):</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="tietokannan-ja-taulujen-luonti.html#cb19-1" aria-hidden="true"></a><span class="kw">COPY</span> etunimet(nimi, lukumaara, sukupuoli)</span>
+<span id="cb19-2"><a href="tietokannan-ja-taulujen-luonti.html#cb19-2" aria-hidden="true"></a><span class="kw">FROM</span> <span class="st">&#39;/home/oppilas/pg-training/Harjoitukset/data/&lt;tiedoston-nimi&gt;&#39;</span></span>
+<span id="cb19-3"><a href="tietokannan-ja-taulujen-luonti.html#cb19-3" aria-hidden="true"></a>CSV <span class="kw">HEADER</span>;</span></code></pre></div>
+<p>tai psql: avulla. Tällöin ei tarvitse olla superuser-käyttäjä (muista kirjautua oikeaan tietokantaan ):</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="tietokannan-ja-taulujen-luonti.html#cb20-1" aria-hidden="true"></a>\<span class="kw">COPY</span> etunimet <span class="kw">FROM</span> <span class="st">&#39;/home/oppilas/pg-training/Harjoitukset/data/&lt;tiedoston-nimi&gt;&#39;</span> <span class="kw">WITH</span> CSV <span class="kw">HEADER</span></span></code></pre></div>
+<p>HEADER kuvaa sitä, että csv-tiedoston ensimmäinen rivi jätetään huomioimatta, sillä se sisältää sarakkeiden nimet.</p>
+<p>Lisää tiedoston sisältö tauluun valitsemallasi tavalla.</p>
+<p>Vastaus: <a href="vastaukset.html#vastaus-h3.2">Harjoitus 3.2</a></p>
+<p><strong>Tarkistus:</strong>
+Varmistu, että luomassasi taulussa on oikea määrä rivejä ja tutustu halutessasi dataan.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="tietokannan-ja-taulujen-luonti.html#cb21-1" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> etunimet;</span>
+<span id="cb21-2"><a href="tietokannan-ja-taulujen-luonti.html#cb21-2" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> etunimet <span class="kw">ORDER</span> <span class="kw">BY</span> lukumaara <span class="kw">DESC</span> <span class="kw">LIMIT</span> <span class="dv">100</span>;</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="työkalujen-käyttö-pgadmin-ja-psql.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tietotyypit.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"info": false
+});
+});
+</script>
+
+</body>
+
+</html>
