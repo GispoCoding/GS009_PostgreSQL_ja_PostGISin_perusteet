@@ -139,7 +139,7 @@ Tarksitetaan vielä näkymän rivit:
 SELECT * FROM kurssi_1_view LIMIT 10;
 ```
 
-## Harjoitus 3.2
+## Harjoitus 3.2 Taulun luominen
 Harjoituksena on luoda uusi tietokantataulu etunimet, joka vastaa tiedoston etunimet.csv muotoa. Katso edeltäviä esimerkkejä kenttien tietotyyppien päättelemiseksi.
 
 ```sql

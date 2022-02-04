@@ -18,7 +18,7 @@ FROM '/home/oppilas/pg-training/Harjoitukset/data/etunimet.csv'
 CSV HEADER;
 ```
 
-[Takaisin harjoitukseen][Harjoitus 3.2]
+[Takaisin harjoitukseen][Harjoitus 3.2 Taulun luominen]
 
 
 ## Harjoitus 4.1 {#vastaus-h4.1 .unnumbered}
@@ -34,7 +34,7 @@ UPDATE tieliikenne SET kayttoonottopvm = Null WHERE kayttoonottopvm = 0;
 ALTER TABLE tieliikenne ALTER COLUMN kayttoonottopvm TYPE DATE 
 USING to_date(kayttoonottopvm::text, 'YYYYMMDD');
 ```
-[Takaisin harjoitukseen][Harjoitus 4.1]
+[Takaisin harjoitukseen][Harjoitus 4.1: Ota oikea tietotyyppi käyttöön]
 
 ## Harjoitus 7.1 {#vastaus-h7.1 .unnumbered}
 
@@ -69,7 +69,7 @@ CREATE FOREIGN TABLE audit_log (
                             format 'csv', header 'true');
 ```
 
-[Takaisin harjoitukseen][Harjoitus 7.1]
+[Takaisin harjoitukseen][Harjoitus 7.1: csv-tiedostosta lukeminen]
 
 ## Harjoitus 7.2 {#vastaus-h7.2 .unnumbered}
 
@@ -80,4 +80,4 @@ CREATE EXTENSION postgres_fdw;
 ```sql
 CREATE EXTENSION postgis;
 ```
-[Takaisin harjoitukseen][Harjoitus 7.2]
+[Takaisin harjoitukseen][Harjoitus 7.2: Toisesta PostgreSQL-kannasta lukeminen]
