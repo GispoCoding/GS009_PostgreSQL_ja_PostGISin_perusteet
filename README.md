@@ -1,8 +1,7 @@
 PostgreSQL-kurssi
 =================
 
-Tämä projekti on PostgreSQL-kurssin käytännön osuus ja se koostuu 
-[Jupyter Notebook](https://jupyter.org/) (6.0.3) harjoituksista.
+Tämä projekti on PostgreSQL-kurssin käytännön osuus
 
 ## Asennus
 
@@ -13,21 +12,21 @@ Asenna aluksi seuraavat ohjelmat:
 ### Lokaali asennus
 1. Luo `.env`-tiedosto ottamalla mallia `.env.template` -tiedostosta projektin juureen ja laita siihen seuraavat muuttujat ja niille halutut arvot:
     ```properties
-    POSTGRES_USER=
-    POSTGRES_PASS=
-    POSTGRES_DB=
-    PGADMIN_DEFAULT_EMAIL=
-    PGADMIN_DEFAULT_PASSWORD=
+        #PostGIS
+        PG_TAG=latest
+        PG_DB=training
+        PG_USER=
+        PG_PASS=
+
+        # PGAdmin
+        PGA_TAG=latest
+        PGADMIN_DEFAULT_EMAIL=
+        PGADMIN_DEFAULT_PASSWORD=
     ```
-1. Käynnistä tietokanta, Jupyter Notebook, pgadmin4 ja nginx komennolla `docker-compose up -d`.
+1. Käynnistä tietokanta, pgadmin4 ja nginx komennolla `docker-compose up -d`.
 Tässä kestää jonkin aikaa jos joudutaan hakemaan docker-imaget ja rakentamaan ne.
-1. Tarkastele lokia: `docker-compose logs -f jupyter` ja odota, kunnes loppuun tulee samankaltaiset rivit:
-    ```
-    jupyter_1            | [I 06:33:38.498 NotebookApp] Jupyter Notebook 6.x.x is running at:
-    jupyter_1            | [I 06:33:38.498 NotebookApp] http://xxxxxxx:8888/?token=...
-    jupyter_1            | [I 06:33:38.498 NotebookApp]  or http://127.0.0.1:8888/?token=...
-    ```
-1. Nyt Jupyter kuuntelee juuriosoitteessa [/](/) ja pgadmin osoiitteesa [/pgadmin](/pgadmin)
+
+1. Nyt harjoitukset tulisi näkyä juuriosoitteessa [/](/) ja pgadmin osoiitteesa [/pgadmin](/pgadmin)
 1. Avaa selain ja testaa
 
 ### Asennus tuotantoympäristöön (Testattu Ubuntu 18.04)
@@ -35,15 +34,6 @@ Tässä kestää jonkin aikaa jos joudutaan hakemaan docker-imaget ja rakentamaa
 1. Kloonaa tämä repositorio esimerkiksi kansioon */home/ubuntu/pg-training*
 1. Jatka [Lokaaline asennuksen](#-Lokaali-asennus) kohtien mukaan
 1. Avaa instanssin ip- tai CNAME-osoite ja testaa toimivuutta
-
-
-## Kehitys
-
-Ratkaisu-solun luominen:
-> the two next cells are selected using a keyboard shortcut 
-> Shift-down (select next) or Shift-up (select previous) or shift+mouse-left, 
-> and a solution is created using the shortcut Alt-D 
-
 
 ## Lisenssit
 * Harjoitukset ja ratkaisut ovat lisensioitu lisenssillä [Creative Commons Nimeä 4.0](http://creativecommons.org/licenses/by/4.0/deed.fi) 

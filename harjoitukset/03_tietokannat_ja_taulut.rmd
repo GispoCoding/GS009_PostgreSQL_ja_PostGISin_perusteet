@@ -1,0 +1,179 @@
+# Tietokannan ja taulujen luonti
+Tässä osassa luodaan tietokanta, johon lisätään erilaisia tauluja.
+
+## Tietokannan luominen
+Tietokannan voi luoda useammalla eri tavalla.
+
+### createdb
+
+createdb on komentorivityökalu helpottamaan tietokannan luomista. Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:
+```shell
+createdb uuden_tietokannan_nimi
+```
+![Tietokannan luominen](img/createdb.png)
+
+Kuten psql, myös createdb lukee tietokannan yhteysparametrit ympäristömuuttujista.
+
+
+### PgAdmin
+
+Kuten miltei kaikkeen muuhunkin, PgAdmin tarjoaa myös tietokantojen luomiseen ja poistamiseen graafisen ratkaisun: Klikkaa oikealla tietokantayhteydesta > Create > Database. createdb_pgadmin
+
+### SQL
+
+Perinteisin tapa tietokantojen luomiseen käy kuitenkin SQL:n kautta. Alla olevan komennon voi suorittaa psql:n tai PgAdminin Query Toolin) avulla:
+
+```{sql, uuden tietokannan luonti, eval=FALSE, collapse=TRUE}
+CREATE DATABASE uuden_tietokannan_nimi fdafas;
+```
+
+## Tietokannan poistaminen
+
+### dropdb
+
+dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan tietokannan voi poistaa komennolla:
+```shell
+dropdb poistettavan_tietokannan_nimi
+```
+
+### SQL
+Samaan tapaan kuin luotaessa
+
+```sql
+DROP DATABASE poistettavan_tietokannan_nimi
+```
+
+## Harjoitus 3.1: Luo uusi tietokanta
+Luo uusi tietokanta "koulutus" createdb:n, pgAdmin:in tai psql:n avulla.
+
+### Taulujen luominen
+PostgreSQL tarjoaa monipuolisen tavan luoda tauluja, näkymiä ja materialisoituja näkymiä.
+
+
+Luodaan yksinkertainen tietokantataulu kurssi siten, että sillä on kentät koodi, nimi, pvm, tyyli ja kesto.
+
+```sql
+DROP TABLE IF EXISTS kurssi CASCADE;
+
+CREATE TABLE kurssi (
+    koodi    varchar(5) CONSTRAINT firstkey PRIMARY KEY,
+    nimi     text NOT NULL,
+    pvm      date,
+    tyyli    text,
+    kesto    integer CHECK (kesto > 0)
+);
+
+COMMENT ON COLUMN kurssi.kesto IS 'Kurssin kesto tunteina';
+```
+
+Tauluja voi luoda myös SQL-kyselyiden tuloksien perusteella. Luodaan yksinkertainen taulu, johon tulisi kurssi-taulun rivit, joiden kesto on yksi.
+
+```sql
+DROP TABLE IF EXISTS kurssi_1;
+
+CREATE TABLE kurssi_1 AS (
+    SELECT koodi, nimi, pvm, tyyli, 1 kesto FROM kurssi WHERE kesto = 1
+);
+```
+
+
+Luonnollisestikin näkymä olisi järkevämpi vaihtoehto äskeiseen:
+
+```sql
+DROP VIEW IF EXISTS kurssi_1_view;
+
+CREATE view kurssi_1_view AS (
+    SELECT koodi, nimi, pvm, tyyli, kesto FROM kurssi WHERE kesto = 1
+);
+```
+
+### Rivien lisääminen
+Tauluun voidaan lisätä rivejä INSERT-komennoilla, tai esimerkiksi kyselyjen tuloksien avulla
+
+```sql
+INSERT INTO kurssi(koodi, nimi, pvm, tyyli, kesto) VALUES
+    ('A1111', 'PG-peruskurssi', '2020-10-01', 'Jupyter', '15');
+```
+
+
+PostgreSQL:n avulla voi lisätä myös useamman rivin yhdellä kertaa ja jos arvot ovat samassa järjestyksessä, kuin kentät, ei kenttien nimiä tarvitse antaa
+
+```sql
+INSERT INTO kurssi VALUES
+    ('A1112', 'PG-kertaus', '2020-10-03', 'Jupyter', '1'),
+    ('C1111', 'PG-peruskurssi', '2021-10-01', 'Jupyter', '15'),
+    ('C1112', 'PG-seuraavan_vuoden', '2021-10-03', 'Jupyter', '1');
+```
+
+Rivejä voi lisätä myös kyselyjen tuloksena. Tässä hyödynnetään samalla WITH-kyselyitä (CTE, Common Table Expressions).
+
+```sql
+WITH alikysely AS (SELECT 1 a, 2 b)
+SELECT * FROM alikysely WHERE a = 1;
+```
+```sql
+WITH kertauskurssi AS (SELECT * FROM kurssi WHERE nimi like '%kertaus%')
+INSERT INTO kurssi (
+    SELECT 'B1111',  nimi, pvm, tyyli 
+    FROM kertauskurssi
+);
+```
+
+### Kyselyjen tekeminen
+Tarkistetaan, että rivit ilmeistyivät tauluun. Tyypillisesti tähtikyselyitä tehdessä muista käyttää LIMIT-ehtoa rajoittaaksesi rivien määrää:
+
+```sql
+SELECT * FROM kurssi LIMIT 10;
+```
+
+WITH-syntaksin avulla:
+
+```sql
+WITH kertauskurssit AS (SELECT * FROM kurssi WHERE nimi LIKE '%kertaus%')
+SELECT * FROM kertauskurssit ORDER BY koodi DESC;
+```
+
+Tarksitetaan vielä näkymän rivit:
+
+```sql
+SELECT * FROM kurssi_1_view LIMIT 10;
+```
+
+## Harjoitus 3.2 Taulun luominen
+Harjoituksena on luoda uusi tietokantataulu etunimet, joka vastaa tiedoston etunimet.csv muotoa. Katso edeltäviä esimerkkejä kenttien tietotyyppien päättelemiseksi.
+
+```sql
+DROP TABLE IF EXISTS etunimet;
+
+CREATE ...
+```
+
+Vastaus: [Harjoitus 3.2](#vastaus-h3.2)
+
+
+Nyt lisää tiedoston sisältö tauluun. Tämän voi tehdä SQL:n avulla seuraavasti (superuser-käyttäjällä):
+```sql
+COPY etunimet(nimi, lukumaara, sukupuoli)
+FROM '/home/oppilas/pg-training/Harjoitukset/data/<tiedoston-nimi>'
+CSV HEADER;
+```
+
+tai psql: avulla. Tällöin ei tarvitse olla superuser-käyttäjä (muista kirjautua oikeaan tietokantaan \ckomennolla):
+
+```{psql, eval=FALSE}
+\COPY etunimet FROM '/home/oppilas/pg-training/Harjoitukset/data/<tiedoston-nimi>' WITH CSV HEADER
+```
+HEADER kuvaa sitä, että csv-tiedoston ensimmäinen rivi jätetään huomioimatta, sillä se sisältää sarakkeiden nimet.
+
+Lisää tiedoston sisältö tauluun valitsemallasi tavalla.
+
+Vastaus: [Harjoitus 3.2](#vastaus-h3.2)
+
+
+**Tarkistus:**
+Varmistu, että luomassasi taulussa on oikea määrä rivejä ja tutustu halutessasi dataan.
+
+```sql
+SELECT count(*) FROM etunimet;
+SELECT * FROM etunimet ORDER BY lukumaara DESC LIMIT 100;
+```

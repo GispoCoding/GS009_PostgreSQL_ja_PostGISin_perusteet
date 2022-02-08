@@ -1,0 +1,83 @@
+# Vastaukset {.unnumbered}
+
+## Harjoitus 3.2 {#vastaus-h3.2 .unnumbered}
+
+```sql
+DROP TABLE IF EXISTS etunimet;
+
+CREATE TABLE etunimet (
+  nimi text NOT NULL,
+  lukumaara integer NOT NULL,
+  sukupuoli text NOT NULL
+)
+```
+
+```{sql, eval=FALSE}
+COPY etunimet(nimi, lukumaara, sukupuoli)
+FROM '/home/oppilas/pg-training/Harjoitukset/data/etunimet.csv'
+CSV HEADER;
+```
+
+[Takaisin harjoitukseen][Harjoitus 3.2 Taulun luominen]
+
+
+## Harjoitus 4.1 {#vastaus-h4.1 .unnumbered}
+
+```{sql, eval=FALSE}
+ALTER TABLE tieliikenne ALTER COLUMN ensirekisterointipvm TYPE DATE 
+USING to_date(ensirekisterointipvm, 'YYYY-MM-DD')
+```
+## Harjoitus 4.2 {#vastaus-h4.2 .unnumbered}
+```{sql, eval=FALSE}
+UPDATE tieliikenne SET kayttoonottopvm = Null WHERE kayttoonottopvm = 0;
+
+ALTER TABLE tieliikenne ALTER COLUMN kayttoonottopvm TYPE DATE 
+USING to_date(kayttoonottopvm::text, 'YYYYMMDD');
+```
+[Takaisin harjoitukseen][Harjoitus 4.1: Ota oikea tietotyyppi käyttöön]
+
+## Harjoitus 7.1 {#vastaus-h7.1 .unnumbered}
+
+```sql
+CREATE FOREIGN TABLE audit_log (
+    log_time timestamp with time zone,
+    user_name text,
+    database_name text,
+    process_id integer,
+    connection_from text,
+    session_id text,
+    session_line_num integer,
+    process_status text,
+    session_start_time timestamp with time zone,
+    virtual_transaction_id text,
+    transaction_id integer,
+    error_severity text,
+    sql_state_code integer,
+    message text,
+    detail text,
+    hint text,
+    internal_query text,
+    internal_query_pos text,
+    context text,
+    query text,
+    query_pos integer,
+    location text,
+    application_name text,
+    command_tag text,
+    audit_tag text
+) SERVER log_server OPTIONS(filename '/home/oppilas/pg-training/Harjoitukset/data/audit_log.csv', 
+                            format 'csv', header 'true');
+```
+
+[Takaisin harjoitukseen][Harjoitus 7.1: csv-tiedostosta lukeminen]
+
+## Harjoitus 7.2 {#vastaus-h7.2 .unnumbered}
+
+```sql
+CREATE EXTENSION postgres_fdw;
+```
+
+```sql
+CREATE EXTENSION postgis;
+```
+[Takaisin harjoitukseen][Harjoitus 7.2: Toisesta PostgreSQL-kannasta lukeminen]

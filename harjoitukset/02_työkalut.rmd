@@ -1,0 +1,87 @@
+# Työkalujen käyttö: PgAdmin ja psql
+
+Tässä osassa tutustutaan PgAdmin-käyttöliittymään sekä psql:ään.
+
+## PgAdmin 4
+Käynnistä PgAdmin 4 menemällä osoitteeseen /pgadmin/ (http://esimerkki.fi/pgadmin/). Kirjaudu sisään kouluttajan antamalla tunnuksella ja salasanalla.
+
+![pgadmin_splash](img/pgadmin_splash.png)
+
+### Tietokantayhteyden lisääminen
+Luo uusi tietokantayhteys tietokantaklusteriin klikkaamalla hiiren oikealla kohdasta Servers ja valitsemalla Create > Server...
+
+Täytä seuraavat tiedot:
+
+* Välilehdellä General:
+  * Name: yhteyden nimi. Vapaavalintainen yhteyden nimi, jolla sen tunnistat myöhemmin. Tyypillinen notaatio on `<käyttäjänimi>@<host>/<tietokanta>`
+* Välilehdellä Connection:
+  * Host: postgres_training (jupyter, pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)
+  * Port: 5432
+  * Maintenance database: postgres
+  * User: Kysy kouluttajalta
+  * Password: Kysy kouluttajalta
+  * Valitse Save password, jos et halua kirjoittaa sitä uudestaan avatessasi yhteyden
+
+![Tietokantayhteyden lisääminen](img/pgadmin_create_server.gif)
+
+### Kyselytyökalun käyttäminen (Query Tool)
+Kyseyltyökalun avulla voi suorittaa SQL-kyselyitä ja lauseita. Käynnistä se seuraavasti:
+
+* Valitse Servers-osiosta tietokantaklusterisi
+* Valitse klusterin sisältä haluamasi tietokanta
+* Valitse ylhäältä Tools > Query Tool
+* Voit suorittaa lauseita painamalla F5
+* Jos haluat suorittaa vain osan lauseista, maalaam hiirellä haluttu osio ja paina F5
+
+![Kyselytyökalun käyttäminen](img/pgadmin_query_tool.gif)
+
+### Tietokantayhteyden sulkeminen
+Klikkaa hiiren oikealla luomastasi yhteydestä ja valitse Disconnect Server. Tämä on erityisen tärkeää, kun kurssilla on monta osallistujaa.
+
+## psql
+
+Avaa komentorivi, jotta pääset käyttämään psql-komentorivityökalua.
+
+Tämän jälkeen yhdistä omaan tietokataklusteriin komennolla:
+
+```
+psql
+```
+
+![psql komentorivityökalun käyttminen](img/psql_start.png)
+
+Tietokantayhteyden parametrit on asetettu ympäristömuuttujiksi, joten niitä ei tarvitse antaa komentoa ajaessa.
+
+### Käyttäminen
+Kun psql on käynnistetty, komentorivillä voit kirjoittaa sekä psql, että SQL-komentoja. Tosin psql sessiossa käytettäviä komentoja kutsutaan psql interaktiiviseksi.
+
+Alla muutama interaktiivinen psql-komento:
+
+  \d = näytä taulut, näkymät ja sekvenssit
+  \dg = näytä tietokantaklusterin roolit (käyttäjät)
+  \c tietokannan_nimi = yhdistä tietokannan_nimi -tietokantaan
+
+Komennolla help ja erityisesti komennolla \? saat tietoa ohjelman eri komennoista. Pääset pois listauksesta painamalla q.
+
+SQL-kyselyiden syntaksista saat ohjeita komennolla `\h` esim. `\h ALTER DEFAULT`.
+
+SQL esimerkit:
+```sql
+select current_database();
+```
+
+Komentorivin puolella käytettäviä psql-komentoja kutsutaan ei-interaktiivisiksi. Ei-interaktiivisia psql komentoja käytetään
+kun halutaan käyttää psql:a suoraan käyttöjärjestelmän komentorivista ja valittavat psql-komennot ja SQL-skriptit ovat
+tiedostossa. Ei-interaktiivinen psql sopii erityisesti tehtävien automaattisointiin. Esimerkiksi, aiemmin esitetyt
+yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa komentoa komentoriviltä:
+
+```shell
+psql -c "select current_database();"
+``` 
+
+### Tietokantayhteyden sulkeminen
+Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento: \q
+
+## pg_dump ja pg_restore
+
+Tietokannan tai yksittäisten taulujen varmuuskopioiden luomiseen ja palauttamiseen on omat komentoriviohjelmansa: pg_dump ja pg_restore. Muun muassa pgAdmin käyttää näitä sisäisesti.

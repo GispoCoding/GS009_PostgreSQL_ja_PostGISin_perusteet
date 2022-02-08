@@ -1,0 +1,41 @@
+p.caption {
+  color: #777;
+  /*margin-top: 10px;*/
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+img { display: block; }
+
+ul.summary {
+  background: #7a3884;
+}
+
+ul.summary li {
+  color: #fbfbfb;
+}
+
+.book .book-summary ul.summary li a {
+  color: #fbfbfb
+}
+
+.book .book-summary ul.summary li a:hover,
+.book .book-summary ul.summary li.active>a {
+  color: #fbfbfb;
+  text-decoration: underline;
+}
+
+ul.summary p {
+  padding-left: 20px;
+}
+ul.summary img {
+  padding-left: 20px;
+}
