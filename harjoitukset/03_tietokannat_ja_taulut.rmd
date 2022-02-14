@@ -154,7 +154,7 @@ Vastaus: [Harjoitus 3.2](#vastaus-h3.2)
 Nyt lisää tiedoston sisältö tauluun. Tämän voi tehdä SQL:n avulla seuraavasti (superuser-käyttäjällä):
 ```sql
 COPY etunimet(nimi, lukumaara, sukupuoli)
-FROM '/home/oppilas/pg-training/Harjoitukset/data/<tiedoston-nimi>'
+FROM '/home/student/data/<tiedoston-nimi>'
 CSV HEADER;
 ```
 
