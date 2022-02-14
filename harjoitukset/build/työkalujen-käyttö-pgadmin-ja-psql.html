@@ -269,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li>Välilehdellä Connection:
 <ul>
-<li>Host: db_host (pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)</li>
+<li>Host: dbhost (pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)</li>
 <li>Port: 5432</li>
 <li>Maintenance database: postgres</li>
 <li>User: Kysy kouluttajalta</li>
@@ -307,9 +307,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Psql on asennettu valmiiksi koulutusympäristön palvelimelle, jonka komentoriville pääset kirjautumaan osoitteessa <a href="/wetty">/wetty</a>. Kouluttaja antaa linux käyttäjän tunnuksen ja salasanan.</p>
 <p>Avaa komentorivi yllämainitussa osoitteessa ja kirjaudu sisään.
 Tämän jälkeen yhdistä tietokataklusteriin komennolla:</p>
-<pre><code>psql -h db_host -d postgres -U postgres</code></pre>
+<pre><code>psql -h dbhost -d postgres -U postgres</code></pre>
 <ul>
-<li><strong>-h db_host</strong> määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on db_host nimisellä palvelimella)</li>
+<li><strong>-h dbhost</strong> määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on dbhost nimisellä palvelimella)</li>
 <li><strong>-d postgres</strong> tietokanta mihin yhdistetään</li>
 <li><strong>-U postgres</strong> käyttäjä jolla yhdistetään</li>
 </ul>
@@ -331,7 +331,7 @@ Psql sessiossa käytettäviä erikoiskomentoja kutsutaan interaktiiviseksi psql 
 kun halutaan käyttää psql:a suoraan käyttöjärjestelmän komentoriviltä ja suoritettavat psql-komennot ja SQL-skriptit ovat
 tiedostossa. Ei-interaktiivinen psql sopii erityisesti tehtävien automaattisointiin. Esimerkiksi, aiemmin esitetyt
 yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa komentoa komentoriviltä:</p>
-<pre class="shell"><code>psql -h db_host -d postgres -U postgres -c &quot;select current_database();&quot;</code></pre>
+<pre class="shell"><code>psql -h dbhost -d postgres -U postgres -c &quot;select current_database();&quot;</code></pre>
 <ul>
 <li><strong>-c <SQL></strong> SQL lauseke voidaan antaa parametrina psql-ohjelmalle</li>
 <li><strong>-f &lt;tiedosto.sql&gt;</strong> tiedostossa oleva sql-skripti voidaan myös antaa parametrina</li>

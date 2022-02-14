@@ -168,7 +168,7 @@ PostgreSQL vaatii, että kirjaudutaan johonkin tietokantaan. Tähän asti ei tä
 Kun kirjaudutaan PostgreSQL, täytyy määritellä tietokannan nimi. Esimerkiksi:
 
 ```
-psql -h db_host -d koulutus -U matti 
+psql -h dbhost -d koulutus -U matti 
 ```
 
 Huomaa vielä, että nyt psql-konsolissa tietokannan nimen jälkeen merkki on nyt > eikä #. Tämä tarkoittaa, että käyttäjällä ei ole ylläpidon oikeuksia.

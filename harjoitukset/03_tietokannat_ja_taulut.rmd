@@ -8,7 +8,7 @@ Tietokannan voi luoda useammalla eri tavalla.
 
 createdb on komentorivityökalu helpottamaan tietokannan luomista. Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:
 ```shell
-createdb -h db_host -U postgres <uuden_tietokannan_nimi>
+createdb -h dbhost -U postgres <uuden_tietokannan_nimi>
 ```
 
 Kuten psql, myös createdb lukee tietokannan yhteysparametrit ympäristömuuttujista.

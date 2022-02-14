@@ -345,7 +345,7 @@ Tarkista, että sait lisättyä Maijalle käyttöoikeudet.</p>
 <p>Kirjautuessa pyydetään salasana, sen määriteltiin aiemmin: 1234. Mutta kirjautuminen kuitenkin epäonnistu, koska palvelimesta ei löytynyt matti-nimistä tietokantaa.</p>
 <p>PostgreSQL vaatii, että kirjaudutaan johonkin tietokantaan. Tähän asti ei tämä ole ollut ongelmaa koska, kirjauduttiin PostgreSQL postgres-roolilla ja saman nimisen tietokanta on kyllä olemassa palvelimessa.</p>
 <p>Kun kirjaudutaan PostgreSQL, täytyy määritellä tietokannan nimi. Esimerkiksi:</p>
-<pre><code>psql -h db_host -d koulutus -U matti </code></pre>
+<pre><code>psql -h dbhost -d koulutus -U matti </code></pre>
 <p>Huomaa vielä, että nyt psql-konsolissa tietokannan nimen jälkeen merkki on nyt &gt; eikä #. Tämä tarkoittaa, että käyttäjällä ei ole ylläpidon oikeuksia.</p>
 </div>
 <div id="harjoitus-6.2-roolien-luominen-pgadmin-kautta" class="section level2" number="6.6">

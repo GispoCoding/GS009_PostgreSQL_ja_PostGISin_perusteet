@@ -15,7 +15,7 @@ Täytä seuraavat tiedot:
 * Välilehdellä General:
   * Name: yhteyden nimi. Vapaavalintainen yhteyden nimi, jolla sen tunnistat myöhemmin. Tyypillinen notaatio on `<käyttäjänimi>@<host>/<tietokanta>`
 * Välilehdellä Connection:
-  * Host: db_host (pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)
+  * Host: dbhost (pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)
   * Port: 5432
   * Maintenance database: postgres
   * User: Kysy kouluttajalta
@@ -46,10 +46,10 @@ Avaa komentorivi yllämainitussa osoitteessa ja kirjaudu sisään.
 Tämän jälkeen yhdistä tietokataklusteriin komennolla:
 
 ```
-psql -h db_host -d postgres -U postgres
+psql -h dbhost -d postgres -U postgres
 ```
 
-* __-h db_host__ määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on db_host nimisellä palvelimella)
+* __-h dbhost__ määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on dbhost nimisellä palvelimella)
 * __-d postgres__ tietokanta mihin yhdistetään
 * __-U postgres__ käyttäjä jolla yhdistetään
 
@@ -78,7 +78,7 @@ tiedostossa. Ei-interaktiivinen psql sopii erityisesti tehtävien automaattisoin
 yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa komentoa komentoriviltä:
 
 ```shell
-psql -h db_host -d postgres -U postgres -c "select current_database();"
+psql -h dbhost -d postgres -U postgres -c "select current_database();"
 ``` 
 * __-c <SQL>__ SQL lauseke voidaan antaa parametrina psql-ohjelmalle
 * __-f <tiedosto.sql>__ tiedostossa oleva sql-skripti voidaan myös antaa parametrina

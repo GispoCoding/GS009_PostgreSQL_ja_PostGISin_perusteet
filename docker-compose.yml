@@ -4,7 +4,7 @@ volumes:
   postgres_data:
 
 services:
-  db_host:
+  dbhost:
     image: kartoza/postgis:${PG_TAG}
     volumes:
     - postgres_data:/var/lib/postgresql
@@ -33,7 +33,7 @@ services:
       - LINUX_USER=${LINUX_USER}
       - POSTGRES_PASS=${PG_PASS}
     depends_on:
-      - db_host
+      - dbhost
     volumes:
     - ./data:/home/${LINUX_USER}/data
     - ./initializer.sh:/initializer.sh

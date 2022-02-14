@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export PGHOST=db_host
+export PGHOST=dbhost
 export PGUSER=postgres
 export PGPASSWORD=$POSTGRES_PASS
 
