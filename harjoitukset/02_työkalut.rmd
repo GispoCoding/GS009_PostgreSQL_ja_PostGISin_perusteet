@@ -25,7 +25,7 @@ Täytä seuraavat tiedot:
 ![Tietokantayhteyden lisääminen](img/pgadmin_create_server.gif)
 
 ### Kyselytyökalun käyttäminen (Query Tool)
-Kyseyltyökalun avulla voi suorittaa SQL-kyselyitä ja lauseita. Käynnistä se seuraavasti:
+Kyselytyökalun avulla voi suorittaa SQL-kyselyitä ja lauseita. Käynnistä se seuraavasti:
 
 * Valitse Servers-osiosta tietokantaklusterisi
 * Valitse klusterin sisältä haluamasi tietokanta
@@ -80,7 +80,11 @@ psql -c "select current_database();"
 ``` 
 
 ### Tietokantayhteyden sulkeminen
-Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento: \q
+Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento: 
+
+```
+\q
+```
 
 ## pg_dump ja pg_restore
 
