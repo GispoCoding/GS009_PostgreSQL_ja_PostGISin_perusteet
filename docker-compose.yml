@@ -4,7 +4,7 @@ volumes:
   postgres_data:
 
 services:
-  postgres:
+  db_host:
     image: kartoza/postgis:${PG_TAG}
     volumes:
     - postgres_data:/var/lib/postgresql
@@ -13,7 +13,6 @@ services:
     environment:
       - ALLOW_IP_RANGE=0.0.0.0/0
       - POSTGRES_DB=${PG_DB}
-      - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASS=${PG_PASS}
     restart: on-failure
 
@@ -32,3 +31,22 @@ services:
     ports:
     - "80:80"
     - "443:443"
+
+  client:
+    build:
+      context: ./docker/client
+      args:
+        LINUX_USER: ${LINUX_USER}
+        LINUX_USER_PASSWORD: ${LINUX_USER_PASSWORD}
+    depends_on:
+      - db_host
+    volumes:
+    - ./data:/home/${LINUX_USER}/data
+
+  wetty:
+    image: wettyoss/wetty
+    depends_on:
+      - client
+    environment:
+      SSHHOST: 'client'
+      SSHPORT: 22
