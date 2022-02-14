@@ -6,14 +6,14 @@ Luetaan taulusta kuinka monella rivillä ajoneuvoluokka on M1.
 Tarkista kuinka kauan kyselyn suorittamiseen meni.
 
 ```sql
-SELECT count(*) FROM tieliikenne WHERE ajoneuvoluokka = 'M1'
+SELECT count(*) FROM tieliikenne WHERE ajoneuvoluokka = 'M1';
 ```
 
 ## Indeksien luominen
 Luodaan yksinkertainen B-TREE -indeksi sarakkeelle ajoneuvoluokka:
 
 ```sql
-CREATE INDEX ajoneuvoluokka_idx ON tieliikenne(ajoneuvoluokka)
+CREATE INDEX ajoneuvoluokka_idx ON tieliikenne(ajoneuvoluokka);
 ```
 Tarkista nyt uudestaaan, kuinka kauan yllä olevan kyselyn suoritus kestää.
 

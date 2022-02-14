@@ -1,3 +1,4 @@
+tab:unnamed-chunk-2
 johdanto
 harjoitusmateriaalin-lisenssi
 työkalujen-käyttö-pgadmin-ja-psql
@@ -21,7 +22,7 @@ harjoitus-3.1-luo-uusi-tietokanta
 taulujen-luominen
 rivien-lisääminen
 kyselyjen-tekeminen
-harjoitus-3.2
+harjoitus-3.2-taulun-luominen
 tietotyypit
 harjoitus-4.1-ota-oikea-tietotyyppi-käyttöön
 harjoitus-4.2
@@ -34,6 +35,7 @@ indeksien-poistaminen
 harjoitus-5.1-spatiaalinen-indeksi
 käyttäjien-hallinta
 käyttäjäroolit
+käyttöoikeuksien-lisääminen
 harjoitus-6.1-käyttöoikeudet
 ryhmäroolit
 roolien-käyttöä

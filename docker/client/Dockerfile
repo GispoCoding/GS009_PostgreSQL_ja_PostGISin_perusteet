@@ -13,4 +13,4 @@ RUN apk add --update --no-cache \
 
 COPY ./docker-entrypoint.sh /
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/docker-entrypoint.sh"]

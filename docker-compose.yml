@@ -13,6 +13,7 @@ services:
     environment:
       - ALLOW_IP_RANGE=0.0.0.0/0
       - POSTGRES_DB=${PG_DB}
+      - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASS=${PG_PASS}
     restart: on-failure
 
@@ -22,26 +23,20 @@ services:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
 
-  nginx:
-    image: nginx
-    volumes:
-    - ./nginx.conf:/etc/nginx/nginx.conf
-    - ./harjoitukset/build:/www/html
-    - ./data:/www/data
-    ports:
-    - "80:80"
-    - "443:443"
-
   client:
     build:
       context: ./docker/client
       args:
         LINUX_USER: ${LINUX_USER}
         LINUX_USER_PASSWORD: ${LINUX_USER_PASSWORD}
+    environment:
+      - LINUX_USER=${LINUX_USER}
+      - POSTGRES_PASS=${PG_PASS}
     depends_on:
       - db_host
     volumes:
     - ./data:/home/${LINUX_USER}/data
+    - ./initializer.sh:/initializer.sh
 
   wetty:
     image: wettyoss/wetty
@@ -50,3 +45,15 @@ services:
     environment:
       SSHHOST: 'client'
       SSHPORT: 22
+
+  nginx:
+    image: nginx
+    depends_on:
+      - wetty
+    volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf
+    - ./harjoitukset/build:/www/html
+    - ./data:/www/data
+    ports:
+    - "80:80"
+    - "443:443"

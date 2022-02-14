@@ -1,6 +1,14 @@
 # Käyttäjien hallinta
 Tässä osassa tutustutaan erilaisiin käyttäjärooleihin ja niiden hallintaan.
 
+Osiossa käytetään aiemmin luotua `koulutus`-tietokantaa ja siihen ladattua `etunimet` taulua. Jos et ennättänyt niitä luoda, niin pääset samalle viivalle antamalla seuraavat sql-komennot:
+```sql
+DROP DATABASE IF EXISTS koulutus;
+CREATE DATABASE koulutus TEMPLATE koulutus_template;
+```
+Tämä luo uuden koulutus tietokannan käyttäen mallina `koulutus_template` -tietokantaa.
+
+
 ## Käyttäjäroolit
 
 PostgreSQL:ssä käyttäjiä hallitaan rooleina (roles). Rooleja, joilla kirjaudutaan tietokantaan, kutsutaan nimellä login roles. Rooleja, jotka sisältävät muita rooleja kutsutaan nimellä group roles.
@@ -11,62 +19,64 @@ Aiemmissa PostgreSQLversioissa käytetiin termejä users ja group, edelleen niit
 
 Oletuksena PostgreSQL asennuksessa on luotu postgres nimiset rooli ja tietokanta. Sen lisäksi aiemmin luotiin koulutus niminen tietokanta. Luo nyt uusi rooli, jonka nimi on matti:
 
-```{sql, eval=FALSE}
+```sql
 CREATE ROLE matti LOGIN
 PASSWORD '1234'
 CREATEDB
 VALID UNTIL 'infinity';
 ```
 
-CREATEDB valitsin määrittää oikeudet roolille luoda tietokantoja.
-
-VALID määrittää kuinka pitkään rooli on voimassa.
+* __CREATEDB__ valitsin määrittää oikeudet roolille luoda tietokantoja.
+* __VALID__ määrittää kuinka pitkään rooli on voimassa.
 
 Uusi matti rooli on voimassa toistaiseksi. Sillä on oikeudet tietokantojen luomiseen, muttei ole määritelty ylläpitäjäksi, eli sillä on rajoitetut oikeudet.
 
-Luo nyt rooli, jolla on ylläpitäjän oikeudet käyttämällä SUPERUSER valitsinta:
+Luo nyt rooli, jolla on ylläpitäjän oikeudet käyttämällä `SUPERUSER` valitsinta:
 
-```{sql, eval=FALSE}
+```sql
 CREATE ROLE yp LOGIN
 PASSWORD '1234'
 SUPERUSER
 VALID UNTIL '2021-1-1 00:00';
 ```
 
-Uusi yp-roolilla on ylläpidon oikeudet ja sen salasana on voimaassa 1. tammikuun 2021 asti. Kun haluat nähdä palvelimessa olemassa roolit, käytä seuraavaa psql-komentoa: \du.
+Uusi yp-roolilla on ylläpidon oikeudet ja sen salasana on voimaassa 1. tammikuun 2021 asti. Kun haluat nähdä palvelimessa olemassa roolit, käytä psql-komentoa: `\du`.
 
 Luodaan vielä kolmas käyttäjä maija:
 
-```{sql, eval=FALSE}
+```sql
 CREATE ROLE maija LOGIN PASSWORD '1234';
 ```
 
-Käyttöoikeuksien lisääminen
+## Käyttöoikeuksien lisääminen
+
 Käyttöoikeuksia voi lisätä GRANT-komennolla ja vastaavasti niitä voi poistaa REVOKE-komennolla.
 Kokeillaan lukea matti-käyttäjänä taulua etunimet.
-Kirjaudu ensin tietokantaan matin tunnuksilla. Luodaan uusi tietokantayhteys luvun [Tietokantayhteyden lisääminen] ohjeiden mukaisesti.
+
+Kirjaudu ensin `koulutus`-tietokantaan matin tunnuksilla.
+Voit ottaa yhteyttä joko `psql`:llä tai pgAdminilla. PgAdminissa luo uusi tietokantayhteys luvun [Tietokantayhteyden lisääminen] ohjeiden mukaisesti ja anna käyttäksi matti.
+Psql:llä anna matin käyttäjätunnus `-U`-parametrilla.
 
 
-```{sql, eval=FALSE}
+```sql
 SELECT * FROM etunimet LIMIT 10;
 ```
 
-Lukeminen ei onnistunut käyttöoikeuksien puutteen takia. Lisää postgres-käyttäjänä matille käyttöoikeus lukea taulua etunimet ja myös oikeus luoda uusia skeemoja ja tauluja
+Lukeminen ei onnistunut käyttöoikeuksien puutteen takia. Lisää postgres-käyttäjänä matille käyttöoikeus lukea taulua etunimet ja myös oikeus luoda uusia skeemoja ja tauluja.
 
 
-```{sql, eval=FALSE}
+```sql
 GRANT SELECT ON etunimet TO matti;
 ```
 
-```{sql, eval=FALSE}
+```sql
 GRANT CREATE ON DATABASE koulutus TO matti;
 ```
+Nyt lukemisen sekä uusien skeemojen luonnin pitäisi onnistua.
 
-Nyt lukemisen pitäisi onnistua
+Luo nyt matti-käyttäjänä skeema matin_skeema ja sinne taulu matit. Poista samalla `public`-roolilta oikeudet tauluun. `pubic`-rooliin kuuluu siis kaikki tietokannan käyttäjät.
 
-Luo nyt matti-käyttäjänä skeema matin_skeema ja sinne taulu matit. Poista samalla publicilta oikeudet tauluun.
-
-```{sql, eval=FALSE}
+```sql
 CREATE SCHEMA matin_skeema;
 CREATE TABLE matin_skeema.matit AS (SELECT * FROM etunimet WHERE nimi LIKE 'Mat%');
 REVOKE ALL ON TABLE matin_skeema.matit FROM public;
@@ -74,14 +84,14 @@ REVOKE ALL ON TABLE matin_skeema.matit FROM public;
 
 Yritä nyt käyttäjänä maija lukea taulua matit. Luo ensin maijalle oma tietokantayhteys.
 
-```{sql, eval=FALSE}
+```sql
 SELECT * FROM matin_skeema.matit LIMIT 10;
 ```
 
 ## Harjoitus 6.1: käyttöoikeudet
 Lisää käyttäjälle maija käyttöoikeudet lukea ja kirjoittaa taulua matin_skeema.matit
 
-```{sql, eval=FALSE}
+```sql
 -- Tämä ajetaan postgres-käyttäjänä
 
 -- Luo maijalle oikeus lukea taulua etunimet
@@ -95,7 +105,7 @@ GRANT SELECT, INSERT ...
 ```
 
 **Vastaus:**
-```{sql, eval=FALSE}
+```sql
 -- Tämä ajetaan postgres-käyttäjänä
 GRANT SELECT ON etunimet TO maija;
 
@@ -106,20 +116,20 @@ GRANT SELECT, INSERT ON matin_skeema.matit TO maija;
 
 Lisää samalla tauluun myös etunimet, jotka alkavat merkkijonolla "Maij".
 
-```{sql, eval=FALSE}
+```sql
 -- Tämä ajetaan maija-käyttäjänä
 INSERT ...
 ```
 
 **Vastaus:**
-```{sql, eval=FALSE}
+```sql
 INSERT INTO matin_skeema.matit (SELECT * FROM etunimet WHERE nimi LIKE 'Maij%');
 ```
 
 **Tarkistus:**
 Tarkista, että sait lisättyä Maijalle käyttöoikeudet.
 
-```{sql, eval=FALSE}
+```sql
 SELECT count(*) FROM matin_skeema.matit WHERE nimi LIKE 'Maij%'
 ```
 Saitko tulokseksi 43 riviä?
@@ -128,18 +138,18 @@ Saitko tulokseksi 43 riviä?
 ## Ryhmäroolit
 Group role luodaan SQL komennolla:
 
-```{sql, eval=FALSE}
+```sql
 CREATE ROLE roolin_nimi INHERIT;
 ```
 
-```{sql, eval=FALSE}
+```sql
 CREATE ROLE editor INHERIT;
 ```
 INHERIT valitsin tarkoittaa se, että editor rooli perii oikeudet niiltä rooleilta, joiden jäsen se on. Poikeuksena superuser oikeus, joka ei kuitenkaan koskaan periydy PostgreSQL:ssä.
 
 Lisää äsken luomasi roolit ryhmään seuraavasti:
 
-```{sql, eval=FALSE}
+```sql
 GRANT editor TO matti;
 GRANT editor TO yp;
 ```
@@ -158,7 +168,7 @@ PostgreSQL vaatii, että kirjaudutaan johonkin tietokantaan. Tähän asti ei tä
 Kun kirjaudutaan PostgreSQL, täytyy määritellä tietokannan nimi. Esimerkiksi:
 
 ```
-psql -U matti -d koulutus -W
+psql -h db_host -d koulutus -U matti 
 ```
 
 Huomaa vielä, että nyt psql-konsolissa tietokannan nimen jälkeen merkki on nyt > eikä #. Tämä tarkoittaa, että käyttäjällä ei ole ylläpidon oikeuksia.
@@ -202,7 +212,7 @@ ALTER DATABASE koulutus OWNER TO matti;
 **Tarkistus:**
 Aja alla olevat kaksi solua tarkistaaksesi, että omistuksen muutos onnistui.
 
-```{sql, eval=FALSE}
+```sql
 SELECT d.datname as "Name", pg_catalog.pg_get_userbyid(d.datdba) as "Owner"
     FROM pg_catalog.pg_database d
     WHERE d.datname = 'koulutus'

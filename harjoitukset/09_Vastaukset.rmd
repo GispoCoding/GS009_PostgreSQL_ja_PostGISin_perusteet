@@ -9,12 +9,12 @@ CREATE TABLE etunimet (
   nimi text NOT NULL,
   lukumaara integer NOT NULL,
   sukupuoli text NOT NULL
-)
+);
 ```
 
-```{sql, eval=FALSE}
+```sql
 COPY etunimet(nimi, lukumaara, sukupuoli)
-FROM '/home/oppilas/pg-training/Harjoitukset/data/etunimet.csv'
+FROM '/home/student/data/etunimet.csv'
 CSV HEADER;
 ```
 
@@ -23,12 +23,12 @@ CSV HEADER;
 
 ## Harjoitus 4.1 {#vastaus-h4.1 .unnumbered}
 
-```{sql, eval=FALSE}
+```sql
 ALTER TABLE tieliikenne ALTER COLUMN ensirekisterointipvm TYPE DATE 
-USING to_date(ensirekisterointipvm, 'YYYY-MM-DD')
+USING to_date(ensirekisterointipvm, 'YYYY-MM-DD');
 ```
 ## Harjoitus 4.2 {#vastaus-h4.2 .unnumbered}
-```{sql, eval=FALSE}
+```sql
 UPDATE tieliikenne SET kayttoonottopvm = Null WHERE kayttoonottopvm = 0;
 
 ALTER TABLE tieliikenne ALTER COLUMN kayttoonottopvm TYPE DATE 
@@ -65,7 +65,7 @@ CREATE FOREIGN TABLE audit_log (
     application_name text,
     command_tag text,
     audit_tag text
-) SERVER log_server OPTIONS(filename '/home/oppilas/pg-training/Harjoitukset/data/audit_log.csv', 
+) SERVER log_server OPTIONS(filename '/home/student/data/audit_log.csv', 
                             format 'csv', header 'true');
 ```
 

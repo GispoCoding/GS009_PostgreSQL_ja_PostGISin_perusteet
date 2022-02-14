@@ -22,7 +22,7 @@ CREATE FOREIGN TABLE etunimet2 (
     nimi text NOT NULL,
     lukumaara integer NOT NULL,
     sukupuoli text NOT NULL
-) SERVER log_server OPTIONS(filename '/home/oppilas/pg-training/Harjoitukset/data/etunimet.csv', 
+) SERVER log_server OPTIONS(filename '/home/student/data/etunimet.csv', 
                             format 'csv', header 'true');
 ```
 

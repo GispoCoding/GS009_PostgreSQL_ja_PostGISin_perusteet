@@ -24,7 +24,7 @@
 <meta name="author" content="Gispo Oy" />
 
 
-<meta name="date" content="2022-02-04" />
+<meta name="date" content="2022-02-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,7 +51,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
@@ -60,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -180,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.2" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#rivien-lisääminen"><i class="fa fa-check"></i><b>3.3.2</b> Rivien lisääminen</a></li>
 <li class="chapter" data-level="3.3.3" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#kyselyjen-tekeminen"><i class="fa fa-check"></i><b>3.3.3</b> Kyselyjen tekeminen</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#harjoitus-3.2"><i class="fa fa-check"></i><b>3.4</b> Harjoitus 3.2</a></li>
+<li class="chapter" data-level="3.4" data-path="tietokannan-ja-taulujen-luonti.html"><a href="tietokannan-ja-taulujen-luonti.html#harjoitus-3.2-taulun-luominen"><i class="fa fa-check"></i><b>3.4</b> Harjoitus 3.2 Taulun luominen</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="tietotyypit.html"><a href="tietotyypit.html"><i class="fa fa-check"></i><b>4</b> Tietotyypit</a>
 <ul>
@@ -199,10 +199,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html"><i class="fa fa-check"></i><b>6</b> Käyttäjien hallinta</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#käyttäjäroolit"><i class="fa fa-check"></i><b>6.1</b> Käyttäjäroolit</a></li>
-<li class="chapter" data-level="6.2" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#harjoitus-6.1-käyttöoikeudet"><i class="fa fa-check"></i><b>6.2</b> Harjoitus 6.1: käyttöoikeudet</a></li>
-<li class="chapter" data-level="6.3" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#ryhmäroolit"><i class="fa fa-check"></i><b>6.3</b> Ryhmäroolit</a></li>
-<li class="chapter" data-level="6.4" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#roolien-käyttöä"><i class="fa fa-check"></i><b>6.4</b> Roolien käyttöä</a></li>
-<li class="chapter" data-level="6.5" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#harjoitus-6.2-roolien-luominen-pgadmin-kautta"><i class="fa fa-check"></i><b>6.5</b> Harjoitus 6.2: Roolien luominen pgAdmin kautta</a></li>
+<li class="chapter" data-level="6.2" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#käyttöoikeuksien-lisääminen"><i class="fa fa-check"></i><b>6.2</b> Käyttöoikeuksien lisääminen</a></li>
+<li class="chapter" data-level="6.3" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#harjoitus-6.1-käyttöoikeudet"><i class="fa fa-check"></i><b>6.3</b> Harjoitus 6.1: käyttöoikeudet</a></li>
+<li class="chapter" data-level="6.4" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#ryhmäroolit"><i class="fa fa-check"></i><b>6.4</b> Ryhmäroolit</a></li>
+<li class="chapter" data-level="6.5" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#roolien-käyttöä"><i class="fa fa-check"></i><b>6.5</b> Roolien käyttöä</a></li>
+<li class="chapter" data-level="6.6" data-path="käyttäjien-hallinta.html"><a href="käyttäjien-hallinta.html#harjoitus-6.2-roolien-luominen-pgadmin-kautta"><i class="fa fa-check"></i><b>6.6</b> Harjoitus 6.2: Roolien luominen pgAdmin kautta</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="foreign-data-wrapper-fdw.html"><a href="foreign-data-wrapper-fdw.html"><i class="fa fa-check"></i><b>7</b> Foreign Data Wrapper (fdw)</a>
 <ul>

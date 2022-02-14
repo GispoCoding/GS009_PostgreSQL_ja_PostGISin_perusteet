@@ -3,7 +3,7 @@
 Tässä osassa tutustutaan PgAdmin-käyttöliittymään sekä psql:ään.
 
 ## PgAdmin 4
-Käynnistä PgAdmin 4 menemällä osoitteeseen /pgadmin/ (http://esimerkki.fi/pgadmin/). Kirjaudu sisään kouluttajan antamalla tunnuksella ja salasanalla.
+Käynnistä PgAdmin 4 menemällä osoitteeseen [/pgadmin](/pgadmin). Kirjaudu sisään kouluttajan antamalla tunnuksella ja salasanalla.
 
 ![pgadmin_splash](img/pgadmin_splash.png)
 
@@ -40,30 +40,32 @@ Klikkaa hiiren oikealla luomastasi yhteydestä ja valitse Disconnect Server. Tä
 
 ## psql
 
-Avaa komentorivi, jotta pääset käyttämään psql-komentorivityökalua.
+Psql on asennettu valmiiksi koulutusympäristön palvelimelle, jonka komentoriville pääset kirjautumaan osoitteessa [/wetty](/wetty). Kouluttaja antaa linux käyttäjän tunnuksen ja salasanan.
 
-Tämän jälkeen yhdistä omaan tietokataklusteriin komennolla:
+Avaa komentorivi yllämainitussa osoitteessa ja kirjaudu sisään.
+Tämän jälkeen yhdistä tietokataklusteriin komennolla:
 
 ```
-psql
+psql -h db_host -d postgres -U postgres
 ```
 
-![psql komentorivityökalun käyttminen](img/psql_start.png)
-
-Tietokantayhteyden parametrit on asetettu ympäristömuuttujiksi, joten niitä ei tarvitse antaa komentoa ajaessa.
+* __-h db_host__ määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on db_host nimisellä palvelimella)
+* __-d postgres__ tietokanta mihin yhdistetään
+* __-U postgres__ käyttäjä jolla yhdistetään
 
 ### Käyttäminen
-Kun psql on käynnistetty, komentorivillä voit kirjoittaa sekä psql, että SQL-komentoja. Tosin psql sessiossa käytettäviä komentoja kutsutaan psql interaktiiviseksi.
+Kun psql on käynnistetty, komentorivillä voit kirjoittaa sekä psql, että SQL-komentoja.
+Psql sessiossa käytettäviä erikoiskomentoja kutsutaan interaktiiviseksi psql -komennoiksi.
 
 Alla muutama interaktiivinen psql-komento:
 
-  \d = näytä taulut, näkymät ja sekvenssit
-  \dg = näytä tietokantaklusterin roolit (käyttäjät)
-  \c tietokannan_nimi = yhdistä tietokannan_nimi -tietokantaan
+- `\d` = näytä taulut, näkymät ja sekvenssit
+- `\dg` = näytä tietokantaklusterin roolit (käyttäjät)
+- `\c` tietokannan_nimi = yhdistä tietokannan_nimi -tietokantaan
 
-Komennolla help ja erityisesti komennolla \? saat tietoa ohjelman eri komennoista. Pääset pois listauksesta painamalla q.
+Komennolla `help` ja erityisesti komennolla `\?` saat tietoa ohjelman eri komennoista. Pääset pois listauksesta painamalla `q`.
 
-SQL-kyselyiden syntaksista saat ohjeita komennolla `\h` esim. `\h ALTER DEFAULT`.
+SQL-kyselyiden syntaksista saat ohjeita komennolla `\h` esim. `\h ALTER DEFAULT`. Pitkissä dokumenteissa `space`-napilla pääsee seuraavalle sivulle ja `q`-napilla saa "suljettua" ohjeen.
 
 SQL esimerkit:
 ```sql
@@ -71,13 +73,16 @@ select current_database();
 ```
 
 Komentorivin puolella käytettäviä psql-komentoja kutsutaan ei-interaktiivisiksi. Ei-interaktiivisia psql komentoja käytetään
-kun halutaan käyttää psql:a suoraan käyttöjärjestelmän komentorivista ja valittavat psql-komennot ja SQL-skriptit ovat
+kun halutaan käyttää psql:a suoraan käyttöjärjestelmän komentoriviltä ja suoritettavat psql-komennot ja SQL-skriptit ovat
 tiedostossa. Ei-interaktiivinen psql sopii erityisesti tehtävien automaattisointiin. Esimerkiksi, aiemmin esitetyt
 yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa komentoa komentoriviltä:
 
 ```shell
-psql -c "select current_database();"
+psql -h db_host -d postgres -U postgres -c "select current_database();"
 ``` 
+* __-c <SQL>__ SQL lauseke voidaan antaa parametrina psql-ohjelmalle
+* __-f <tiedosto.sql>__ tiedostossa oleva sql-skripti voidaan myös antaa parametrina
+
 
 ### Tietokantayhteyden sulkeminen
 Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento: 
