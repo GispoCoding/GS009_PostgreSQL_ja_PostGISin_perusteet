@@ -92,7 +92,7 @@ Tauluun voidaan lisätä rivejä INSERT-komennoilla, tai esimerkiksi kyselyjen t
 
 ```sql
 INSERT INTO kurssi(koodi, nimi, pvm, tyyli, kesto) VALUES
-    ('A1111', 'PG-peruskurssi', '2020-10-01', 'Jupyter', '15');
+    ('A1111', 'PG-peruskurssi', '2020-10-01', 'Pro', '15');
 ```
 
 
@@ -100,9 +100,9 @@ PostgreSQL:n avulla voi lisätä myös useamman rivin yhdellä kertaa ja jos arv
 
 ```sql
 INSERT INTO kurssi VALUES
-    ('A1112', 'PG-kertaus', '2020-10-03', 'Jupyter', '1'),
-    ('C1111', 'PG-peruskurssi', '2021-10-01', 'Jupyter', '15'),
-    ('C1112', 'PG-seuraavan_vuoden', '2021-10-03', 'Jupyter', '1');
+    ('A1112', 'PG-kertaus', '2020-10-03', 'Pro', '1'),
+    ('C1111', 'PG-peruskurssi', '2021-10-01', 'Pro', '15'),
+    ('C1112', 'PG-seuraavan_vuoden', '2021-10-03', 'Pro', '1');
 ```
 
 Rivejä voi lisätä myös kyselyjen tuloksena. Tässä hyödynnetään samalla WITH-kyselyitä (CTE, Common Table Expressions).
