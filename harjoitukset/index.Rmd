@@ -13,5 +13,8 @@ link-citations: yes
 
 Tervetuloa kurssin harjoitusten pariin!
 
+Näiden harjoitusten avulla voit tutustua itsenäisesti PostgreSQL-tietokantajärjestelmään. Valitse vasemmalta haluamasi aihe.
+
 ## Harjoitusmateriaalin lisenssi
 
+Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on Creative Commons 4.0.
