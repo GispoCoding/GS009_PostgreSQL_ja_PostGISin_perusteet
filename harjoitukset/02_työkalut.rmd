@@ -15,7 +15,7 @@ Täytä seuraavat tiedot:
 * Välilehdellä General:
   * Name: yhteyden nimi. Vapaavalintainen yhteyden nimi, jolla sen tunnistat myöhemmin. Tyypillinen notaatio on `<käyttäjänimi>@<host>/<tietokanta>`
 * Välilehdellä Connection:
-  * Host: postgres_training (jupyter, pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)
+  * Host: db_host (pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)
   * Port: 5432
   * Maintenance database: postgres
   * User: Kysy kouluttajalta
