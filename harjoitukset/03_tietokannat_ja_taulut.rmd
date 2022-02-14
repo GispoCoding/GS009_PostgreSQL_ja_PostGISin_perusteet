@@ -133,7 +133,7 @@ WITH kertauskurssit AS (SELECT * FROM kurssi WHERE nimi LIKE '%kertaus%')
 SELECT * FROM kertauskurssit ORDER BY koodi DESC;
 ```
 
-Tarksitetaan vielä näkymän rivit:
+Tarkistetaan vielä näkymän rivit:
 
 ```sql
 SELECT * FROM kurssi_1_view LIMIT 10;
