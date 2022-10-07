@@ -13,15 +13,15 @@ echo "Database started"
 
 # Tieliikenne
 echo "Importing Tieliikenne data"
-psql -d postgres -f /home/$LINUX_USER/data/tieliikenne_schema.sql
-if [ ! -f 'TieliikenneAvoinData_5_8.zip' ]; then
-  wget http://trafiopendata.97.fi/opendata/TieliikenneAvoinData_5_8.zip
-fi
-if [ ! -f 'TieliikenneAvoinData_5_8.csv' ]; then
-  unzip TieliikenneAvoinData_5_8.zip
+psql -d postgres -f /home/$LINUX_USER/data/ajoneuvorekisteri_schema.sql
+if [ ! -f 'TieliikenneAvoinData_5_18.csv' ]; then
+  if [ ! -f 'Ajoneuvorekisteri.zip' ]; then
+    wget https://gispo-training-data.s3.eu-central-1.amazonaws.com/public/Ajoneuvorekisteri.zip
+  fi
+  unzip Ajoneuvorekisteri.zip
 fi
 psql -d postgres -c "TRUNCATE tieliikenne;"
-psql -d postgres -c "\COPY tieliikenne FROM 'TieliikenneAvoinData_5_8.csv' WITH DELIMITER ';' ENCODING 'latin1' CSV HEADER;"
+psql -d postgres -c "\COPY tieliikenne FROM 'TieliikenneAvoinData_5_18.csv' WITH DELIMITER ';' ENCODING 'latin1' CSV HEADER;"
 
 psql -d postgres -c "CREATE EXTENSION IF NOT EXISTS postgis;"
 echo "Importing digiroad_uusimaa"
