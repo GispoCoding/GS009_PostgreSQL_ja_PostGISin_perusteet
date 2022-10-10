@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön</title>
   <meta name="description" content="Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gispo Oy" />
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-10-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="työkalujen-käyttö-pgadmin-ja-psql.html"/>
 <link rel="next" href="tietotyypit.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -93,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -248,49 +247,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tietokannan-ja-taulujen-luonti" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Tietokannan ja taulujen luonti</h1>
+<div id="tietokannan-ja-taulujen-luonti" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Tietokannan ja taulujen luonti<a href="tietokannan-ja-taulujen-luonti.html#tietokannan-ja-taulujen-luonti" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Tässä osassa luodaan tietokanta, johon lisätään erilaisia tauluja.</p>
-<div id="tietokannan-luominen" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Tietokannan luominen</h2>
+<div id="tietokannan-luominen" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Tietokannan luominen<a href="tietokannan-ja-taulujen-luonti.html#tietokannan-luominen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tietokannan voi luoda useammalla eri tavalla.</p>
-<div id="createdb" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> createdb</h3>
+<div id="createdb" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> createdb<a href="tietokannan-ja-taulujen-luonti.html#createdb" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>createdb on komentorivityökalu helpottamaan tietokannan luomista. Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:</p>
 <pre class="shell"><code>createdb -h dbhost -U postgres &lt;uuden_tietokannan_nimi&gt;</code></pre>
 <p>Kuten psql, myös createdb lukee tietokannan yhteysparametrit ympäristömuuttujista.</p>
 </div>
-<div id="pgadmin" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> PgAdmin</h3>
+<div id="pgadmin" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> PgAdmin<a href="tietokannan-ja-taulujen-luonti.html#pgadmin" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Kuten miltei kaikkeen muuhunkin, PgAdmin tarjoaa myös tietokantojen luomiseen ja poistamiseen graafisen ratkaisun: Klikkaa oikealla tietokantayhteydesta &gt; Create &gt; Database.
 <img src="img/createdb_pgadmin.gif" alt="Tietokannan luominen PgAdminilla" /></p>
 </div>
-<div id="sql" class="section level3" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> SQL</h3>
+<div id="sql" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> SQL<a href="tietokannan-ja-taulujen-luonti.html#sql" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Perinteisin tapa tietokantojen luomiseen käy kuitenkin SQL:n kautta. Alla olevan komennon voi suorittaa psql:n tai PgAdminin Query Toolin) avulla:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="tietokannan-ja-taulujen-luonti.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> <span class="op">&lt;</span>uuden_tietokannan_nimi<span class="op">&gt;</span>;</span></code></pre></div>
 </div>
 </div>
-<div id="tietokannan-poistaminen" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Tietokannan poistaminen</h2>
-<div id="dropdb" class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> dropdb</h3>
+<div id="tietokannan-poistaminen" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Tietokannan poistaminen<a href="tietokannan-ja-taulujen-luonti.html#tietokannan-poistaminen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="dropdb" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> dropdb<a href="tietokannan-ja-taulujen-luonti.html#dropdb" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan tietokannan voi poistaa komennolla:</p>
 <pre class="shell"><code>dropdb &lt;poistettavan_tietokannan_nimi&gt;</code></pre>
 </div>
-<div id="sql-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> SQL</h3>
+<div id="sql-1" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> SQL<a href="tietokannan-ja-taulujen-luonti.html#sql-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Samaan tapaan kuin luotaessa</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="tietokannan-ja-taulujen-luonti.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">DATABASE</span> <span class="op">&lt;</span>poistettavan_tietokannan_nimi<span class="op">&gt;</span>;</span></code></pre></div>
 </div>
 </div>
-<div id="harjoitus-3.1-luo-uusi-tietokanta" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Harjoitus 3.1: Luo uusi tietokanta</h2>
+<div id="harjoitus-3.1-luo-uusi-tietokanta" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Harjoitus 3.1: Luo uusi tietokanta<a href="tietokannan-ja-taulujen-luonti.html#harjoitus-3.1-luo-uusi-tietokanta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Luo uusi tietokanta “koulutus” createdb:n, pgAdmin:in tai psql:n avulla.</p>
 <p>Ota uusi yhteys tähän tietokantaan. PgAdminissa luo uusi tietokantayhteys luvun <a href="työkalujen-käyttö-pgadmin-ja-psql.html#tietokantayhteyden-lisääminen">Tietokantayhteyden lisääminen</a> ohjeiden mukaisesti ja anna tietokannaksi postgres.
 Tee seuraavat vaiheet tähän tietokantaan.</p>
-<div id="taulujen-luominen" class="section level3" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Taulujen luominen</h3>
+<div id="taulujen-luominen" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Taulujen luominen<a href="tietokannan-ja-taulujen-luonti.html#taulujen-luominen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>PostgreSQL tarjoaa monipuolisen tavan luoda tauluja, näkymiä ja materialisoituja näkymiä.</p>
 <p>Luodaan yksinkertainen tietokantataulu kurssi siten, että sillä on kentät koodi, nimi, pvm, tyyli ja kesto.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="tietokannan-ja-taulujen-luonti.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> kurssi (</span>
@@ -311,8 +310,8 @@ Tee seuraavat vaiheet tähän tietokantaan.</p>
 <span id="cb11-2"><a href="tietokannan-ja-taulujen-luonti.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> koodi, nimi, pvm, tyyli, kesto <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> kesto <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb11-3"><a href="tietokannan-ja-taulujen-luonti.html#cb11-3" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
 </div>
-<div id="rivien-lisääminen" class="section level3" number="3.3.2">
-<h3><span class="header-section-number">3.3.2</span> Rivien lisääminen</h3>
+<div id="rivien-lisääminen" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Rivien lisääminen<a href="tietokannan-ja-taulujen-luonti.html#rivien-lisääminen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Tauluun voidaan lisätä rivejä INSERT-komennoilla, tai esimerkiksi kyselyjen tuloksien avulla</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="tietokannan-ja-taulujen-luonti.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> kurssi(koodi, nimi, pvm, tyyli, kesto) <span class="kw">VALUES</span></span>
 <span id="cb12-2"><a href="tietokannan-ja-taulujen-luonti.html#cb12-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;A1111&#39;</span>, <span class="st">&#39;PG-peruskurssi&#39;</span>, <span class="st">&#39;2020-10-01&#39;</span>, <span class="st">&#39;Pro&#39;</span>, <span class="st">&#39;15&#39;</span>);</span></code></pre></div>
@@ -330,8 +329,8 @@ Tee seuraavat vaiheet tähän tietokantaan.</p>
 <span id="cb15-4"><a href="tietokannan-ja-taulujen-luonti.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> kertauskurssi</span>
 <span id="cb15-5"><a href="tietokannan-ja-taulujen-luonti.html#cb15-5" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
 </div>
-<div id="kyselyjen-tekeminen" class="section level3" number="3.3.3">
-<h3><span class="header-section-number">3.3.3</span> Kyselyjen tekeminen</h3>
+<div id="kyselyjen-tekeminen" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Kyselyjen tekeminen<a href="tietokannan-ja-taulujen-luonti.html#kyselyjen-tekeminen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Tarkistetaan, että rivit ilmeistyivät tauluun. Tyypillisesti ilman hakuehtoa kyselyitä tehdessä kannattaa käyttää LIMIT-ehtoa rajoittaaksesi rivien määrää:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="tietokannan-ja-taulujen-luonti.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 <p>WITH-syntaksin avulla:</p>
@@ -341,8 +340,8 @@ Tee seuraavat vaiheet tähän tietokantaan.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="tietokannan-ja-taulujen-luonti.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi_1_view <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 </div>
 </div>
-<div id="harjoitus-3.2-taulun-luominen" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Harjoitus 3.2 Taulun luominen</h2>
+<div id="harjoitus-3.2-taulun-luominen" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Harjoitus 3.2 Taulun luominen<a href="tietokannan-ja-taulujen-luonti.html#harjoitus-3.2-taulun-luominen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Harjoituksena on luoda uusi tietokantataulu etunimet, joka vastaa tiedoston <a href="/data/etunimet.csv">etunimet.csv</a> muotoa. Päättele sopivat tietotyypit kentille luentojen sekä edeltävien esimerkkien avulla.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-2">Table 3.1: </span>Etunimet.csv tiedoston sisältöä.</caption>
