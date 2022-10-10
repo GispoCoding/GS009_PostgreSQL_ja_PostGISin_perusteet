@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Vastaukset | Johdanto PostgreSQL:n käyttöön</title>
   <meta name="description" content="Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Vastaukset | Johdanto PostgreSQL:n käyttöön" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gispo Oy" />
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-10-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="foreign-data-wrapper-fdw.html"/>
 
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -93,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -248,10 +247,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="vastaukset" class="section level1 unnumbered">
-<h1>Vastaukset</h1>
-<div id="vastaus-h3.2" class="section level2 unnumbered">
-<h2>Harjoitus 3.2</h2>
+<div id="vastaukset" class="section level1 unnumbered hasAnchor">
+<h1>Vastaukset<a href="vastaukset.html#vastaukset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="vastaus-h3.2" class="section level2 unnumbered hasAnchor">
+<h2>Harjoitus 3.2<a href="vastaukset.html#vastaus-h3.2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb88"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb88-1"><a href="vastaukset.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> etunimet;</span>
 <span id="cb88-2"><a href="vastaukset.html#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb88-3"><a href="vastaukset.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> etunimet (</span>
@@ -264,21 +263,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb89-3"><a href="vastaukset.html#cb89-3" aria-hidden="true" tabindex="-1"></a>CSV <span class="kw">HEADER</span>;</span></code></pre></div>
 <p><a href="tietokannan-ja-taulujen-luonti.html#harjoitus-3.2-taulun-luominen">Takaisin harjoitukseen</a></p>
 </div>
-<div id="vastaus-h4.1" class="section level2 unnumbered">
-<h2>Harjoitus 4.1</h2>
-<div class="sourceCode" id="cb90"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb90-1"><a href="vastaukset.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> tieliikenne <span class="kw">ALTER</span> <span class="kw">COLUMN</span> ensirekisterointipvm <span class="kw">TYPE</span> <span class="dt">DATE</span> </span>
+<div id="vastaus-h4.1" class="section level2 unnumbered hasAnchor">
+<h2>Harjoitus 4.1<a href="vastaukset.html#vastaus-h4.1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb90"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb90-1"><a href="vastaukset.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> ajoneuvorekisteri <span class="kw">ALTER</span> <span class="kw">COLUMN</span> ensirekisterointipvm <span class="kw">TYPE</span> <span class="dt">DATE</span> </span>
 <span id="cb90-2"><a href="vastaukset.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> <span class="fu">to_date</span>(ensirekisterointipvm, <span class="st">&#39;YYYY-MM-DD&#39;</span>);</span></code></pre></div>
 </div>
-<div id="vastaus-h4.2" class="section level2 unnumbered">
-<h2>Harjoitus 4.2</h2>
-<div class="sourceCode" id="cb91"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb91-1"><a href="vastaukset.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> tieliikenne <span class="kw">SET</span> kayttoonottopvm <span class="op">=</span> <span class="kw">Null</span> <span class="kw">WHERE</span> kayttoonottopvm <span class="op">=</span> <span class="dv">0</span>;</span>
+<div id="vastaus-h4.2" class="section level2 unnumbered hasAnchor">
+<h2>Harjoitus 4.2<a href="vastaukset.html#vastaus-h4.2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb91"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb91-1"><a href="vastaukset.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> ajoneuvorekisteri <span class="kw">SET</span> kayttoonottopvm <span class="op">=</span> <span class="kw">Null</span> <span class="kw">WHERE</span> kayttoonottopvm <span class="op">=</span> <span class="dv">0</span>;</span>
 <span id="cb91-2"><a href="vastaukset.html#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-3"><a href="vastaukset.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> tieliikenne <span class="kw">ALTER</span> <span class="kw">COLUMN</span> kayttoonottopvm <span class="kw">TYPE</span> <span class="dt">DATE</span> </span>
+<span id="cb91-3"><a href="vastaukset.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> ajoneuvorekisteri <span class="kw">ALTER</span> <span class="kw">COLUMN</span> kayttoonottopvm <span class="kw">TYPE</span> <span class="dt">DATE</span> </span>
 <span id="cb91-4"><a href="vastaukset.html#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> <span class="fu">to_date</span>(kayttoonottopvm:<span class="ch">:text</span>, <span class="st">&#39;YYYYMMDD&#39;</span>);</span></code></pre></div>
 <p><a href="tietotyypit.html#harjoitus-4.1-ota-oikea-tietotyyppi-käyttöön">Takaisin harjoitukseen</a></p>
 </div>
-<div id="vastaus-h7.1" class="section level2 unnumbered">
-<h2>Harjoitus 7.1</h2>
+<div id="vastaus-h7.1" class="section level2 unnumbered hasAnchor">
+<h2>Harjoitus 7.1<a href="vastaukset.html#vastaus-h7.1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb92"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb92-1"><a href="vastaukset.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">FOREIGN</span> <span class="kw">TABLE</span> audit_log (</span>
 <span id="cb92-2"><a href="vastaukset.html#cb92-2" aria-hidden="true" tabindex="-1"></a>    log_time <span class="dt">timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>,</span>
 <span id="cb92-3"><a href="vastaukset.html#cb92-3" aria-hidden="true" tabindex="-1"></a>    user_name text,</span>
@@ -309,8 +308,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb92-28"><a href="vastaukset.html#cb92-28" aria-hidden="true" tabindex="-1"></a>                            format <span class="st">&#39;csv&#39;</span>, <span class="kw">header</span> <span class="st">&#39;true&#39;</span>);</span></code></pre></div>
 <p><a href="foreign-data-wrapper-fdw.html#harjoitus-7.1-csv-tiedostosta-lukeminen">Takaisin harjoitukseen</a></p>
 </div>
-<div id="vastaus-h7.2" class="section level2 unnumbered">
-<h2>Harjoitus 7.2</h2>
+<div id="vastaus-h7.2" class="section level2 unnumbered hasAnchor">
+<h2>Harjoitus 7.2<a href="vastaukset.html#vastaus-h7.2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb93"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb93-1"><a href="vastaukset.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EXTENSION postgres_fdw;</span></code></pre></div>
 <div class="sourceCode" id="cb94"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb94-1"><a href="vastaukset.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EXTENSION postgis;</span></code></pre></div>
 <p><a href="foreign-data-wrapper-fdw.html#harjoitus-7.2-toisesta-postgresql-kannasta-lukeminen">Takaisin harjoitukseen</a></p>
