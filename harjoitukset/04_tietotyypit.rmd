@@ -2,11 +2,11 @@
 
 Tässä osassa tutustutaan erilaisiin tietotyyppeihin.
 
-Tutustutaan aluksi tieliikenne-taulun sisältöön
+Tutustutaan aluksi ajoneuvorekisteri-taulun sisältöön
 
 ```sql
 SELECT *
-FROM tieliikenne
+FROM ajoneuvorekisteri
 LIMIT 30;
 ```
 
@@ -14,7 +14,7 @@ Tarkistetaan, kuinka monen ajoneuvon ensirekiseröinti on tapahtunut vuoden 2015
 
 ```sql
 SELECT count(*)
-FROM tieliikenne
+FROM ajoneuvorekisteri
 WHERE EXTRACT(YEAR FROM ensirekisterointipvm) > 2015;
 ```
 
@@ -24,7 +24,7 @@ Yllä oleva komento tuottaa virheen: function pg_catalog.extract(unknown, text) 
 SELECT column_name, data_type
 FROM information_schema.columns 
 WHERE
-  table_name = 'tieliikenne'
+  table_name = 'ajoneuvorekisteri'
   AND column_name LIKE '%pvm%'
 ;
 ```
@@ -32,19 +32,19 @@ WHERE
 Sarake ensirekisterointipvm tosiaan on tyypiltään text eikä yksi PostgreSQL:n aikatyypeistä (date, interval, timestamp...). Yksi ratkaisu ongelmaan olisi muuttaa sarakkeen tyyppi kyselyssä oikeaan muotoon:
 
 ```sql
-SELECT count(*) FROM tieliikenne WHERE EXTRACT(YEAR FROM to_date(ensirekisterointipvm, 'YYYY-MM-DD')) > 2015;
+SELECT count(*) FROM ajoneuvorekisteri WHERE EXTRACT(YEAR FROM to_date(ensirekisterointipvm, 'YYYY-MM-DD')) > 2015;
 ```
 
 Tietotyyppimuunnoksen (castaus) voi tehdä tässä yksinkertaisessa tapauksessa myös käyttäen ::-operaattoria:
 
 ```sql
-SELECT count(*) FROM tieliikenne WHERE extract(YEAR FROM ensirekisterointipvm::date) > 2015;
+SELECT count(*) FROM ajoneuvorekisteri WHERE extract(YEAR FROM ensirekisterointipvm::date) > 2015;
 ```
 
 Tässä tapauksessa fiksumpaa olisi kuitenkin muuttaa koko sarakkeen tyyppi oikeaksi, sillä kyseessä on selkeästi päivämääräsarake.
 
 ## Harjoitus 4.1: Ota oikea tietotyyppi käyttöön
-Muuta tieliikenne-taulun ensirekisterointipvm-sarake käyttämään oikeaa date-tietotyyppiä. Käytä syntaksia:
+Muuta ajoneuvorekisteri-taulun ensirekisterointipvm-sarake käyttämään oikeaa date-tietotyyppiä. Käytä syntaksia:
 
 ```sql
 ALTER TABLE taulun_nimi
@@ -58,7 +58,7 @@ Voit tarkistaa ohjeen to_date-funktion käyttämiseen ja päivämääräformaati
 SELECT
     ensirekisterointipvm,
     kayttoonottopvm
-FROM tieliikenne
+FROM ajoneuvorekisteri
 LIMIT 10;
 ```
 
@@ -74,7 +74,7 @@ ALTER ...
 Kokeile nyt uudestaan tiedoston alussa olevaa kyselyä:
 
 ```sql
-SELECT count(*) FROM tieliikenne WHERE EXTRACT(YEAR FROM ensirekisterointipvm) > 2015;
+SELECT count(*) FROM ajoneuvorekisteri WHERE EXTRACT(YEAR FROM ensirekisterointipvm) > 2015;
 ```
 
 ## Harjoitus 4.2
@@ -93,7 +93,7 @@ UPDATE taulun_nimi SET kenttä = uusi_arvo WHERE kenttä = haluttu_arvo;
 Kokeile nyt vastaavaa kyselyä:
 
 ```sql
-SELECT count(*) FROM tieliikenne WHERE EXTRACT(YEAR FROM kayttoonottopvm) > 2015;
+SELECT count(*) FROM ajoneuvorekisteri WHERE EXTRACT(YEAR FROM kayttoonottopvm) > 2015;
 ```
 Saitko Tulokseksi 710287?
 

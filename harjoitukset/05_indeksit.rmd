@@ -6,22 +6,22 @@ Luetaan taulusta kuinka monella rivillä ajoneuvoluokka on M1.
 Tarkista kuinka kauan kyselyn suorittamiseen meni.
 
 ```sql
-SELECT count(*) FROM tieliikenne WHERE ajoneuvoluokka = 'M1';
+SELECT count(*) FROM ajoneuvorekisteri WHERE ajoneuvoluokka = 'M1';
 ```
 
 ## Indeksien luominen
 Luodaan yksinkertainen B-TREE -indeksi sarakkeelle ajoneuvoluokka:
 
 ```sql
-CREATE INDEX ajoneuvoluokka_idx ON tieliikenne(ajoneuvoluokka);
+CREATE INDEX ajoneuvoluokka_idx ON ajoneuvorekisteri(ajoneuvoluokka);
 ```
 Tarkista nyt uudestaaan, kuinka kauan yllä olevan kyselyn suoritus kestää.
 
 ## Indeksien koko
-Indeksit kasvattavat tietokannan kokoa. Aja seuraava solu nähdäksesi kaikkientieliikenne-taulun indeksien koot:
+Indeksit kasvattavat tietokannan kokoa. Aja seuraava solu nähdäksesi kaikkienajoneuvorekisteri-taulun indeksien koot:
 
 ```sql
-SELECT pg_size_pretty(pg_indexes_size('tieliikenne'));
+SELECT pg_size_pretty(pg_indexes_size('ajoneuvorekisteri'));
 ```
 
 ## Indeksien poistaminen
