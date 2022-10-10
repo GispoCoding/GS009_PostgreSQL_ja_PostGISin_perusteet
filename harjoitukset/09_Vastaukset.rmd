@@ -24,14 +24,14 @@ CSV HEADER;
 ## Harjoitus 4.1 {#vastaus-h4.1 .unnumbered}
 
 ```sql
-ALTER TABLE tieliikenne ALTER COLUMN ensirekisterointipvm TYPE DATE 
+ALTER TABLE ajoneuvorekisteri ALTER COLUMN ensirekisterointipvm TYPE DATE 
 USING to_date(ensirekisterointipvm, 'YYYY-MM-DD');
 ```
 ## Harjoitus 4.2 {#vastaus-h4.2 .unnumbered}
 ```sql
-UPDATE tieliikenne SET kayttoonottopvm = Null WHERE kayttoonottopvm = 0;
+UPDATE ajoneuvorekisteri SET kayttoonottopvm = Null WHERE kayttoonottopvm = 0;
 
-ALTER TABLE tieliikenne ALTER COLUMN kayttoonottopvm TYPE DATE 
+ALTER TABLE ajoneuvorekisteri ALTER COLUMN kayttoonottopvm TYPE DATE 
 USING to_date(kayttoonottopvm::text, 'YYYYMMDD');
 ```
 [Takaisin harjoitukseen][Harjoitus 4.1: Ota oikea tietotyyppi käyttöön]

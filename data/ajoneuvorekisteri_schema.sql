@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS tieliikenne;
+DROP TABLE IF EXISTS ajoneuvorekisteri;
 
-CREATE TABLE tieliikenne (
+CREATE TABLE ajoneuvorekisteri (
     ajoneuvoluokka text,
     ensirekisterointipvm text,
     ajoneuvoryhma double precision,
