@@ -8,13 +8,13 @@ jobs:
     name: Render to HTML & Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Render Rmd to HTML
-        run: ./render.sh
+      - name: Render Book
+        run: docker-compose up bookdown
 
       - name: Add, Commit & Push
-        uses: EndBug/add-and-commit@v7
+        uses: EndBug/add-and-commit@v9
         with:
           add: "harjoitukset/build"
           message: "Automatic: Update docs"

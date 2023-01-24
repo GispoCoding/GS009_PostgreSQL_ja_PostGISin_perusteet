@@ -35,6 +35,19 @@ Tässä kestää jonkin aikaa jos joudutaan hakemaan docker-imaget ja rakentamaa
 1. Jatka [Lokaaline asennuksen](#-Lokaali-asennus) kohtien mukaan
 1. Avaa instanssin ip- tai CNAME-osoite ja testaa toimivuutta
 
+### Koulutusmateriaalin muokkaus
+Materiaaleja voi muokata joko käyttäen RStudiota, jolloin päivityksiä on helpompi/nopeampi seurata. Tai sitten muokkausta voi tehdä myös omalla IDE:llä/editorilla, jolloin kääntämisen voi tehdä docker-kontissa.
+
+**RStudio**
+1. Asenna R ja RStudio
+2. Tee muokkaukset  `harkoitukset` kansiosta löytyviin `*.rmd` tiedostoihin
+3. Käännä kirja `Build book` napilla
+
+**Docker**
+1. Tee muokkaukset  `harkoitukset` kansiosta löytyviin `*.rmd` tiedostoihin
+2. Aja `docker compose up bookdown`
+3. Siirry kometorivillä `harjoitukset/build` kansioon ja käynnistä http-serveri `python -m http.server`
+4. Mene selaimella osoitteeseen `localhost:8000`
 ## Lisenssit
 * Harjoitukset ja ratkaisut ovat lisensioitu lisenssillä [Creative Commons Nimeä 4.0](http://creativecommons.org/licenses/by/4.0/deed.fi) 
 * [etunimet.csv](Harjoitukset/data/etunimet.csv) - muodostettu 24.08.2020 aineistosta [Etunimitilasto 2020-08-19](https://www.avoindata.fi/data/fi/dataset/none/resource/08c89936-a230-42e9-a9fc-288632e234f5), joka on jaettu lisenssillä: [Creative Commons Nimeä 4.0](http://creativecommons.org/licenses/by/4.0/deed.fi) 
