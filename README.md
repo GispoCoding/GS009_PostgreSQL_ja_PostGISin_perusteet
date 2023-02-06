@@ -35,7 +35,7 @@ Tässä kestää jonkin aikaa jos joudutaan hakemaan docker-imaget ja rakentamaa
 1. Jatka [Lokaaline asennuksen](#-Lokaali-asennus) kohtien mukaan
 1. Avaa instanssin ip- tai CNAME-osoite ja testaa toimivuutta
 
-### Koulutusmateriaalin muokkaus
+### Koulutusmateriaalin muokkaus (ei _training-only_ git-haarassa)
 Materiaaleja voi muokata joko käyttäen RStudiota, jolloin päivityksiä on helpompi/nopeampi seurata. Tai sitten muokkausta voi tehdä myös omalla IDE:llä/editorilla, jolloin kääntämisen voi tehdä docker-kontissa.
 
 **RStudio**
