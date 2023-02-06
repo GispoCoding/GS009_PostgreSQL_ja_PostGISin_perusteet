@@ -58,3 +58,9 @@ services:
     - "80:80"
     - "443:443"
 
+  bookdown:
+    image: gispo/bookdown
+    profiles: ["dev"]
+    volumes:
+      - "./harjoitukset:/book"
+      - "./data:/data"
