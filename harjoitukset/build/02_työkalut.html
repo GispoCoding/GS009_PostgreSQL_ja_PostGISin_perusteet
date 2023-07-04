@@ -190,7 +190,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <p>Käynnistä PgAdmin 4 menemällä osoitteeseen <a href="/pgadmin">/pgadmin</a>. Kirjaudu sisään kouluttajan antamalla tunnuksella ja salasanalla.</p>
 <div class="figure">
 <img src="img/pgadmin_splash.png" alt="" />
-<p class="caption">pgadmin_splash</p>
+<p class="caption">pgAdmin kirjautuminen</p>
 </div>
 <div id="tietokantayhteyden-lisääminen" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> 2.1.1 Tietokantayhteyden lisääminen</h3>
@@ -241,7 +241,9 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <p>Psql on asennettu valmiiksi koulutusympäristön palvelimelle, jonka komentoriville pääset kirjautumaan osoitteessa <a href="/wetty">/wetty</a>. Kouluttaja antaa linux käyttäjän tunnuksen ja salasanan.</p>
 <p>Avaa komentorivi yllämainitussa osoitteessa ja kirjaudu sisään.
 Tämän jälkeen yhdistä tietokataklusteriin komennolla:</p>
+<div class="commandline-box">
 <pre><code>psql -h dbhost -d postgres -U postgres</code></pre>
+</div>
 <ul>
 <li><strong>-h dbhost</strong> määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on dbhost nimisellä palvelimella)</li>
 <li><strong>-d postgres</strong> tietokanta mihin yhdistetään</li>
@@ -260,12 +262,16 @@ Psql sessiossa käytettäviä erikoiskomentoja kutsutaan interaktiiviseksi psql 
 <p>Komennolla <code>help</code> ja erityisesti komennolla <code>\?</code> saat tietoa ohjelman eri komennoista. Pääset pois listauksesta painamalla <code>q</code>.</p>
 <p>SQL-kyselyiden syntaksista saat ohjeita komennolla <code>\h</code> esim. <code>\h ALTER DEFAULT</code>. Pitkissä dokumenteissa <code>space</code>-napilla pääsee seuraavalle sivulle ja <code>q</code>-napilla saa “suljettua” ohjeen.</p>
 <p>SQL esimerkit:</p>
+<div class="code-box">
 <div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="02_työkalut.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> current_database();</span></code></pre></div>
+</div>
 <p>Komentorivin puolella käytettäviä psql-komentoja kutsutaan ei-interaktiivisiksi. Ei-interaktiivisia psql komentoja käytetään
 kun halutaan käyttää psql:a suoraan käyttöjärjestelmän komentoriviltä ja suoritettavat psql-komennot ja SQL-skriptit ovat
 tiedostossa. Ei-interaktiivinen psql sopii erityisesti tehtävien automaattisointiin. Esimerkiksi, aiemmin esitetyt
 yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa komentoa komentoriviltä:</p>
+<div class="commandline-box">
 <pre class="shell"><code>psql -h dbhost -d postgres -U postgres -c &quot;select current_database();&quot;</code></pre>
+</div>
 <ul>
 <li><strong>-c <SQL></strong> SQL lauseke voidaan antaa parametrina psql-ohjelmalle</li>
 <li><strong>-f &lt;tiedosto.sql&gt;</strong> tiedostossa oleva sql-skripti voidaan myös antaa parametrina</li>
@@ -274,7 +280,9 @@ yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa k
 <div id="tietokantayhteyden-sulkeminen-1" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> 2.2.2 Tietokantayhteyden sulkeminen</h3>
 <p>Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento:</p>
+<div class="commandline-box">
 <pre><code>\q</code></pre>
+</div>
 </div>
 </div>
 <div id="pg_dump-ja-pg_restore" class="section level2" number="2.3">

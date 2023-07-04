@@ -9,7 +9,6 @@ const codeBoxes = document.querySelectorAll('.code-box, .commandline-box');
 codeBoxes.forEach(box => {
   const copyButton = document.createElement('button');
   copyButton.className = 'copy-button';
-  //copyButton.innerHTML = '<i class="fas fa-copy"></i>';
 
   copyButton.addEventListener('click', () => {
     const text = box.innerText.trim();

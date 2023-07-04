@@ -5,7 +5,7 @@ Tässä osassa tutustutaan PgAdmin-käyttöliittymään sekä psql:ään.
 ## 2.1 PgAdmin 4
 Käynnistä PgAdmin 4 menemällä osoitteeseen [/pgadmin](/pgadmin). Kirjaudu sisään kouluttajan antamalla tunnuksella ja salasanalla.
 
-![pgadmin_splash](img/pgadmin_splash.png)
+![pgAdmin kirjautuminen](img/pgadmin_splash.png)
 
 ### 2.1.1 Tietokantayhteyden lisääminen
 Luo uusi tietokantayhteys tietokantaklusteriin klikkaamalla hiiren oikealla kohdasta Servers ja valitsemalla Create > Server...
@@ -45,9 +45,11 @@ Psql on asennettu valmiiksi koulutusympäristön palvelimelle, jonka komentorivi
 Avaa komentorivi yllämainitussa osoitteessa ja kirjaudu sisään.
 Tämän jälkeen yhdistä tietokataklusteriin komennolla:
 
+::: commandline-box
 ```
 psql -h dbhost -d postgres -U postgres
 ```
+:::
 
 * __-h dbhost__ määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on dbhost nimisellä palvelimella)
 * __-d postgres__ tietokanta mihin yhdistetään
@@ -68,18 +70,23 @@ Komennolla `help` ja erityisesti komennolla `\?` saat tietoa ohjelman eri komenn
 SQL-kyselyiden syntaksista saat ohjeita komennolla `\h` esim. `\h ALTER DEFAULT`. Pitkissä dokumenteissa `space`-napilla pääsee seuraavalle sivulle ja `q`-napilla saa "suljettua" ohjeen.
 
 SQL esimerkit:
+
+::: code-box
 ```sql
 select current_database();
 ```
+:::
 
 Komentorivin puolella käytettäviä psql-komentoja kutsutaan ei-interaktiivisiksi. Ei-interaktiivisia psql komentoja käytetään
 kun halutaan käyttää psql:a suoraan käyttöjärjestelmän komentoriviltä ja suoritettavat psql-komennot ja SQL-skriptit ovat
 tiedostossa. Ei-interaktiivinen psql sopii erityisesti tehtävien automaattisointiin. Esimerkiksi, aiemmin esitetyt
 yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa komentoa komentoriviltä:
 
+::: commandline-box
 ```shell
 psql -h dbhost -d postgres -U postgres -c "select current_database();"
 ``` 
+:::
 * __-c <SQL>__ SQL lauseke voidaan antaa parametrina psql-ohjelmalle
 * __-f <tiedosto.sql>__ tiedostossa oleva sql-skripti voidaan myös antaa parametrina
 
@@ -87,9 +94,12 @@ psql -h dbhost -d postgres -U postgres -c "select current_database();"
 ### 2.2.2 Tietokantayhteyden sulkeminen
 Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento: 
 
+::: commandline-box
+
 ```
 \q
 ```
+:::
 
 ## 2.3 pg_dump ja pg_restore
 
