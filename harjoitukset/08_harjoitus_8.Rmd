@@ -1,0 +1,223 @@
+# Harjoitus 9: Geoprosessointi
+
+
+|     |       |
+|:--: | :---: |
+| <span style="color:purple"> **Harjoituksen sisältö** </span> | Harjoituksessa tutustutaan PostGISin geoprosessointifunktioihin. |
+| <span style="color:purple"> **Harjoituksen tavoite** </span> | Harjoituksen jälkeen opiskelija tuntee geoprosessointifunktioiden perusteet. |
+
+### Valmistautuminen
+
+Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
+
+
+```python
+%load_ext sql
+from ipygis import get_connection_url
+
+c_url = get_connection_url(dbname="trainingdatabase")
+%sql $c_url
+```
+
+Harjoituksessa 3 ladattiin tarvittavat paikkatietoaineistot PostGIS-tietokantaan. Jos tämä vaihe on jäänyt sinulta välistä, saat tarvittavat aineistot käyttöösi myös ajamalla ao. solun.
+
+
+```python
+from utils import initializer
+
+initializer.add_nlsfi_data()
+```
+
+### Keskipisteet
+
+Kirjoita **SQL-terminaaliin** seuraava komento:
+
+
+```python
+%%sql
+SELECT
+ST_AsText(ST_Centroid(wkb_geometry)) as "Centroids of first 10"
+FROM
+nlsfi.hallintoalue
+LIMIT 10;
+```
+
+## Harjoitus 9.1
+
+Ovatko kaikki keskipisteet alueiden sisäpuolella? Kuinka monta pistettä jää ulkopuolelle?
+
+
+```python
+%%sql
+SELECT ...
+```
+
+Ratkaisuvaihtoehto 1 (käytetään **ST_Contains**-funktiota):
+
+
+```python
+%%sql
+WITH notin AS(
+    SELECT
+    kunta_ni1 as "withST_Contains"
+    FROM
+    nlsfi.hallintoalue
+    WHERE
+    NOT ST_Contains(wkb_geometry, ST_Centroid(wkb_geometry)))
+
+SELECT
+count(notin."withST_Contains")
+FROM
+notin;
+```
+
+Ratkaisuvaihtoehto 2 (käytetään **ST_Within**-funktiota):
+
+
+```python
+%%sql
+SELECT
+kunta_ni1 as "with ST_Within"
+FROM
+nlsfi.hallintoalue
+WHERE
+NOT ST_Within(ST_Centroid(wkb_geometry), wkb_geometry);
+```
+
+> Huomaa, että saat selville vastauksen myös tulostamalla kaikkien sellaisten kuntien nimet, joiden keskipiste jää alueen ulkopuolelle ja laskemalla tulostaulukon rivien lukumäärän.
+
+## Harjoitus 9.2
+
+Miten paljon harjoituksessa 9.1 löydettyjen kuntien painokeskipisteet eroavat **ST_PointOnSurface**–funktion pisteistä?
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+SELECT
+kunta_ni1 as "Kunta",
+round(ST_Distance(ST_PointOnSurface(wkb_geometry), ST_centroid(wkb_geometry)))
+as "Distance PntOnSurface and Centroid"
+FROM
+nlsfi.hallintoalue
+WHERE
+NOT ST_Within(ST_Centroid(wkb_geometry), wkb_geometry);
+```
+
+### Vyöhykkeet
+
+Muodostetaan tiestölle vyöhyke:
+
+
+```python
+%%sql res <<
+SELECT
+ogc_fid, ST_Buffer(wkb_geometry, 100) as geom
+FROM
+nlsfi.tieviiva
+WHERE
+tienumero = 66;
+```
+
+
+```python
+from ipygis import get_map
+
+map = get_map(res)
+map
+```
+
+## Harjoitus 9.3
+
+Muodosta vyöhykkeestä näkymä ja visualisoi se QGISissä. Voit myös muodostaa useamman vyöhykkeen eri etäisyyksille.
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+DROP VIEW IF EXISTS nlsfi.view_roadbuffer;
+
+CREATE VIEW nlsfi.view_roadbuffer AS (
+    WITH buffers AS (
+        SELECT
+        ST_Buffer(wkb_geometry, 100) as geom, 100 as buffer
+        FROM
+        nlsfi.tieviiva
+        WHERE
+        tienumero = 66
+        UNION
+        SELECT
+        ST_Buffer(wkb_geometry, 250) as geom, 250 as buffer
+        FROM
+        nlsfi.tieviiva
+        WHERE
+        tienumero = 66
+    )
+    SELECT
+    row_number() OVER() AS vid, geom, buffer
+    FROM
+    buffers
+);
+```
+
+> Editoi alkuperäistä tieviivaa QGIS:ssä.
+
+### Yhdistäminen
+
+Muodosta hallintoalueista maakuntien raja -aineisto:
+
+
+```python
+%%sql
+
+DROP TABLE IF EXISTS tmp.maakunnat;
+
+CREATE TABLE tmp.maakunnat as (
+    SELECT
+    ST_Union(wkb_geometry), maaku_ni1 as "Maakunnan nimi"
+    FROM
+    nlsfi.hallintoalue
+    GROUP BY
+    maaku_ni1
+);
+```
+
+Vastaavasti, aineiston voi muodostaa myös hyödyntämällä näkymiä:
+
+
+```python
+%%sql
+DROP VIEW IF EXISTS tmp.view_maakunta;
+
+CREATE VIEW tmp.view_maakunta AS (
+    SELECT
+    ST_Union(wkb_geometry), maaku_ni1
+    FROM
+    nlsfi.hallintoalue
+    GROUP BY
+    maaku_ni1
+);
+```
+
+### PostGISin tehokkuus
+
+Yksi suurimmista hyödyistä PostGISin käytössä on sen tehokkuus suuria tietoaineistoja käsiteltäessä.
+
+#### Lisätehtävä
+
+Suurin osa geoprosessoinnin työkaluista löytyy myös QGISistä, mutta PostGISin tehokkuus tulee esille erityisesti, jos kokeilet tehdä saman operaation QGISin työkaluilla ja PostGISillä. Huomaatko eron?
+
+Siirry takaisin [päänäkymään](/tree).
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
+

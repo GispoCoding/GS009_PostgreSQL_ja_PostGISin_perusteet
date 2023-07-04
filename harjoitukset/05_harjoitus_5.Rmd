@@ -1,0 +1,321 @@
+# Harjoitus 6: Paikkatietokohteiden geometria
+
+
+|     |       |
+|:--: | :---: |
+| <span style="color:purple"> **Harjoituksen sisältö** </span> | Harjoituksessa tutustutaan PostGISin tapaan käsitellä geometrioita. |
+| <span style="color:purple"> **Harjoituksen tavoite** </span> | Harjoituksen jälkeen opiskelija tuntee PostGIS-geometrioiden käsittelyn perusteet. |
+
+### Valmistautuminen
+
+Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
+
+
+```python
+%load_ext sql
+from ipygis import get_connection_url
+
+c_url = get_connection_url(dbname="trainingdatabase")
+%sql $c_url
+```
+
+Harjoituksessa 3 ladattiin tarvittavat paikkatietoaineistot PostGIS-tietokantaan. Jos tämä vaihe on jäänyt sinulta välistä, saat tarvittavat aineistot käyttöösi myös ajamalla ao. solun.
+
+
+```python
+from utils import initializer
+
+initializer.add_nlsfi_data()
+```
+
+## Harjoitus 6.1: Geometrioiden luonti
+
+Luodaan aluksi tietokantaan uusi taulu, johon muodostetaan erilaisia geometrioita:
+
+
+```python
+%%sql
+
+DROP TABLE IF EXISTS geom_test;
+
+CREATE TABLE IF NOT EXISTS geom_test
+(
+    gid   serial PRIMARY KEY,
+    name  varchar(50),
+    geom  geometry(geometry, 3067)
+);
+```
+
+Lisää sen jälkeen tauluun yksittäinen piste seuraavalla komennolla:
+
+
+```python
+%%sql
+INSERT INTO
+geom_test(name, geom)
+VALUES
+('Single point', 'SRID=3067; POINT(0 0)');
+```
+
+Voit tarkastella taulun tietoja SQL-kyselyllä tai QGIS-ohjelmiston avulla:
+
+
+```python
+%%sql
+SELECT
+name, ST_AsText(geom), ST_GeometryType(geom)
+FROM
+geom_test;
+```
+
+## Harjoitus 6.2
+
+Lisää vielä tauluun viiva ja monikulmio.
+> Voit käyttää joko WKT-formaattia (LINESTRING(0 1, 2 3) ja POLYGON((4 5, 6 7, 8 9, 10 11, 4 5))
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+INSERT INTO
+geom_test(name, geom)
+VALUES
+('Single linestring', 'SRID=3067; LINESTRING(0 1, 2 3)');
+
+INSERT INTO
+geom_test(name,geom)
+VALUES
+('Single polygon', 'SRID=3067; POLYGON((4 5, 6 7, 8 9, 10 11, 4 5))');
+```
+
+> Tai PostGIS:n funktioita ST_MakeLine, ST_MakePolygon ja ST_MakeEnvelope <br>
+>> Tarkista PostGISin ohjekirjasta funktioiden oikeat muodot: [8.4 Geometry Constructors](http://postgis.net/docs/reference.html#Geometry_Constructors)
+
+
+```python
+%%sql
+INSERT INTO ...
+```
+
+
+```python
+%%sql
+INSERT INTO
+geom_test(name,geom)
+VALUES
+('Simple polygon using ST_MakeEnvelope', ST_MakeEnvelope(20,20,40,40,3067));
+
+INSERT INTO
+geom_test(name,geom)
+VALUES
+('Single point using ST_MakePoint', ST_SetSRID(ST_MakePoint(100,200),3067));
+
+INSERT INTO
+geom_test(name,geom)
+VALUES
+('Single linestring using ST_MakeLine',
+ ST_SetSRID(ST_MakeLine(ST_MakePoint(1,1),ST_MakePoint(50,50)),3067));
+```
+
+### Pinta-alat
+Geometrioihin liittyviä ominaisuuksia voidaan käyttää erilaisilla SQL-funktioilla. Seuraavalla hakulausekkeella haetaan Suomen pinta-alaltaan 10 pienintä kuntaa:
+
+
+```python
+%%sql
+SELECT 
+kunta_ni1 as "Nimi", ST_Area(wkb_geometry) as "Pinta-ala"
+FROM 
+nlsfi.hallintoalue
+ORDER BY
+ST_Area(wkb_geometry) asc
+LIMIT 10;
+```
+
+Pinta-alat esitetään käytetyn koordinaattijärjestelmän yksiköissä, tässä neliömetreinä. Jos haluat pinta-alan hehtaareina, jaa alue 10 000:lla (100 m x 100 m).
+
+## Harjoitus 6.3
+
+Mikä on Uudenmaan maakunnan viidenneksi pienimmän kunnan pinta-ala neliökilometreinä?
+
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+SELECT
+kunta_ni1 as "Kunta", maaku_ni1 As "Maakunta",
+round((ST_Area(wkb_geometry)/(1000*1000))::numeric,2) as "Pinta-ala (km2)"
+FROM
+nlsfi.hallintoalue
+WHERE
+maaku_ni1 = 'Uusimaa'
+ORDER BY
+ST_Area(wkb_geometry) asc
+LIMIT 1
+OFFSET 4;
+```
+
+### Topologia
+
+Voimme tutkia paikkatietoaineistojen geometrioiden topologiaa monella eri tavalla, esimerkiksi luettelo suomalaisista kunnista, joissa on reikä:
+
+
+```python
+%%sql
+SELECT
+kunta_ni1 as "Nimi"
+FROM
+nlsfi.hallintoalue
+WHERE 
+ST_NumInteriorRings(ST_GeometryN(wkb_geometry,1)) > 0;
+```
+
+### Pituus
+
+Paikkatietoaineistojen viivojen pituuksia voi tutkia **ST_Length**-funktiolla, harjoitusaineistossa olevien rautateiden yhteispituus:
+
+
+```python
+%%sql
+SELECT
+sum(ST_Length(wkb_geometry))/1000 as "Rautateiden yhteenlaskettu pituus"
+FROM
+nlsfi.rautatieviiva;
+```
+
+## Harjoitus 6.4
+
+Mikä on suomalaisen tien nro 66 kokonaispituus?
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+SELECT
+round(SUM(ST_Length(wkb_geometry))::numeric,2) as "Reitin 66 kokonaispituus (m)"
+FROM
+nlsfi.tieviiva
+WHERE
+tienumero = 66;
+```
+
+### Esitysmuodot
+
+Aikaisemmin katsoimme jo geometrioita tekstimuotoisena. PostGIS sisältää myös muita esitystapoja:
+
+
+```python
+%%sql
+SELECT
+ST_asGeoJSON(wkb_geometry)
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 = 'Ilomantsi';
+```
+
+> Kokeile eri tiedostomuotoja:
+> - GML
+> - SVG
+> - KML
+> - X3D
+> - EWKB, EWKT
+
+### Eri tieluokkien pituudet
+
+Käytössä olevan aineiston tieluokittainen kokonaispituus:
+
+
+```python
+%%sql
+SELECT
+tieluokka as "Tieluokka", sum(st_length(wkb_geometry))/1000 as "Kokonaispituus"
+FROM 
+nlsfi.tieviiva
+GROUP BY
+tieluokka
+ORDER BY
+"Kokonaispituus" desc;
+```
+
+### Tietotyyppien muutokset
+
+PostgreSQL sisältää kaksi tapaa tietotyyppien muutoksiin (casting):
+``` mysql
+cast(varchar_col AS int)     -- SQL yhteensopiva
+varchar_col::int        -- PostgreSQLn perinteinen tapa
+```
+
+
+```python
+%%sql
+SELECT CAST('POINT(0 0)' as geometry);
+SELECT 'POINT(0 0)'::geometry;
+```
+
+## Harjoitus 6.5
+
+Muodosta ensimmäisen harjoituksen lentokenttiä kuvaavasta tiedosta uusi paikkatietotaso, jossa lentokenttien sijainti ilmoitetaan PostGIS:n geometria-tyyppinä.
+
+> Kannattaa lisäillä koodisoluja ja jakaa ratkaisu osiin. Alla näkyvästä SQL-komennosta kannattaa ottaa vähän vinkkiä (myös sen suhteen, että kannattaa tarkastella vain pientä otosta lentokenttä-aineistosta):
+
+
+```python
+%%sql
+SELECT name, longitude, latitude, 'POINT(' || longitude || ' '|| latitude || ')' as WKT_uudet
+FROM airports
+ORDER BY name
+LIMIT 10;
+```
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+
+DROP TABLE IF EXISTS airports_geom;
+
+CREATE TABLE airports_geom AS
+(
+    SELECT
+    *, ST_SetSRID(CAST('POINT(' || longitude || ' '|| latitude || ')' as geometry),4326) as geometry
+    FROM
+    airports
+);
+
+SELECT
+name, longitude, latitude, ST_asText(geom) as "ST_asText(geom)"
+FROM
+airports_geom
+ORDER BY
+name
+LIMIT 10;
+```
+
+> Harkitse geometrian esitystapaa: geometry vai geography?
+
+Siirry takaisin [päänäkymään](/tree).
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
+

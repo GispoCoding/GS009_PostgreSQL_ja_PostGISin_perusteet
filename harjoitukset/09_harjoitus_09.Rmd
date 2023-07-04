@@ -1,0 +1,248 @@
+# Harjoitus 10: PostgreSQL:n ylläpito
+
+
+|     |       |
+|:--: | :---: |
+| <span style="color:purple"> **Harjoituksen sisältö** </span> | PostgreSQL:n ylläpitoon liittyviä aiheita. |
+| <span style="color:purple"> **Harjoituksen tavoite** </span> | Opiskelija tuntee PostgreSQL:n ylläpitoon liittyviä perusasioita. |
+
+### Valmistautuminen
+
+Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
+
+
+```python
+%load_ext sql
+from ipygis import get_connection_url
+
+c_url = get_connection_url(dbname="trainingdatabase")
+%sql $c_url
+```
+
+### Taulutilat
+
+Tarkista koulutuspalvelimen oletustaulutilojen sijainti. Käyttäjien tiedot sijaitsevat **pg_default**-taulutilassa, joka on data_directoryn base-hakemistossa. Järjestelmän yleiset tiedot sijaitsevat **pg_global**-taulutilassa, joka on data_directoryn global-hakemistossa. Datahakemiston sijainnin voit tarkistaa komennolla:
+
+
+```python
+%%sql
+SHOW data_directory;
+```
+
+## Harjoitus 10.1: Uuden taulutilan luominen
+
+Uutta taulutilaa varten pitää luoda ensin palvelimelle kansio. Kansion tulee olla postgres-käyttäjän omistuksessa ja käyttöoikeudet vain postgres-käyttäjälle. Hakemisto on luotu valmiiksi palvelimelle komennoilla:
+```
+sudo mkdir /usr/local/tmp_tbls
+sudo chown -R postgres:postgres /usr/local/tmp_tbls/
+sudo chmod 700 /usr/local/tmp_tbls/
+```
+
+Luo uusi taulutila SQL-komennolla psql:n tai pgAdminin avulla:
+
+```sql
+CREATE TABLESPACE tmp_tablespace
+LOCATION '/usr/local/tmp_tbls';
+```
+
+### Tietokannan ja taulun taulutilan muuttaminen
+
+Koko tietokannan taulutilan voi muuttaa yhdellä komennolla.
+> <span style='color:red'>Tätä ei kuitenkaan voi tehdä jos tietokantaan on auki aktiivisia yhteyksiä! </span>
+
+1. Sulje pgAdminin tietokantayhteys harjoitustietokantaasi klikkaamalla tietokantaa sivupaneelissa hiiren oikealla painikkeella ja valitsemalla **Disconnect Database**.
+2. Sulje myös tämän notebookin yhteys painamalla **Kernel** > **Restart Kernel**.
+3. Avaa tämän jälkeen sivupaneelista postgres-tietokanta ja avaa **Query tool** (voit tehdä tämän myös psql:n avulla). Anna komento:
+
+```sql
+ALTER DATABASE trainingdatabase
+SET TABLESPACE tmp_tablespace;
+```
+
+4. Yhdistä tällä notebookilla uudelleen tietokantaan:
+
+
+```python
+%load_ext sql
+from ipygis import get_connection_url
+
+c_url = get_connection_url(dbname="trainingdatabase")
+%sql $c_url
+```
+
+Voit tarkistaa tietokannan taulutilan sijainnin SQL-kyselyllä:
+
+
+```python
+%%sql
+SELECT
+spcname, pg_tablespace_location(oid)
+FROM
+pg_tablespace;
+```
+
+Luo testausta varten tilapäinen taulu:
+
+
+```python
+%%sql
+DROP TABLE IF EXISTS tmp_table;
+
+CREATE TABLE tmp_table AS
+SELECT x
+FROM
+generate_series(2,5000,2) AS x;
+```
+
+Taulun käyttämän taulutilan voit tarkistaa seuraavalla komennolla:
+
+
+```python
+%%sql
+SELECT
+tablename, tablespace
+FROM
+pg_tables
+WHERE
+tablename = 'tmp_table';
+```
+
+Muuta taulun taulutilaa seuraavalla komennolla:
+
+
+```python
+%%sql
+ALTER TABLE
+tmp_table
+SET TABLESPACE
+tmp_tablespace;
+```
+
+Tarkista, että taulun taulutila on nyt muuttunut. Voit myös käyttää pgAdminia taulutilojen tarkastelemiseen.
+
+### Indeksin taulutilan muuttaminen
+
+Voit luoda indeksin tauluun komennolla:
+
+
+```python
+%%sql
+CREATE INDEX
+idx_tmp_x
+ON tmp_table(x);
+```
+
+Indeksit luodaan oletusarvoisesti **pg_default**-taulutilaan. Usein käytetyt indeksit voi olla tarpeen tallentaa sellaiseen taulutilaan, joka käyttää palvelimessa olevaa nopeinta levyä (esimerkiksi SSD-levyt). Indeksien taulutilan muuttaminen onnistuu seuraavasti:
+
+
+```python
+%%sql
+ALTER INDEX
+idx_tmp_x
+SET TABLESPACE
+tmp_tablespace;
+```
+
+## Harjoitus 10.2: Käyttäjäroolit
+
+Oletusarvoisesti PostgreSQL:ään luodaan postgres-niminen rooli ja samanniminen tietokanta. Aiemmin harjoituksissa on luotu koulutusta varten tietokanta (training). Voit luoda uuden käyttäjän tietokantapalvelimeen seuraavalla SQL-komennolla:
+
+
+```python
+%%sql
+DROP ROLE IF EXISTS matti;
+
+CREATE ROLE
+matti
+LOGIN PASSWORD
+'1234'
+CREATEDB
+VALID UNTIL
+'infinity';
+```
+
+**CREATEDB**-parametri määrittää roolille oikeudet tietokantojen luomiseen. VALID-parametri määrittää roolin voimassaolon ajan (tässä tapauksessa ikuisesti).
+
+Luo uusi ylläpitäjän rooli seuraavalla SQL-komennolla:
+
+
+```python
+%%sql
+DROP ROLE IF EXISTS dba;
+
+CREATE ROLE
+dba
+LOGIN PASSWORD
+'1234'
+SUPERUSER
+VALID UNTIL
+'2021-1-1 00:00';
+```
+
+Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 1. tammikuuta 2020 asti.
+Voit tarkastella käyttäjien tietoja pgAdminin puuhierarkian kohdassa **Login/Group Roles**.
+
+### Ryhmäroolit
+
+Ryhmäroolit (group roles) luodaan seuraavalla SQL-komennolla:
+
+
+```python
+%%sql
+DROP ROLE IF EXISTS admins;
+
+CREATE ROLE
+admins
+INHERIT;
+```
+
+INHERIT-parametri tarkoittaa sitä, että kaikki **our_admins**-ryhmän sisällä olevat roolit perivät ryhmän oikeudet. Poikkeuksena, **superuser**-oikeus ei koskaan periydy PostgreSQL:ssä.
+
+Lisää roolit matti ja dpa ryhmään admins seuraavasti:
+
+
+```python
+%%sql
+GRANT
+admins
+TO
+matti, dba;
+```
+
+Voit vaihtaa rooleja komennolla **SET ROLE**:
+
+
+```python
+%%sql
+SET ROLE
+matti;
+```
+
+Käytössä olevan roolin voi tarkistaa komennolla:
+
+
+```python
+%%sql
+SELECT current_user;
+```
+
+Kokeile komentoa SELECT session_user.
+
+
+```python
+%%sql
+SELECT ...
+```
+
+> Mikä on current_user ja session_user välinen ero?
+
+### Roolien lisääminen pgAdminissa
+
+![title](img/pgadminrooli.png)
+
+Roolien hallinta on selkeämpää pgAdminissa. Lisää uusi käyttäjä, valitse salasana ja lisää hänet myös admins-ryhmärooliin, huomaa SQL-välilehdelle muodostuva SQL-lauseke. Roolien poistaminen tapahtuu **DROP ROLE < roolin nimi >** -komennolla.
+
+Siirry takaisin [päänäkymään](/tree).
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
+

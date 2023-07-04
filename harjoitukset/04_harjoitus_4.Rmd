@@ -1,0 +1,200 @@
+# Harjoitus 5: Spatiaaliset SQL-haut
+
+|     |       |
+|:--: | :---: |
+| <span style="color:purple"> **Harjoituksen sisältö** </span> | Harjoituksessa tutustutaan paikkatietojen tallentamisen perusperiaatteisiin ja suoritetaan muutamia spatiaalisia SQL-hakuja. |
+| <span style="color:purple"> **Harjoituksen tavoite** </span> | Harjoituksen jälkeen opiskelijalla on käsitys, kuinka PostGIS-tietokannan spatiaalisia hakuoperaattoreita voidaan käyttää osana paikkatietoanalyysejä. |
+
+### Valmistautuminen
+
+Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
+
+
+```python
+%load_ext sql
+from ipygis import get_connection_url
+
+c_url = get_connection_url(dbname="trainingdatabase")
+%sql $c_url
+```
+
+Harjoituksessa 3 ladattiin tarvittavat paikkatietoaineistot PostGIS-tietokantaan. Jos tämä vaihe on jäänyt sinulta välistä, saat tarvittavat aineistot käyttöösi myös ajamalla ao. solun.
+
+
+```python
+from utils import initializer
+
+initializer.add_nlsfi_data()
+```
+
+### Paikkatietojen metatiedot
+
+Kaikki PostGIS-tietokannassa olevat paikkatietotaulut on rekisteröity metatieto-tauluihin:
+
+|     |       |
+|:--: | :---: |
+| <span style="color:purple"> **geography_columns** </span> | Geography-tietotyypin paikkatietotaulut |
+| <span style="color:purple"> **geometry_columns** </span> | Geometry-tietotyypin paikkatietotaulut |
+| <span style="color:purple"> **raster_columns** </span> | Rasteritietoa sisältävät paikkatietotaulut |
+| <span style="color:purple"> **raster_overviews** </span> | Yleistettyjä rasteriaineistoja sisältävät paikkatietotaulut |
+
+## Harjoitus 5.1
+
+Tutki geometry_columns-taulua. Mitä tietoja eri tietokentät sisältävät?
+
+
+```python
+%%sql
+SELECT *
+FROM
+geometry_columns;
+```
+
+> Onko geometry_columns taulu?
+
+### Geometrian esittäminen
+
+Tarkastellaan ensin paikkatietojen tallennusmuotoa PostGIS-paikkatietokannassa. Suorita seuraava SQL-lause:
+
+
+```python
+%%sql
+SELECT
+kunta_ni1, maaku_ni1, wkb_geometry
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 = 'Hanko';
+```
+
+Tuloksena näemme geometrian esitystavan, joka ei välttämättä ole tavalliselle paikkatiedon hyödyntäjälle kovin ymmärrettävässä muodossa. Geometriatieto voidaan esittää kuitenkin myös graafisesti ajamalla ao. komennot:
+
+
+```python
+%%sql res <<
+SELECT
+kunta_ni1, maaku_ni1, wkb_geometry
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 = 'Hanko';
+```
+
+
+```python
+from ipygis import get_map
+
+map = get_map(res)
+map
+```
+
+> Myös pgAdmin:ssa on mahdollista tarkastella geometrioita suoraan graafisessa käyttöliittymässä klikkaamalla pientä silmäikonia ![](img/pgadmin_geom.png) geometriasarakkeen päällä. Mikäli aineistot ovat WGS84-koordinaattijärjestelmässä (EPSG: 4326), pgAdmin myös lisää niihin suoraan taustakartan OpenStreetMapista.
+
+Aineistojen koordinaatistot löytyvät SRID-sarakkeesta. Yhdessä SRID-sarakkeessa voi olla vain yhden koordinaatiston metatiedot. Saat koordinaatit selvempään muotoon seuraavalla hakulausekkeella:
+
+
+```python
+%%sql
+SELECT
+kunta_ni1, maaku_ni1, ST_AsText(wkb_geometry)
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 = 'Hanko';
+```
+
+## Harjoitus 5.2
+
+Kokeile myös seuraavia funktioita Hangon kunnan geometriatietoihin liittyen:
+- ST_Boundary
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+SELECT
+kunta_ni1, maaku_ni1, ST_AsText(ST_Boundary(wkb_geometry))
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 = 'Hanko';
+```
+
+- ST_Centroid
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+SELECT
+kunta_ni1, maaku_ni1, ST_AsText(ST_Centroid(wkb_geometry))
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 = 'Hanko';
+```
+
+- ST_Envelope
+
+
+```python
+%%sql
+SELECT ...
+```
+
+
+```python
+%%sql
+SELECT
+kunta_ni1, maaku_ni1, ST_AsText(ST_Envelope(wkb_geometry))
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 = 'Hanko';
+```
+
+> Huomaa, miten vastauksena tuleva geometrian tyyppi vaihtelee eri funktioiden kohdalla.
+
+### Spatiaaliset indeksit
+
+Tarkastele nlsfi.hallintoalue-taulun indeksejä.
+- Mitä indeksejä taululle on muodostunut? <br>
+- Kuinka taulu eroaa tieviiva-taulun indekseistä? Mistä ero johtuu?
+
+
+> Indeksejä voi tarkastella sekä **pgAdmin**in tai QGIS **DB Manager**in avulla että luomalla tarkoitukseen sopivan SQL-kyselyn.
+
+Luodaan spatiaalinen indeksi taululle tieviiva:
+
+
+```python
+%%sql
+CREATE INDEX tieviiva_wkb_geometry
+ON nlsfi.tieviiva
+USING GIST(wkb_geometry);
+```
+
+> pgAdminissa löydät indeksit valitsemalla Schemas > Tables > Indexes.
+
+> Jos käytät psql-komentoriviohjelmaa, voit tarkastella indeksejä seuraavilla psql-komennoilla:
+> ```
+> \dt+ nlsfi.tieviiva
+> \di+ nlsfi.tieviiva*
+> ```
+
+> Mikä on tieviivoja sisältävän taulun koko ja miten suuri on siihen tehty indeksi?
+
+Siirry takaisin [päänäkymään](/tree).
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
+

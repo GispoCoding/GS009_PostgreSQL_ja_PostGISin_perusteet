@@ -1,9 +1,9 @@
 ---
-title: "Johdanto PostgreSQL:n käyttöön"
+title: "Johdanto PostGISin käyttöön"
 author: "Gispo Oy"   
 date: "`r Sys.Date()`"
 site: "bookdown::bookdown_site"
-abstract: "Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin."
+abstract: "Kurssi PostGISin yleisimpiin käyttötapauksiin."
 output:
     bookdown::html_book:
         toc: true
