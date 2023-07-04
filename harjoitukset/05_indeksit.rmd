@@ -5,67 +5,90 @@ Luetaan taulusta kuinka monella rivillä ajoneuvoluokka on M1.
 
 Tarkista kuinka kauan kyselyn suorittamiseen meni.
 
+::: code-box
 ```sql
 SELECT count(*) FROM ajoneuvorekisteri WHERE ajoneuvoluokka = 'M1';
 ```
+:::
 
 ## Indeksien luominen
 Luodaan yksinkertainen B-TREE -indeksi sarakkeelle ajoneuvoluokka:
 
+::: code-box
 ```sql
 CREATE INDEX ajoneuvoluokka_idx ON ajoneuvorekisteri(ajoneuvoluokka);
 ```
+:::
+
 Tarkista nyt uudestaaan, kuinka kauan yllä olevan kyselyn suoritus kestää.
 
 ## Indeksien koko
 Indeksit kasvattavat tietokannan kokoa. Aja seuraava solu nähdäksesi kaikkienajoneuvorekisteri-taulun indeksien koot:
 
+::: code-box
 ```sql
 SELECT pg_size_pretty(pg_indexes_size('ajoneuvorekisteri'));
 ```
+:::
 
 ## Indeksien poistaminen
 Indeksin voi poistaa syntaksilla:
+
+::: code-box
 ```sql
 DROP INDEX <nimi>;
 ```
+:::
 
 Esimerkiksi:
+
+::: code-box
 ```sql
  DROP INDEX ajoneuvoluokka_idx;
 ```
+:::
 
 ## Harjoitus 5.1: Spatiaalinen indeksi
 Indeksit ovat erityisen tärkeitä paikkatiedon parissa työskennellessä.
 Yritä seuraavaa kyselyä aluksi aineistolla, jolla ei ole indeksejä.
 Tarkista suoritusaika.
 
+::: code-box
 ```sql
 WITH helsinki AS (SELECT geom, nimi FROM kunnat WHERE nimi = 'Helsinki') 
 SELECT count(*) FROM digiroad_uusimaa a 
 JOIN helsinki b ON ST_Intersects(b.geom, a.geom);
 ```
+:::
 
 Luo nyt spatiaalinen indeksi kunnat_geom_idx taululle kunnat syntaksilla:
+
+::: code-box
 ```sql
 CREATE INDEX nimi ON taulu USING GIST ("geom")
 ```
- 
+:::
+
+::: code-box
 ```sql
 CREATE INDEX kunnat_geom_idx ON kunnat USING GIST ("geom")
 ```
+:::
 
 Mittaa sitten uudelleen aika kyselyn suorittamiseen, nopeutuiko suoritus?
 
 Luo vielä spatiaalinen indeksi digiroad_geom_idx taululle digiroad_uusimaa
 
+::: code-box
 ```sql
 CREATE INDEX digiroad_geom_idx ON digiroad_uusimaa USING GIST ("geom")
 ```
+:::
 Mittaa aika uudelleen
 
 Visualisoidaan helsingin teitä. Kyselyn suorittamisessa menee hetki
 
+::: code-box
 ```sql
 WITH helsinki AS (
     SELECT geom, nimi FROM kunnat WHERE nimi = 'Helsinki'
@@ -77,3 +100,4 @@ FROM
     ON ST_Intersects(b.geom, a.geom)
 ;
 ```
+:::

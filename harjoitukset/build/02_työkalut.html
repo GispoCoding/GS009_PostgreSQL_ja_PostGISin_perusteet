@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Johdanto PostgreSQL:n käyttöön" />
+<meta property="og:title" content="2 Työkalujen käyttö: PgAdmin ja psql | Johdanto PostgreSQL:n käyttöön" />
 <meta property="og:type" content="book" />
 
 
@@ -19,9 +19,9 @@
 <meta name="date" content="2023-07-04" />
 
 
-<meta name="description" content="Johdanto PostgreSQL:n käyttöön">
+<meta name="description" content="2 Työkalujen käyttö: PgAdmin ja psql | Johdanto PostgreSQL:n käyttöön">
 
-<title>Johdanto PostgreSQL:n käyttöön</title>
+<title>2 Työkalujen käyttö: PgAdmin ja psql | Johdanto PostgreSQL:n käyttöön</title>
 
 
 
@@ -205,37 +205,110 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </div>
 <div class="row">
 <div class="col-sm-12">
-<!-- This title section is only rendered to index.html -->
-<div id="title-container">
-
-<h1 id="title-header">Johdanto PostgreSQL:n käyttöön</h1>
-
-<h4 class="author">Gispo Oy</h4>
-
-<h4 id="build-date">Version: 2023-07-04</h4>
-
-<div class="abstract"><p>Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin.</p></div>
-
+<div id="työkalujen-käyttö-pgadmin-ja-psql" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Työkalujen käyttö: PgAdmin ja psql</h1>
+<p>Tässä osassa tutustutaan PgAdmin-käyttöliittymään sekä psql:ään.</p>
+<div id="pgadmin-4" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> PgAdmin 4</h2>
+<p>Käynnistä PgAdmin 4 menemällä osoitteeseen <a href="/pgadmin">/pgadmin</a>. Kirjaudu sisään kouluttajan antamalla tunnuksella ja salasanalla.</p>
+<div class="figure">
+<img src="img/pgadmin_splash.png" alt="" />
+<p class="caption">pgadmin_splash</p>
 </div>
-<div id="johdanto" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Johdanto</h1>
-<p>Tervetuloa kurssin harjoitusten pariin!</p>
-<p>Näiden harjoitusten avulla voit tutustua itsenäisesti PostgreSQL-tietokantajärjestelmään. Valitse vasemmalta haluamasi aihe.</p>
-<div id="harjoitusmateriaalin-lisenssi" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Harjoitusmateriaalin lisenssi</h2>
+<div id="tietokantayhteyden-lisääminen" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Tietokantayhteyden lisääminen</h3>
+<p>Luo uusi tietokantayhteys tietokantaklusteriin klikkaamalla hiiren oikealla kohdasta Servers ja valitsemalla Create &gt; Server…</p>
+<p>Täytä seuraavat tiedot:</p>
 <ul>
-<li>Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a>.</li>
-<li>etunimet.csv - muodostettu 24.08.2020 aineistosta Etunimitilasto 2020-08-19, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
-<li>ajoneuvorekisteri_schema.sql - muodostettu 25.08.2020 aineistosta Ajoneuvojen avoin data 5.8, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
-<li>audit_log.csv on muodostettu enterprisedb -sivun esimerkeistä.</li>
-<li>digiroad_uusimaa.gpkg on muodostettu 7.10.2020 Digiroad-aineistosta, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
-<li>kunnat.gpkg on muodostettu 7.10.2020 Kuntapohjaiset tilastointialueet -aineistosta, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
+<li>Välilehdellä General:
+<ul>
+<li>Name: yhteyden nimi. Vapaavalintainen yhteyden nimi, jolla sen tunnistat myöhemmin. Tyypillinen notaatio on <code>&lt;käyttäjänimi&gt;@&lt;host&gt;/&lt;tietokanta&gt;</code></li>
+</ul></li>
+<li>Välilehdellä Connection:
+<ul>
+<li>Host: dbhost (pgadmin ja postgresql ovat dockerin sisällä, joten localhost ei käy tässä)</li>
+<li>Port: 5432</li>
+<li>Maintenance database: postgres</li>
+<li>User: Kysy kouluttajalta</li>
+<li>Password: Kysy kouluttajalta</li>
+<li>Valitse Save password, jos et halua kirjoittaa sitä uudestaan avatessasi yhteyden</li>
+</ul></li>
 </ul>
+<div class="figure">
+<img src="img/pgadmin_create_server.gif" alt="" />
+<p class="caption">Tietokantayhteyden lisääminen</p>
+</div>
+</div>
+<div id="kyselytyökalun-käyttäminen-query-tool" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Kyselytyökalun käyttäminen (Query Tool)</h3>
+<p>Kyselytyökalun avulla voi suorittaa SQL-kyselyitä ja lauseita. Käynnistä se seuraavasti:</p>
+<ul>
+<li>Valitse Servers-osiosta tietokantaklusterisi</li>
+<li>Valitse klusterin sisältä haluamasi tietokanta</li>
+<li>Valitse ylhäältä Tools &gt; Query Tool</li>
+<li>Voit suorittaa lauseita painamalla F5</li>
+<li>Jos haluat suorittaa vain osan lauseista, maalaam hiirellä haluttu osio ja paina F5</li>
+</ul>
+<div class="figure">
+<img src="img/pgadmin_query_tool.gif" alt="" />
+<p class="caption">Kyselytyökalun käyttäminen</p>
+</div>
+</div>
+<div id="tietokantayhteyden-sulkeminen" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Tietokantayhteyden sulkeminen</h3>
+<p>Klikkaa hiiren oikealla luomastasi yhteydestä ja valitse Disconnect Server. Tämä on erityisen tärkeää, kun kurssilla on monta osallistujaa.</p>
+</div>
+</div>
+<div id="psql" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> psql</h2>
+<p>Psql on asennettu valmiiksi koulutusympäristön palvelimelle, jonka komentoriville pääset kirjautumaan osoitteessa <a href="/wetty">/wetty</a>. Kouluttaja antaa linux käyttäjän tunnuksen ja salasanan.</p>
+<p>Avaa komentorivi yllämainitussa osoitteessa ja kirjaudu sisään.
+Tämän jälkeen yhdistä tietokataklusteriin komennolla:</p>
+<pre><code>psql -h dbhost -d postgres -U postgres</code></pre>
+<ul>
+<li><strong>-h dbhost</strong> määrittää palvelimen osoitteeseen/nimen, mihin otetaan yhteyttä. (koulutusympäristössä tietokanta on dbhost nimisellä palvelimella)</li>
+<li><strong>-d postgres</strong> tietokanta mihin yhdistetään</li>
+<li><strong>-U postgres</strong> käyttäjä jolla yhdistetään</li>
+</ul>
+<div id="käyttäminen" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Käyttäminen</h3>
+<p>Kun psql on käynnistetty, komentorivillä voit kirjoittaa sekä psql, että SQL-komentoja.
+Psql sessiossa käytettäviä erikoiskomentoja kutsutaan interaktiiviseksi psql -komennoiksi.</p>
+<p>Alla muutama interaktiivinen psql-komento:</p>
+<ul>
+<li><code>\d</code> = näytä taulut, näkymät ja sekvenssit</li>
+<li><code>\dg</code> = näytä tietokantaklusterin roolit (käyttäjät)</li>
+<li><code>\c</code> tietokannan_nimi = yhdistä tietokannan_nimi -tietokantaan</li>
+</ul>
+<p>Komennolla <code>help</code> ja erityisesti komennolla <code>\?</code> saat tietoa ohjelman eri komennoista. Pääset pois listauksesta painamalla <code>q</code>.</p>
+<p>SQL-kyselyiden syntaksista saat ohjeita komennolla <code>\h</code> esim. <code>\h ALTER DEFAULT</code>. Pitkissä dokumenteissa <code>space</code>-napilla pääsee seuraavalle sivulle ja <code>q</code>-napilla saa “suljettua” ohjeen.</p>
+<p>SQL esimerkit:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="02_työkalut.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> current_database();</span></code></pre></div>
+<p>Komentorivin puolella käytettäviä psql-komentoja kutsutaan ei-interaktiivisiksi. Ei-interaktiivisia psql komentoja käytetään
+kun halutaan käyttää psql:a suoraan käyttöjärjestelmän komentoriviltä ja suoritettavat psql-komennot ja SQL-skriptit ovat
+tiedostossa. Ei-interaktiivinen psql sopii erityisesti tehtävien automaattisointiin. Esimerkiksi, aiemmin esitetyt
+yhteydenottokomennot ovat ei-interaktiivisia psql-komentoja. Kokeile seuraavaa komentoa komentoriviltä:</p>
+<pre class="shell"><code>psql -h dbhost -d postgres -U postgres -c &quot;select current_database();&quot;</code></pre>
+<ul>
+<li><strong>-c <SQL></strong> SQL lauseke voidaan antaa parametrina psql-ohjelmalle</li>
+<li><strong>-f &lt;tiedosto.sql&gt;</strong> tiedostossa oleva sql-skripti voidaan myös antaa parametrina</li>
+</ul>
+</div>
+<div id="tietokantayhteyden-sulkeminen-1" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Tietokantayhteyden sulkeminen</h3>
+<p>Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento:</p>
+<pre><code>\q</code></pre>
+</div>
+</div>
+<div id="pg_dump-ja-pg_restore" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> pg_dump ja pg_restore</h2>
+<p>Tietokannan tai yksittäisten taulujen varmuuskopioiden luomiseen ja palauttamiseen on omat komentoriviohjelmansa: pg_dump ja pg_restore. Muun muassa pgAdmin käyttää näitä sisäisesti.</p>
 
 </div>
 </div>
 <p style="text-align: center;">
-<a href="02_työkalut.html"><button class="btn btn-default">Next</button></a>
+<a href="index.html"><button class="btn btn-default">Previous</button></a>
+<a href="03_tietokannat_ja_taulut.html"><button class="btn btn-default">Next</button></a>
 </p>
 </div>
 </div>

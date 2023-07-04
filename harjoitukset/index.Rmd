@@ -1,11 +1,17 @@
 ---
 title: "Johdanto PostgreSQL:n käyttöön"
-author: "Gispo Oy"
+author: "Gispo Oy"   
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-description: "Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin."
+site: "bookdown::bookdown_site"
+abstract: "Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin."
+output:
+    bookdown::html_book:
+        toc: true
+        theme: null
+        template: custom.html
+        css: custom.css
+        split_by: rmd       
 documentclass: book
-link-citations: yes
 ---
 
 # Johdanto

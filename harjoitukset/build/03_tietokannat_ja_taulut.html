@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<!-- Based on TemplateMo 553 Xtra Blog: https://templatemo.com/tm-553-xtra-blog -->
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön" />
+<meta property="og:type" content="book" />
+
+
+
+
+
+<meta name="author" content="Gispo Oy" />
+
+<meta name="date" content="2023-07-04" />
+
+
+<meta name="description" content="3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön">
+
+<title>3 Tietokannan ja taulujen luonti | Johdanto PostgreSQL:n käyttöön</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="custom.css" type="text/css" />
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/hamburgers.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<div class="main-content">
+<!-- special comment to mark beginning of title section for bookdown -->
+<!-- bookdown comments must be in this order: title, toc, body -->
+
+<div class="main-content-wrapper">
+
+<div class="row">
+<div class="col-sm-12">
+<header class="main-toc sidebar" id="sidebar">
+<div class="sidebar-wrapper">
+
+<button class="navbar-toggle hamburger hamburger--collapse" id="navbar-toggle"
+type="button" onclick="navToggle()" aria-label="Toggle navigation">
+<span class="hamburger-box"><span class="hamburger-inner"></span></span>
+</button>
+
+<div class="sidebar-title-wrapper">
+<img alt="Logo" width="100" src="img/gispo_white_sm.png" class="sidebar-logo">
+<div class="sidebar-title"><h1>Johdanto PostgreSQL:n käyttöön</h1></div>
+<div class="abstract-sidebar"><p>Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin.</p></div>
+</div>
+
+<nav class="sidebar-nav">
+<div id="TOC" class="toc">
+<ul>
+<li class="has-sub"><a href="index.html#johdanto"><span class="toc-section-number">1</span> Johdanto</a>
+<ul>
+<li><a href="index.html#harjoitusmateriaalin-lisenssi"><span class="toc-section-number">1.1</span> Harjoitusmateriaalin lisenssi</a></li>
+</ul></li>
+<li class="has-sub"><a href="02_työkalut.html#työkalujen-käyttö-pgadmin-ja-psql"><span class="toc-section-number">2</span> Työkalujen käyttö: PgAdmin ja psql</a>
+<ul>
+<li class="has-sub"><a href="02_työkalut.html#pgadmin-4"><span class="toc-section-number">2.1</span> PgAdmin 4</a>
+<ul>
+<li><a href="02_työkalut.html#tietokantayhteyden-lisääminen"><span class="toc-section-number">2.1.1</span> Tietokantayhteyden lisääminen</a></li>
+<li><a href="02_työkalut.html#kyselytyökalun-käyttäminen-query-tool"><span class="toc-section-number">2.1.2</span> Kyselytyökalun käyttäminen (Query Tool)</a></li>
+<li><a href="02_työkalut.html#tietokantayhteyden-sulkeminen"><span class="toc-section-number">2.1.3</span> Tietokantayhteyden sulkeminen</a></li>
+</ul></li>
+<li class="has-sub"><a href="02_työkalut.html#psql"><span class="toc-section-number">2.2</span> psql</a>
+<ul>
+<li><a href="02_työkalut.html#käyttäminen"><span class="toc-section-number">2.2.1</span> Käyttäminen</a></li>
+<li><a href="02_työkalut.html#tietokantayhteyden-sulkeminen-1"><span class="toc-section-number">2.2.2</span> Tietokantayhteyden sulkeminen</a></li>
+</ul></li>
+<li><a href="02_työkalut.html#pg_dump-ja-pg_restore"><span class="toc-section-number">2.3</span> pg_dump ja pg_restore</a></li>
+</ul></li>
+<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#tietokannan-ja-taulujen-luonti"><span class="toc-section-number">3</span> Tietokannan ja taulujen luonti</a>
+<ul>
+<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#tietokannan-luominen"><span class="toc-section-number">3.1</span> Tietokannan luominen</a>
+<ul>
+<li><a href="03_tietokannat_ja_taulut.html#createdb"><span class="toc-section-number">3.1.1</span> createdb</a></li>
+<li><a href="03_tietokannat_ja_taulut.html#pgadmin"><span class="toc-section-number">3.1.2</span> PgAdmin</a></li>
+<li><a href="03_tietokannat_ja_taulut.html#sql"><span class="toc-section-number">3.1.3</span> SQL</a></li>
+</ul></li>
+<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#tietokannan-poistaminen"><span class="toc-section-number">3.2</span> Tietokannan poistaminen</a>
+<ul>
+<li><a href="03_tietokannat_ja_taulut.html#dropdb"><span class="toc-section-number">3.2.1</span> dropdb</a></li>
+<li><a href="03_tietokannat_ja_taulut.html#sql-1"><span class="toc-section-number">3.2.2</span> SQL</a></li>
+</ul></li>
+<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#harjoitus-3.1-luo-uusi-tietokanta"><span class="toc-section-number">3.3</span> Harjoitus 3.1: Luo uusi tietokanta</a>
+<ul>
+<li><a href="03_tietokannat_ja_taulut.html#taulujen-luominen"><span class="toc-section-number">3.3.1</span> Taulujen luominen</a></li>
+<li><a href="03_tietokannat_ja_taulut.html#rivien-lisääminen"><span class="toc-section-number">3.3.2</span> Rivien lisääminen</a></li>
+<li><a href="03_tietokannat_ja_taulut.html#kyselyjen-tekeminen"><span class="toc-section-number">3.3.3</span> Kyselyjen tekeminen</a></li>
+</ul></li>
+<li><a href="03_tietokannat_ja_taulut.html#harjoitus-3.2-taulun-luominen"><span class="toc-section-number">3.4</span> Harjoitus 3.2 Taulun luominen</a></li>
+</ul></li>
+<li class="has-sub"><a href="04_tietotyypit.html#tietotyypit"><span class="toc-section-number">4</span> Tietotyypit</a>
+<ul>
+<li><a href="04_tietotyypit.html#harjoitus-4.1-ota-oikea-tietotyyppi-käyttöön"><span class="toc-section-number">4.1</span> Harjoitus 4.1: Ota oikea tietotyyppi käyttöön</a></li>
+<li><a href="04_tietotyypit.html#harjoitus-4.2"><span class="toc-section-number">4.2</span> Harjoitus 4.2</a></li>
+<li><a href="04_tietotyypit.html#geometriatyyppi"><span class="toc-section-number">4.3</span> Geometriatyyppi</a></li>
+<li><a href="04_tietotyypit.html#harjoitus-4.3-visualisoi-geometrioita-pgadmilla"><span class="toc-section-number">4.4</span> Harjoitus 4.3: Visualisoi geometrioita pgAdmilla</a></li>
+</ul></li>
+<li class="has-sub"><a href="05_indeksit.html#indeksit"><span class="toc-section-number">5</span> Indeksit</a>
+<ul>
+<li><a href="05_indeksit.html#indeksien-luominen"><span class="toc-section-number">5.1</span> Indeksien luominen</a></li>
+<li><a href="05_indeksit.html#indeksien-koko"><span class="toc-section-number">5.2</span> Indeksien koko</a></li>
+<li><a href="05_indeksit.html#indeksien-poistaminen"><span class="toc-section-number">5.3</span> Indeksien poistaminen</a></li>
+<li><a href="05_indeksit.html#harjoitus-5.1-spatiaalinen-indeksi"><span class="toc-section-number">5.4</span> Harjoitus 5.1: Spatiaalinen indeksi</a></li>
+</ul></li>
+<li class="has-sub"><a href="06_käyttöoikeudet.html#käyttäjien-hallinta"><span class="toc-section-number">6</span> Käyttäjien hallinta</a>
+<ul>
+<li><a href="06_käyttöoikeudet.html#käyttäjäroolit"><span class="toc-section-number">6.1</span> Käyttäjäroolit</a></li>
+<li><a href="06_käyttöoikeudet.html#käyttöoikeuksien-lisääminen"><span class="toc-section-number">6.2</span> Käyttöoikeuksien lisääminen</a></li>
+<li><a href="06_käyttöoikeudet.html#harjoitus-6.1-käyttöoikeudet"><span class="toc-section-number">6.3</span> Harjoitus 6.1: käyttöoikeudet</a></li>
+<li><a href="06_käyttöoikeudet.html#ryhmäroolit"><span class="toc-section-number">6.4</span> Ryhmäroolit</a></li>
+<li><a href="06_käyttöoikeudet.html#roolien-käyttöä"><span class="toc-section-number">6.5</span> Roolien käyttöä</a></li>
+<li><a href="06_käyttöoikeudet.html#harjoitus-6.2-roolien-luominen-pgadmin-kautta"><span class="toc-section-number">6.6</span> Harjoitus 6.2: Roolien luominen pgAdmin kautta</a></li>
+</ul></li>
+<li class="has-sub"><a href="07_fdw.html#foreign-data-wrapper-fdw"><span class="toc-section-number">7</span> Foreign Data Wrapper (fdw)</a>
+<ul>
+<li><a href="07_fdw.html#file_fdw--lisäosa-tiedostojen-lukemiseen"><span class="toc-section-number">7.1</span> file_fdw -lisäosa tiedostojen lukemiseen</a></li>
+<li><a href="07_fdw.html#harjoitus-7.1-csv-tiedostosta-lukeminen"><span class="toc-section-number">7.2</span> Harjoitus 7.1: csv-tiedostosta lukeminen</a></li>
+<li><a href="07_fdw.html#harjoitus-7.2-toisesta-postgresql-kannasta-lukeminen"><span class="toc-section-number">7.3</span> Harjoitus 7.2: Toisesta PostgreSQL-kannasta lukeminen</a></li>
+</ul></li>
+</ul>
+</div>
+</nav>
+</div>
+</header>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="tietokannan-ja-taulujen-luonti" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Tietokannan ja taulujen luonti</h1>
+<p>Tässä osassa luodaan tietokanta, johon lisätään erilaisia tauluja.</p>
+<div id="tietokannan-luominen" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Tietokannan luominen</h2>
+<p>Tietokannan voi luoda useammalla eri tavalla.</p>
+<div id="createdb" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> createdb</h3>
+<p>createdb on komentorivityökalu helpottamaan tietokannan luomista. Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:</p>
+<div class="commandline-box">
+<pre class="shell"><code>createdb -h dbhost -U postgres &lt;uuden_tietokannan_nimi&gt;</code></pre>
+</div>
+<p>Kuten psql, myös createdb lukee tietokannan yhteysparametrit ympäristömuuttujista.</p>
+</div>
+<div id="pgadmin" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> PgAdmin</h3>
+<p>Kuten miltei kaikkeen muuhunkin, PgAdmin tarjoaa myös tietokantojen luomiseen ja poistamiseen graafisen ratkaisun: Klikkaa oikealla tietokantayhteydesta &gt; Create &gt; Database.
+<img src="img/createdb_pgadmin.gif" alt="Tietokannan luominen PgAdminilla" /></p>
+</div>
+<div id="sql" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> SQL</h3>
+<p>Perinteisin tapa tietokantojen luomiseen käy kuitenkin SQL:n kautta. Alla olevan komennon voi suorittaa psql:n tai PgAdminin Query Toolin) avulla:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="03_tietokannat_ja_taulut.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> <span class="op">&lt;</span>uuden_tietokannan_nimi<span class="op">&gt;</span>;</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="tietokannan-poistaminen" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Tietokannan poistaminen</h2>
+<div id="dropdb" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> dropdb</h3>
+<p>dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan tietokannan voi poistaa komennolla:</p>
+<div class="commandline-box">
+<pre class="shell"><code>dropdb &lt;poistettavan_tietokannan_nimi&gt;</code></pre>
+</div>
+</div>
+<div id="sql-1" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> SQL</h3>
+<p>Samaan tapaan kuin luotaessa</p>
+<div class="code-box">
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="03_tietokannat_ja_taulut.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">DATABASE</span> <span class="op">&lt;</span>poistettavan_tietokannan_nimi<span class="op">&gt;</span>;</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="harjoitus-3.1-luo-uusi-tietokanta" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Harjoitus 3.1: Luo uusi tietokanta</h2>
+<p>Luo uusi tietokanta “koulutus” createdb:n, pgAdmin:in tai psql:n avulla.</p>
+<p>Ota uusi yhteys tähän tietokantaan. PgAdminissa luo uusi tietokantayhteys luvun <a href="02_työkalut.html#tietokantayhteyden-lisääminen">Tietokantayhteyden lisääminen</a> ohjeiden mukaisesti ja anna tietokannaksi postgres.
+Tee seuraavat vaiheet tähän tietokantaan.</p>
+<div id="taulujen-luominen" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Taulujen luominen</h3>
+<p>PostgreSQL tarjoaa monipuolisen tavan luoda tauluja, näkymiä ja materialisoituja näkymiä.</p>
+<p>Luodaan yksinkertainen tietokantataulu kurssi siten, että sillä on kentät koodi, nimi, pvm, tyyli ja kesto.</p>
+<div class="code-box">
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="03_tietokannat_ja_taulut.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> kurssi (</span>
+<span id="cb9-2"><a href="03_tietokannat_ja_taulut.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    koodi    <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">CONSTRAINT</span> firstkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb9-3"><a href="03_tietokannat_ja_taulut.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    nimi     text <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb9-4"><a href="03_tietokannat_ja_taulut.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    pvm      <span class="dt">date</span>,</span>
+<span id="cb9-5"><a href="03_tietokannat_ja_taulut.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    tyyli    text,</span>
+<span id="cb9-6"><a href="03_tietokannat_ja_taulut.html#cb9-6" aria-hidden="true" tabindex="-1"></a>    kesto    <span class="dt">integer</span> <span class="kw">CHECK</span> (kesto <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb9-7"><a href="03_tietokannat_ja_taulut.html#cb9-7" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb9-8"><a href="03_tietokannat_ja_taulut.html#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="03_tietokannat_ja_taulut.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">COLUMN</span> kurssi.kesto <span class="kw">IS</span> <span class="st">&#39;Kurssin kesto tunteina&#39;</span>;</span></code></pre></div>
+</div>
+<p>Tauluja voi luoda myös SQL-kyselyiden tuloksien perusteella. Luodaan yksinkertainen taulu, johon tulisi kurssi-taulun rivit, joiden kesto on yksi.</p>
+<div class="code-box">
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="03_tietokannat_ja_taulut.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> kurssi_1 <span class="kw">AS</span> (</span>
+<span id="cb10-2"><a href="03_tietokannat_ja_taulut.html#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> koodi, nimi, pvm, tyyli, <span class="dv">1</span> kesto <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> kesto <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-3"><a href="03_tietokannat_ja_taulut.html#cb10-3" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+<p>Luonnollisestikin näkymä olisi järkevämpi vaihtoehto äskeiseen:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="03_tietokannat_ja_taulut.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">view</span> kurssi_1_view <span class="kw">AS</span> (</span>
+<span id="cb11-2"><a href="03_tietokannat_ja_taulut.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> koodi, nimi, pvm, tyyli, kesto <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> kesto <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-3"><a href="03_tietokannat_ja_taulut.html#cb11-3" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+</div>
+<div id="rivien-lisääminen" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Rivien lisääminen</h3>
+<p>Tauluun voidaan lisätä rivejä INSERT-komennoilla, tai esimerkiksi kyselyjen tuloksien avulla</p>
+<div class="code-box">
+<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="03_tietokannat_ja_taulut.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> kurssi(koodi, nimi, pvm, tyyli, kesto) <span class="kw">VALUES</span></span>
+<span id="cb12-2"><a href="03_tietokannat_ja_taulut.html#cb12-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;A1111&#39;</span>, <span class="st">&#39;PG-peruskurssi&#39;</span>, <span class="st">&#39;2020-10-01&#39;</span>, <span class="st">&#39;Pro&#39;</span>, <span class="st">&#39;15&#39;</span>);</span></code></pre></div>
+</div>
+<p>PostgreSQL tukee myös usean rivin lisäämistä yhdellä kertaa ja jos arvot ovat samassa järjestyksessä, kuin kentät, ei kenttien nimiä tarvitse antaa</p>
+<div class="code-box">
+<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="03_tietokannat_ja_taulut.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> kurssi <span class="kw">VALUES</span></span>
+<span id="cb13-2"><a href="03_tietokannat_ja_taulut.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;A1112&#39;</span>, <span class="st">&#39;PG-kertaus&#39;</span>, <span class="st">&#39;2020-10-03&#39;</span>, <span class="st">&#39;Pro&#39;</span>, <span class="st">&#39;1&#39;</span>),</span>
+<span id="cb13-3"><a href="03_tietokannat_ja_taulut.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;C1111&#39;</span>, <span class="st">&#39;PG-peruskurssi&#39;</span>, <span class="st">&#39;2021-10-01&#39;</span>, <span class="st">&#39;Pro&#39;</span>, <span class="st">&#39;15&#39;</span>),</span>
+<span id="cb13-4"><a href="03_tietokannat_ja_taulut.html#cb13-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;C1112&#39;</span>, <span class="st">&#39;PG-seuraavan_vuoden&#39;</span>, <span class="st">&#39;2021-10-03&#39;</span>, <span class="st">&#39;Pro&#39;</span>, <span class="st">&#39;1&#39;</span>);</span></code></pre></div>
+</div>
+<p>Rivejä voi lisätä myös kyselyjen tuloksena. Tässä hyödynnetään samalla WITH-kyselyitä (CTE, Common Table Expressions).</p>
+<div class="code-box">
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="03_tietokannat_ja_taulut.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> alikysely <span class="kw">AS</span> (<span class="kw">SELECT</span> <span class="dv">1</span> a, <span class="dv">2</span> b)</span>
+<span id="cb14-2"><a href="03_tietokannat_ja_taulut.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> alikysely <span class="kw">WHERE</span> a <span class="op">=</span> <span class="dv">1</span>;</span></code></pre></div>
+</div>
+<div class="code-box">
+<div class="sourceCode" id="cb15"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="03_tietokannat_ja_taulut.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> kertauskurssi <span class="kw">AS</span> (<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> nimi <span class="kw">like</span> <span class="st">&#39;%kertaus%&#39;</span>)</span>
+<span id="cb15-2"><a href="03_tietokannat_ja_taulut.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> kurssi (</span>
+<span id="cb15-3"><a href="03_tietokannat_ja_taulut.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="st">&#39;B1111&#39;</span>,  nimi, pvm, tyyli </span>
+<span id="cb15-4"><a href="03_tietokannat_ja_taulut.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> kertauskurssi</span>
+<span id="cb15-5"><a href="03_tietokannat_ja_taulut.html#cb15-5" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+</div>
+<div id="kyselyjen-tekeminen" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Kyselyjen tekeminen</h3>
+<p>Tarkistetaan, että rivit ilmeistyivät tauluun. Tyypillisesti ilman hakuehtoa kyselyitä tehdessä kannattaa käyttää LIMIT-ehtoa rajoittaaksesi rivien määrää:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="03_tietokannat_ja_taulut.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+</div>
+<p>WITH-syntaksin avulla:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb17"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="03_tietokannat_ja_taulut.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> kertauskurssit <span class="kw">AS</span> (<span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi <span class="kw">WHERE</span> nimi <span class="kw">LIKE</span> <span class="st">&#39;%kertaus%&#39;</span>)</span>
+<span id="cb17-2"><a href="03_tietokannat_ja_taulut.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kertauskurssit <span class="kw">ORDER</span> <span class="kw">BY</span> koodi <span class="kw">DESC</span>;</span></code></pre></div>
+</div>
+<p>Tarkistetaan vielä näkymän rivit:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="03_tietokannat_ja_taulut.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> kurssi_1_view <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="harjoitus-3.2-taulun-luominen" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Harjoitus 3.2 Taulun luominen</h2>
+<p>Harjoituksena on luoda uusi tietokantataulu etunimet, joka vastaa tiedoston <a href="/data/etunimet.csv">etunimet.csv</a> muotoa. Päättele sopivat tietotyypit kentille luentojen sekä edeltävien esimerkkien avulla.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 3.1: </span>Etunimet.csv tiedoston sisältöä.</caption>
+<thead>
+<tr class="header">
+<th align="left">nimi</th>
+<th align="right">lukumaara</th>
+<th align="left">sukupuoli</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Maria</td>
+<td align="right">199656</td>
+<td align="left">N</td>
+</tr>
+<tr class="even">
+<td align="left">Helena</td>
+<td align="right">123632</td>
+<td align="left">N</td>
+</tr>
+<tr class="odd">
+<td align="left">Anneli</td>
+<td align="right">121314</td>
+<td align="left">N</td>
+</tr>
+<tr class="even">
+<td align="left">Johanna</td>
+<td align="right">112331</td>
+<td align="left">N</td>
+</tr>
+<tr class="odd">
+<td align="left">Kaarina</td>
+<td align="right">97318</td>
+<td align="left">N</td>
+</tr>
+</tbody>
+</table>
+<div class="code-box">
+<div class="sourceCode" id="cb19"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="03_tietokannat_ja_taulut.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> ( <span class="op">..</span>.</span></code></pre></div>
+</div>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">
+Näytä ratkaisu
+</button>
+<div class="hidden-box">
+<div class="code-box">
+<div class="sourceCode" id="cb20"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="03_tietokannat_ja_taulut.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> etunimet;</span>
+<span id="cb20-2"><a href="03_tietokannat_ja_taulut.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="03_tietokannat_ja_taulut.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> etunimet (</span>
+<span id="cb20-4"><a href="03_tietokannat_ja_taulut.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  nimi text <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-5"><a href="03_tietokannat_ja_taulut.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  lukumaara <span class="dt">integer</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-6"><a href="03_tietokannat_ja_taulut.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  sukupuoli text <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb20-7"><a href="03_tietokannat_ja_taulut.html#cb20-7" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+</div>
+<p>Nyt lisää tiedoston sisältö tauluun. Tämän voi tehdä SQL:n avulla seuraavasti (superuser-käyttäjällä):</p>
+<div class="code-box">
+<div class="sourceCode" id="cb21"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="03_tietokannat_ja_taulut.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> etunimet(nimi, lukumaara, sukupuoli)</span>
+<span id="cb21-2"><a href="03_tietokannat_ja_taulut.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">&#39;/home/student/data/&lt;tiedoston-nimi&gt;&#39;</span></span>
+<span id="cb21-3"><a href="03_tietokannat_ja_taulut.html#cb21-3" aria-hidden="true" tabindex="-1"></a>CSV <span class="kw">HEADER</span>;</span></code></pre></div>
+</div>
+<p>tai psql: avulla. Tällöin ei tarvitse olla superuser-käyttäjä (muista kirjautua oikeaan tietokantaan ):</p>
+<div class="commandline-box">
+<pre class="psql"><code>\COPY etunimet FROM &#39;/home/student/data/&lt;tiedoston-nimi&gt;&#39; WITH CSV HEADER</code></pre>
+</div>
+<p>HEADER kuvaa sitä, että csv-tiedoston ensimmäinen rivi jätetään huomioimatta, sillä se sisältää sarakkeiden nimet.</p>
+<p>Lisää tiedoston sisältö tauluun valitsemallasi tavalla.</p>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">
+Näytä ratkaisu
+</button>
+<div class="hidden-box">
+<div class="code-box">
+<div class="sourceCode" id="cb23"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a href="03_tietokannat_ja_taulut.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> etunimet(nimi, lukumaara, sukupuoli)</span>
+<span id="cb23-2"><a href="03_tietokannat_ja_taulut.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">&#39;/home/student/data/etunimet.csv&#39;</span></span>
+<span id="cb23-3"><a href="03_tietokannat_ja_taulut.html#cb23-3" aria-hidden="true" tabindex="-1"></a>CSV <span class="kw">HEADER</span>;</span></code></pre></div>
+</div>
+</div>
+<p><strong>Tarkistus:</strong>
+Varmistu, että luomassasi taulussa on oikea määrä rivejä ja tutustu halutessasi dataan.</p>
+<div class="code-box">
+<div class="sourceCode" id="cb24"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb24-1"><a href="03_tietokannat_ja_taulut.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> etunimet;</span>
+<span id="cb24-2"><a href="03_tietokannat_ja_taulut.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> etunimet <span class="kw">ORDER</span> <span class="kw">BY</span> lukumaara <span class="kw">DESC</span> <span class="kw">LIMIT</span> <span class="dv">100</span>;</span></code></pre></div>
+</div>
+
+</div>
+</div>
+<p style="text-align: center;">
+<a href="02_työkalut.html"><button class="btn btn-default">Previous</button></a>
+<a href="04_tietotyypit.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+<footer class="footer text-center">
+
+<div class="footer-container text-center">
+
+<div class="footer-info">
+<h5 class="footer-title">Johdanto PostgreSQL:n käyttöön</h5>
+<span class="footer-version">v2023-07-04</span>
+<div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
+</div>
+
+<div class="footer-info">
+<h5 class="footer-title footer-company">Gispo Ltd.
+<span class="footer-copyright-year">© 2023</span></h5>
+<span class="footer-contact-info">Kalevankatu 31
+<br>00100 Helsinki, Finland
+<br>info@gispo.fi
+</span>
+</div>
+
+</div>
+</div>
+</footer>
+</div>
+
+
+<script src="js/nav-script.js"></script>
+
+</body>
+</html>

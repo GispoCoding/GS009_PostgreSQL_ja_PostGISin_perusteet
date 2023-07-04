@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Johdanto PostgreSQL:n käyttöön" />
+<meta property="og:title" content="5 Indeksit | Johdanto PostgreSQL:n käyttöön" />
 <meta property="og:type" content="book" />
 
 
@@ -19,9 +19,9 @@
 <meta name="date" content="2023-07-04" />
 
 
-<meta name="description" content="Johdanto PostgreSQL:n käyttöön">
+<meta name="description" content="5 Indeksit | Johdanto PostgreSQL:n käyttöön">
 
-<title>Johdanto PostgreSQL:n käyttöön</title>
+<title>5 Indeksit | Johdanto PostgreSQL:n käyttöön</title>
 
 
 
@@ -205,37 +205,81 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </div>
 <div class="row">
 <div class="col-sm-12">
-<!-- This title section is only rendered to index.html -->
-<div id="title-container">
-
-<h1 id="title-header">Johdanto PostgreSQL:n käyttöön</h1>
-
-<h4 class="author">Gispo Oy</h4>
-
-<h4 id="build-date">Version: 2023-07-04</h4>
-
-<div class="abstract"><p>Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin.</p></div>
-
+<div id="indeksit" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Indeksit</h1>
+<p>Tässä osassa luodaan erilaisia indeksejä ja tarkastellaan niiden vaikutusta.</p>
+<p>Luetaan taulusta kuinka monella rivillä ajoneuvoluokka on M1.</p>
+<p>Tarkista kuinka kauan kyselyn suorittamiseen meni.</p>
+<div class="code-box">
+<div class="sourceCode" id="cb42"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb42-1"><a href="05_indeksit.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> ajoneuvorekisteri <span class="kw">WHERE</span> ajoneuvoluokka <span class="op">=</span> <span class="st">&#39;M1&#39;</span>;</span></code></pre></div>
 </div>
-<div id="johdanto" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Johdanto</h1>
-<p>Tervetuloa kurssin harjoitusten pariin!</p>
-<p>Näiden harjoitusten avulla voit tutustua itsenäisesti PostgreSQL-tietokantajärjestelmään. Valitse vasemmalta haluamasi aihe.</p>
-<div id="harjoitusmateriaalin-lisenssi" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Harjoitusmateriaalin lisenssi</h2>
-<ul>
-<li>Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a>.</li>
-<li>etunimet.csv - muodostettu 24.08.2020 aineistosta Etunimitilasto 2020-08-19, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
-<li>ajoneuvorekisteri_schema.sql - muodostettu 25.08.2020 aineistosta Ajoneuvojen avoin data 5.8, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
-<li>audit_log.csv on muodostettu enterprisedb -sivun esimerkeistä.</li>
-<li>digiroad_uusimaa.gpkg on muodostettu 7.10.2020 Digiroad-aineistosta, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
-<li>kunnat.gpkg on muodostettu 7.10.2020 Kuntapohjaiset tilastointialueet -aineistosta, joka on jaettu lisenssillä: <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons Nimeä 4.0</a></li>
-</ul>
+<div id="indeksien-luominen" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Indeksien luominen</h2>
+<p>Luodaan yksinkertainen B-TREE -indeksi sarakkeelle ajoneuvoluokka:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb43"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb43-1"><a href="05_indeksit.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> ajoneuvoluokka_idx <span class="kw">ON</span> ajoneuvorekisteri(ajoneuvoluokka);</span></code></pre></div>
+</div>
+<p>Tarkista nyt uudestaaan, kuinka kauan yllä olevan kyselyn suoritus kestää.</p>
+</div>
+<div id="indeksien-koko" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Indeksien koko</h2>
+<p>Indeksit kasvattavat tietokannan kokoa. Aja seuraava solu nähdäksesi kaikkienajoneuvorekisteri-taulun indeksien koot:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb44"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb44-1"><a href="05_indeksit.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> pg_size_pretty(pg_indexes_size(<span class="st">&#39;ajoneuvorekisteri&#39;</span>));</span></code></pre></div>
+</div>
+</div>
+<div id="indeksien-poistaminen" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Indeksien poistaminen</h2>
+<p>Indeksin voi poistaa syntaksilla:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb45"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb45-1"><a href="05_indeksit.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">INDEX</span> <span class="op">&lt;</span>nimi<span class="op">&gt;</span>;</span></code></pre></div>
+</div>
+<p>Esimerkiksi:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb46"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb46-1"><a href="05_indeksit.html#cb46-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">DROP</span> <span class="kw">INDEX</span> ajoneuvoluokka_idx;</span></code></pre></div>
+</div>
+</div>
+<div id="harjoitus-5.1-spatiaalinen-indeksi" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Harjoitus 5.1: Spatiaalinen indeksi</h2>
+<p>Indeksit ovat erityisen tärkeitä paikkatiedon parissa työskennellessä.
+Yritä seuraavaa kyselyä aluksi aineistolla, jolla ei ole indeksejä.
+Tarkista suoritusaika.</p>
+<div class="code-box">
+<div class="sourceCode" id="cb47"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb47-1"><a href="05_indeksit.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> helsinki <span class="kw">AS</span> (<span class="kw">SELECT</span> geom, nimi <span class="kw">FROM</span> kunnat <span class="kw">WHERE</span> nimi <span class="op">=</span> <span class="st">&#39;Helsinki&#39;</span>) </span>
+<span id="cb47-2"><a href="05_indeksit.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">FROM</span> digiroad_uusimaa a </span>
+<span id="cb47-3"><a href="05_indeksit.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> helsinki b <span class="kw">ON</span> ST_Intersects(b.geom, a.geom);</span></code></pre></div>
+</div>
+<p>Luo nyt spatiaalinen indeksi kunnat_geom_idx taululle kunnat syntaksilla:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb48"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb48-1"><a href="05_indeksit.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> nimi <span class="kw">ON</span> taulu <span class="kw">USING</span> GIST (<span class="ot">&quot;geom&quot;</span>)</span></code></pre></div>
+</div>
+<div class="code-box">
+<div class="sourceCode" id="cb49"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb49-1"><a href="05_indeksit.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> kunnat_geom_idx <span class="kw">ON</span> kunnat <span class="kw">USING</span> GIST (<span class="ot">&quot;geom&quot;</span>)</span></code></pre></div>
+</div>
+<p>Mittaa sitten uudelleen aika kyselyn suorittamiseen, nopeutuiko suoritus?</p>
+<p>Luo vielä spatiaalinen indeksi digiroad_geom_idx taululle digiroad_uusimaa</p>
+<div class="code-box">
+<div class="sourceCode" id="cb50"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb50-1"><a href="05_indeksit.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> digiroad_geom_idx <span class="kw">ON</span> digiroad_uusimaa <span class="kw">USING</span> GIST (<span class="ot">&quot;geom&quot;</span>)</span></code></pre></div>
+</div>
+<p>Mittaa aika uudelleen</p>
+<p>Visualisoidaan helsingin teitä. Kyselyn suorittamisessa menee hetki</p>
+<div class="code-box">
+<div class="sourceCode" id="cb51"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb51-1"><a href="05_indeksit.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> helsinki <span class="kw">AS</span> (</span>
+<span id="cb51-2"><a href="05_indeksit.html#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> geom, nimi <span class="kw">FROM</span> kunnat <span class="kw">WHERE</span> nimi <span class="op">=</span> <span class="st">&#39;Helsinki&#39;</span></span>
+<span id="cb51-3"><a href="05_indeksit.html#cb51-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-4"><a href="05_indeksit.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> a.<span class="kw">id</span>, arvo, muokkauspv, a.geom</span>
+<span id="cb51-5"><a href="05_indeksit.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb51-6"><a href="05_indeksit.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  digiroad_uusimaa a</span>
+<span id="cb51-7"><a href="05_indeksit.html#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> helsinki b</span>
+<span id="cb51-8"><a href="05_indeksit.html#cb51-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ON</span> ST_Intersects(b.geom, a.geom)</span>
+<span id="cb51-9"><a href="05_indeksit.html#cb51-9" aria-hidden="true" tabindex="-1"></a>;</span></code></pre></div>
+</div>
 
 </div>
 </div>
 <p style="text-align: center;">
-<a href="02_työkalut.html"><button class="btn btn-default">Next</button></a>
+<a href="04_tietotyypit.html"><button class="btn btn-default">Previous</button></a>
+<a href="06_käyttöoikeudet.html"><button class="btn btn-default">Next</button></a>
 </p>
 </div>
 </div>
