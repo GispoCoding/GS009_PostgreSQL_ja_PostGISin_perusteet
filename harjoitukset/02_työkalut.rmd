@@ -1,13 +1,13 @@
-# Työkalujen käyttö: PgAdmin ja psql
+# 2. Työkalujen käyttö: PgAdmin ja psql
 
 Tässä osassa tutustutaan PgAdmin-käyttöliittymään sekä psql:ään.
 
-## PgAdmin 4
+## 2.1 PgAdmin 4
 Käynnistä PgAdmin 4 menemällä osoitteeseen [/pgadmin](/pgadmin). Kirjaudu sisään kouluttajan antamalla tunnuksella ja salasanalla.
 
 ![pgadmin_splash](img/pgadmin_splash.png)
 
-### Tietokantayhteyden lisääminen
+### 2.1.1 Tietokantayhteyden lisääminen
 Luo uusi tietokantayhteys tietokantaklusteriin klikkaamalla hiiren oikealla kohdasta Servers ja valitsemalla Create > Server...
 
 Täytä seuraavat tiedot:
@@ -24,7 +24,7 @@ Täytä seuraavat tiedot:
 
 ![Tietokantayhteyden lisääminen](img/pgadmin_create_server.gif)
 
-### Kyselytyökalun käyttäminen (Query Tool)
+### 2.1.2 Kyselytyökalun käyttäminen (Query Tool)
 Kyselytyökalun avulla voi suorittaa SQL-kyselyitä ja lauseita. Käynnistä se seuraavasti:
 
 * Valitse Servers-osiosta tietokantaklusterisi
@@ -35,10 +35,10 @@ Kyselytyökalun avulla voi suorittaa SQL-kyselyitä ja lauseita. Käynnistä se 
 
 ![Kyselytyökalun käyttäminen](img/pgadmin_query_tool.gif)
 
-### Tietokantayhteyden sulkeminen
+### 2.1.3 Tietokantayhteyden sulkeminen
 Klikkaa hiiren oikealla luomastasi yhteydestä ja valitse Disconnect Server. Tämä on erityisen tärkeää, kun kurssilla on monta osallistujaa.
 
-## psql
+## 2.2 psql
 
 Psql on asennettu valmiiksi koulutusympäristön palvelimelle, jonka komentoriville pääset kirjautumaan osoitteessa [/wetty](/wetty). Kouluttaja antaa linux käyttäjän tunnuksen ja salasanan.
 
@@ -53,7 +53,7 @@ psql -h dbhost -d postgres -U postgres
 * __-d postgres__ tietokanta mihin yhdistetään
 * __-U postgres__ käyttäjä jolla yhdistetään
 
-### Käyttäminen
+### 2.2.1 Käyttäminen
 Kun psql on käynnistetty, komentorivillä voit kirjoittaa sekä psql, että SQL-komentoja.
 Psql sessiossa käytettäviä erikoiskomentoja kutsutaan interaktiiviseksi psql -komennoiksi.
 
@@ -84,13 +84,13 @@ psql -h dbhost -d postgres -U postgres -c "select current_database();"
 * __-f <tiedosto.sql>__ tiedostossa oleva sql-skripti voidaan myös antaa parametrina
 
 
-### Tietokantayhteyden sulkeminen
+### 2.2.2 Tietokantayhteyden sulkeminen
 Sulkeaksesi tietokantayhteyden anna psql-ohjelmassa komento: 
 
 ```
 \q
 ```
 
-## pg_dump ja pg_restore
+## 2.3 pg_dump ja pg_restore
 
 Tietokannan tai yksittäisten taulujen varmuuskopioiden luomiseen ja palauttamiseen on omat komentoriviohjelmansa: pg_dump ja pg_restore. Muun muassa pgAdmin käyttää näitä sisäisesti.

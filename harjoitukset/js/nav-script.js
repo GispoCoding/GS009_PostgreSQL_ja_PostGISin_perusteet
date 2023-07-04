@@ -4,6 +4,31 @@ for (var i = 0; i < hiddenBoxes.length; i++) {
     hiddenBoxes[i].id = "hidden-box-" + (i + 1);
 }
 
+const codeBoxes = document.querySelectorAll('.code-box, .commandline-box');
+
+codeBoxes.forEach(box => {
+  const copyButton = document.createElement('button');
+  copyButton.className = 'copy-button';
+  //copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+
+  copyButton.addEventListener('click', () => {
+    const text = box.innerText.trim();
+
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        copyButton.classList.add('show-checkmark');
+        setTimeout(() => {
+          copyButton.classList.remove('show-checkmark');
+        }, 1000);
+      })
+      .catch(err => {
+        console.error('Failed to copy text:', err);
+      });
+  });
+
+  box.appendChild(copyButton);
+});
+
 function navToggle() {
   let sidebar = document.getElementById('sidebar');
   sidebar.classList.toggle('show');

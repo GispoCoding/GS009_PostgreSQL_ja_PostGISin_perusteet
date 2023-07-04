@@ -1,4 +1,4 @@
-# Indeksit
+# 5. Indeksit
 Tässä osassa luodaan erilaisia indeksejä ja tarkastellaan niiden vaikutusta.
 
 Luetaan taulusta kuinka monella rivillä ajoneuvoluokka on M1.
@@ -11,7 +11,7 @@ SELECT count(*) FROM ajoneuvorekisteri WHERE ajoneuvoluokka = 'M1';
 ```
 :::
 
-## Indeksien luominen
+## 5.1 Indeksien luominen
 Luodaan yksinkertainen B-TREE -indeksi sarakkeelle ajoneuvoluokka:
 
 ::: code-box
@@ -22,7 +22,7 @@ CREATE INDEX ajoneuvoluokka_idx ON ajoneuvorekisteri(ajoneuvoluokka);
 
 Tarkista nyt uudestaaan, kuinka kauan yllä olevan kyselyn suoritus kestää.
 
-## Indeksien koko
+## 5.2 Indeksien koko
 Indeksit kasvattavat tietokannan kokoa. Aja seuraava solu nähdäksesi kaikkienajoneuvorekisteri-taulun indeksien koot:
 
 ::: code-box
@@ -31,7 +31,7 @@ SELECT pg_size_pretty(pg_indexes_size('ajoneuvorekisteri'));
 ```
 :::
 
-## Indeksien poistaminen
+## 5.3 Indeksien poistaminen
 Indeksin voi poistaa syntaksilla:
 
 ::: code-box

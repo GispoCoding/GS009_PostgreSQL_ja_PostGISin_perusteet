@@ -7,21 +7,25 @@ abstract: "Kurssi PostgreSQL:n yleisimpiin käyttötapauksiin."
 output:
     bookdown::html_book:
         toc: true
+        toc_depth: 2
+        number_sections: true
+        pandoc_args: ["--number-sections"]
         theme: null
         template: custom.html
         css: custom.css
-        split_by: rmd       
+        split_by: rmd
+      
 documentclass: book
 ---
 
-# Johdanto
+# 1. Johdanto
 
 
 Tervetuloa kurssin harjoitusten pariin!
 
 Näiden harjoitusten avulla voit tutustua itsenäisesti PostgreSQL-tietokantajärjestelmään. Valitse vasemmalta haluamasi aihe.
 
-## Harjoitusmateriaalin lisenssi
+## 1.1 Harjoitusmateriaalin lisenssi
 
 * Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi).
 * etunimet.csv - muodostettu 24.08.2020 aineistosta Etunimitilasto 2020-08-19, joka on jaettu lisenssillä: [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi)

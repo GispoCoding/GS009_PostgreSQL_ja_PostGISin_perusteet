@@ -1,8 +1,8 @@
-# Foreign Data Wrapper (fdw)
+# 7. Foreign Data Wrapper (fdw)
 Tässä osassa tutustutaan fdw:ihin csv-tiedoston lukemisen kautta.
 
 
-## file_fdw -lisäosa tiedostojen lukemiseen
+## 7.1 file_fdw -lisäosa tiedostojen lukemiseen
 Asenna aluksi file_fdw-lisäosa, jonka kautta voidaan luoda fdw csv-tiedostojen lukemiseen.
 
 ::: code-box

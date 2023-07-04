@@ -1,4 +1,4 @@
-# Käyttäjien hallinta
+# 6. Käyttäjien hallinta
 Tässä osassa tutustutaan erilaisiin käyttäjärooleihin ja niiden hallintaan.
 
 Osiossa käytetään aiemmin luotua `koulutus`-tietokantaa ja siihen ladattua `etunimet` taulua. Jos et ennättänyt niitä luoda, niin pääset samalle viivalle antamalla seuraavat sql-komennot:
@@ -12,7 +12,7 @@ CREATE DATABASE koulutus TEMPLATE koulutus_template;
 Tämä luo uuden koulutus tietokannan käyttäen mallina `koulutus_template` -tietokantaa.
 
 
-## Käyttäjäroolit
+## 6.1 Käyttäjäroolit
 
 PostgreSQL:ssä käyttäjiä hallitaan rooleina (roles). Rooleja, joilla kirjaudutaan tietokantaan, kutsutaan nimellä login roles. Rooleja, jotka sisältävät muita rooleja kutsutaan nimellä group roles.
 
@@ -57,7 +57,7 @@ CREATE ROLE maija LOGIN PASSWORD '1234';
 ```
 :::
 
-## Käyttöoikeuksien lisääminen
+## 6.2 Käyttöoikeuksien lisääminen
 
 Käyttöoikeuksia voi lisätä GRANT-komennolla ja vastaavasti niitä voi poistaa REVOKE-komennolla.
 Kokeillaan lukea matti-käyttäjänä taulua etunimet.
@@ -168,7 +168,7 @@ SELECT count(*) FROM matin_skeema.matit WHERE nimi LIKE 'Maij%'
 Saitko tulokseksi 43 riviä?
 
 
-## Ryhmäroolit
+## 6.3 Ryhmäroolit
 Group role luodaan SQL komennolla:
 
 ::: code-box
@@ -193,7 +193,7 @@ GRANT editor TO yp;
 ```
 :::
 
-## Roolien käyttöä
+## 6.4 Roolien käyttöä
 Tähän asti olemme muodostanut yhteyttä palvelimeen postgres-roolilla, jolla muun muuassa on ylläpitäjän oikeudet. Salasana on tallennettu ympäristömuuttujaan, josta psql osaa sen kaivaa. Psql:n saa kuitenkin kysymään salasanaa antamalla sille argumentin W. Kirjautuminen tapahtuu konsolista tällä tutulla komennolla:
 
 ::: commandline-box

@@ -1,4 +1,4 @@
-# Tietotyypit
+# 4. Tietotyypit
 
 Tässä osassa tutustutaan erilaisiin tietotyyppeihin.
 
@@ -141,7 +141,7 @@ SELECT count(*) FROM ajoneuvorekisteri WHERE EXTRACT(YEAR FROM kayttoonottopvm) 
 Saitko Tulokseksi 710287?
 
 
-## Geometriatyyppi
+## 4.3. Geometriatyyppi
 PostGIS-lisäosan mukana tulee laaja tuki erilaisille geometriatyypeille ja muunnosfunktioille.
 
 Katso taulun kunnat dataa Helsinki-rivin kautta.

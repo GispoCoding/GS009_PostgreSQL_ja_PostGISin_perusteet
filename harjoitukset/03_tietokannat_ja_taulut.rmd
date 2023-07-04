@@ -1,10 +1,10 @@
-# Tietokannan ja taulujen luonti
+# 3. Tietokannan ja taulujen luonti
 Tässä osassa luodaan tietokanta, johon lisätään erilaisia tauluja.
 
-## Tietokannan luominen
+## 3.1. Tietokannan luominen
 Tietokannan voi luoda useammalla eri tavalla.
 
-### createdb
+### 3.1.1 createdb
 
 createdb on komentorivityökalu helpottamaan tietokannan luomista. Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:
 
@@ -17,13 +17,13 @@ createdb -h dbhost -U postgres <uuden_tietokannan_nimi>
 Kuten psql, myös createdb lukee tietokannan yhteysparametrit ympäristömuuttujista.
 
 
-### PgAdmin
+### 3.1.2 PgAdmin
 
 Kuten miltei kaikkeen muuhunkin, PgAdmin tarjoaa myös tietokantojen luomiseen ja poistamiseen graafisen ratkaisun: Klikkaa oikealla tietokantayhteydesta > Create > Database.
 ![Tietokannan luominen PgAdminilla](img/createdb_pgadmin.gif)
 
 
-### SQL
+### 3.1.3 SQL
 
 Perinteisin tapa tietokantojen luomiseen käy kuitenkin SQL:n kautta. Alla olevan komennon voi suorittaa psql:n tai PgAdminin Query Toolin) avulla:
 
@@ -33,9 +33,9 @@ CREATE DATABASE <uuden_tietokannan_nimi>;
 ```
 :::
 
-## Tietokannan poistaminen
+## 3.2 Tietokannan poistaminen
 
-### dropdb
+### 3.2.1 dropdb
 
 dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan tietokannan voi poistaa komennolla:
 
@@ -45,7 +45,7 @@ dropdb <poistettavan_tietokannan_nimi>
 ```
 :::
 
-### SQL
+### 3.2.2 SQL
 Samaan tapaan kuin luotaessa
 
 ::: code-box

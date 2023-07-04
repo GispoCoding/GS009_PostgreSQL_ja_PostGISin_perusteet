@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="6 Käyttäjien hallinta | Johdanto PostgreSQL:n käyttöön" />
+<meta property="og:title" content="6 6. Käyttäjien hallinta | Johdanto PostgreSQL:n käyttöön" />
 <meta property="og:type" content="book" />
 
 
@@ -19,9 +19,9 @@
 <meta name="date" content="2023-07-04" />
 
 
-<meta name="description" content="6 Käyttäjien hallinta | Johdanto PostgreSQL:n käyttöön">
+<meta name="description" content="6 6. Käyttäjien hallinta | Johdanto PostgreSQL:n käyttöön">
 
-<title>6 Käyttäjien hallinta | Johdanto PostgreSQL:n käyttöön</title>
+<title>6 6. Käyttäjien hallinta | Johdanto PostgreSQL:n käyttöön</title>
 
 
 
@@ -127,72 +127,49 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <nav class="sidebar-nav">
 <div id="TOC" class="toc">
 <ul>
-<li class="has-sub"><a href="index.html#johdanto"><span class="toc-section-number">1</span> Johdanto</a>
+<li class="has-sub"><a href="index.html#johdanto"><span class="toc-section-number">1</span> 1. Johdanto</a>
 <ul>
-<li><a href="index.html#harjoitusmateriaalin-lisenssi"><span class="toc-section-number">1.1</span> Harjoitusmateriaalin lisenssi</a></li>
+<li><a href="index.html#harjoitusmateriaalin-lisenssi"><span class="toc-section-number">1.1</span> 1.1 Harjoitusmateriaalin lisenssi</a></li>
 </ul></li>
-<li class="has-sub"><a href="02_työkalut.html#työkalujen-käyttö-pgadmin-ja-psql"><span class="toc-section-number">2</span> Työkalujen käyttö: PgAdmin ja psql</a>
+<li class="has-sub"><a href="02_työkalut.html#työkalujen-käyttö-pgadmin-ja-psql"><span class="toc-section-number">2</span> 2. Työkalujen käyttö: PgAdmin ja psql</a>
 <ul>
-<li class="has-sub"><a href="02_työkalut.html#pgadmin-4"><span class="toc-section-number">2.1</span> PgAdmin 4</a>
-<ul>
-<li><a href="02_työkalut.html#tietokantayhteyden-lisääminen"><span class="toc-section-number">2.1.1</span> Tietokantayhteyden lisääminen</a></li>
-<li><a href="02_työkalut.html#kyselytyökalun-käyttäminen-query-tool"><span class="toc-section-number">2.1.2</span> Kyselytyökalun käyttäminen (Query Tool)</a></li>
-<li><a href="02_työkalut.html#tietokantayhteyden-sulkeminen"><span class="toc-section-number">2.1.3</span> Tietokantayhteyden sulkeminen</a></li>
+<li><a href="02_työkalut.html#pgadmin-4"><span class="toc-section-number">2.1</span> 2.1 PgAdmin 4</a></li>
+<li><a href="02_työkalut.html#psql"><span class="toc-section-number">2.2</span> 2.2 psql</a></li>
+<li><a href="02_työkalut.html#pg_dump-ja-pg_restore"><span class="toc-section-number">2.3</span> 2.3 pg_dump ja pg_restore</a></li>
 </ul></li>
-<li class="has-sub"><a href="02_työkalut.html#psql"><span class="toc-section-number">2.2</span> psql</a>
+<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#tietokannan-ja-taulujen-luonti"><span class="toc-section-number">3</span> 3. Tietokannan ja taulujen luonti</a>
 <ul>
-<li><a href="02_työkalut.html#käyttäminen"><span class="toc-section-number">2.2.1</span> Käyttäminen</a></li>
-<li><a href="02_työkalut.html#tietokantayhteyden-sulkeminen-1"><span class="toc-section-number">2.2.2</span> Tietokantayhteyden sulkeminen</a></li>
-</ul></li>
-<li><a href="02_työkalut.html#pg_dump-ja-pg_restore"><span class="toc-section-number">2.3</span> pg_dump ja pg_restore</a></li>
-</ul></li>
-<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#tietokannan-ja-taulujen-luonti"><span class="toc-section-number">3</span> Tietokannan ja taulujen luonti</a>
-<ul>
-<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#tietokannan-luominen"><span class="toc-section-number">3.1</span> Tietokannan luominen</a>
-<ul>
-<li><a href="03_tietokannat_ja_taulut.html#createdb"><span class="toc-section-number">3.1.1</span> createdb</a></li>
-<li><a href="03_tietokannat_ja_taulut.html#pgadmin"><span class="toc-section-number">3.1.2</span> PgAdmin</a></li>
-<li><a href="03_tietokannat_ja_taulut.html#sql"><span class="toc-section-number">3.1.3</span> SQL</a></li>
-</ul></li>
-<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#tietokannan-poistaminen"><span class="toc-section-number">3.2</span> Tietokannan poistaminen</a>
-<ul>
-<li><a href="03_tietokannat_ja_taulut.html#dropdb"><span class="toc-section-number">3.2.1</span> dropdb</a></li>
-<li><a href="03_tietokannat_ja_taulut.html#sql-1"><span class="toc-section-number">3.2.2</span> SQL</a></li>
-</ul></li>
-<li class="has-sub"><a href="03_tietokannat_ja_taulut.html#harjoitus-3.1-luo-uusi-tietokanta"><span class="toc-section-number">3.3</span> Harjoitus 3.1: Luo uusi tietokanta</a>
-<ul>
-<li><a href="03_tietokannat_ja_taulut.html#taulujen-luominen"><span class="toc-section-number">3.3.1</span> Taulujen luominen</a></li>
-<li><a href="03_tietokannat_ja_taulut.html#rivien-lisääminen"><span class="toc-section-number">3.3.2</span> Rivien lisääminen</a></li>
-<li><a href="03_tietokannat_ja_taulut.html#kyselyjen-tekeminen"><span class="toc-section-number">3.3.3</span> Kyselyjen tekeminen</a></li>
-</ul></li>
+<li><a href="03_tietokannat_ja_taulut.html#tietokannan-luominen"><span class="toc-section-number">3.1</span> 3.1. Tietokannan luominen</a></li>
+<li><a href="03_tietokannat_ja_taulut.html#tietokannan-poistaminen"><span class="toc-section-number">3.2</span> 3.2 Tietokannan poistaminen</a></li>
+<li><a href="03_tietokannat_ja_taulut.html#harjoitus-3.1-luo-uusi-tietokanta"><span class="toc-section-number">3.3</span> Harjoitus 3.1: Luo uusi tietokanta</a></li>
 <li><a href="03_tietokannat_ja_taulut.html#harjoitus-3.2-taulun-luominen"><span class="toc-section-number">3.4</span> Harjoitus 3.2 Taulun luominen</a></li>
 </ul></li>
-<li class="has-sub"><a href="04_tietotyypit.html#tietotyypit"><span class="toc-section-number">4</span> Tietotyypit</a>
+<li class="has-sub"><a href="04_tietotyypit.html#tietotyypit"><span class="toc-section-number">4</span> 4. Tietotyypit</a>
 <ul>
 <li><a href="04_tietotyypit.html#harjoitus-4.1-ota-oikea-tietotyyppi-käyttöön"><span class="toc-section-number">4.1</span> Harjoitus 4.1: Ota oikea tietotyyppi käyttöön</a></li>
 <li><a href="04_tietotyypit.html#harjoitus-4.2"><span class="toc-section-number">4.2</span> Harjoitus 4.2</a></li>
-<li><a href="04_tietotyypit.html#geometriatyyppi"><span class="toc-section-number">4.3</span> Geometriatyyppi</a></li>
+<li><a href="04_tietotyypit.html#geometriatyyppi"><span class="toc-section-number">4.3</span> 4.3. Geometriatyyppi</a></li>
 <li><a href="04_tietotyypit.html#harjoitus-4.3-visualisoi-geometrioita-pgadmilla"><span class="toc-section-number">4.4</span> Harjoitus 4.3: Visualisoi geometrioita pgAdmilla</a></li>
 </ul></li>
-<li class="has-sub"><a href="05_indeksit.html#indeksit"><span class="toc-section-number">5</span> Indeksit</a>
+<li class="has-sub"><a href="05_indeksit.html#indeksit"><span class="toc-section-number">5</span> 5. Indeksit</a>
 <ul>
-<li><a href="05_indeksit.html#indeksien-luominen"><span class="toc-section-number">5.1</span> Indeksien luominen</a></li>
-<li><a href="05_indeksit.html#indeksien-koko"><span class="toc-section-number">5.2</span> Indeksien koko</a></li>
-<li><a href="05_indeksit.html#indeksien-poistaminen"><span class="toc-section-number">5.3</span> Indeksien poistaminen</a></li>
+<li><a href="05_indeksit.html#indeksien-luominen"><span class="toc-section-number">5.1</span> 5.1 Indeksien luominen</a></li>
+<li><a href="05_indeksit.html#indeksien-koko"><span class="toc-section-number">5.2</span> 5.2 Indeksien koko</a></li>
+<li><a href="05_indeksit.html#indeksien-poistaminen"><span class="toc-section-number">5.3</span> 5.3 Indeksien poistaminen</a></li>
 <li><a href="05_indeksit.html#harjoitus-5.1-spatiaalinen-indeksi"><span class="toc-section-number">5.4</span> Harjoitus 5.1: Spatiaalinen indeksi</a></li>
 </ul></li>
-<li class="has-sub"><a href="06_käyttöoikeudet.html#käyttäjien-hallinta"><span class="toc-section-number">6</span> Käyttäjien hallinta</a>
+<li class="has-sub"><a href="06_käyttöoikeudet.html#käyttäjien-hallinta"><span class="toc-section-number">6</span> 6. Käyttäjien hallinta</a>
 <ul>
-<li><a href="06_käyttöoikeudet.html#käyttäjäroolit"><span class="toc-section-number">6.1</span> Käyttäjäroolit</a></li>
-<li><a href="06_käyttöoikeudet.html#käyttöoikeuksien-lisääminen"><span class="toc-section-number">6.2</span> Käyttöoikeuksien lisääminen</a></li>
+<li><a href="06_käyttöoikeudet.html#käyttäjäroolit"><span class="toc-section-number">6.1</span> 6.1 Käyttäjäroolit</a></li>
+<li><a href="06_käyttöoikeudet.html#käyttöoikeuksien-lisääminen"><span class="toc-section-number">6.2</span> 6.2 Käyttöoikeuksien lisääminen</a></li>
 <li><a href="06_käyttöoikeudet.html#harjoitus-6.1-käyttöoikeudet"><span class="toc-section-number">6.3</span> Harjoitus 6.1: käyttöoikeudet</a></li>
-<li><a href="06_käyttöoikeudet.html#ryhmäroolit"><span class="toc-section-number">6.4</span> Ryhmäroolit</a></li>
-<li><a href="06_käyttöoikeudet.html#roolien-käyttöä"><span class="toc-section-number">6.5</span> Roolien käyttöä</a></li>
+<li><a href="06_käyttöoikeudet.html#ryhmäroolit"><span class="toc-section-number">6.4</span> 6.3 Ryhmäroolit</a></li>
+<li><a href="06_käyttöoikeudet.html#roolien-käyttöä"><span class="toc-section-number">6.5</span> 6.4 Roolien käyttöä</a></li>
 <li><a href="06_käyttöoikeudet.html#harjoitus-6.2-roolien-luominen-pgadmin-kautta"><span class="toc-section-number">6.6</span> Harjoitus 6.2: Roolien luominen pgAdmin kautta</a></li>
 </ul></li>
-<li class="has-sub"><a href="07_fdw.html#foreign-data-wrapper-fdw"><span class="toc-section-number">7</span> Foreign Data Wrapper (fdw)</a>
+<li class="has-sub"><a href="07_fdw.html#foreign-data-wrapper-fdw"><span class="toc-section-number">7</span> 7. Foreign Data Wrapper (fdw)</a>
 <ul>
-<li><a href="07_fdw.html#file_fdw--lisäosa-tiedostojen-lukemiseen"><span class="toc-section-number">7.1</span> file_fdw -lisäosa tiedostojen lukemiseen</a></li>
+<li><a href="07_fdw.html#file_fdw--lisäosa-tiedostojen-lukemiseen"><span class="toc-section-number">7.1</span> 7.1 file_fdw -lisäosa tiedostojen lukemiseen</a></li>
 <li><a href="07_fdw.html#harjoitus-7.1-csv-tiedostosta-lukeminen"><span class="toc-section-number">7.2</span> Harjoitus 7.1: csv-tiedostosta lukeminen</a></li>
 <li><a href="07_fdw.html#harjoitus-7.2-toisesta-postgresql-kannasta-lukeminen"><span class="toc-section-number">7.3</span> Harjoitus 7.2: Toisesta PostgreSQL-kannasta lukeminen</a></li>
 </ul></li>
@@ -206,7 +183,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <div class="row">
 <div class="col-sm-12">
 <div id="käyttäjien-hallinta" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Käyttäjien hallinta</h1>
+<h1><span class="header-section-number">6</span> 6. Käyttäjien hallinta</h1>
 <p>Tässä osassa tutustutaan erilaisiin käyttäjärooleihin ja niiden hallintaan.</p>
 <p>Osiossa käytetään aiemmin luotua <code>koulutus</code>-tietokantaa ja siihen ladattua <code>etunimet</code> taulua. Jos et ennättänyt niitä luoda, niin pääset samalle viivalle antamalla seuraavat sql-komennot:</p>
 <div class="code-box">
@@ -215,7 +192,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </div>
 <p>Tämä luo uuden koulutus tietokannan käyttäen mallina <code>koulutus_template</code> -tietokantaa.</p>
 <div id="käyttäjäroolit" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Käyttäjäroolit</h2>
+<h2><span class="header-section-number">6.1</span> 6.1 Käyttäjäroolit</h2>
 <p>PostgreSQL:ssä käyttäjiä hallitaan rooleina (roles). Rooleja, joilla kirjaudutaan tietokantaan, kutsutaan nimellä login roles. Rooleja, jotka sisältävät muita rooleja kutsutaan nimellä group roles.</p>
 <p>Group role ryhmiin voidaan myös määrittää kirjautumisoikeudet tietokantaan, mutta tietokannan ylläpito on helpompi jos sitä vältetään.</p>
 <p>Aiemmissa PostgreSQLversioissa käytetiin termejä users ja group, edelleen niitä voi käyttää mutta kannattaa käyttää vastaavia uusia termejä, role ja group role.</p>
@@ -245,11 +222,11 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </div>
 </div>
 <div id="käyttöoikeuksien-lisääminen" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Käyttöoikeuksien lisääminen</h2>
+<h2><span class="header-section-number">6.2</span> 6.2 Käyttöoikeuksien lisääminen</h2>
 <p>Käyttöoikeuksia voi lisätä GRANT-komennolla ja vastaavasti niitä voi poistaa REVOKE-komennolla.
 Kokeillaan lukea matti-käyttäjänä taulua etunimet.</p>
 <p>Kirjaudu ensin <code>koulutus</code>-tietokantaan matin tunnuksilla.
-Voit ottaa yhteyttä joko <code>psql</code>:llä tai pgAdminilla. PgAdminissa luo uusi tietokantayhteys luvun <a href="02_työkalut.html#tietokantayhteyden-lisääminen">Tietokantayhteyden lisääminen</a> ohjeiden mukaisesti ja anna käyttäksi matti.
+Voit ottaa yhteyttä joko <code>psql</code>:llä tai pgAdminilla. PgAdminissa luo uusi tietokantayhteys luvun [Tietokantayhteyden lisääminen] ohjeiden mukaisesti ja anna käyttäksi matti.
 Psql:llä anna matin käyttäjätunnus <code>-U</code>-parametrilla.</p>
 <div class="code-box">
 <div class="sourceCode" id="cb56"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb56-1"><a href="06_käyttöoikeudet.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> etunimet <span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
@@ -322,7 +299,7 @@ Tarkista, että sait lisättyä Maijalle käyttöoikeudet.</p>
 <p>Saitko tulokseksi 43 riviä?</p>
 </div>
 <div id="ryhmäroolit" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Ryhmäroolit</h2>
+<h2><span class="header-section-number">6.4</span> 6.3 Ryhmäroolit</h2>
 <p>Group role luodaan SQL komennolla:</p>
 <div class="code-box">
 <div class="sourceCode" id="cb66"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb66-1"><a href="06_käyttöoikeudet.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span> roolin_nimi INHERIT;</span></code></pre></div>
@@ -338,7 +315,7 @@ Tarkista, että sait lisättyä Maijalle käyttöoikeudet.</p>
 </div>
 </div>
 <div id="roolien-käyttöä" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Roolien käyttöä</h2>
+<h2><span class="header-section-number">6.5</span> 6.4 Roolien käyttöä</h2>
 <p>Tähän asti olemme muodostanut yhteyttä palvelimeen postgres-roolilla, jolla muun muuassa on ylläpitäjän oikeudet. Salasana on tallennettu ympäristömuuttujaan, josta psql osaa sen kaivaa. Psql:n saa kuitenkin kysymään salasanaa antamalla sille argumentin W. Kirjautuminen tapahtuu konsolista tällä tutulla komennolla:</p>
 <div class="commandline-box">
 <pre><code>psql -U matti -W</code></pre>
@@ -414,8 +391,8 @@ Aja alla olevat kaksi solua tarkistaaksesi, että omistuksen muutos onnistui.</p
 <div class="footer-info">
 <h5 class="footer-title footer-company">Gispo Ltd.
 <span class="footer-copyright-year">© 2023</span></h5>
-<span class="footer-contact-info">Kalevankatu 31
-<br>00100 Helsinki, Finland
+<span class="footer-contact-info">Kumpulantie 3, 3 krs
+<br>00520 Helsinki, Finland
 <br>info@gispo.fi
 </span>
 </div>
