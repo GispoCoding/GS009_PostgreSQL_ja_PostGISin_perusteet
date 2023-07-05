@@ -1,243 +1,314 @@
-# Harjoitus 2: Työkalujen käyttöönotto
+# Harjoitus 1: Työkalujen käyttöönotto
 
+**Harjoituksen sisältö** - Harjoituksessa tutustutaan pgAdmin 4 -käyttöliittymään sekä psql:ään. Lisäksi harjoituksessa luodaan uusi paikkatietokanta.
 
-|     |       |
-|:--: | :---: |
-| <span style="color:purple"> **Harjoituksen sisältö** </span> | Harjoituksessa tutustutaan pgAdmin 4 -käyttöliittymään sekä psql:ään. Lisäksi harjoituksessa luodaan uusi paikkatietokanta. |
-| <span style="color:purple"> **Harjoituksen tavoite** </span> |  Harjoituksen jälkeen opiskelija hallitsee pgAdmin 4 -käyttöliittymän ja psql:n perusteet. |
+**Harjoituksen tavoite** - Harjoituksen jälkeen opiskelija hallitsee pgAdmin 4 -käyttöliittymän ja psql:n perusteet.
 
-### Valmistautuminen
+## Harjoitus 1.1: pgAdmin 4
 
-Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
+:::todo
+Käynnistä pgAdmin 4 -ohjelmisto menemällä osoitteeseen
+[/pgadmin](/pgadmin). Pääset kirjautumaan etäpalvelimen pgAdminiin
+seuraavilla tunnuksilla: - Sähköpostiosoite:
+[info+PG\@gispo.fi](mailto:info+PG@gispo.fi){.email} - Salasana:
+**pgtraining**
+:::
 
-
-```python
-%load_ext sql
-from ipygis import get_connection_url
-
-c_url = get_connection_url()
-%sql $c_url
-```
-
-## Harjoitus 2.1: pgAdmin 4
-
-Käynnistä pgAdmin 4 -ohjelmisto menemällä osoitteeseen [/pgadmin/](/pgadmin/). Pääset kirjautumaan etäpalvelimen pgAdminiin seuraavilla tunnuksilla: <br>
-- Sähköpostiosoite: info+PG@gispo.fi
-- Salasana: **pgtraining**
-
-<img src="img/pgadmin_splash.png" alt="pgadmin_splash" style="width: 700px;"/>
+![pgAdmin- kirjautuminen](img/pgadmin_splash.png)
 
 ### Tietokantayhteyden lisääminen
 
-Liitä pgAdmin-ohjelmaan koulutusympäristön tietokanta klikkaamalla hiiren oikealla kohdasta **Servers** ja valitsemalla **Create > Server...**
+Liitä pgAdmin-ohjelmaan koulutusympäristön tietokanta klikkaamalla
+hiiren oikealla kohdasta **Servers** ja valitsemalla **Create \>
+Server...**
 
 Syötä seuraavat tiedot:
-- General-välilehdellä
-    - Name: yhteyden nimi (tyypillisesti &lt;käyttäjänimi>@&lt;tietokanta>)
-- Connection-välilehdellä
-    - Host: **localhost**
+
+::: todo
+- General-välilehdellä 
+  - Name: yhteyden nimi (tyypillisesti \<käyttäjänimi\>\@\<tietokanta\>) 
+  - Connection-välilehdellä
+    - Host: **dbhost**
     - Port: **5432**
-    - Maintenance database:  **postgres**
+    - Maintenance database: **postgres**
     - Username: **postgres**
     - Password: **pgtraining**
-    - Valitse **Save password**, jos et halua kirjoittaa salasanaa uudelleen aina avatessasi yhteyden
+- Valitse **Save password**, jos et halua kirjoittaa salasanaa uudelleen aina avatessasi yhteyden
+:::
+Voit tarkastella asennettua tietokantaa pgAdmin:n avulla yläpalkin eri
+välilehdiltä:
 
+![](img/pgadylapalkki.png)
 
-Voit tarkastella asennettua tietokantaa pgAdmin:n avulla yläpalkin eri välilehdiltä:
+PostGIS-tietokantoja voidaan hyödyntää pgAdmin:n lisäksi myös muissa
+sovelluksissa (psql-komentorivin tai QGISin **Tietokannan hallinta (DB
+Manager)** -lisäosan kautta). Tältä tietokanta näyttää QGISin
+**Tietokannan hallinnassa**:
 
-![title](img/pgadylapalkki.png)
-
-PostGIS-tietokantoja voidaan hyödyntää pgAdmin:n lisäksi myös muissa sovelluksissa (psql-komentorivin tai QGISin **Tietokannan hallinta (DB Manager)** -lisäosan kautta). Tältä tietokanta näyttää QGISin **Tietokannan hallinnassa**:
-
-![title](img/qgisDbmanager.png)
+![](img/qgisDbmanager.png)
 
 ### Harjoitustietokannan luonti
 
-Luodaan koulutusta varten **trainingdatabase**-niminen harjoitustietokanta. Tämän voi tehdä pgAdmin:n **graafisen käyttöliittymän** kautta:
+Luodaan koulutusta varten **trainingdatabase**-niminen
+harjoitustietokanta. Tämän voi tehdä pgAdmin:n **graafisen
+käyttöliittymän** kautta:
 
-![title](img/pgadmindbluo.png)
+![](img/pgadmindbluo.png)
 
-> Tietokannan voi luoda myös seuraavan SQL-lauseen avulla:
-> ```
-> CREATE DATABASE trainingdatabase;
-> ```
+Tietokannan voi luoda myös seuraavan SQL-lauseen avulla:
 
-> Vastaavasti tietokannan voi poistaa seuraavalla SQL-lauseella:
-> ```
-> DROP DATABASE trainingdatabase;
-> ```
-
-#### Tarkista, että tietokannan luonti onnistui
-Aja alla oleva solu tarkistaaksesi, että tietokanta on luotu onnistuneesti.
-
-
-```python
-c_url = get_connection_url(dbname="trainingdatabase")
-%sql $c_url
+::: code-box
+``` sql
+CREATE DATABASE trainingdatabase;
 ```
+:::
 
-Nyt voidaan lisätä PostGIS-lisäosa **trainingdatabase**-tietokantaan seuraavalla SQL-komennolla:
+Vastaavasti tietokannan voi poistaa seuraavalla SQL-lauseella:
 
+::: code-box
+``` sql      
+DROP DATABASE trainingdatabase;
+```
+:::
 
-```python
-%%sql
+Nyt voidaan lisätä PostGIS-lisäosa **trainingdatabase**-tietokantaan
+seuraavalla SQL-komennolla:
+
+::: code-box
+``` sql
 CREATE EXTENSION IF NOT EXISTS postgis;
 ```
+:::
 
-> Mitä spatial_ref_sys-taulu sisältää?
+::: hint-box
+Mitä spatial_ref_sys-taulu sisältää?
 
-> Mitä näkymiä (views) on tietokantaan muodostunut? Mitä tietoja ne sisältävät?
+Mitä näkymiä (views) on tietokantaan muodostunut? Mitä tietoja ne
+sisältävät?
+:::
 
 ### SQL-komentojen suorittaminen
 
-Koulutuksessa tullaan suorittamaan useita harjoituksia SQL-komentokielen avulla. pgAdmin:n **Kysely-työkalun (Query Tool)** avulla voit suorittaa SQL-kyselyitä ja lausekkeita. **Query Tool** käynnistetään seuraavasti:
-* Valitse **Servers**-osiosta oma tietokantaklusterisi
-* Valitse klusterin sisältä haluamasi tietokanta (**trainingdatabase**)
-* Valitse ylhäältä **Tools > Query Tool**
+Koulutuksessa tullaan suorittamaan useita harjoituksia SQL-komentokielen
+avulla. pgAdmin:n **Kysely-työkalun (Query Tool)** avulla voit suorittaa
+SQL-kyselyitä ja lausekkeita. **Query Tool** käynnistetään seuraavasti:
+\* Valitse **Servers**-osiosta oma tietokantaklusterisi \* Valitse
+klusterin sisältä haluamasi tietokanta (**trainingdatabase**) \* Valitse
+ylhäältä **Tools \> Query Tool**
 
-Haluttu SQL-komento suoritetaan painamalla avautuvasta **Query Tool** -ikkunasta löytyvää kolmio-painiketta (**Execute/Refresh**) tai **F5**-näppäintä. Jos haluat suorittaa vain osan SQL-lausekkeesta, väritä hiirellä mieleisesi osio ja paina **F5**. Näet alaikkunassa komennon tuloksen. Voit myös tallentaa SQL-komentosi **.sql**-tiedostoon, josta ne voi myöhemmin ladata.
+Haluttu SQL-komento suoritetaan painamalla avautuvasta **Query Tool**
+-ikkunasta löytyvää kolmio-painiketta (**Execute/Refresh**) tai
+**F5**-näppäintä. Jos haluat suorittaa vain osan SQL-lausekkeesta,
+väritä hiirellä mieleisesi osio ja paina **F5**. Näet alaikkunassa
+komennon tuloksen. Voit myös tallentaa SQL-komentosi
+**.sql**-tiedostoon, josta ne voi myöhemmin ladata.
 
-<img src="img/pgadmin_query_tool.gif" alt="query_tool" style="width: 700px;"/>
+![](img/pgadmin_query_tool.gif)
 
-Uusi taulu voidaan luoda joko kirjoittamalla seuraava SQL-komentojono **Query Tool**:n SQL-editoriin tai ajamalla ao. solu suoraan Jupyter Notebookista.
+Uusi taulu voidaan luoda joko kirjoittamalla seuraava SQL-komentojono
+**Query Tool**:n SQL-editoriin tai ajamalla ao. solu suoraan Jupyter
+Notebookista.
 
-
-```python
-%%sql
+::: code-box
+``` sql
 -- Johdanto PostGISin käyttöön
 CREATE TABLE test_tmp(
     id serial,
     time time,
     num integer);
 ```
+:::
 
-> Huomaa, että kahdella viivalla “--” alkavat rivit ovat kommenttirivejä, eikä niitä oteta huomioon SQL-komentoa suoritettaessa.
+::: hint-box
+Huomaa, että kahdella viivalla "--" alkavat rivit ovat
+kommenttirivejä, eikä niitä oteta huomioon SQL-komentoa
+suoritettaessa.
+:::
 
-> Tauluja voi luoda myös SQL-kyselyiden tulosten perusteella.
+Tauluja voi luoda myös SQL-kyselyiden tulosten perusteella.
 
 Lisätään yllä luotuun tauluun tietueita seuraavalla SQL-komennolla:
 
-
-```python
-%%sql
+::: code-box
+``` sql
 INSERT INTO test_tmp (time,num)
 (SELECT now(), generate_series(1,5000));
 ```
+:::
 
-> Tietueita voi lisätä myös SQL-kyselyjen tulosten perusteella. 
+Tietueita voi lisätä myös SQL-kyselyjen tulosten perusteella.
 
-Voit listata tauluusi tekemiä tietueita esimerkiksi seuraavalla komennolla:
+Voit listata tauluusi tekemiä tietueita esimerkiksi seuraavalla
+komennolla:
 
-
-```python
-%%sql
+::: code-box
+``` sql
 SELECT *
 FROM test_tmp
 LIMIT 10;
 ```
+:::
 
 Voit poistaa luodun taulun seuraavalla komennolla:
 
-
-```python
-%%sql
+::: code-box
+``` sql
 DROP TABLE test_tmp;
 ```
+:::
 
 ### Tietokantayhteyden sulkeminen
 
-Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse **Disconnect Server**.
+Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse **Disconnect
+Server**.
 
 ### pg_dump ja pg_restore
 
-Tietokannan tai yksittäisten taulujen varmuuskopioiden luomiseen ja palauttamiseen on omat komentoriviohjelmansa: [pg_dump](https://www.postgresql.org/docs/13/app-pgdump.html) ja [pg_restore](https://www.postgresql.org/docs/13/app-pgrestore.html). Muun muassa pgAdmin käyttää näitä sisäisesti.
+Tietokannan tai yksittäisten taulujen varmuuskopioiden luomiseen ja
+palauttamiseen on omat komentoriviohjelmansa:
+[pg_dump](https://www.postgresql.org/docs/13/app-pgdump.html) ja
+[pg_restore](https://www.postgresql.org/docs/13/app-pgrestore.html).
+Muun muassa pgAdmin käyttää näitä sisäisesti.
 
-## Harjoitus 2.2: psql
+## Harjoitus 1.2: psql
 
-SQL-komentoja voi suorittaa pgAdminin (ja QGISin Tietokannan hallinta -lisäosan) lisäksi myös psql-komentorivin kautta. Avaa [komentorivi](Harjoitus%201.ipynb#Komentorivi), jotta pääset käyttämään psql-komentorivityökalua. Ota yhteys omaan tietokantaklusteriisi komennolla:
-```sh
-psql
+SQL-komentoja voi suorittaa pgAdminin (ja QGISin Tietokannan hallinta
+-lisäosan) lisäksi myös psql-komentorivin kautta. Avaa
+[komentorivi](/wetty), jotta pääset käyttämään
+psql-komentorivityökalua. Kirjaudu ensin sisään WeTTY- terminaaliemulaattoriin:
+
+::: todo
+- Username: **student**
+- Password: **gispotraining**
+
+
+Ota yhteys omaan tietokantaklusteriisi
+komennolla:
+
+
+::: commandline-box
+``` sh
+psql -U postgres -h dbhost
 ```
+:::
 
-<img src="img/psql_start.png" alt="psql_start" style="width: 700px;"/>
 
-> Tietokantayhteyden parametrit on asetettu ympäristömuuttujiksi, joten niitä ei tarvitse antaa komentoa ajaessa.
-
+![](img/psql_start.png)
+:::
 
 ### psql:n käyttäminen
 
-Kun psql on käynnistetty, komentoriville voi kirjoittaa sekä psql- että SQL-komentoja. psql-session aikana käytettäviä komentoja kutsutaan psql-interaktiivisiksi.
+Kun psql on käynnistetty, komentoriville voi kirjoittaa sekä psql- että
+SQL-komentoja. psql-session aikana käytettäviä komentoja kutsutaan
+psql-interaktiivisiksi.
 
 Alla muutama esimerkki interaktiivisista psql-komennoista:
-```psql
+
+::: commandline-box
+``` psql
 \d = näytä taulut, näkymät ja sekvenssit
 \dg = näytä tietokantaklusterin roolit (käyttäjät)
 \c tietokannan_nimi = yhdistä tietokannan_nimi -tietokantaan
 ```
+:::
 
-Komennolla `help` ja erityisesti komennolla `\?` saat tietoa ohjelman eri komennoista. Pääset pois listauksesta painamalla `q`.
+Komennolla `help` ja erityisesti komennolla `\?` saat tietoa ohjelman
+eri komennoista. Pääset pois listauksesta painamalla `q`.
 
-Komentorivin puolella käytettäviä psql-komentoja kutsutaan ei-interaktiivisiksi. Ei-interaktiivisia psql-komentoja käytetään silloin kun halutaan käyttää psql:aa suoraan käyttöjärjestelmän komentorivista ja valittavat psql-komennot sekä SQL-skriptit ovat tiedostossa. Ei-interaktiivinen psql soveltuu erityisen hyvin tehtävien automaatisointiin. Edellä mainitut yhteydenottokomennot ovat oivia esimerkkejä ei-interaktiivisista psql-komennoista. Kokeile ajaa seuraava komento komentorivillä:
+Komentorivin puolella käytettäviä psql-komentoja kutsutaan
+ei-interaktiivisiksi. Ei-interaktiivisia psql-komentoja käytetään
+silloin kun halutaan käyttää psql:aa suoraan käyttöjärjestelmän
+komentorivista ja valittavat psql-komennot sekä SQL-skriptit ovat
+tiedostossa. Ei-interaktiivinen psql soveltuu erityisen hyvin tehtävien
+automaatisointiin. Edellä mainitut yhteydenottokomennot ovat oivia
+esimerkkejä ei-interaktiivisista psql-komennoista. Kokeile ajaa seuraava
+komento komentorivillä:
 
-```sh
-psql -c "select current_database();"
+::: commandline-box
+``` sh
+psql -U postgres -h dbhost -c "select current_database();"
 ```
+:::
 
 ### Tietokannan luonti
 
-createdb on komentorivityökalu helpottamaan tietokannan luomista. Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:
-```sh
-createdb uuden_tietokannan_nimi
-```
-<img src="img/createdb.png" alt="createdb" style="width: 700px;"/>
+createdb on komentorivityökalu helpottamaan tietokannan luomista.
+Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:
 
-> psql:n tavoin myös createdb lukee tietokannan yhteysparametrit ympäristömuuttujista.
+::: commandline-box
+``` sh
+createdb -U postgres -h dbhost uuden_tietokannan_nimi
+```
+:::
+
+![](img/createdb)
+
+::: todo
+psql:n tavoin myös createdb lukee tietokannan yhteysparametrit
+ympäristömuuttujista.
+:::
 
 ### Tietokannan poistaminen
 
-dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan tietokannan voi poistaa komennolla:
-```sh
-dropdb poistettavan_tietokannan_nimi
+dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan
+tietokannan voi poistaa komennolla:
+
+::: commandline-box
+``` sh
+dropdb -U postgres -h dbhost poistettavan_tietokannan_nimi
 ```
+:::
 
 ### Tietokantayhteyden sulkeminen
 
-Kun haluat sulkea tietokantayhteyden, anna psql-ohjelmassa komento: `\q`.
+Kun haluat sulkea tietokantayhteyden, anna psql-ohjelmassa komento:
+
+::: commandline-box
+`\q`
+:::
 
 ### Tiedot asennuksista
 
 PostgreSQL:n version voit kysyä SQL-komennolla:
 
-
-```python
-%%sql
+::: code-box
+``` sql
 SELECT version();
 ```
+:::
 
 Asennetut lisäosat voit tarkistaa SQL-lauseella:
 
-
-```python
-%%sql
+::: code-box
+``` sql
 SELECT *
 FROM pg_extension;
 ```
+:::
 
 ### Muita huomioita
 
-Jos haluat käyttää PostGIS-tietokantaa muilta tietokoneilta, tulee PostgreSQL:n määrittelytiedostoon (pg_hba.conf) tehdä muutamia tarvittavia muutoksia, esimerkiksi seuraavasti:
+Jos haluat käyttää PostGIS-tietokantaa muilta tietokoneilta, tulee
+PostgreSQL:n määrittelytiedostoon (pg_hba.conf) tehdä muutamia
+tarvittavia muutoksia, esimerkiksi seuraavasti:
+
+::: code-box
 ``` mysql
 # IPv4 local connections:
 #host  all     all      127.0.0.1/32      md5
 host   all     all        0.0.0.0/0       trust
 ```
+:::
 
-Muutokset on tehty koulutuksessa käytettävälle PostgreSQL-asennukselle jo valmiiksi.
+::: todo
+Muutokset on tehty koulutuksessa käytettävälle PostgreSQL-asennukselle
+jo valmiiksi.
+:::
 
-> Tämä muutos mahdollistaa yhteydenoton mistä tahansa tietokoneesta ja on turvallisuusriski tuotannollisissa tietojärjestelmissä.
+::: hint-box
+**HUOM!** Tämä muutos mahdollistaa yhteydenoton mistä tahansa tietokoneesta ja
+on turvallisuusriski tuotannollisissa tietojärjestelmissä.
+:::
 
-Oletuksena yhteys tietokantaan on suojaamaton. Tietokantayhteys suositellaan salattavaksi SSL:n avulla.
-
-Siirry takaisin [päänäkymään](/tree).
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
+Oletuksena yhteys tietokantaan on suojaamaton. Tietokantayhteys
+suositellaan salattavaksi SSL:n avulla.

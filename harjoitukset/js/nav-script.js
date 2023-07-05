@@ -28,6 +28,12 @@ codeBoxes.forEach(box => {
   box.appendChild(copyButton);
 });
 
+const answerButtons = [...document.getElementsByClassName('answer_btn')];
+console.log("yees");
+answerButtons.forEach(button => {
+  button.textContent = "Näytä " + button.textContent;
+});
+
 function navToggle() {
   let sidebar = document.getElementById('sidebar');
   sidebar.classList.toggle('show');
@@ -38,6 +44,12 @@ function navToggle() {
 function toggleAnswer(button) {
   let buttons = document.getElementsByClassName('answer_btn');
   let buttonIndex = Array.from(buttons).indexOf(button) + 1;
+  
+  let buttonTextInput = button.textContent;
+  let words = buttonTextInput.split(" ");
+  let originalButtonText = words.slice(1).join(' ');
+
+  console.log(originalButtonText);
 
   let boxId = "hidden-box-" + buttonIndex;
   let hiddenBox = document.getElementById(boxId);
@@ -46,10 +58,10 @@ function toggleAnswer(button) {
     let currentDisplay = window.getComputedStyle(hiddenBox).getPropertyValue("display");
     if (currentDisplay === "none") {
       hiddenBox.style.display = "block";
-      button.textContent = "Piilota vastaus";
+      button.textContent = "Piilota " + originalButtonText;
     } else {
       hiddenBox.style.display = "none";
-      button.textContent = "Näytä vastaus";
+      button.textContent = "Näytä " + originalButtonText;
     }
   }
   else {

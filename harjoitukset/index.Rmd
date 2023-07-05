@@ -23,13 +23,13 @@ documentclass: book
 
 Tervetuloa kurssin harjoitusten pariin!
 
-Näiden harjoitusten avulla voit tutustua itsenäisesti PostgreSQL-tietokantajärjestelmään. Valitse vasemmalta haluamasi aihe.
+Näiden harjoitusten avulla voit tutustua itsenäisesti PostGIS- lisäosaan PostgreSQL- tietokantajärjestelmään. Valitse vasemmalta haluamasi aihe.
 
 ## 1.1 Harjoitusmateriaalin lisenssi
 
-* Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi).
-* etunimet.csv - muodostettu 24.08.2020 aineistosta Etunimitilasto 2020-08-19, joka on jaettu lisenssillä: [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi)
-* ajoneuvorekisteri_schema.sql - muodostettu 25.08.2020 aineistosta Ajoneuvojen avoin data 5.8, joka on jaettu lisenssillä: [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi)
-* audit_log.csv on muodostettu enterprisedb -sivun esimerkeistä.
-* digiroad_uusimaa.gpkg on muodostettu 7.10.2020 Digiroad-aineistosta, joka on jaettu lisenssillä: [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi)
-* kunnat.gpkg on muodostettu 7.10.2020 Kuntapohjaiset tilastointialueet -aineistosta, joka on jaettu lisenssillä: [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi)
+- Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on [Creative Commons Nimeä-EiMuutoksia 4.0](https://creativecommons.org/licenses/by-nd/2.0/deed.fi).
+
+Harjoituksissa käytettävät aineistot:
+
+- 1_milj_Shape_etrs_shape.zip - ladattu 5.7.2023 Maanmittauslaitoksen Karttapaikasta (Maastokartta 1:1 000 000). Jaettu lisenssillä [Creative Commons Nimeä 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi)
+- airports.dat - ladattu [Openflights](https://openflights.org/data.html)- sivustolta. Lentokenttäaineisto on julkista (public domain).

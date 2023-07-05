@@ -1,12 +1,14 @@
-# Harjoitus 8: Koordinaattijärjestelmät
+# Harjoitus 7: Koordinaattijärjestelmät
 
+**Harjoituksen sisältö** - Harjoituksessa tutustutaan PostGISin tapaan käsitellä koordinaattijärjestelmiä ja karttaprojektioita.
 
-|     |       |
-|:--: | :---: |
-| <span style="color:purple"> **Harjoituksen sisältö** </span> | Harjoituksessa tutustutaan PostGISin tapaan käsitellä koordinaattijärjestelmiä ja karttaprojektioita. |
-| <span style="color:purple"> **Harjoituksen tavoite** </span> | Harjoitusten jälkeen opiskelijalla on perustiedot PostGISin koordinaattijärjestelmien ja karttaprojektion käytöstä. |
+**Harjoituksen tavoite** - Harjoitusten jälkeen opiskelijalla on perustiedot PostGISin koordinaattijärjestelmien ja karttaprojektion käytöstä.
 
 ### Valmistautuminen
+
+
+:::todo
+miksi lie tämä pitäisi tehä
 
 Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
 
@@ -18,15 +20,11 @@ from ipygis import get_connection_url
 c_url = get_connection_url(dbname="trainingdatabase")
 %sql $c_url
 ```
+:::
 
-Harjoituksessa 3 ladattiin tarvittavat paikkatietoaineistot PostGIS-tietokantaan. Jos tämä vaihe on jäänyt sinulta välistä, saat tarvittavat aineistot käyttöösi myös ajamalla ao. solun.
-
-
-```python
-from utils import initializer
-
-initializer.add_nlsfi_data()
-```
+:::todo
+pittääköhän muuta lissäillä
+:::
 
 Käytössä tulee olla myös web-selain, joka mahdollistaa pääsyn Maanmittauslaitoksen koordinaattien muunnospalveluun.
 
@@ -34,79 +32,105 @@ Käytössä tulee olla myös web-selain, joka mahdollistaa pääsyn Maanmittausl
 
 Tehtävänä on suorittaa Metsähovin tutkimusaseman ETRS89 maantieteellisten koordinaattien (EPSG:4258) konversio ETRS-TM35FIN (EPSG:3067) koordinaattijärjestelmään. Muodosta ensin koordinaattiparista 24.3953148 (pituusaste) ja  60.2174696 (leveysaste) Kallion kirkkoa vastaava PostGISin koordinaattipiste:
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT
 ST_GeomFromText('POINT(24.3953148 60.2174696)', 4258);
 ```
+:::
 
 Koordinaattien selväkielisemmän esitystavan saat aikaiseksi **ST_AsText**-funktiolla:
 
-``` mysql
+:::code-box
+\
+
 ST_AsText(geometry g1);
-```
+
+\
+:::
 
 Koordinaattien konversion (tai muunnoksen) voit tehdä eri koordinaattijärjestelmien välillä **ST_Transform**-funktiolla:
 
+:::code-box
 ``` mysql
 geometry ST_Transform(geometry g1, integer srid);
 geometry ST_Transform(geometry geom, text to_proj);
 geometry ST_Transform(geometry geom, text from_proj, text to_proj);
 geometry ST_Transform(geometry geom, text from_proj, integer to_srid);
 ```
+:::
 
-## Harjoitus 8.1
+## Harjoitus 7.1
 
 Tee Kallion kirkon koordinaatteille konversio ETRS-TM35FIN koordinaattijärjestelmään hyödyntämällä **ST_Transform**-funktiota.
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT
 ST_asText(ST_Transform(ST_GeomFromText('POINT(24.3953148 60.2174696)', 4258), 3067));
 ```
+:::
+:::
 
-> Tuloksena pitäisi tulla seuraavat koordinaattipisteet EPSG:3067-koordinaattijärjestelmässä:
-> ```
-> 0101000020FB0B0000BE87BABAC1B515411865678EF3795941
-> ```
-> tai selväkielisemmin:
-> ```
-> POINT(355696.432352181 6678478.22506072)
-> ```
+Tuloksena pitäisi tulla seuraavat koordinaattipisteet EPSG:3067-koordinaattijärjestelmässä:
 
-## Harjoitus 8.2
+:::code-box
+```
+0101000020FB0B0000BE87BABAC1B515411865678EF3795941
+```
+:::
+tai selväkielisemmin:
+
+:::code-box
+```
+POINT(355696.432352181 6678478.22506072)
+```
+:::
+
+## Harjoitus 7.2
 
 Tee seuraavaksi Kallion kirkon koordinaateille muunnos **KKJ2**-koordinaattijärjestelmään (EPSG:2392).
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT
 ST_asText(ST_Transform(ST_GeomFromText('POINT(24.3953148 60.2174696)', 4258), 2392));
 ```
+:::
+:::
 
->  Tuloksen pitäisi olla:
-> ```
-> POINT(2522091.99236457 6678507.76432921)
-> ```
+Tuloksen pitäisi olla:
+
+:::code-box
+```
+POINT(2522091.99236457 6678507.76432921)
+```
+:::
+
+:::todo
+SAIKO TÄTÄ KÄYTTÄÄKÄÄN, LISÄKSI TAULU
 
 Vertaa saatuja koordinaattiarvoja Maanmittauslaitoksen ylläpitämän [koordinaattimuunnospalvelun](https://kartta.paikkatietoikkuna.fi/) koordinaatteihin. Koordinaattimuunnostoiminto löytyy **Paikkatietoikkunan** vasemman reunan valikosta nimellä **Koordinaattimuunnos**.
 
-![title](img/paikkatietoikkuna.png)
+![](img/paikkatietoikkuna.png)
 
 Huomaa, että EPSG:4258- ja EPSG:3067-koordinaattijärjestelmien välillä tehtiin koordinaattikonversio, eikä PostGIS:n ja MML:n laskennassa ole oleellista eroa.
 
@@ -117,16 +141,19 @@ Tehdään koordinaattimuunnos EPSG:4258- ja EPSG:2392-koordinaattijärjestelmien
 | 6,678,  507.764333 | 6,678,  507.677300 | 0.087033 |
 | 2,522,  091.992365 | 2,522,  091.368400 | 0.623965 |
 
-> Mistä koordinaattimuunnoksen ero voi johtua?
+:::
+
+:::hint-box
+Mistä koordinaattimuunnoksen ero voi johtua?
+:::
 
 ### Koordinaattijärjestelmien määritykset
 
 Koordinaattijärjestelmien kuvaukset löytyvät **spatial_ref_sys**–taulusta:
 
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT
 srid, proj4text
 FROM
@@ -134,44 +161,51 @@ spatial_ref_sys
 WHERE
 srid = 2392;
 ```
+:::
 
 Tallennetut muunnosparametrit EUREF-FIN datumin ja KKJ datumin välillä antavat maksimissaan kahden metrin virheen Suomen alueella (kuva JHS 197-suosituksesta):
 
-![title](img/JHSsuositus.png)
+![](img/JHSsuositus.png)
 
 #### Puuttuvia koordinaattijärjestelmiä
 
 EUREF-FIN -pohjaisten koordinaattijärjestelmien käyttöönotossa on EPSG-tietokantaan tuotettu erilaisia versioita ns. GK-koordinaattijärjestelmistä.
 
-## Harjoitus 8.3
+## Harjoitus 7.3
 
 Tarkista mitkä määrittelyt koulutuksessa käytettävässä tietokannassa on ETRS-GK24FIN -koordinaattijärjestelmälle.
 
-> Tutki ensin spatial_ref_sys-taulun kenttiä. Päättele mistä kentästä voi löytyä tiedot koordinaattijärjestelmän tiedoista. Käytä LIKE-operaattoria.
+Tutki ensin spatial_ref_sys-taulun kenttiä. Päättele mistä kentästä voi löytyä tiedot koordinaattijärjestelmän tiedoista. Käytä LIKE-operaattoria.
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT *
 FROM
 spatial_ref_sys
 WHERE
 "srtext" LIKE '%ETRS-GK24FIN%';
 ```
+:::
+:::
 
-## Harjoitus 8.4
+## Harjoitus 7.4
 
 Mitä eroja on EPSG:3131- ja EPSG:3879-koordinaattijärjestelmillä?
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT
 srid, proj4text
 FROM
@@ -179,14 +213,15 @@ spatial_ref_sys
 WHERE
 srid in (3132, 3879);
 ```
+:::
+:::
 
 ### Uuden paikkatietotaulun luominen
 
 Luodaan uusi paikkatietotaulu tietokantaan, jossa on geometria-kenttä, jonka koordinaattijärjestelmä on WGS84. Luodaan tauluun neljä kenttää (gid, name, ICAO, geom):
 
-
-```python
-%%sql
+:::code-box
+```sql
 DROP TABLE IF EXISTS air_geom;
 
 CREATE TABLE air_geom
@@ -197,13 +232,12 @@ CREATE TABLE air_geom
     geom    geometry(Point,4326)
 );
 ```
+:::
 
-Luetaan airports-taulusta tiedot uuden taulun kenttiin.
-> Muodostetaan ensin SELECT-lauseke, niin voidaan varmistua, että tietojen sisäänluku onnistuu.
+Luetaan airports-taulusta tiedot uuden taulun kenttiin. Muodostetaan ensin SELECT-lauseke, niin voidaan varmistua, että tietojen sisäänluku onnistuu.
 
-
-```python
-%%sql
+:::code-box
+```sql
 INSERT INTO
 air_geom(geom, name, ICAO)
 SELECT
@@ -212,6 +246,7 @@ airports.name, airports.icao_code
 FROM
 airports;
 ```
+:::
 
 Kahdella putkimerkillä ```||``` yhdistetään tekstiä.
 
@@ -219,78 +254,83 @@ Kahdella putkimerkillä ```||``` yhdistetään tekstiä.
 
 Lisätään vielä tehtyyn tauluun toinen geometria-kenttä, jonka koordinaattijärjestelmä on EPSG:3857:
 
-
-```python
-%%sql
+:::code-box
+```sql
 ALTER TABLE
 air_geom
 ADD COLUMN
 geom3857 geometry(Point,3857);
 ```
+:::
 
 Luodaan uuteen geometria-kenttään uudet koordinaattipisteet airports-taulusta:
 
-
-```python
-%%sql
+:::code-box
+```sql
 UPDATE
 air_geom
 SET
 geom3857 = ST_Transform(geom, 3857);
 ```
+:::
 
-## Harjoitus 8.5
+## Harjoitus 7.5
 
 Jos komennon ajo ei mene läpi, kuinka ratkaisisit ongelman?
 
 
-> Tutustu lentokenttäaineistoon ja etsi virheilmoituksen tuottavat tietue. Kannattaa tutkia minkä alueen kuvaamiseen EPSG:3857-koordinaattijärjestelmä on suunnattu esimerkiksi [täältä](https://epsg.io/3857).
+Tutustu lentokenttäaineistoon ja etsi virheilmoituksen tuottavat tietue. Kannattaa tutkia minkä alueen kuvaamiseen EPSG:3857-koordinaattijärjestelmä on suunnattu esimerkiksi [täältä](https://epsg.io/3857).
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT *
 FROM
 air_geom
 WHERE
 ST_Y(geom) < -85.06;
 ```
+:::
+:::
 
 Paikannattuasi ongelman, korjaa se (jätä ongelman aiheuttava lentokenttä air_geom-taulun kentän päivityskomennon ulkopuolelle).
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT gid,name,icao,ST_asText(geom)
 FROM air_geom
 WHERE ST_Y(geom) = -90;
 ```
+:::
+:::
 
-
-```python
-%%sql
+:::code-box
+```sql
 UPDATE air_geom
 SET geom3857 = ST_Transform(geom,3857)
 WHERE icao != 'NZSP';
 ```
+:::
 
-> Miten geometriakentät käyttäytyvät?
+:::hint-box
+Miten geometriakentät käyttäytyvät?
+:::
 
 Ratkaistuasi ongelman, tarkista tulos QGIS-ohjelmiston avulla.
-
-Siirry takaisin [päänäkymään](/tree).
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
-

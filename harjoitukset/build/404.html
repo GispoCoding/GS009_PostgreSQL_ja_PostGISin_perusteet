@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-04" />
+<meta name="date" content="2023-07-05" />
 
 
 <meta name="description" content="Page not found | Johdanto PostGISin käyttöön">
@@ -25,6 +25,72 @@
 
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="custom.css" type="text/css" />
 
@@ -61,69 +127,69 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <nav class="sidebar-nav">
 <div id="TOC" class="toc">
 <ul>
-<li class="has-sub"><a href="index.html#johdanto" id="toc-johdanto"><span class="toc-section-number">1</span> 1. Johdanto</a>
+<li class="has-sub"><a href="index.html#johdanto"><span class="toc-section-number">1</span> 1. Johdanto</a>
 <ul>
-<li><a href="index.html#harjoitusmateriaalin-lisenssi" id="toc-harjoitusmateriaalin-lisenssi"><span class="toc-section-number">1.1</span> 1.1 Harjoitusmateriaalin lisenssi</a></li>
+<li><a href="index.html#harjoitusmateriaalin-lisenssi"><span class="toc-section-number">1.1</span> 1.1 Harjoitusmateriaalin lisenssi</a></li>
 </ul></li>
-<li class="has-sub"><a href="01_harjoitus_1.html#harjoitus-2-työkalujen-käyttöönotto" id="toc-harjoitus-2-työkalujen-käyttöönotto"><span class="toc-section-number">2</span> Harjoitus 2: Työkalujen käyttöönotto</a>
+<li class="has-sub"><a href="01_harjoitus_1.html#harjoitus-1-työkalujen-käyttöönotto"><span class="toc-section-number">2</span> Harjoitus 1: Työkalujen käyttöönotto</a>
 <ul>
-<li><a href="01_harjoitus_1.html#harjoitus-2.1-pgadmin-4" id="toc-harjoitus-2.1-pgadmin-4"><span class="toc-section-number">2.1</span> Harjoitus 2.1: pgAdmin 4</a></li>
-<li><a href="01_harjoitus_1.html#harjoitus-2.2-psql" id="toc-harjoitus-2.2-psql"><span class="toc-section-number">2.2</span> Harjoitus 2.2: psql</a></li>
+<li><a href="01_harjoitus_1.html#harjoitus-1.1-pgadmin-4"><span class="toc-section-number">2.1</span> Harjoitus 1.1: pgAdmin 4</a></li>
+<li><a href="01_harjoitus_1.html#harjoitus-1.2-psql"><span class="toc-section-number">2.2</span> Harjoitus 1.2: psql</a></li>
 </ul></li>
-<li class="has-sub"><a href="02_harjoitus_2.html#harjoitus-3-aineistojen-lataaminen" id="toc-harjoitus-3-aineistojen-lataaminen"><span class="toc-section-number">3</span> Harjoitus 3: Aineistojen lataaminen</a>
+<li class="has-sub"><a href="02_harjoitus_2.html#harjoitus-2-aineistojen-lataaminen"><span class="toc-section-number">3</span> Harjoitus 2: Aineistojen lataaminen</a>
 <ul>
-<li><a href="02_harjoitus_2.html#harjoitus-3.1-tekstitiedoston-lataaminen" id="toc-harjoitus-3.1-tekstitiedoston-lataaminen"><span class="toc-section-number">3.1</span> Harjoitus 3.1: Tekstitiedoston lataaminen</a></li>
-<li><a href="02_harjoitus_2.html#harjoitus-3.2-paikkatietoaineiston-lataaminen" id="toc-harjoitus-3.2-paikkatietoaineiston-lataaminen"><span class="toc-section-number">3.2</span> Harjoitus 3.2: Paikkatietoaineiston lataaminen</a></li>
+<li><a href="02_harjoitus_2.html#harjoitus-2.1-tekstitiedoston-lataaminen"><span class="toc-section-number">3.1</span> Harjoitus 2.1: Tekstitiedoston lataaminen</a></li>
+<li><a href="02_harjoitus_2.html#harjoitus-2.2-paikkatietoaineiston-lataaminen"><span class="toc-section-number">3.2</span> Harjoitus 2.2: Paikkatietoaineiston lataaminen</a></li>
 </ul></li>
-<li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-4-sqln-perusteet" id="toc-harjoitus-4-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 4: SQL:n perusteet</a>
+<li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-3-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 3: SQL:n perusteet</a>
 <ul>
-<li><a href="03_harjoitus_3.html#harjoitus-4.1" id="toc-harjoitus-4.1"><span class="toc-section-number">4.1</span> <strong>Harjoitus 4.1</strong></a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-4.2" id="toc-harjoitus-4.2"><span class="toc-section-number">4.2</span> <strong>Harjoitus 4.2</strong></a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-4.3" id="toc-harjoitus-4.3"><span class="toc-section-number">4.3</span> <strong>Harjoitus 4.3</strong></a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-4.4" id="toc-harjoitus-4.4"><span class="toc-section-number">4.4</span> <strong>Harjoitus 4.4</strong></a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-4.5" id="toc-harjoitus-4.5"><span class="toc-section-number">4.5</span> <strong>Harjoitus 4.5</strong></a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.1</span> Harjoitus 3.1</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.2</span> Harjoitus 3.2</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
 </ul></li>
-<li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-5-spatiaaliset-sql-haut" id="toc-harjoitus-5-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 5: Spatiaaliset SQL-haut</a>
+<li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
-<li><a href="04_harjoitus_4.html#harjoitus-5.1" id="toc-harjoitus-5.1"><span class="toc-section-number">5.1</span> Harjoitus 5.1</a></li>
-<li><a href="04_harjoitus_4.html#harjoitus-5.2" id="toc-harjoitus-5.2"><span class="toc-section-number">5.2</span> Harjoitus 5.2</a></li>
+<li><a href="04_harjoitus_4.html#harjoitus-4.1"><span class="toc-section-number">5.1</span> Harjoitus 4.1</a></li>
+<li><a href="04_harjoitus_4.html#harjoitus-4.2"><span class="toc-section-number">5.2</span> Harjoitus 4.2</a></li>
 </ul></li>
-<li class="has-sub"><a href="05_harjoitus_5.html#harjoitus-6-paikkatietokohteiden-geometria" id="toc-harjoitus-6-paikkatietokohteiden-geometria"><span class="toc-section-number">6</span> Harjoitus 6: Paikkatietokohteiden geometria</a>
+<li class="has-sub"><a href="05_harjoitus_5.html#harjoitus-5-paikkatietokohteiden-geometria"><span class="toc-section-number">6</span> Harjoitus 5: Paikkatietokohteiden geometria</a>
 <ul>
-<li><a href="05_harjoitus_5.html#harjoitus-6.1-geometrioiden-luonti" id="toc-harjoitus-6.1-geometrioiden-luonti"><span class="toc-section-number">6.1</span> Harjoitus 6.1: Geometrioiden luonti</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-6.2" id="toc-harjoitus-6.2"><span class="toc-section-number">6.2</span> Harjoitus 6.2</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-6.3" id="toc-harjoitus-6.3"><span class="toc-section-number">6.3</span> Harjoitus 6.3</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-6.4" id="toc-harjoitus-6.4"><span class="toc-section-number">6.4</span> Harjoitus 6.4</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-6.5" id="toc-harjoitus-6.5"><span class="toc-section-number">6.5</span> Harjoitus 6.5</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.1-geometrioiden-luonti"><span class="toc-section-number">6.1</span> Harjoitus 5.1: Geometrioiden luonti</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.2"><span class="toc-section-number">6.2</span> Harjoitus 5.2</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.3"><span class="toc-section-number">6.3</span> Harjoitus 5.3</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.4"><span class="toc-section-number">6.4</span> Harjoitus 5.4</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.5"><span class="toc-section-number">6.5</span> Harjoitus 5.5</a></li>
 </ul></li>
-<li class="has-sub"><a href="06_harjoitus_6.html#harjoitus-7-spatiaaliset-relaatiot" id="toc-harjoitus-7-spatiaaliset-relaatiot"><span class="toc-section-number">7</span> Harjoitus 7: Spatiaaliset relaatiot</a>
+<li class="has-sub"><a href="06_harjoitus_6.html#harjoitus-6-spatiaaliset-relaatiot"><span class="toc-section-number">7</span> Harjoitus 6: Spatiaaliset relaatiot</a>
 <ul>
-<li><a href="06_harjoitus_6.html#harjoitus-7.1" id="toc-harjoitus-7.1"><span class="toc-section-number">7.1</span> Harjoitus 7.1</a></li>
-<li><a href="06_harjoitus_6.html#harjoitus-7.2" id="toc-harjoitus-7.2"><span class="toc-section-number">7.2</span> <strong>Harjoitus 7.2</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.1"><span class="toc-section-number">7.1</span> Harjoitus 6.1</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.2"><span class="toc-section-number">7.2</span> <strong>Harjoitus 6.2</strong></a></li>
 </ul></li>
-<li class="has-sub"><a href="07_harjoitus_7.html#harjoitus-8-koordinaattijärjestelmät" id="toc-harjoitus-8-koordinaattijärjestelmät"><span class="toc-section-number">8</span> Harjoitus 8: Koordinaattijärjestelmät</a>
+<li class="has-sub"><a href="07_harjoitus_7.html#harjoitus-7-koordinaattijärjestelmät"><span class="toc-section-number">8</span> Harjoitus 7: Koordinaattijärjestelmät</a>
 <ul>
-<li><a href="07_harjoitus_7.html#harjoitus-8.1" id="toc-harjoitus-8.1"><span class="toc-section-number">8.1</span> Harjoitus 8.1</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-8.2" id="toc-harjoitus-8.2"><span class="toc-section-number">8.2</span> Harjoitus 8.2</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-8.3" id="toc-harjoitus-8.3"><span class="toc-section-number">8.3</span> Harjoitus 8.3</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-8.4" id="toc-harjoitus-8.4"><span class="toc-section-number">8.4</span> Harjoitus 8.4</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-8.5" id="toc-harjoitus-8.5"><span class="toc-section-number">8.5</span> Harjoitus 8.5</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.1"><span class="toc-section-number">8.1</span> Harjoitus 7.1</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.2"><span class="toc-section-number">8.2</span> Harjoitus 7.2</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.3"><span class="toc-section-number">8.3</span> Harjoitus 7.3</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.4"><span class="toc-section-number">8.4</span> Harjoitus 7.4</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.5"><span class="toc-section-number">8.5</span> Harjoitus 7.5</a></li>
 </ul></li>
-<li class="has-sub"><a href="08_harjoitus_8.html#harjoitus-9-geoprosessointi" id="toc-harjoitus-9-geoprosessointi"><span class="toc-section-number">9</span> Harjoitus 9: Geoprosessointi</a>
+<li class="has-sub"><a href="08_harjoitus_8.html#harjoitus-8-geoprosessointi"><span class="toc-section-number">9</span> Harjoitus 8: Geoprosessointi</a>
 <ul>
-<li><a href="08_harjoitus_8.html#harjoitus-9.1" id="toc-harjoitus-9.1"><span class="toc-section-number">9.1</span> Harjoitus 9.1</a></li>
-<li><a href="08_harjoitus_8.html#harjoitus-9.2" id="toc-harjoitus-9.2"><span class="toc-section-number">9.2</span> Harjoitus 9.2</a></li>
-<li><a href="08_harjoitus_8.html#harjoitus-9.3" id="toc-harjoitus-9.3"><span class="toc-section-number">9.3</span> Harjoitus 9.3</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.1"><span class="toc-section-number">9.1</span> Harjoitus 8.1</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.2"><span class="toc-section-number">9.2</span> Harjoitus 8.2</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.3"><span class="toc-section-number">9.3</span> Harjoitus 8.3</a></li>
 </ul></li>
-<li class="has-sub"><a href="09_harjoitus_09.html#harjoitus-10-postgresqln-ylläpito" id="toc-harjoitus-10-postgresqln-ylläpito"><span class="toc-section-number">10</span> Harjoitus 10: PostgreSQL:n ylläpito</a>
+<li class="has-sub"><a href="09_harjoitus_09.html#harjoitus-9-postgresqln-ylläpito"><span class="toc-section-number">10</span> Harjoitus 9: PostgreSQL:n ylläpito</a>
 <ul>
-<li><a href="09_harjoitus_09.html#harjoitus-10.1-uuden-taulutilan-luominen" id="toc-harjoitus-10.1-uuden-taulutilan-luominen"><span class="toc-section-number">10.1</span> Harjoitus 10.1: Uuden taulutilan luominen</a></li>
-<li><a href="09_harjoitus_09.html#harjoitus-10.2-käyttäjäroolit" id="toc-harjoitus-10.2-käyttäjäroolit"><span class="toc-section-number">10.2</span> Harjoitus 10.2: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.1-uuden-taulutilan-luominen"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Uuden taulutilan luominen</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.2-käyttäjäroolit"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Käyttäjäroolit</a></li>
 </ul></li>
-<li class="has-sub"><a href="10_harjoitus_10.html#harjoitus-11-varmistus-ja-palautus" id="toc-harjoitus-11-varmistus-ja-palautus"><span class="toc-section-number">11</span> Harjoitus 11: Varmistus ja palautus</a>
+<li class="has-sub"><a href="10_harjoitus_10.html#harjoitus-10-varmistus-ja-palautus"><span class="toc-section-number">11</span> Harjoitus 10: Varmistus ja palautus</a>
 <ul>
-<li><a href="10_harjoitus_10.html#harjoitus-11.1-luodaan-varmistus" id="toc-harjoitus-11.1-luodaan-varmistus"><span class="toc-section-number">11.1</span> Harjoitus 11.1: Luodaan varmistus</a></li>
-<li><a href="10_harjoitus_10.html#harjoitus-11.2-tehdään-palautus" id="toc-harjoitus-11.2-tehdään-palautus"><span class="toc-section-number">11.2</span> Harjoitus 11.2: Tehdään palautus</a></li>
+<li><a href="10_harjoitus_10.html#harjoitus-10.1-luodaan-varmistus"><span class="toc-section-number">11.1</span> Harjoitus 10.1: Luodaan varmistus</a></li>
+<li><a href="10_harjoitus_10.html#harjoitus-10.2-tehdään-palautus"><span class="toc-section-number">11.2</span> Harjoitus 10.2: Tehdään palautus</a></li>
 </ul></li>
 </ul>
 </div>
@@ -151,7 +217,7 @@ the table of contents to find the page you are looking for.</p>
 
 <div class="footer-info">
 <h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-04</span>
+<span class="footer-version">v2023-07-05</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 

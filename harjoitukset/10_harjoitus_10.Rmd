@@ -1,46 +1,42 @@
-# Harjoitus 11: Varmistus ja palautus
+# Harjoitus 10: Varmistus ja palautus
 
+**Harjoituksen sisältö** - Tutustutaan tietokannan varmistamiseen ja palautukseen.
 
-|     |       |
-|:--: | :---: |
-| <span style="color:purple"> **Harjoituksen sisältö** </span> | Tutustutaan tietokannan varmistamiseen ja palautukseen. |
-| <span style="color:purple"> **Harjoituksen tavoite** </span> | Opiskelija tietää kuinka tietokanta voidaan varmistaa ja palauttaa. |
+**Harjoituksen tavoite** - Opiskelija tietää kuinka tietokanta voidaan varmistaa ja palauttaa.
 
-## Harjoitus 11.1: Luodaan varmistus
+## Harjoitus 10.1: Luodaan varmistus
 
 Tehdään varmistus koulutuskannasta pgAdmin-työkalun avulla. Valitse harjoitustietokanta ja valitse hiiren oikealla  painikkeella **Backup...**-toiminto: <br>
 
 
-![title](img/pgadminback.png)
+![](img/pgadminback.png)
 
-> Mikäli Backup-ikkuna ei avaudu vaan törmäät virheilmoitukseen, menettele seuraavasti: File > Preferences > vasemman reunan valikosta Paths alta Binary Paths ja kirjoita PostgreSQL Binary Path -kenttään **/usr/bin**
+:::hint-box
+Mikäli Backup-ikkuna ei avaudu vaan törmäät virheilmoitukseen, menettele seuraavasti: File > Preferences > vasemman reunan valikosta Paths alta Binary Paths ja kirjoita PostgreSQL Binary Path -kenttään **/usr/bin**
+:::
 
 Täytä avautuvaan **Backup**-ikkunaan tiedoston nimeksi **"trainingdatabase_backup"**, formaatiksi **Tar** ja koodaukseksi **UTF8**. Jos haluat tarkastella palautusta komentorivin avulla, se löytyy kansiosta **/home/jovyan/pgadmin/storage/info+PG_gispo.fi**
 
-<img src="img/pgadminback2.png" alt="createdb" style="width:500px;"/>
+![](img/pgadminback2.png)
 
-
-## Harjoitus 11.2: Tehdään palautus
+## Harjoitus 10.2: Tehdään palautus
 
 ### Luo uusi tietokanta
 
 Klikkaa hiiren oikeaa nappia tietokantaklusterin päällä ja valitse **Create > Database…**. Anna tietokannalle nimeksi **"trainingdatabase2"**.
 
-![title](img/pgadmindb2.png)
+![](img/pgadmindb2.png)
 
 ### Palauta varmistustiedostosta tiedot
 
 Palautetaan siihen varmistukset klikkaamalla hiiren oikeaa painiketta juuri luodun **trainingdatabase2**-tietokannan päällä. Valitse **Restore... > Filename > …** ja hae äsken tallentamasi .tar-tiedosto koulutustietokoneesta.
 
-<img src="img/pgadminrestore.png" alt="createdb" style="width:500px;"/>
+![](img/pgadminrestore.png)
 
 Jos varmistustiedostoa ei meinaa löytyä, valitse **Select file** -ikkunan oikean alanurkan **Format**-alasvetovalikosta formaatiksi **All Files**. Voit tarkastella palautettavia kohteita ennen palautusta **Display Objects** -toiminnon avulla.
 
-<img src="img/pgadmindisplay.png" alt="createdb" style="width:500px;"/>
+![](img/pgadmindisplay.png)
 
-> Kuinka kopioit harjoitustietokannan rakenteen (skeeman) toiseen tietokantaan?
-
-Siirry takaisin [päänäkymään](/tree).
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
-
+:::hint-box
+Kuinka kopioit harjoitustietokannan rakenteen (skeeman) toiseen tietokantaan?
+:::

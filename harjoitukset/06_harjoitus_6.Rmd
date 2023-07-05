@@ -1,12 +1,13 @@
-# Harjoitus 7: Spatiaaliset relaatiot
+# Harjoitus 6: Spatiaaliset relaatiot
 
+**Harjoituksen sisältö** - Harjoitellaan PostGISin spatiaalisiin relaatioihin liittyvien funktioiden käyttöä.
 
-|     |       |
-|:--: | :---: |
-| <span style="color:purple"> **Harjoituksen sisältö** </span> | Harjoitellaan PostGISin spatiaalisiin relaatioihin liittyvien funktioiden käyttöä. |
-| <span style="color:purple"> **Harjoituksen tavoite** </span> | Harjoituksen jälkeen opiskelija tuntee PostGISin spatiaalisen relaatioihin liittyvät funktiot ja osaa niiden avulla tehdä yksinkertaisia analyysejä. |
+**Harjoituksen tavoite** - Harjoituksen jälkeen opiskelija tuntee PostGISin spatiaalisen relaatioihin liittyvät funktiot ja osaa niiden avulla tehdä yksinkertaisia analyysejä.
 
 ### Valmistautuminen
+
+:::todo
+miksi lie tämä pitäisi tehä
 
 Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
 
@@ -18,19 +19,19 @@ from ipygis import get_connection_url
 c_url = get_connection_url(dbname="trainingdatabase")
 %sql $c_url
 ```
+:::
 
-Harjoituksessa 3 ladattiin tarvittavat paikkatietoaineistot PostGIS-tietokantaan. Jos tämä vaihe on jäänyt sinulta välistä, saat tarvittavat aineistot käyttöösi myös ajamalla ao. solun.
+:::todo
+pittääköhän muuta lissäillä
+:::
 
-
-```python
-from utils import initializer
-
-initializer.add_nlsfi_data()
-```
 
 ### Käytettäviä funktioita
 
 Tässä harjoituksessa hyödynnetään ainakin näitä funktioita:
+
+:::todo
+taulu
 
 | <span style="color:purple"> **PostGIS-funktio** </span> | <span style="color:purple"> **Toiminta** </span> |
 |:--: | :---: |
@@ -44,15 +45,14 @@ Tässä harjoituksessa hyödynnetään ainakin näitä funktioita:
 | **ST_Overlaps(geometry A, geometry B)** | Palauttaa "TOSI", jos A ja B ovat päällekkäin, mutteivät kuitenkaan toistensa sisäpuolella |
 | **ST_Touches(geometry A, geometry B)** | Palauttaa "TOSI", jos A:n reuna koskettaa B:tä |
 | **ST_Within(geometry A, geometry B)** | Palauttaa "TOSI", jos A on B:n sisäpuolella |
+:::
 
-
-## Harjoitus 7.1
+## Harjoitus 6.1
 
 Etsitään ne kunnat, joissa on lentokenttä:
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT
 a.kunta_ni1
 FROM 
@@ -60,37 +60,44 @@ nlsfi.hallintoalue a, nlsfi.lentokenttapiste b
 WHERE
 ST_Contains(a.wkb_geometry, b.wkb_geometry);
 ```
+:::
 
 Huomaa kuinka kirjaimia a ja b käytetään kyselyssä aliaksina, eli sarakkeiden korvaavina niminä. Aliasten käyttö helpottaa varsinkin pitkien kyselyiden tulkitsemista ja kirjoittamista. Voit lukea lisää aliaksista esimerkiksi täältä: [postgresql-alias](https://www.postgresqltutorial.com/postgresql-alias/).
 
 Montako lentokenttää Suomessa on?
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT
 count(ogc_fid)
 FROM
 nlsfi.lentokenttapiste;
 ```
+:::
+:::
 
 Jos lisäät SELECT-komentoon parametrin DISTINCT, saat selville kuinka monta lentokentällistä kuntaa Suomessa on.
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT
 count(kunta_distinct)
 FROM
@@ -101,22 +108,26 @@ nlsfi.hallintoalue a, nlsfi.lentokenttapiste b
 WHERE
 ST_Contains(a.wkb_geometry, b.wkb_geometry)) as DistincKunta;
 ```
+:::
+:::
 
-## **Harjoitus 7.2**
+## **Harjoitus 6.2**
 
 Missä Suomen kunnissa on kaksi lentokenttää?
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT ...
 ```
+:::
 
 Perusteellinen ratkaisuvaihtoehto:
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 WITH apm AS (
 SELECT DISTINCT
 a.kunta_ni1, COUNT(a.kunta_ni1) OVER(PARTITION BY a.kunta_ni1) AS CountAirports
@@ -135,12 +146,16 @@ apm
 WHERE
 CountAirports = 2;
 ```
+:::
+:::
 
 Pelkistetympi ratkaisuvaihtoehto:
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
-```python
-%%sql
+:::hidden-box
+:::code-box
+```sql
 SELECT 
 a.kunta_ni1 as "Kunta", count(*) as "Lkm"
 FROM
@@ -151,12 +166,13 @@ GROUP BY
 a.kunta_ni1
 HAVING count(*) = 2;
 ```
+:::
+::
 
 Suorita ao. SQL-lause. Mitä sillä saadaan selville?
 
-
-```python
-%%sql
+::code-box
+```sql
 SELECT
 ST_ASText(a.wkb_geometry), a.ogc_fid
 FROM
@@ -164,13 +180,13 @@ nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b
 WHERE
 ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.ogc_fid <> b.ogc_fid;
 ```
+:::
 
 ### Kunnat, joissa ei ole rautatietä
 Etsitään ne kunnat, joissa ei ole rautatietä:
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT 
 b.kunta_ni1
 FROM
@@ -181,14 +197,14 @@ FROM
 WHERE
 ST_Disjoint(a.wkb_geometry, b.wkb_geometry);
 ```
+:::
 
 ### Kolme lähintä lentokenttää
 
 K Nearest Neighbours -menetelmällä (KNN) voidaan hakea kolme lähimpänä jonkin kunnan keskustaa sijaitsevaa lentokenttää.
 
-
-```python
-%%sql
+:::code-box
+```sql
 WITH forssa AS
 (SELECT
  wkb_geometry
@@ -205,12 +221,12 @@ ORDER BY
 forssa.wkb_geometry <-> a.wkb_geometry
 LIMIT 3;
 ```
+:::
 
 Sama ongelma voidaan ratkaista myös ilman KNN-algoritmia:
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT
 *, round(ST_Distance(wkb_geometry,(
     SELECT ST_Centroid(wkb_geometry)
@@ -224,16 +240,16 @@ ORDER by
 etaisyys
 LIMIT 3;
 ```
+:::
 
-> Miksi saadut tulokset poikkeavat toisistaan?
+Miksi saadut tulokset poikkeavat toisistaan?
 
 ### Naapurikunnat
 
 Mitkä ovat Kuopion naapurikunnat?
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT
 b.kunta_ni1
 FROM
@@ -246,14 +262,14 @@ FROM
 WHERE
 ST_Touches(a.wkb_geometry, b.wkb_geometry);
 ```
+:::
 
 ### Tiet, jotka leikkaavat kuntarajoja
 
 Ne tieviivat, jotka leikkaavat kuntarajoja:
 
-
-```python
-%%sql res <<
+:::code-box
+```sql
 SELECT
 a.tienumero, a.wkb_geometry
 FROM
@@ -261,26 +277,18 @@ nlsfi.tieviiva a, nlsfi.hallintoalue b
 WHERE
 ST_Crosses(a.wkb_geometry, b.wkb_geometry);
 ```
-
-
-```python
-from ipygis import get_map
-
-map = get_map(res)
-map
-```
+:::
 
 Tulosten visualisoimiseksi, voit muodostaa **uuden skeeman** (tmp). Voit luoda uuden taulun, johon viet tuloksen. Visualisointiin voit käyttää esimerkiksi QGIS-ohjelmistoa. Voit muodostaa tuloksesta myös näkymän (view), mutta muista kuitenkin lisätä mukaan **yksilöivä tunnus** (ogc_fid) sekä myös **DISTINCT**, jotta yksilöivät tunnukset pysyvät yksilöivinä.
 
-
-```python
-%%sql
+:::code-box
+```sql
 CREATE SCHEMA IF NOT EXISTS tmp;
 ```
+:::
 
-
-```python
-%%sql
+:::code-box
+```sql
 DROP TABLE IF EXISTS tmp.crossroads;
 
 CREATE TABLE tmp.crossroads AS
@@ -293,10 +301,10 @@ CREATE TABLE tmp.crossroads AS
     ST_Crosses(a.wkb_geometry, b.wkb_geometry)
 );
 ```
+:::
 
-
-```python
-%%sql
+:::code-box
+```sql
 DROP VIEW IF EXISTS tmp.view_crossroads;
 
 CREATE VIEW tmp.view_crossrods AS
@@ -309,17 +317,20 @@ CREATE VIEW tmp.view_crossrods AS
     ST_Crosses(a.wkb_geometry, b.wkb_geometry)
 );
 ```
+:::
 
 Kumman luominen oli nopeampaa: taulun vai näkymän?
-> Entä käyttö QGISissä? Miksi?
+
+:::hint-box
+Entä käyttö QGISissä? Miksi?
+:::
 
 ### Lentoasemien etäisyys rautateistä
 
 Lasketaan minimietäisyydet lentoasemilta lähimmälle rautatielle:
 
-
-```python
-%%sql
+:::code-box
+```sql
 SELECT
 a.ogc_fid, MIN(ST_Distance(a.wkb_geometry, b.wkb_geometry)) as "dist"
 FROM
@@ -329,8 +340,4 @@ a.ogc_fid
 ORDER BY
 dist;
 ```
-
-Siirry takaisin [päänäkymään](/tree).
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" />
-
+:::
