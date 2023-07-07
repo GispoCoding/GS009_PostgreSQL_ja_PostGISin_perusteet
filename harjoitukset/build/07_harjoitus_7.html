@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-05" />
+<meta name="date" content="2023-07-07" />
 
 
 <meta name="description" content="8 Harjoitus 7: Koordinaattijärjestelmät | Johdanto PostGISin käyttöön">
@@ -143,11 +143,17 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </ul></li>
 <li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-3-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 3: SQL:n perusteet</a>
 <ul>
-<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.1</span> Harjoitus 3.1</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.2</span> Harjoitus 3.2</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitukset-3---ratkaisuavain"><span class="toc-section-number">4.1</span> Harjoitukset 3 - ratkaisuavain</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.2</span> Harjoitus 3.1</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.3</span> Harjoitus 3.2</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.4</span> Harjoitus 3.3</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.5</span> Harjoitus 3.4</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.6</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#nykyinen-toteutus"><span class="toc-section-number">4.7</span> Nykyinen toteutus:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-1"><span class="toc-section-number">4.8</span> Vaihtoehto 1:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-2"><span class="toc-section-number">4.9</span> Vaihtoehto 2:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-3"><span class="toc-section-number">4.10</span> Vaihtoehto 3:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-4"><span class="toc-section-number">4.11</span> Vaihtoehto 4:</a></li>
 </ul></li>
 <li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
@@ -206,26 +212,14 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <p><strong>Harjoituksen tavoite</strong> - Harjoitusten jälkeen opiskelijalla on perustiedot PostGISin koordinaattijärjestelmien ja karttaprojektion käytöstä.</p>
 <div id="valmistautuminen-5" class="section level3" number="8.0.1">
 <h3><span class="header-section-number">8.0.1</span> Valmistautuminen</h3>
-<div class="todo">
-<p>miksi lie tämä pitäisi tehä</p>
-<p>Alusta notebook SQL-harjoituksia varten (<a href="Harjoitus%201.ipynb#SQL-solujen-ajaminen">SQL-solujen ohje</a>). Kannattaa muutenkin pitää <a href="Harjoitus%201.ipynb">ohje</a> mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="07_harjoitus_7.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext sql</span>
-<span id="cb100-2"><a href="07_harjoitus_7.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ipygis <span class="im">import</span> get_connection_url</span>
-<span id="cb100-3"><a href="07_harjoitus_7.html#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-4"><a href="07_harjoitus_7.html#cb100-4" aria-hidden="true" tabindex="-1"></a>c_url <span class="op">=</span> get_connection_url(dbname<span class="op">=</span><span class="st">&quot;trainingdatabase&quot;</span>)</span>
-<span id="cb100-5"><a href="07_harjoitus_7.html#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql $c_url</span></code></pre></div>
-</div>
-<div class="todo">
-<p>pittääköhän muuta lissäillä</p>
-</div>
-<p>Käytössä tulee olla myös web-selain, joka mahdollistaa pääsyn Maanmittauslaitoksen koordinaattien muunnospalveluun.</p>
+<p>Avaa <a href="/pgadmin">pgAdmin</a> selaimeen ja kirjaudu sisään. Avaa <strong>Query Tool</strong> (Valitse <em>trainingdatabase</em> <strong>-&gt;</strong> Ylhäältä <strong>Tools</strong> <strong>-&gt;</strong> <strong>Query Tool</strong>). Käytössä tulee olla myös web-selain, joka mahdollistaa pääsyn Maanmittauslaitoksen koordinaattien muunnospalveluun.</p>
 </div>
 <div id="koordinaattien-konversiot-ja-muunnokset" class="section level3" number="8.0.2">
 <h3><span class="header-section-number">8.0.2</span> Koordinaattien konversiot ja muunnokset</h3>
 <p>Tehtävänä on suorittaa Metsähovin tutkimusaseman ETRS89 maantieteellisten koordinaattien (EPSG:4258) konversio ETRS-TM35FIN (EPSG:3067) koordinaattijärjestelmään. Muodosta ensin koordinaattiparista 24.3953148 (pituusaste) ja 60.2174696 (leveysaste) Kallion kirkkoa vastaava PostGISin koordinaattipiste:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb101"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb101-1"><a href="07_harjoitus_7.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb101-2"><a href="07_harjoitus_7.html#cb101-2" aria-hidden="true" tabindex="-1"></a>ST_GeomFromText(<span class="st">&#39;POINT(24.3953148 60.2174696)&#39;</span>, <span class="dv">4258</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb105-1"><a href="07_harjoitus_7.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb105-2"><a href="07_harjoitus_7.html#cb105-2" aria-hidden="true" tabindex="-1"></a>ST_GeomFromText(<span class="st">&#39;POINT(24.3953148 60.2174696)&#39;</span>, <span class="dv">4258</span>);</span></code></pre></div>
 </div>
 <p>Koordinaattien selväkielisemmän esitystavan saat aikaiseksi <strong>ST_AsText</strong>-funktiolla:</p>
 <div class="code-box">
@@ -247,15 +241,15 @@ geometry ST_Transform(geometry geom, text from_proj, integer to_srid);</code></p
 <h2><span class="header-section-number">8.1</span> Harjoitus 7.1</h2>
 <p>Tee Kallion kirkon koordinaatteille konversio ETRS-TM35FIN koordinaattijärjestelmään hyödyntämällä <strong>ST_Transform</strong>-funktiota.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb103"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb103-1"><a href="07_harjoitus_7.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb107-1"><a href="07_harjoitus_7.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb104"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb104-1"><a href="07_harjoitus_7.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb104-2"><a href="07_harjoitus_7.html#cb104-2" aria-hidden="true" tabindex="-1"></a>ST_asText(ST_Transform(ST_GeomFromText(<span class="st">&#39;POINT(24.3953148 60.2174696)&#39;</span>, <span class="dv">4258</span>), <span class="dv">3067</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb108-1"><a href="07_harjoitus_7.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb108-2"><a href="07_harjoitus_7.html#cb108-2" aria-hidden="true" tabindex="-1"></a>ST_asText(ST_Transform(ST_GeomFromText(<span class="st">&#39;POINT(24.3953148 60.2174696)&#39;</span>, <span class="dv">4258</span>), <span class="dv">3067</span>));</span></code></pre></div>
 </div>
 </div>
 <p>Tuloksena pitäisi tulla seuraavat koordinaattipisteet EPSG:3067-koordinaattijärjestelmässä:</p>
@@ -271,38 +265,31 @@ ratkaisu
 <h2><span class="header-section-number">8.2</span> Harjoitus 7.2</h2>
 <p>Tee seuraavaksi Kallion kirkon koordinaateille muunnos <strong>KKJ2</strong>-koordinaattijärjestelmään (EPSG:2392).</p>
 <div class="code-box">
-<div class="sourceCode" id="cb107"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb107-1"><a href="07_harjoitus_7.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb111-1"><a href="07_harjoitus_7.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb108"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb108-1"><a href="07_harjoitus_7.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb108-2"><a href="07_harjoitus_7.html#cb108-2" aria-hidden="true" tabindex="-1"></a>ST_asText(ST_Transform(ST_GeomFromText(<span class="st">&#39;POINT(24.3953148 60.2174696)&#39;</span>, <span class="dv">4258</span>), <span class="dv">2392</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb112-1"><a href="07_harjoitus_7.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb112-2"><a href="07_harjoitus_7.html#cb112-2" aria-hidden="true" tabindex="-1"></a>ST_asText(ST_Transform(ST_GeomFromText(<span class="st">&#39;POINT(24.3953148 60.2174696)&#39;</span>, <span class="dv">4258</span>), <span class="dv">2392</span>));</span></code></pre></div>
 </div>
 </div>
 <p>Tuloksen pitäisi olla:</p>
 <div class="code-box">
 <pre><code>POINT(2522091.99236457 6678507.76432921)</code></pre>
 </div>
-<div class="todo">
-<p>SAIKO TÄTÄ KÄYTTÄÄKÄÄN, LISÄKSI TAULU</p>
 <p>Vertaa saatuja koordinaattiarvoja Maanmittauslaitoksen ylläpitämän <a href="https://kartta.paikkatietoikkuna.fi/">koordinaattimuunnospalvelun</a> koordinaatteihin. Koordinaattimuunnostoiminto löytyy <strong>Paikkatietoikkunan</strong> vasemman reunan valikosta nimellä <strong>Koordinaattimuunnos</strong>.</p>
 <p><img src="img/paikkatietoikkuna.png" /></p>
 <p>Huomaa, että EPSG:4258- ja EPSG:3067-koordinaattijärjestelmien välillä tehtiin koordinaattikonversio, eikä PostGIS:n ja MML:n laskennassa ole oleellista eroa.</p>
 <p>Tehdään koordinaattimuunnos EPSG:4258- ja EPSG:2392-koordinaattijärjestelmien välillä. Ero PostGISin ja Maanmittauslaitoksen laskemien koordinaattien välillä on merkittävämpi:</p>
 <table>
-<colgroup>
-<col width="28%" />
-<col width="35%" />
-<col width="35%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th align="center"><span style="color:purple"> <strong>PostGIS</strong> </span></th>
-<th align="center"><span style="color:purple"> <strong>MML</strong> </span></th>
-<th align="center"><span style="color:purple"> <strong>Erotus (m)</strong> </span></th>
+<th align="center">PostGIS</th>
+<th align="center">MML</th>
+<th align="center">Erotus (m)</th>
 </tr>
 </thead>
 <tbody>
@@ -318,7 +305,8 @@ ratkaisu
 </tr>
 </tbody>
 </table>
-</div>
+<p><br />
+</p>
 <div class="hint-box">
 <p>Mistä koordinaattimuunnoksen ero voi johtua?</p>
 </div>
@@ -326,12 +314,12 @@ ratkaisu
 <h3><span class="header-section-number">8.2.1</span> Koordinaattijärjestelmien määritykset</h3>
 <p>Koordinaattijärjestelmien kuvaukset löytyvät <strong>spatial_ref_sys</strong>–taulusta:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb110"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb110-1"><a href="07_harjoitus_7.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb110-2"><a href="07_harjoitus_7.html#cb110-2" aria-hidden="true" tabindex="-1"></a>srid, proj4text</span>
-<span id="cb110-3"><a href="07_harjoitus_7.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb110-4"><a href="07_harjoitus_7.html#cb110-4" aria-hidden="true" tabindex="-1"></a>spatial_ref_sys</span>
-<span id="cb110-5"><a href="07_harjoitus_7.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb110-6"><a href="07_harjoitus_7.html#cb110-6" aria-hidden="true" tabindex="-1"></a>srid <span class="op">=</span> <span class="dv">2392</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb114-1"><a href="07_harjoitus_7.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb114-2"><a href="07_harjoitus_7.html#cb114-2" aria-hidden="true" tabindex="-1"></a>srid, proj4text</span>
+<span id="cb114-3"><a href="07_harjoitus_7.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb114-4"><a href="07_harjoitus_7.html#cb114-4" aria-hidden="true" tabindex="-1"></a>spatial_ref_sys</span>
+<span id="cb114-5"><a href="07_harjoitus_7.html#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb114-6"><a href="07_harjoitus_7.html#cb114-6" aria-hidden="true" tabindex="-1"></a>srid <span class="op">=</span> <span class="dv">2392</span>;</span></code></pre></div>
 </div>
 <p>Tallennetut muunnosparametrit EUREF-FIN datumin ja KKJ datumin välillä antavat maksimissaan kahden metrin virheen Suomen alueella (kuva JHS 197-suosituksesta):</p>
 <p><img src="img/JHSsuositus.png" /></p>
@@ -350,11 +338,11 @@ ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb111"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb111-1"><a href="07_harjoitus_7.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb111-2"><a href="07_harjoitus_7.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb111-3"><a href="07_harjoitus_7.html#cb111-3" aria-hidden="true" tabindex="-1"></a>spatial_ref_sys</span>
-<span id="cb111-4"><a href="07_harjoitus_7.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb111-5"><a href="07_harjoitus_7.html#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;srtext&quot;</span> <span class="kw">LIKE</span> <span class="st">&#39;%ETRS-GK24FIN%&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb115-1"><a href="07_harjoitus_7.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb115-2"><a href="07_harjoitus_7.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb115-3"><a href="07_harjoitus_7.html#cb115-3" aria-hidden="true" tabindex="-1"></a>spatial_ref_sys</span>
+<span id="cb115-4"><a href="07_harjoitus_7.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb115-5"><a href="07_harjoitus_7.html#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;srtext&quot;</span> <span class="kw">LIKE</span> <span class="st">&#39;%ETRS-GK24FIN%&#39;</span>;</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -362,44 +350,44 @@ ratkaisu
 <h2><span class="header-section-number">8.4</span> Harjoitus 7.4</h2>
 <p>Mitä eroja on EPSG:3131- ja EPSG:3879-koordinaattijärjestelmillä?</p>
 <div class="code-box">
-<div class="sourceCode" id="cb112"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb112-1"><a href="07_harjoitus_7.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb116-1"><a href="07_harjoitus_7.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb113"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb113-1"><a href="07_harjoitus_7.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb113-2"><a href="07_harjoitus_7.html#cb113-2" aria-hidden="true" tabindex="-1"></a>srid, proj4text</span>
-<span id="cb113-3"><a href="07_harjoitus_7.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb113-4"><a href="07_harjoitus_7.html#cb113-4" aria-hidden="true" tabindex="-1"></a>spatial_ref_sys</span>
-<span id="cb113-5"><a href="07_harjoitus_7.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb113-6"><a href="07_harjoitus_7.html#cb113-6" aria-hidden="true" tabindex="-1"></a>srid <span class="kw">in</span> (<span class="dv">3132</span>, <span class="dv">3879</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb117-1"><a href="07_harjoitus_7.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb117-2"><a href="07_harjoitus_7.html#cb117-2" aria-hidden="true" tabindex="-1"></a>srid, proj4text</span>
+<span id="cb117-3"><a href="07_harjoitus_7.html#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb117-4"><a href="07_harjoitus_7.html#cb117-4" aria-hidden="true" tabindex="-1"></a>spatial_ref_sys</span>
+<span id="cb117-5"><a href="07_harjoitus_7.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb117-6"><a href="07_harjoitus_7.html#cb117-6" aria-hidden="true" tabindex="-1"></a>srid <span class="kw">in</span> (<span class="dv">3132</span>, <span class="dv">3879</span>);</span></code></pre></div>
 </div>
 </div>
 <div id="uuden-paikkatietotaulun-luominen" class="section level3" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> Uuden paikkatietotaulun luominen</h3>
 <p>Luodaan uusi paikkatietotaulu tietokantaan, jossa on geometria-kenttä, jonka koordinaattijärjestelmä on WGS84. Luodaan tauluun neljä kenttää (gid, name, ICAO, geom):</p>
 <div class="code-box">
-<div class="sourceCode" id="cb114"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb114-1"><a href="07_harjoitus_7.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> air_geom;</span>
-<span id="cb114-2"><a href="07_harjoitus_7.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="07_harjoitus_7.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> air_geom</span>
-<span id="cb114-4"><a href="07_harjoitus_7.html#cb114-4" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb114-5"><a href="07_harjoitus_7.html#cb114-5" aria-hidden="true" tabindex="-1"></a>    gid    serial <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
-<span id="cb114-6"><a href="07_harjoitus_7.html#cb114-6" aria-hidden="true" tabindex="-1"></a>    name    <span class="dt">varchar</span>(<span class="dv">254</span>),</span>
-<span id="cb114-7"><a href="07_harjoitus_7.html#cb114-7" aria-hidden="true" tabindex="-1"></a>    ICAO    <span class="dt">varchar</span>(<span class="dv">254</span>),</span>
-<span id="cb114-8"><a href="07_harjoitus_7.html#cb114-8" aria-hidden="true" tabindex="-1"></a>    geom    geometry(Point,<span class="dv">4326</span>)</span>
-<span id="cb114-9"><a href="07_harjoitus_7.html#cb114-9" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb118-1"><a href="07_harjoitus_7.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> air_geom;</span>
+<span id="cb118-2"><a href="07_harjoitus_7.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="07_harjoitus_7.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> air_geom</span>
+<span id="cb118-4"><a href="07_harjoitus_7.html#cb118-4" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb118-5"><a href="07_harjoitus_7.html#cb118-5" aria-hidden="true" tabindex="-1"></a>    gid    serial <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb118-6"><a href="07_harjoitus_7.html#cb118-6" aria-hidden="true" tabindex="-1"></a>    name    <span class="dt">varchar</span>(<span class="dv">254</span>),</span>
+<span id="cb118-7"><a href="07_harjoitus_7.html#cb118-7" aria-hidden="true" tabindex="-1"></a>    ICAO    <span class="dt">varchar</span>(<span class="dv">254</span>),</span>
+<span id="cb118-8"><a href="07_harjoitus_7.html#cb118-8" aria-hidden="true" tabindex="-1"></a>    geom    geometry(Point,<span class="dv">4326</span>)</span>
+<span id="cb118-9"><a href="07_harjoitus_7.html#cb118-9" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
 </div>
 <p>Luetaan airports-taulusta tiedot uuden taulun kenttiin. Muodostetaan ensin SELECT-lauseke, niin voidaan varmistua, että tietojen sisäänluku onnistuu.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb115"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb115-1"><a href="07_harjoitus_7.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span></span>
-<span id="cb115-2"><a href="07_harjoitus_7.html#cb115-2" aria-hidden="true" tabindex="-1"></a>air_geom(geom, name, ICAO)</span>
-<span id="cb115-3"><a href="07_harjoitus_7.html#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb115-4"><a href="07_harjoitus_7.html#cb115-4" aria-hidden="true" tabindex="-1"></a>ST_GeomFromText(<span class="st">&#39;POINT(&#39;</span> <span class="op">||</span> airports.longitude<span class="op">||</span> <span class="st">&#39; &#39;</span> <span class="op">||</span> airports.latitude<span class="op">||</span><span class="st">&#39;)&#39;</span>,<span class="dv">4326</span>),</span>
-<span id="cb115-5"><a href="07_harjoitus_7.html#cb115-5" aria-hidden="true" tabindex="-1"></a>airports.name, airports.icao_code</span>
-<span id="cb115-6"><a href="07_harjoitus_7.html#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb115-7"><a href="07_harjoitus_7.html#cb115-7" aria-hidden="true" tabindex="-1"></a>airports;</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb119-1"><a href="07_harjoitus_7.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span></span>
+<span id="cb119-2"><a href="07_harjoitus_7.html#cb119-2" aria-hidden="true" tabindex="-1"></a>air_geom(geom, name, ICAO)</span>
+<span id="cb119-3"><a href="07_harjoitus_7.html#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb119-4"><a href="07_harjoitus_7.html#cb119-4" aria-hidden="true" tabindex="-1"></a>ST_GeomFromText(<span class="st">&#39;POINT(&#39;</span> <span class="op">||</span> airports.longitude<span class="op">||</span> <span class="st">&#39; &#39;</span> <span class="op">||</span> airports.latitude<span class="op">||</span><span class="st">&#39;)&#39;</span>,<span class="dv">4326</span>),</span>
+<span id="cb119-5"><a href="07_harjoitus_7.html#cb119-5" aria-hidden="true" tabindex="-1"></a>airports.name, airports.icao_code</span>
+<span id="cb119-6"><a href="07_harjoitus_7.html#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb119-7"><a href="07_harjoitus_7.html#cb119-7" aria-hidden="true" tabindex="-1"></a>airports;</span></code></pre></div>
 </div>
 <p>Kahdella putkimerkillä <code>||</code> yhdistetään tekstiä.</p>
 </div>
@@ -407,17 +395,17 @@ ratkaisu
 <h3><span class="header-section-number">8.4.2</span> Toisen geometriakentän lisääminen</h3>
 <p>Lisätään vielä tehtyyn tauluun toinen geometria-kenttä, jonka koordinaattijärjestelmä on EPSG:3857:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb116"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb116-1"><a href="07_harjoitus_7.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span></span>
-<span id="cb116-2"><a href="07_harjoitus_7.html#cb116-2" aria-hidden="true" tabindex="-1"></a>air_geom</span>
-<span id="cb116-3"><a href="07_harjoitus_7.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> <span class="kw">COLUMN</span></span>
-<span id="cb116-4"><a href="07_harjoitus_7.html#cb116-4" aria-hidden="true" tabindex="-1"></a>geom3857 geometry(Point,<span class="dv">3857</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb120-1"><a href="07_harjoitus_7.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span></span>
+<span id="cb120-2"><a href="07_harjoitus_7.html#cb120-2" aria-hidden="true" tabindex="-1"></a>air_geom</span>
+<span id="cb120-3"><a href="07_harjoitus_7.html#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> <span class="kw">COLUMN</span></span>
+<span id="cb120-4"><a href="07_harjoitus_7.html#cb120-4" aria-hidden="true" tabindex="-1"></a>geom3857 geometry(Point,<span class="dv">3857</span>);</span></code></pre></div>
 </div>
 <p>Luodaan uuteen geometria-kenttään uudet koordinaattipisteet airports-taulusta:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb117"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb117-1"><a href="07_harjoitus_7.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span></span>
-<span id="cb117-2"><a href="07_harjoitus_7.html#cb117-2" aria-hidden="true" tabindex="-1"></a>air_geom</span>
-<span id="cb117-3"><a href="07_harjoitus_7.html#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span></span>
-<span id="cb117-4"><a href="07_harjoitus_7.html#cb117-4" aria-hidden="true" tabindex="-1"></a>geom3857 <span class="op">=</span> ST_Transform(geom, <span class="dv">3857</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb121-1"><a href="07_harjoitus_7.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span></span>
+<span id="cb121-2"><a href="07_harjoitus_7.html#cb121-2" aria-hidden="true" tabindex="-1"></a>air_geom</span>
+<span id="cb121-3"><a href="07_harjoitus_7.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span></span>
+<span id="cb121-4"><a href="07_harjoitus_7.html#cb121-4" aria-hidden="true" tabindex="-1"></a>geom3857 <span class="op">=</span> ST_Transform(geom, <span class="dv">3857</span>);</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -426,38 +414,38 @@ ratkaisu
 <p>Jos komennon ajo ei mene läpi, kuinka ratkaisisit ongelman?</p>
 <p>Tutustu lentokenttäaineistoon ja etsi virheilmoituksen tuottavat tietue. Kannattaa tutkia minkä alueen kuvaamiseen EPSG:3857-koordinaattijärjestelmä on suunnattu esimerkiksi <a href="https://epsg.io/3857">täältä</a>.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb118"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb118-1"><a href="07_harjoitus_7.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb122-1"><a href="07_harjoitus_7.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb119"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb119-1"><a href="07_harjoitus_7.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb119-2"><a href="07_harjoitus_7.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb119-3"><a href="07_harjoitus_7.html#cb119-3" aria-hidden="true" tabindex="-1"></a>air_geom</span>
-<span id="cb119-4"><a href="07_harjoitus_7.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb119-5"><a href="07_harjoitus_7.html#cb119-5" aria-hidden="true" tabindex="-1"></a>ST_Y(geom) <span class="op">&lt;</span> <span class="op">-</span><span class="fl">85.06</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb123-1"><a href="07_harjoitus_7.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb123-2"><a href="07_harjoitus_7.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb123-3"><a href="07_harjoitus_7.html#cb123-3" aria-hidden="true" tabindex="-1"></a>air_geom</span>
+<span id="cb123-4"><a href="07_harjoitus_7.html#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb123-5"><a href="07_harjoitus_7.html#cb123-5" aria-hidden="true" tabindex="-1"></a>ST_Y(geom) <span class="op">&lt;</span> <span class="op">-</span><span class="fl">85.06</span>;</span></code></pre></div>
 </div>
 </div>
 <p>Paikannattuasi ongelman, korjaa se (jätä ongelman aiheuttava lentokenttä air_geom-taulun kentän päivityskomennon ulkopuolelle).</p>
 <div class="code-box">
-<div class="sourceCode" id="cb120"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb120-1"><a href="07_harjoitus_7.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb124-1"><a href="07_harjoitus_7.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb121"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb121-1"><a href="07_harjoitus_7.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> gid,name,icao,ST_asText(geom)</span>
-<span id="cb121-2"><a href="07_harjoitus_7.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> air_geom</span>
-<span id="cb121-3"><a href="07_harjoitus_7.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ST_Y(geom) <span class="op">=</span> <span class="op">-</span><span class="dv">90</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb125-1"><a href="07_harjoitus_7.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> gid,name,icao,ST_asText(geom)</span>
+<span id="cb125-2"><a href="07_harjoitus_7.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> air_geom</span>
+<span id="cb125-3"><a href="07_harjoitus_7.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ST_Y(geom) <span class="op">=</span> <span class="op">-</span><span class="dv">90</span>;</span></code></pre></div>
 </div>
 </div>
 <div class="code-box">
-<div class="sourceCode" id="cb122"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb122-1"><a href="07_harjoitus_7.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> air_geom</span>
-<span id="cb122-2"><a href="07_harjoitus_7.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> geom3857 <span class="op">=</span> ST_Transform(geom,<span class="dv">3857</span>)</span>
-<span id="cb122-3"><a href="07_harjoitus_7.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> icao <span class="op">!=</span> <span class="st">&#39;NZSP&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb126-1"><a href="07_harjoitus_7.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> air_geom</span>
+<span id="cb126-2"><a href="07_harjoitus_7.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> geom3857 <span class="op">=</span> ST_Transform(geom,<span class="dv">3857</span>)</span>
+<span id="cb126-3"><a href="07_harjoitus_7.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> icao <span class="op">!=</span> <span class="st">&#39;NZSP&#39;</span>;</span></code></pre></div>
 </div>
 <div class="hint-box">
 <p>Miten geometriakentät käyttäytyvät?</p>
@@ -479,7 +467,7 @@ ratkaisu
 
 <div class="footer-info">
 <h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-05</span>
+<span class="footer-version">v2023-07-07</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 
@@ -499,6 +487,7 @@ ratkaisu
 
 
 <script src="js/nav-script.js"></script>
+<script src="js/answer-key.js"></script>
 
 </body>
 </html>

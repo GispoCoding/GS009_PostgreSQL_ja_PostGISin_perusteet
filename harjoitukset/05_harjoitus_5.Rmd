@@ -6,13 +6,12 @@
 
 ### Valmistautuminen
 
-:::todo
-liekköhän tähän tarvii jottain lisätä
-:::
+Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
 ## Harjoitus 5.1: Geometrioiden luonti
 
 Luodaan aluksi tietokantaan uusi taulu, johon muodostetaan erilaisia geometrioita:
+
 :::todo
 vaihtoehto tehdä pgAdminin käyttöliittymän kautta?
 :::
@@ -60,7 +59,7 @@ Voit käyttää joko WKT-formaattia (LINESTRING(0 1, 2 3) ja POLYGON((4 5, 6 7, 
 
 :::code-box
 ```sql
-SELECT ...
+INSERT INTO ...
 ```
 :::
 
@@ -82,8 +81,9 @@ VALUES
 :::
 :::
 
-Tai PostGIS:n funktioita ST_MakeLine, ST_MakePolygon ja ST_MakeEnvelope
-Tarkista PostGISin ohjekirjasta funktioiden oikeat muodot: [8.4 Geometry Constructors](http://postgis.net/docs/reference.html#Geometry_Constructors)
+Tai PostGIS:n funktioita ST_MakeLine, ST_MakePolygon ja ST_MakeEnvelope.
+
+Tarkista PostGISin ohjekirjasta funktioiden oikeat muodot: [8.4 Geometry Constructors](http://postgis.net/docs/reference.html#Geometry_Constructors).
 
 :::code-box
 ```sql
@@ -279,11 +279,8 @@ SELECT 'POINT(0 0)'::geometry;
 
 Muodosta ensimmäisen harjoituksen lentokenttiä kuvaavasta tiedosta uusi paikkatietotaso, jossa lentokenttien sijainti ilmoitetaan PostGIS:n geometria-tyyppinä.
 
-:::todo
+Alla näkyvästä SQL-komennosta kannattaa ottaa vähän vinkkiä (myös sen suhteen, että kannattaa tarkastella vain pientä otosta lentokenttä-aineistosta):
 
-Kannattaa lisäillä koodisoluja ja jakaa ratkaisu osiin. Alla näkyvästä SQL-komennosta kannattaa ottaa vähän vinkkiä (myös sen suhteen, että kannattaa tarkastella vain pientä otosta lentokenttä-aineistosta):
-
-:::
 
 :::code-box
 ```sql
@@ -317,7 +314,7 @@ CREATE TABLE airports_geom AS
 );
 
 SELECT
-name, longitude, latitude, ST_asText(geom) as "ST_asText(geom)"
+name, longitude, latitude, geom
 FROM
 airports_geom
 ORDER BY

@@ -6,13 +6,22 @@
 
 ## Harjoitus 1.1: pgAdmin 4
 
-:::todo
+```{r include=FALSE}
+pg_user <- Sys.getenv("PG_USER")
+pg_pass <- Sys.getenv("PG_PASS")
+pgadmin_email <- Sys.getenv("PGADMIN_EMAIL")
+pgadmin_pass <- Sys.getenv("PGADMIN_PASSWORD")
+linux_user <- Sys.getenv("LINUX_USER")
+linux_pass <- Sys.getenv("LINUX_PASSWORD")
+```
+
 Käynnistä pgAdmin 4 -ohjelmisto menemällä osoitteeseen
 [/pgadmin](/pgadmin). Pääset kirjautumaan etäpalvelimen pgAdminiin
-seuraavilla tunnuksilla: - Sähköpostiosoite:
-[info+PG\@gispo.fi](mailto:info+PG@gispo.fi){.email} - Salasana:
-**pgtraining**
-:::
+seuraavilla tunnuksilla:
+
+- Sähköpostiosoite: **`r pgadmin_email`**
+
+- Salasana: **`r pgadmin_pass`**
 
 ![pgAdmin- kirjautuminen](img/pgadmin_splash.png)
 
@@ -24,17 +33,16 @@ Server...**
 
 Syötä seuraavat tiedot:
 
-::: todo
 - General-välilehdellä 
   - Name: yhteyden nimi (tyypillisesti \<käyttäjänimi\>\@\<tietokanta\>) 
   - Connection-välilehdellä
     - Host: **dbhost**
     - Port: **5432**
     - Maintenance database: **postgres**
-    - Username: **postgres**
-    - Password: **pgtraining**
+    - Username: **`r pg_user`**
+    - Password: **`r pg_pass`**
 - Valitse **Save password**, jos et halua kirjoittaa salasanaa uudelleen aina avatessasi yhteyden
-:::
+
 Voit tarkastella asennettua tietokantaa pgAdmin:n avulla yläpalkin eri
 välilehdiltä:
 
@@ -55,21 +63,32 @@ käyttöliittymän** kautta:
 
 ![](img/pgadmindbluo.png)
 
-Tietokannan voi luoda myös seuraavan SQL-lauseen avulla:
+:::hint-box
+**Huom!** Tietokannan voi luoda ja poistaa myös seuraavien SQL-lauseiden avulla:
 
-::: code-box
-``` sql
-CREATE DATABASE trainingdatabase;
-```
+**CREATE DATABASE** trainingdatabase;\
+**DROP DATABASE** trainingdatabase;
+
 :::
 
-Vastaavasti tietokannan voi poistaa seuraavalla SQL-lauseella:
+### SQL-komentojen suorittaminen
 
-::: code-box
-``` sql      
-DROP DATABASE trainingdatabase;
-```
-:::
+Koulutuksessa tullaan suorittamaan useita harjoituksia SQL-komentokielen
+avulla. pgAdmin:n **Kysely-työkalun (Query Tool)** avulla voit suorittaa
+SQL-kyselyitä ja lausekkeita. **Query Tool** käynnistetään seuraavasti:
+
+- Valitse **Servers**-osiosta oma tietokantaklusterisi
+- Valitse klusterin sisältä haluamasi tietokanta (**trainingdatabase**) 
+- Valitse ylhäältä **Tools \> Query Tool**
+
+Haluttu SQL-komento suoritetaan painamalla avautuvasta **Query Tool**
+-ikkunasta löytyvää kolmio-painiketta (**Execute/Refresh**) tai
+**F5**-näppäintä. Jos haluat suorittaa vain osan SQL-lausekkeesta,
+väritä hiirellä mieleisesi osio ja paina **F5**. Näet alaikkunassa
+komennon tuloksen. Voit myös tallentaa SQL-komentosi
+**.sql**-tiedostoon, josta ne voi myöhemmin ladata.
+
+![](img/pgadmin_query_tool.gif)
 
 Nyt voidaan lisätä PostGIS-lisäosa **trainingdatabase**-tietokantaan
 seuraavalla SQL-komennolla:
@@ -87,27 +106,8 @@ Mitä näkymiä (views) on tietokantaan muodostunut? Mitä tietoja ne
 sisältävät?
 :::
 
-### SQL-komentojen suorittaminen
 
-Koulutuksessa tullaan suorittamaan useita harjoituksia SQL-komentokielen
-avulla. pgAdmin:n **Kysely-työkalun (Query Tool)** avulla voit suorittaa
-SQL-kyselyitä ja lausekkeita. **Query Tool** käynnistetään seuraavasti:
-\* Valitse **Servers**-osiosta oma tietokantaklusterisi \* Valitse
-klusterin sisältä haluamasi tietokanta (**trainingdatabase**) \* Valitse
-ylhäältä **Tools \> Query Tool**
-
-Haluttu SQL-komento suoritetaan painamalla avautuvasta **Query Tool**
--ikkunasta löytyvää kolmio-painiketta (**Execute/Refresh**) tai
-**F5**-näppäintä. Jos haluat suorittaa vain osan SQL-lausekkeesta,
-väritä hiirellä mieleisesi osio ja paina **F5**. Näet alaikkunassa
-komennon tuloksen. Voit myös tallentaa SQL-komentosi
-**.sql**-tiedostoon, josta ne voi myöhemmin ladata.
-
-![](img/pgadmin_query_tool.gif)
-
-Uusi taulu voidaan luoda joko kirjoittamalla seuraava SQL-komentojono
-**Query Tool**:n SQL-editoriin tai ajamalla ao. solu suoraan Jupyter
-Notebookista.
+Uusi taulu voidaan luoda kirjoittamalla seuraava SQL-komentojono **Query Tool**:n SQL-editoriin.
 
 ::: code-box
 ``` sql
@@ -177,10 +177,8 @@ SQL-komentoja voi suorittaa pgAdminin (ja QGISin Tietokannan hallinta
 [komentorivi](/wetty), jotta pääset käyttämään
 psql-komentorivityökalua. Kirjaudu ensin sisään WeTTY- terminaaliemulaattoriin:
 
-::: todo
-- Username: **student**
-- Password: **gispotraining**
-
+- Username: **`r linux_user`**
+- Password: **`r linux_pass`**
 
 Ota yhteys omaan tietokantaklusteriisi
 komennolla:
@@ -194,7 +192,6 @@ psql -U postgres -h dbhost
 
 
 ![](img/psql_start.png)
-:::
 
 ### psql:n käyttäminen
 
@@ -241,12 +238,7 @@ createdb -U postgres -h dbhost uuden_tietokannan_nimi
 ```
 :::
 
-![](img/createdb)
-
-::: todo
-psql:n tavoin myös createdb lukee tietokannan yhteysparametrit
-ympäristömuuttujista.
-:::
+![](img/createdb.png)
 
 ### Tietokannan poistaminen
 
@@ -303,6 +295,8 @@ host   all     all        0.0.0.0/0       trust
 ::: todo
 Muutokset on tehty koulutuksessa käytettävälle PostgreSQL-asennukselle
 jo valmiiksi.
+
+EI OLE -> TEE SE
 :::
 
 ::: hint-box

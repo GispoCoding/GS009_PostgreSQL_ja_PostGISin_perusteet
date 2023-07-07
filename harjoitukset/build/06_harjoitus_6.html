@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-05" />
+<meta name="date" content="2023-07-07" />
 
 
 <meta name="description" content="7 Harjoitus 6: Spatiaaliset relaatiot | Johdanto PostGISin käyttöön">
@@ -143,11 +143,17 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </ul></li>
 <li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-3-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 3: SQL:n perusteet</a>
 <ul>
-<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.1</span> Harjoitus 3.1</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.2</span> Harjoitus 3.2</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitukset-3---ratkaisuavain"><span class="toc-section-number">4.1</span> Harjoitukset 3 - ratkaisuavain</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.2</span> Harjoitus 3.1</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.3</span> Harjoitus 3.2</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.4</span> Harjoitus 3.3</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.5</span> Harjoitus 3.4</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.6</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#nykyinen-toteutus"><span class="toc-section-number">4.7</span> Nykyinen toteutus:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-1"><span class="toc-section-number">4.8</span> Vaihtoehto 1:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-2"><span class="toc-section-number">4.9</span> Vaihtoehto 2:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-3"><span class="toc-section-number">4.10</span> Vaihtoehto 3:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-4"><span class="toc-section-number">4.11</span> Vaihtoehto 4:</a></li>
 </ul></li>
 <li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
@@ -206,24 +212,11 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <p><strong>Harjoituksen tavoite</strong> - Harjoituksen jälkeen opiskelija tuntee PostGISin spatiaalisen relaatioihin liittyvät funktiot ja osaa niiden avulla tehdä yksinkertaisia analyysejä.</p>
 <div id="valmistautuminen-4" class="section level3" number="7.0.1">
 <h3><span class="header-section-number">7.0.1</span> Valmistautuminen</h3>
-<div class="todo">
-<p>miksi lie tämä pitäisi tehä</p>
-<p>Alusta notebook SQL-harjoituksia varten (<a href="Harjoitus%201.ipynb#SQL-solujen-ajaminen">SQL-solujen ohje</a>). Kannattaa muutenkin pitää <a href="Harjoitus%201.ipynb">ohje</a> mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="06_harjoitus_6.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext sql</span>
-<span id="cb81-2"><a href="06_harjoitus_6.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ipygis <span class="im">import</span> get_connection_url</span>
-<span id="cb81-3"><a href="06_harjoitus_6.html#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-4"><a href="06_harjoitus_6.html#cb81-4" aria-hidden="true" tabindex="-1"></a>c_url <span class="op">=</span> get_connection_url(dbname<span class="op">=</span><span class="st">&quot;trainingdatabase&quot;</span>)</span>
-<span id="cb81-5"><a href="06_harjoitus_6.html#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>sql $c_url</span></code></pre></div>
-</div>
-<div class="todo">
-<p>pittääköhän muuta lissäillä</p>
-</div>
+<p>Avaa <a href="/pgadmin">pgAdmin</a> selaimeen ja kirjaudu sisään. Avaa <strong>Query Tool</strong> (Valitse <em>trainingdatabase</em> <strong>-&gt;</strong> Ylhäältä <strong>Tools</strong> <strong>-&gt;</strong> <strong>Query Tool</strong>).</p>
 </div>
 <div id="käytettäviä-funktioita" class="section level3" number="7.0.2">
 <h3><span class="header-section-number">7.0.2</span> Käytettäviä funktioita</h3>
 <p>Tässä harjoituksessa hyödynnetään ainakin näitä funktioita:</p>
-<div class="todo">
-<p>taulu</p>
 <table>
 <colgroup>
 <col width="44%" />
@@ -279,52 +272,51 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </tbody>
 </table>
 </div>
-</div>
 <div id="harjoitus-6.1" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Harjoitus 6.1</h2>
 <p>Etsitään ne kunnat, joissa on lentokenttä:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb82"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb82-1"><a href="06_harjoitus_6.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb82-2"><a href="06_harjoitus_6.html#cb82-2" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1</span>
-<span id="cb82-3"><a href="06_harjoitus_6.html#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> </span>
-<span id="cb82-4"><a href="06_harjoitus_6.html#cb82-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
-<span id="cb82-5"><a href="06_harjoitus_6.html#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb82-6"><a href="06_harjoitus_6.html#cb82-6" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb87-1"><a href="06_harjoitus_6.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb87-2"><a href="06_harjoitus_6.html#cb87-2" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1</span>
+<span id="cb87-3"><a href="06_harjoitus_6.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> </span>
+<span id="cb87-4"><a href="06_harjoitus_6.html#cb87-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
+<span id="cb87-5"><a href="06_harjoitus_6.html#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb87-6"><a href="06_harjoitus_6.html#cb87-6" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
 </div>
 <p>Huomaa kuinka kirjaimia a ja b käytetään kyselyssä aliaksina, eli sarakkeiden korvaavina niminä. Aliasten käyttö helpottaa varsinkin pitkien kyselyiden tulkitsemista ja kirjoittamista. Voit lukea lisää aliaksista esimerkiksi täältä: <a href="https://www.postgresqltutorial.com/postgresql-alias/">postgresql-alias</a>.</p>
 <p>Montako lentokenttää Suomessa on?</p>
 <div class="code-box">
-<div class="sourceCode" id="cb83"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb83-1"><a href="06_harjoitus_6.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb88-1"><a href="06_harjoitus_6.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb84"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb84-1"><a href="06_harjoitus_6.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb84-2"><a href="06_harjoitus_6.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(ogc_fid)</span>
-<span id="cb84-3"><a href="06_harjoitus_6.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb84-4"><a href="06_harjoitus_6.html#cb84-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste;</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb89-1"><a href="06_harjoitus_6.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb89-2"><a href="06_harjoitus_6.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(<span class="kw">id</span>)</span>
+<span id="cb89-3"><a href="06_harjoitus_6.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb89-4"><a href="06_harjoitus_6.html#cb89-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste;</span></code></pre></div>
 </div>
 </div>
 <p>Jos lisäät SELECT-komentoon parametrin DISTINCT, saat selville kuinka monta lentokentällistä kuntaa Suomessa on.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb85"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb85-1"><a href="06_harjoitus_6.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb90-1"><a href="06_harjoitus_6.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb86"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb86-1"><a href="06_harjoitus_6.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb86-2"><a href="06_harjoitus_6.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(kunta_distinct)</span>
-<span id="cb86-3"><a href="06_harjoitus_6.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb86-4"><a href="06_harjoitus_6.html#cb86-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span> <span class="kw">DISTINCT</span></span>
-<span id="cb86-5"><a href="06_harjoitus_6.html#cb86-5" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1 <span class="kw">as</span> kunta_distinct</span>
-<span id="cb86-6"><a href="06_harjoitus_6.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb86-7"><a href="06_harjoitus_6.html#cb86-7" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
-<span id="cb86-8"><a href="06_harjoitus_6.html#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb86-9"><a href="06_harjoitus_6.html#cb86-9" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry)) <span class="kw">as</span> DistincKunta;</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb91-1"><a href="06_harjoitus_6.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb91-2"><a href="06_harjoitus_6.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(kunta_distinct)</span>
+<span id="cb91-3"><a href="06_harjoitus_6.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb91-4"><a href="06_harjoitus_6.html#cb91-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span> <span class="kw">DISTINCT</span></span>
+<span id="cb91-5"><a href="06_harjoitus_6.html#cb91-5" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1 <span class="kw">as</span> kunta_distinct</span>
+<span id="cb91-6"><a href="06_harjoitus_6.html#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb91-7"><a href="06_harjoitus_6.html#cb91-7" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
+<span id="cb91-8"><a href="06_harjoitus_6.html#cb91-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb91-9"><a href="06_harjoitus_6.html#cb91-9" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry)) <span class="kw">as</span> DistincKunta;</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -332,7 +324,7 @@ ratkaisu
 <h2><span class="header-section-number">7.2</span> <strong>Harjoitus 6.2</strong></h2>
 <p>Missä Suomen kunnissa on kaksi lentokenttää?</p>
 <div class="code-box">
-<div class="sourceCode" id="cb87"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb87-1"><a href="06_harjoitus_6.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb92-1"><a href="06_harjoitus_6.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <p>Perusteellinen ratkaisuvaihtoehto:</p>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
@@ -340,23 +332,23 @@ ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb88"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb88-1"><a href="06_harjoitus_6.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> apm <span class="kw">AS</span> (</span>
-<span id="cb88-2"><a href="06_harjoitus_6.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span></span>
-<span id="cb88-3"><a href="06_harjoitus_6.html#cb88-3" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1, <span class="fu">COUNT</span>(a.kunta_ni1) <span class="kw">OVER</span>(<span class="kw">PARTITION</span> <span class="kw">BY</span> a.kunta_ni1) <span class="kw">AS</span> CountAirports</span>
-<span id="cb88-4"><a href="06_harjoitus_6.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb88-5"><a href="06_harjoitus_6.html#cb88-5" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
-<span id="cb88-6"><a href="06_harjoitus_6.html#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb88-7"><a href="06_harjoitus_6.html#cb88-7" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry)</span>
-<span id="cb88-8"><a href="06_harjoitus_6.html#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
-<span id="cb88-9"><a href="06_harjoitus_6.html#cb88-9" aria-hidden="true" tabindex="-1"></a>CountAirports <span class="kw">DESC</span></span>
-<span id="cb88-10"><a href="06_harjoitus_6.html#cb88-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb88-11"><a href="06_harjoitus_6.html#cb88-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-12"><a href="06_harjoitus_6.html#cb88-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb88-13"><a href="06_harjoitus_6.html#cb88-13" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="kw">as</span> <span class="ot">&quot;Municipality&quot;</span>, countairports <span class="kw">AS</span> <span class="ot">&quot;Count of Airports&quot;</span></span>
-<span id="cb88-14"><a href="06_harjoitus_6.html#cb88-14" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb88-15"><a href="06_harjoitus_6.html#cb88-15" aria-hidden="true" tabindex="-1"></a>apm</span>
-<span id="cb88-16"><a href="06_harjoitus_6.html#cb88-16" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb88-17"><a href="06_harjoitus_6.html#cb88-17" aria-hidden="true" tabindex="-1"></a>CountAirports <span class="op">=</span> <span class="dv">2</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb93-1"><a href="06_harjoitus_6.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> apm <span class="kw">AS</span> (</span>
+<span id="cb93-2"><a href="06_harjoitus_6.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span></span>
+<span id="cb93-3"><a href="06_harjoitus_6.html#cb93-3" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1, <span class="fu">COUNT</span>(a.kunta_ni1) <span class="kw">OVER</span>(<span class="kw">PARTITION</span> <span class="kw">BY</span> a.kunta_ni1) <span class="kw">AS</span> CountAirports</span>
+<span id="cb93-4"><a href="06_harjoitus_6.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb93-5"><a href="06_harjoitus_6.html#cb93-5" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
+<span id="cb93-6"><a href="06_harjoitus_6.html#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb93-7"><a href="06_harjoitus_6.html#cb93-7" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry)</span>
+<span id="cb93-8"><a href="06_harjoitus_6.html#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb93-9"><a href="06_harjoitus_6.html#cb93-9" aria-hidden="true" tabindex="-1"></a>CountAirports <span class="kw">DESC</span></span>
+<span id="cb93-10"><a href="06_harjoitus_6.html#cb93-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb93-11"><a href="06_harjoitus_6.html#cb93-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-12"><a href="06_harjoitus_6.html#cb93-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb93-13"><a href="06_harjoitus_6.html#cb93-13" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="kw">as</span> <span class="ot">&quot;Municipality&quot;</span>, countairports <span class="kw">AS</span> <span class="ot">&quot;Count of Airports&quot;</span></span>
+<span id="cb93-14"><a href="06_harjoitus_6.html#cb93-14" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb93-15"><a href="06_harjoitus_6.html#cb93-15" aria-hidden="true" tabindex="-1"></a>apm</span>
+<span id="cb93-16"><a href="06_harjoitus_6.html#cb93-16" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb93-17"><a href="06_harjoitus_6.html#cb93-17" aria-hidden="true" tabindex="-1"></a>CountAirports <span class="op">=</span> <span class="dv">2</span>;</span></code></pre></div>
 </div>
 </div>
 <p>Pelkistetympi ratkaisuvaihtoehto:</p>
@@ -365,75 +357,75 @@ ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb89"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb89-1"><a href="06_harjoitus_6.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
-<span id="cb89-2"><a href="06_harjoitus_6.html#cb89-2" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1 <span class="kw">as</span> <span class="ot">&quot;Kunta&quot;</span>, <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> <span class="ot">&quot;Lkm&quot;</span></span>
-<span id="cb89-3"><a href="06_harjoitus_6.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb89-4"><a href="06_harjoitus_6.html#cb89-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
-<span id="cb89-5"><a href="06_harjoitus_6.html#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb89-6"><a href="06_harjoitus_6.html#cb89-6" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry)</span>
-<span id="cb89-7"><a href="06_harjoitus_6.html#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
-<span id="cb89-8"><a href="06_harjoitus_6.html#cb89-8" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1</span>
-<span id="cb89-9"><a href="06_harjoitus_6.html#cb89-9" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">2</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb94-1"><a href="06_harjoitus_6.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb94-2"><a href="06_harjoitus_6.html#cb94-2" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1 <span class="kw">as</span> <span class="ot">&quot;Kunta&quot;</span>, <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">as</span> <span class="ot">&quot;Lkm&quot;</span></span>
+<span id="cb94-3"><a href="06_harjoitus_6.html#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb94-4"><a href="06_harjoitus_6.html#cb94-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue a, nlsfi.lentokenttapiste b</span>
+<span id="cb94-5"><a href="06_harjoitus_6.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb94-6"><a href="06_harjoitus_6.html#cb94-6" aria-hidden="true" tabindex="-1"></a>ST_Contains(a.wkb_geometry, b.wkb_geometry)</span>
+<span id="cb94-7"><a href="06_harjoitus_6.html#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb94-8"><a href="06_harjoitus_6.html#cb94-8" aria-hidden="true" tabindex="-1"></a>a.kunta_ni1</span>
+<span id="cb94-9"><a href="06_harjoitus_6.html#cb94-9" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="op">=</span> <span class="dv">2</span>;</span></code></pre></div>
 </div>
-<p>::</p>
+</div>
 <p>Suorita ao. SQL-lause. Mitä sillä saadaan selville?</p>
-<p>::code-box</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb90-1"><a href="06_harjoitus_6.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb90-2"><a href="06_harjoitus_6.html#cb90-2" aria-hidden="true" tabindex="-1"></a>ST_ASText(a.wkb_geometry), a.ogc_fid</span>
-<span id="cb90-3"><a href="06_harjoitus_6.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb90-4"><a href="06_harjoitus_6.html#cb90-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b</span>
-<span id="cb90-5"><a href="06_harjoitus_6.html#cb90-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb90-6"><a href="06_harjoitus_6.html#cb90-6" aria-hidden="true" tabindex="-1"></a>ST_Equals(a.wkb_geometry,b.wkb_geometry) <span class="kw">AND</span> a.ogc_fid <span class="op">&lt;&gt;</span> b.ogc_fid;</span></code></pre></div>
+<div class="code-box">
+<div class="sourceCode" id="cb95"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb95-1"><a href="06_harjoitus_6.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb95-2"><a href="06_harjoitus_6.html#cb95-2" aria-hidden="true" tabindex="-1"></a>ST_ASText(a.wkb_geometry), a.<span class="kw">id</span></span>
+<span id="cb95-3"><a href="06_harjoitus_6.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb95-4"><a href="06_harjoitus_6.html#cb95-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b</span>
+<span id="cb95-5"><a href="06_harjoitus_6.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb95-6"><a href="06_harjoitus_6.html#cb95-6" aria-hidden="true" tabindex="-1"></a>ST_Equals(a.wkb_geometry,b.wkb_geometry) <span class="kw">AND</span> a.<span class="kw">id</span> <span class="op">&lt;&gt;</span> b.<span class="kw">id</span>;</span></code></pre></div>
 </div>
 <div id="kunnat-joissa-ei-ole-rautatietä" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Kunnat, joissa ei ole rautatietä</h3>
 <p>Etsitään ne kunnat, joissa ei ole rautatietä:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb91"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb91-1"><a href="06_harjoitus_6.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
-<span id="cb91-2"><a href="06_harjoitus_6.html#cb91-2" aria-hidden="true" tabindex="-1"></a>b.kunta_ni1</span>
-<span id="cb91-3"><a href="06_harjoitus_6.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb91-4"><a href="06_harjoitus_6.html#cb91-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span></span>
-<span id="cb91-5"><a href="06_harjoitus_6.html#cb91-5" aria-hidden="true" tabindex="-1"></a> ST_union(wkb_geometry) <span class="kw">as</span> wkb_geometry</span>
-<span id="cb91-6"><a href="06_harjoitus_6.html#cb91-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">FROM</span></span>
-<span id="cb91-7"><a href="06_harjoitus_6.html#cb91-7" aria-hidden="true" tabindex="-1"></a> nlsfi.rautatieviiva) <span class="kw">as</span> a, nlsfi.hallintoalue b</span>
-<span id="cb91-8"><a href="06_harjoitus_6.html#cb91-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb91-9"><a href="06_harjoitus_6.html#cb91-9" aria-hidden="true" tabindex="-1"></a>ST_Disjoint(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb96-1"><a href="06_harjoitus_6.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb96-2"><a href="06_harjoitus_6.html#cb96-2" aria-hidden="true" tabindex="-1"></a>b.kunta_ni1</span>
+<span id="cb96-3"><a href="06_harjoitus_6.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb96-4"><a href="06_harjoitus_6.html#cb96-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span></span>
+<span id="cb96-5"><a href="06_harjoitus_6.html#cb96-5" aria-hidden="true" tabindex="-1"></a> ST_union(wkb_geometry) <span class="kw">as</span> wkb_geometry</span>
+<span id="cb96-6"><a href="06_harjoitus_6.html#cb96-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">FROM</span></span>
+<span id="cb96-7"><a href="06_harjoitus_6.html#cb96-7" aria-hidden="true" tabindex="-1"></a> nlsfi.rautatieviiva) <span class="kw">as</span> a, nlsfi.hallintoalue b</span>
+<span id="cb96-8"><a href="06_harjoitus_6.html#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb96-9"><a href="06_harjoitus_6.html#cb96-9" aria-hidden="true" tabindex="-1"></a>ST_Disjoint(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
 </div>
 </div>
 <div id="kolme-lähintä-lentokenttää" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Kolme lähintä lentokenttää</h3>
 <p>K Nearest Neighbours -menetelmällä (KNN) voidaan hakea kolme lähimpänä jonkin kunnan keskustaa sijaitsevaa lentokenttää.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb92"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb92-1"><a href="06_harjoitus_6.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> forssa <span class="kw">AS</span></span>
-<span id="cb92-2"><a href="06_harjoitus_6.html#cb92-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span></span>
-<span id="cb92-3"><a href="06_harjoitus_6.html#cb92-3" aria-hidden="true" tabindex="-1"></a> wkb_geometry</span>
-<span id="cb92-4"><a href="06_harjoitus_6.html#cb92-4" aria-hidden="true" tabindex="-1"></a> <span class="kw">FROM</span></span>
-<span id="cb92-5"><a href="06_harjoitus_6.html#cb92-5" aria-hidden="true" tabindex="-1"></a> nlsfi.hallintoalue</span>
-<span id="cb92-6"><a href="06_harjoitus_6.html#cb92-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">WHERE</span></span>
-<span id="cb92-7"><a href="06_harjoitus_6.html#cb92-7" aria-hidden="true" tabindex="-1"></a> kunta_ni1 <span class="op">=</span> <span class="st">&#39;Forssa&#39;</span>)  </span>
-<span id="cb92-8"><a href="06_harjoitus_6.html#cb92-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-9"><a href="06_harjoitus_6.html#cb92-9" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb92-10"><a href="06_harjoitus_6.html#cb92-10" aria-hidden="true" tabindex="-1"></a><span class="op">*</span>, <span class="fu">round</span>(ST_Distance(forssa.wkb_geometry, a.wkb_geometry)<span class="op">/</span><span class="dv">1000</span>) <span class="kw">as</span> <span class="ot">&quot;km&quot;</span></span>
-<span id="cb92-11"><a href="06_harjoitus_6.html#cb92-11" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> </span>
-<span id="cb92-12"><a href="06_harjoitus_6.html#cb92-12" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, forssa</span>
-<span id="cb92-13"><a href="06_harjoitus_6.html#cb92-13" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
-<span id="cb92-14"><a href="06_harjoitus_6.html#cb92-14" aria-hidden="true" tabindex="-1"></a>forssa.wkb_geometry <span class="op">&lt;-&gt;</span> a.wkb_geometry</span>
-<span id="cb92-15"><a href="06_harjoitus_6.html#cb92-15" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">3</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb97-1"><a href="06_harjoitus_6.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> forssa <span class="kw">AS</span></span>
+<span id="cb97-2"><a href="06_harjoitus_6.html#cb97-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span></span>
+<span id="cb97-3"><a href="06_harjoitus_6.html#cb97-3" aria-hidden="true" tabindex="-1"></a> wkb_geometry</span>
+<span id="cb97-4"><a href="06_harjoitus_6.html#cb97-4" aria-hidden="true" tabindex="-1"></a> <span class="kw">FROM</span></span>
+<span id="cb97-5"><a href="06_harjoitus_6.html#cb97-5" aria-hidden="true" tabindex="-1"></a> nlsfi.hallintoalue</span>
+<span id="cb97-6"><a href="06_harjoitus_6.html#cb97-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">WHERE</span></span>
+<span id="cb97-7"><a href="06_harjoitus_6.html#cb97-7" aria-hidden="true" tabindex="-1"></a> kunta_ni1 <span class="op">=</span> <span class="st">&#39;Forssa&#39;</span>)  </span>
+<span id="cb97-8"><a href="06_harjoitus_6.html#cb97-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-9"><a href="06_harjoitus_6.html#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb97-10"><a href="06_harjoitus_6.html#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="op">*</span>, <span class="fu">round</span>(ST_Distance(forssa.wkb_geometry, a.wkb_geometry)<span class="op">/</span><span class="dv">1000</span>) <span class="kw">as</span> <span class="ot">&quot;km&quot;</span></span>
+<span id="cb97-11"><a href="06_harjoitus_6.html#cb97-11" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> </span>
+<span id="cb97-12"><a href="06_harjoitus_6.html#cb97-12" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, forssa</span>
+<span id="cb97-13"><a href="06_harjoitus_6.html#cb97-13" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb97-14"><a href="06_harjoitus_6.html#cb97-14" aria-hidden="true" tabindex="-1"></a>forssa.wkb_geometry <span class="op">&lt;-&gt;</span> a.wkb_geometry</span>
+<span id="cb97-15"><a href="06_harjoitus_6.html#cb97-15" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">3</span>;</span></code></pre></div>
 </div>
 <p>Sama ongelma voidaan ratkaista myös ilman KNN-algoritmia:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb93"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb93-1"><a href="06_harjoitus_6.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb93-2"><a href="06_harjoitus_6.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="op">*</span>, <span class="fu">round</span>(ST_Distance(wkb_geometry,(</span>
-<span id="cb93-3"><a href="06_harjoitus_6.html#cb93-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> ST_Centroid(wkb_geometry)</span>
-<span id="cb93-4"><a href="06_harjoitus_6.html#cb93-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span></span>
-<span id="cb93-5"><a href="06_harjoitus_6.html#cb93-5" aria-hidden="true" tabindex="-1"></a>    nlsfi.hallintoalue</span>
-<span id="cb93-6"><a href="06_harjoitus_6.html#cb93-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span></span>
-<span id="cb93-7"><a href="06_harjoitus_6.html#cb93-7" aria-hidden="true" tabindex="-1"></a>    kunta_ni1 <span class="op">=</span><span class="st">&#39;Forssa&#39;</span>))<span class="op">/</span><span class="dv">1000</span>) <span class="kw">as</span> etaisyys</span>
-<span id="cb93-8"><a href="06_harjoitus_6.html#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb93-9"><a href="06_harjoitus_6.html#cb93-9" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste </span>
-<span id="cb93-10"><a href="06_harjoitus_6.html#cb93-10" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">by</span></span>
-<span id="cb93-11"><a href="06_harjoitus_6.html#cb93-11" aria-hidden="true" tabindex="-1"></a>etaisyys</span>
-<span id="cb93-12"><a href="06_harjoitus_6.html#cb93-12" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">3</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb98-1"><a href="06_harjoitus_6.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb98-2"><a href="06_harjoitus_6.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="op">*</span>, <span class="fu">round</span>(ST_Distance(wkb_geometry,(</span>
+<span id="cb98-3"><a href="06_harjoitus_6.html#cb98-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> ST_Centroid(wkb_geometry)</span>
+<span id="cb98-4"><a href="06_harjoitus_6.html#cb98-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span></span>
+<span id="cb98-5"><a href="06_harjoitus_6.html#cb98-5" aria-hidden="true" tabindex="-1"></a>    nlsfi.hallintoalue</span>
+<span id="cb98-6"><a href="06_harjoitus_6.html#cb98-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span></span>
+<span id="cb98-7"><a href="06_harjoitus_6.html#cb98-7" aria-hidden="true" tabindex="-1"></a>    kunta_ni1 <span class="op">=</span><span class="st">&#39;Forssa&#39;</span>))<span class="op">/</span><span class="dv">1000</span>) <span class="kw">as</span> etaisyys</span>
+<span id="cb98-8"><a href="06_harjoitus_6.html#cb98-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb98-9"><a href="06_harjoitus_6.html#cb98-9" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste </span>
+<span id="cb98-10"><a href="06_harjoitus_6.html#cb98-10" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">by</span></span>
+<span id="cb98-11"><a href="06_harjoitus_6.html#cb98-11" aria-hidden="true" tabindex="-1"></a>etaisyys</span>
+<span id="cb98-12"><a href="06_harjoitus_6.html#cb98-12" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">3</span>;</span></code></pre></div>
 </div>
 <p>Miksi saadut tulokset poikkeavat toisistaan?</p>
 </div>
@@ -441,59 +433,59 @@ ratkaisu
 <h3><span class="header-section-number">7.2.3</span> Naapurikunnat</h3>
 <p>Mitkä ovat Kuopion naapurikunnat?</p>
 <div class="code-box">
-<div class="sourceCode" id="cb94"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb94-1"><a href="06_harjoitus_6.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb94-2"><a href="06_harjoitus_6.html#cb94-2" aria-hidden="true" tabindex="-1"></a>b.kunta_ni1</span>
-<span id="cb94-3"><a href="06_harjoitus_6.html#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb94-4"><a href="06_harjoitus_6.html#cb94-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span></span>
-<span id="cb94-5"><a href="06_harjoitus_6.html#cb94-5" aria-hidden="true" tabindex="-1"></a> kunta_ni1, wkb_geometry</span>
-<span id="cb94-6"><a href="06_harjoitus_6.html#cb94-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">FROM</span></span>
-<span id="cb94-7"><a href="06_harjoitus_6.html#cb94-7" aria-hidden="true" tabindex="-1"></a> nlsfi.hallintoalue</span>
-<span id="cb94-8"><a href="06_harjoitus_6.html#cb94-8" aria-hidden="true" tabindex="-1"></a> <span class="kw">WHERE</span></span>
-<span id="cb94-9"><a href="06_harjoitus_6.html#cb94-9" aria-hidden="true" tabindex="-1"></a> kunta_ni1 <span class="op">=</span> <span class="st">&#39;Kuopio&#39;</span>) a, nlsfi.hallintoalue b</span>
-<span id="cb94-10"><a href="06_harjoitus_6.html#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb94-11"><a href="06_harjoitus_6.html#cb94-11" aria-hidden="true" tabindex="-1"></a>ST_Touches(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb99-1"><a href="06_harjoitus_6.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb99-2"><a href="06_harjoitus_6.html#cb99-2" aria-hidden="true" tabindex="-1"></a>b.kunta_ni1</span>
+<span id="cb99-3"><a href="06_harjoitus_6.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb99-4"><a href="06_harjoitus_6.html#cb99-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span></span>
+<span id="cb99-5"><a href="06_harjoitus_6.html#cb99-5" aria-hidden="true" tabindex="-1"></a> kunta_ni1, wkb_geometry</span>
+<span id="cb99-6"><a href="06_harjoitus_6.html#cb99-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">FROM</span></span>
+<span id="cb99-7"><a href="06_harjoitus_6.html#cb99-7" aria-hidden="true" tabindex="-1"></a> nlsfi.hallintoalue</span>
+<span id="cb99-8"><a href="06_harjoitus_6.html#cb99-8" aria-hidden="true" tabindex="-1"></a> <span class="kw">WHERE</span></span>
+<span id="cb99-9"><a href="06_harjoitus_6.html#cb99-9" aria-hidden="true" tabindex="-1"></a> kunta_ni1 <span class="op">=</span> <span class="st">&#39;Kuopio&#39;</span>) a, nlsfi.hallintoalue b</span>
+<span id="cb99-10"><a href="06_harjoitus_6.html#cb99-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb99-11"><a href="06_harjoitus_6.html#cb99-11" aria-hidden="true" tabindex="-1"></a>ST_Touches(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
 </div>
 </div>
 <div id="tiet-jotka-leikkaavat-kuntarajoja" class="section level3" number="7.2.4">
 <h3><span class="header-section-number">7.2.4</span> Tiet, jotka leikkaavat kuntarajoja</h3>
 <p>Ne tieviivat, jotka leikkaavat kuntarajoja:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb95"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb95-1"><a href="06_harjoitus_6.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb95-2"><a href="06_harjoitus_6.html#cb95-2" aria-hidden="true" tabindex="-1"></a>a.tienumero, a.wkb_geometry</span>
-<span id="cb95-3"><a href="06_harjoitus_6.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb95-4"><a href="06_harjoitus_6.html#cb95-4" aria-hidden="true" tabindex="-1"></a>nlsfi.tieviiva a, nlsfi.hallintoalue b</span>
-<span id="cb95-5"><a href="06_harjoitus_6.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb95-6"><a href="06_harjoitus_6.html#cb95-6" aria-hidden="true" tabindex="-1"></a>ST_Crosses(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb100-1"><a href="06_harjoitus_6.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb100-2"><a href="06_harjoitus_6.html#cb100-2" aria-hidden="true" tabindex="-1"></a>a.tienumero, a.wkb_geometry</span>
+<span id="cb100-3"><a href="06_harjoitus_6.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb100-4"><a href="06_harjoitus_6.html#cb100-4" aria-hidden="true" tabindex="-1"></a>nlsfi.tieviiva a, nlsfi.hallintoalue b</span>
+<span id="cb100-5"><a href="06_harjoitus_6.html#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb100-6"><a href="06_harjoitus_6.html#cb100-6" aria-hidden="true" tabindex="-1"></a>ST_Crosses(a.wkb_geometry, b.wkb_geometry);</span></code></pre></div>
 </div>
-<p>Tulosten visualisoimiseksi, voit muodostaa <strong>uuden skeeman</strong> (tmp). Voit luoda uuden taulun, johon viet tuloksen. Visualisointiin voit käyttää esimerkiksi QGIS-ohjelmistoa. Voit muodostaa tuloksesta myös näkymän (view), mutta muista kuitenkin lisätä mukaan <strong>yksilöivä tunnus</strong> (ogc_fid) sekä myös <strong>DISTINCT</strong>, jotta yksilöivät tunnukset pysyvät yksilöivinä.</p>
+<p>Tulosten visualisoimiseksi, voit muodostaa <strong>uuden skeeman</strong> (tmp). Voit luoda uuden taulun, johon viet tuloksen. Visualisointiin voit käyttää esimerkiksi QGIS-ohjelmistoa. Voit muodostaa tuloksesta myös näkymän (view), mutta muista kuitenkin lisätä mukaan <strong>yksilöivä tunnus</strong> (id) sekä myös <strong>DISTINCT</strong>, jotta yksilöivät tunnukset pysyvät yksilöivinä.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb96"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb96-1"><a href="06_harjoitus_6.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">SCHEMA</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> tmp;</span></code></pre></div>
-</div>
-<div class="code-box">
-<div class="sourceCode" id="cb97"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb97-1"><a href="06_harjoitus_6.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> tmp.crossroads;</span>
-<span id="cb97-2"><a href="06_harjoitus_6.html#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-3"><a href="06_harjoitus_6.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> tmp.crossroads <span class="kw">AS</span></span>
-<span id="cb97-4"><a href="06_harjoitus_6.html#cb97-4" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb97-5"><a href="06_harjoitus_6.html#cb97-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
-<span id="cb97-6"><a href="06_harjoitus_6.html#cb97-6" aria-hidden="true" tabindex="-1"></a>    a.tienumero, a.wkb_geometry</span>
-<span id="cb97-7"><a href="06_harjoitus_6.html#cb97-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span></span>
-<span id="cb97-8"><a href="06_harjoitus_6.html#cb97-8" aria-hidden="true" tabindex="-1"></a>    nlsfi.tieviiva a, nlsfi.hallintoalue b</span>
-<span id="cb97-9"><a href="06_harjoitus_6.html#cb97-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span></span>
-<span id="cb97-10"><a href="06_harjoitus_6.html#cb97-10" aria-hidden="true" tabindex="-1"></a>    ST_Crosses(a.wkb_geometry, b.wkb_geometry)</span>
-<span id="cb97-11"><a href="06_harjoitus_6.html#cb97-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb101-1"><a href="06_harjoitus_6.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">SCHEMA</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> tmp;</span></code></pre></div>
 </div>
 <div class="code-box">
-<div class="sourceCode" id="cb98"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb98-1"><a href="06_harjoitus_6.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">VIEW</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> tmp.view_crossroads;</span>
-<span id="cb98-2"><a href="06_harjoitus_6.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-3"><a href="06_harjoitus_6.html#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> tmp.view_crossrods <span class="kw">AS</span></span>
-<span id="cb98-4"><a href="06_harjoitus_6.html#cb98-4" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb98-5"><a href="06_harjoitus_6.html#cb98-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">DISTINCT</span></span>
-<span id="cb98-6"><a href="06_harjoitus_6.html#cb98-6" aria-hidden="true" tabindex="-1"></a>    a.tienumero, a.wkb_geometry, a.ogc_fid</span>
-<span id="cb98-7"><a href="06_harjoitus_6.html#cb98-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span></span>
-<span id="cb98-8"><a href="06_harjoitus_6.html#cb98-8" aria-hidden="true" tabindex="-1"></a>    nlsfi.tieviiva a, nlsfi.hallintoalue b</span>
-<span id="cb98-9"><a href="06_harjoitus_6.html#cb98-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span></span>
-<span id="cb98-10"><a href="06_harjoitus_6.html#cb98-10" aria-hidden="true" tabindex="-1"></a>    ST_Crosses(a.wkb_geometry, b.wkb_geometry)</span>
-<span id="cb98-11"><a href="06_harjoitus_6.html#cb98-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb102-1"><a href="06_harjoitus_6.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> tmp.crossroads;</span>
+<span id="cb102-2"><a href="06_harjoitus_6.html#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-3"><a href="06_harjoitus_6.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> tmp.crossroads <span class="kw">AS</span></span>
+<span id="cb102-4"><a href="06_harjoitus_6.html#cb102-4" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb102-5"><a href="06_harjoitus_6.html#cb102-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span></span>
+<span id="cb102-6"><a href="06_harjoitus_6.html#cb102-6" aria-hidden="true" tabindex="-1"></a>    a.tienumero, a.wkb_geometry</span>
+<span id="cb102-7"><a href="06_harjoitus_6.html#cb102-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span></span>
+<span id="cb102-8"><a href="06_harjoitus_6.html#cb102-8" aria-hidden="true" tabindex="-1"></a>    nlsfi.tieviiva a, nlsfi.hallintoalue b</span>
+<span id="cb102-9"><a href="06_harjoitus_6.html#cb102-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span></span>
+<span id="cb102-10"><a href="06_harjoitus_6.html#cb102-10" aria-hidden="true" tabindex="-1"></a>    ST_Crosses(a.wkb_geometry, b.wkb_geometry)</span>
+<span id="cb102-11"><a href="06_harjoitus_6.html#cb102-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+</div>
+<div class="code-box">
+<div class="sourceCode" id="cb103"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb103-1"><a href="06_harjoitus_6.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">VIEW</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> tmp.view_crossroads;</span>
+<span id="cb103-2"><a href="06_harjoitus_6.html#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-3"><a href="06_harjoitus_6.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> tmp.view_crossrods <span class="kw">AS</span></span>
+<span id="cb103-4"><a href="06_harjoitus_6.html#cb103-4" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb103-5"><a href="06_harjoitus_6.html#cb103-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">DISTINCT</span></span>
+<span id="cb103-6"><a href="06_harjoitus_6.html#cb103-6" aria-hidden="true" tabindex="-1"></a>    a.tienumero, a.wkb_geometry, a.<span class="kw">id</span></span>
+<span id="cb103-7"><a href="06_harjoitus_6.html#cb103-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span></span>
+<span id="cb103-8"><a href="06_harjoitus_6.html#cb103-8" aria-hidden="true" tabindex="-1"></a>    nlsfi.tieviiva a, nlsfi.hallintoalue b</span>
+<span id="cb103-9"><a href="06_harjoitus_6.html#cb103-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span></span>
+<span id="cb103-10"><a href="06_harjoitus_6.html#cb103-10" aria-hidden="true" tabindex="-1"></a>    ST_Crosses(a.wkb_geometry, b.wkb_geometry)</span>
+<span id="cb103-11"><a href="06_harjoitus_6.html#cb103-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
 </div>
 <p>Kumman luominen oli nopeampaa: taulun vai näkymän?</p>
 <div class="hint-box">
@@ -504,14 +496,14 @@ ratkaisu
 <h3><span class="header-section-number">7.2.5</span> Lentoasemien etäisyys rautateistä</h3>
 <p>Lasketaan minimietäisyydet lentoasemilta lähimmälle rautatielle:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb99"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb99-1"><a href="06_harjoitus_6.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb99-2"><a href="06_harjoitus_6.html#cb99-2" aria-hidden="true" tabindex="-1"></a>a.ogc_fid, <span class="fu">MIN</span>(ST_Distance(a.wkb_geometry, b.wkb_geometry)) <span class="kw">as</span> <span class="ot">&quot;dist&quot;</span></span>
-<span id="cb99-3"><a href="06_harjoitus_6.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb99-4"><a href="06_harjoitus_6.html#cb99-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, nlsfi.rautatieviiva b</span>
-<span id="cb99-5"><a href="06_harjoitus_6.html#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
-<span id="cb99-6"><a href="06_harjoitus_6.html#cb99-6" aria-hidden="true" tabindex="-1"></a>a.ogc_fid </span>
-<span id="cb99-7"><a href="06_harjoitus_6.html#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
-<span id="cb99-8"><a href="06_harjoitus_6.html#cb99-8" aria-hidden="true" tabindex="-1"></a>dist;</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb104-1"><a href="06_harjoitus_6.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb104-2"><a href="06_harjoitus_6.html#cb104-2" aria-hidden="true" tabindex="-1"></a>a.<span class="kw">id</span>, <span class="fu">MIN</span>(ST_Distance(a.wkb_geometry, b.wkb_geometry)) <span class="kw">as</span> <span class="ot">&quot;dist&quot;</span></span>
+<span id="cb104-3"><a href="06_harjoitus_6.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb104-4"><a href="06_harjoitus_6.html#cb104-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, nlsfi.rautatieviiva b</span>
+<span id="cb104-5"><a href="06_harjoitus_6.html#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb104-6"><a href="06_harjoitus_6.html#cb104-6" aria-hidden="true" tabindex="-1"></a>a.<span class="kw">id</span> </span>
+<span id="cb104-7"><a href="06_harjoitus_6.html#cb104-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb104-8"><a href="06_harjoitus_6.html#cb104-8" aria-hidden="true" tabindex="-1"></a>dist;</span></code></pre></div>
 </div>
 
 </div>
@@ -530,7 +522,7 @@ ratkaisu
 
 <div class="footer-info">
 <h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-05</span>
+<span class="footer-version">v2023-07-07</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 
@@ -550,6 +542,7 @@ ratkaisu
 
 
 <script src="js/nav-script.js"></script>
+<script src="js/answer-key.js"></script>
 
 </body>
 </html>

@@ -6,9 +6,7 @@
 
 ### Valmistautuminen
 
-:::todo
-samat sanat
-:::
+Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
 ### Keskipisteet
 
@@ -17,7 +15,7 @@ Kirjoita **SQL-terminaaliin** seuraava komento:
 :::code-box
 ```sql
 SELECT
-ST_AsText(ST_Centroid(wkb_geometry)) as "Centroids of first 10"
+ST_Centroid(wkb_geometry) as "Centroids of first 10"
 FROM
 nlsfi.hallintoalue
 LIMIT 10;
@@ -39,7 +37,7 @@ Ratkaisuvaihtoehto 1 (käytetään **ST_Contains**-funktiota):
 <button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
-:::code-boxx
+:::code-box
 ```sql
 WITH notin AS(
     SELECT
@@ -78,7 +76,7 @@ Huomaa, että saat selville vastauksen myös tulostamalla kaikkien sellaisten ku
 
 ## Harjoitus 8.2
 
-Miten paljon harjoituksessa 9.1 löydettyjen kuntien painokeskipisteet eroavat **ST_PointOnSurface**–funktion pisteistä?
+Miten paljon harjoituksessa 8.1 löydettyjen kuntien painokeskipisteet eroavat **ST_PointOnSurface**–funktion pisteistä?
 
 :::code-box
 ```sql

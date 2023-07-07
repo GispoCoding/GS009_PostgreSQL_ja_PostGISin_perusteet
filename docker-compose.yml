@@ -8,6 +8,7 @@ services:
     image: kartoza/postgis:${PG_TAG}
     volumes:
     - postgres_data:/var/lib/postgresql
+    - ./data/dbhost:/home/oppilas/data
     ports:
       - "5439:5432"
     environment:
@@ -35,7 +36,7 @@ services:
     depends_on:
       - dbhost
     volumes:
-    - ./data:/home/${LINUX_USER}/data
+    - ./data/client:/home/${LINUX_USER}/data
     - ./initializer.sh:/initializer.sh
 
   wetty:
@@ -53,7 +54,7 @@ services:
     volumes:
     - ./nginx.conf:/etc/nginx/nginx.conf
     - ./harjoitukset/build:/www/html
-    - ./data:/www/data
+    - ./data/client:/www/data
     ports:
     - "80:80"
     - "443:443"
@@ -64,3 +65,10 @@ services:
     volumes:
       - "./harjoitukset:/book"
       - "./data:/data"
+    environment:
+      - PG_USER=${PG_USER}
+      - PG_PASS=${PG_PASS}
+      - PGADMIN_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - LINUX_USER=${LINUX_USER}
+      - LINUX_PASSWORD=${LINUX_USER_PASSWORD}

@@ -6,9 +6,7 @@
 
 ### Valmistautuminen
 
-:::todo
-lisää ehkä jottain
-:::
+Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
 ### Yksinkertaisia SQL-hakuja
 
@@ -63,6 +61,10 @@ ORDER BY
 avg(char_length(kunta_ni1)) desc;
 ```
 :::
+
+## Harjoitukset 3 - ratkaisuavain
+
+<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
 
 ## Harjoitus 3.1
 
@@ -214,9 +216,85 @@ char_length(kunta_ni1) DESC;
 ```
 :::
 :::
+
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 \
 
-### VINKKITESTI
+
+
+
+=========
+
+## Nykyinen toteutus:
+
+### Harjoitus 1:
+
+Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
+
+:::code-box
+```sql
+SELECT ...
+```
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+
+:::hidden-box
+:::code-box
+```sql
+SELECT
+kunta_ni1, kunta_ni2, char_length(kunta_ni1) AS "Pituus"
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 <> kunta_ni2 AND char_length(kunta_ni1) = char_length(kunta_ni2)
+ORDER BY
+char_length(kunta_ni1) DESC;
+```
+:::
+:::
+
+## Vaihtoehto 1:
+
+### Harjoitus 1:
+
+Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
 
 :::code-box
 ```sql
@@ -236,26 +314,11 @@ FROM
 WHERE
 
 ORDER BY
-
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">lisävinkki</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT
-kunta_suomeksi, kunta_ruotsiksi, funktio_tekstin_pituus(kunta_suomeksi) AS "Pituus"
-FROM
-skeema.taulu
-WHERE
-kunta_suomeksi <> kunta_ruotsiksi AND funktio_tekstin_pituus(kunta_suomeksi) = funktio_tekstin_pituus(kunta_ruotsiksi)
-ORDER BY
-funktio_tekstin_pituus(kunta_suomeksi) DESC;
-```
-:::
 <button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+
 :::hidden-box
 :::code-box
 ```sql
@@ -270,5 +333,154 @@ char_length(kunta_ni1) DESC;
 ```
 :::
 :::
+
+:::
+
+
+## Vaihtoehto 2:
+
+### Harjoitus 1:
+
+Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
+
+:::code-box
+```sql
+SELECT
+
+FROM
+
+WHERE
+
+ORDER BY
+```
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+:::hidden-box
+:::code-box
+```sql
+SELECT
+nimi_suomeksi, nimi_ruotsiksi, funktio(nimi_suomeksi) AS "Pituus"
+FROM
+skeema.taulu
+WHERE
+nimi_suomeksi <> nimi_ruotsiksi AND funktio(nimi_suomeksi) = funktio(nimi_ruotsiksi)
+ORDER BY
+funktio(nimi_suomeksi) DESC;
+```
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+
+:::hidden-box
+:::code-box
+```sql
+SELECT
+kunta_ni1, kunta_ni2, char_length(kunta_ni1) AS "Pituus"
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 <> kunta_ni2 AND char_length(kunta_ni1) = char_length(kunta_ni2)
+ORDER BY
+char_length(kunta_ni1) DESC;
+```
 :::
 :::
+
+:::
+
+
+## Vaihtoehto 3:
+
+### Harjoitus 1:
+
+Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
+
+:::code-box
+```sql
+SELECT
+
+FROM
+
+WHERE
+
+ORDER BY
+```
+:::
+
+:::hint-box
+kunta_ni1 char_length() kunta_ni2 DESC <> = nlsfi tieviiva hallintoalue
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+:::hidden-box
+:::code-box
+```sql
+SELECT
+nimi_suomeksi, nimi_ruotsiksi, funktio(nimi_suomeksi) AS "Pituus"
+FROM
+skeema.taulu
+WHERE
+nimi_suomeksi <> nimi_ruotsiksi AND funktio(nimi_suomeksi) = funktio(nimi_ruotsiksi)
+ORDER BY
+funktio(nimi_suomeksi) DESC;
+```
+:::
+:::
+
+## Vaihtoehto 4:
+
+### Harjoitus 1:
+
+Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
+
+:::code-box
+```sql
+SELECT
+
+FROM
+
+WHERE
+
+ORDER BY
+```
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+:::hidden-box
+:::code-box
+```sql
+SELECT
+nimi_suomeksi, nimi_ruotsiksi, funktio(nimi_suomeksi) AS "Pituus"
+FROM
+skeema.taulu
+WHERE
+nimi_suomeksi <> nimi_ruotsiksi AND funktio(nimi_suomeksi) = funktio(nimi_ruotsiksi)
+ORDER BY
+funktio(nimi_suomeksi) DESC;
+```
+:::
+:::
+
+\
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu \<vaatii kouluttajan antaman koodin></button>
+
+:::hidden-box
+:::code-box
+```sql
+SELECT
+kunta_ni1, kunta_ni2, char_length(kunta_ni1) AS "Pituus"
+FROM
+nlsfi.hallintoalue
+WHERE
+kunta_ni1 <> kunta_ni2 AND char_length(kunta_ni1) = char_length(kunta_ni2)
+ORDER BY
+char_length(kunta_ni1) DESC;
+```
+:::
+:::
+

@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-05" />
+<meta name="date" content="2023-07-07" />
 
 
 <meta name="description" content="3 Harjoitus 2: Aineistojen lataaminen | Johdanto PostGISin käyttöön">
@@ -143,11 +143,17 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </ul></li>
 <li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-3-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 3: SQL:n perusteet</a>
 <ul>
-<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.1</span> Harjoitus 3.1</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.2</span> Harjoitus 3.2</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitukset-3---ratkaisuavain"><span class="toc-section-number">4.1</span> Harjoitukset 3 - ratkaisuavain</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.2</span> Harjoitus 3.1</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.3</span> Harjoitus 3.2</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.4</span> Harjoitus 3.3</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.5</span> Harjoitus 3.4</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.6</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#nykyinen-toteutus"><span class="toc-section-number">4.7</span> Nykyinen toteutus:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-1"><span class="toc-section-number">4.8</span> Vaihtoehto 1:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-2"><span class="toc-section-number">4.9</span> Vaihtoehto 2:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-3"><span class="toc-section-number">4.10</span> Vaihtoehto 3:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-4"><span class="toc-section-number">4.11</span> Vaihtoehto 4:</a></li>
 </ul></li>
 <li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
@@ -206,63 +212,57 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <p><strong>Harjoituksen tavoite</strong> - Harjoituksen jälkeen opiskelijalla on perustiedot paikkatietoaineistojen lataamiseen paikkatietokantaan.</p>
 <div id="valmistautuminen" class="section level3" number="3.0.1">
 <h3><span class="header-section-number">3.0.1</span> Valmistautuminen</h3>
-<p>QGIS tulee olla asennettuna, jotta paikkatietoaineistoja voidaan ladata. Avaa myös <a href="/pgadmin">pgAdmin</a> selaimeen.</p>
+<p>QGIS tulee olla asennettuna, jotta paikkatietoaineistoja voidaan ladata. Avaa myös <a href="/pgadmin">pgAdmin</a> selaimeen ja kirjaudu sisään. Avaa <strong>Query Tool</strong> (Valitse <em>trainingdatabase</em> <strong>-&gt;</strong> Ylhäältä <strong>Tools</strong> <strong>-&gt;</strong> <strong>Query Tool</strong>).</p>
 </div>
 <div id="harjoitus-2.1-tekstitiedoston-lataaminen" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Harjoitus 2.1: Tekstitiedoston lataaminen</h2>
-<div class="todo">
-<p>kertaus query tooliin?</p>
-</div>
 <p>Monia pistemäisiä paikkatietoaineistoja on tallennettu CSV-tiedostoihin, jossa ne eivät varsinaisesti ole paikkatietomuodossa. Ensimmäisessä harjoituksessa ladataan globaali lentokenttiä kuvaava aineisto PostgreSQL-tietokantaan. Luodaan ensin harjoitustietokantaan taulu seuraavasti:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="02_harjoitus_2.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> airports;</span>
-<span id="cb16-2"><a href="02_harjoitus_2.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="02_harjoitus_2.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> airports</span>
-<span id="cb16-4"><a href="02_harjoitus_2.html#cb16-4" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb16-5"><a href="02_harjoitus_2.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span>            <span class="dt">integer</span>,</span>
-<span id="cb16-6"><a href="02_harjoitus_2.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    name          text,</span>
-<span id="cb16-7"><a href="02_harjoitus_2.html#cb16-7" aria-hidden="true" tabindex="-1"></a>    city          text,</span>
-<span id="cb16-8"><a href="02_harjoitus_2.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    country       text,</span>
-<span id="cb16-9"><a href="02_harjoitus_2.html#cb16-9" aria-hidden="true" tabindex="-1"></a>    IATA_code     <span class="dt">char</span>(<span class="dv">3</span>),</span>
-<span id="cb16-10"><a href="02_harjoitus_2.html#cb16-10" aria-hidden="true" tabindex="-1"></a>    ICAO_code     <span class="dt">char</span>(<span class="dv">4</span>),</span>
-<span id="cb16-11"><a href="02_harjoitus_2.html#cb16-11" aria-hidden="true" tabindex="-1"></a>    latitude      <span class="dt">numeric</span>,</span>
-<span id="cb16-12"><a href="02_harjoitus_2.html#cb16-12" aria-hidden="true" tabindex="-1"></a>    longitude     <span class="dt">numeric</span>,</span>
-<span id="cb16-13"><a href="02_harjoitus_2.html#cb16-13" aria-hidden="true" tabindex="-1"></a>    altitude      <span class="dt">numeric</span>,</span>
-<span id="cb16-14"><a href="02_harjoitus_2.html#cb16-14" aria-hidden="true" tabindex="-1"></a>    timezone      text,</span>
-<span id="cb16-15"><a href="02_harjoitus_2.html#cb16-15" aria-hidden="true" tabindex="-1"></a>    dst           text,</span>
-<span id="cb16-16"><a href="02_harjoitus_2.html#cb16-16" aria-hidden="true" tabindex="-1"></a>    tz_zone       text,</span>
-<span id="cb16-17"><a href="02_harjoitus_2.html#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">type</span>          text,</span>
-<span id="cb16-18"><a href="02_harjoitus_2.html#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">source</span>        text</span>
-<span id="cb16-19"><a href="02_harjoitus_2.html#cb16-19" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="02_harjoitus_2.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> airports;</span>
+<span id="cb14-2"><a href="02_harjoitus_2.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="02_harjoitus_2.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> airports</span>
+<span id="cb14-4"><a href="02_harjoitus_2.html#cb14-4" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb14-5"><a href="02_harjoitus_2.html#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span>            <span class="dt">integer</span>,</span>
+<span id="cb14-6"><a href="02_harjoitus_2.html#cb14-6" aria-hidden="true" tabindex="-1"></a>    name          text,</span>
+<span id="cb14-7"><a href="02_harjoitus_2.html#cb14-7" aria-hidden="true" tabindex="-1"></a>    city          text,</span>
+<span id="cb14-8"><a href="02_harjoitus_2.html#cb14-8" aria-hidden="true" tabindex="-1"></a>    country       text,</span>
+<span id="cb14-9"><a href="02_harjoitus_2.html#cb14-9" aria-hidden="true" tabindex="-1"></a>    IATA_code     <span class="dt">char</span>(<span class="dv">3</span>),</span>
+<span id="cb14-10"><a href="02_harjoitus_2.html#cb14-10" aria-hidden="true" tabindex="-1"></a>    ICAO_code     <span class="dt">char</span>(<span class="dv">4</span>),</span>
+<span id="cb14-11"><a href="02_harjoitus_2.html#cb14-11" aria-hidden="true" tabindex="-1"></a>    latitude      <span class="dt">numeric</span>,</span>
+<span id="cb14-12"><a href="02_harjoitus_2.html#cb14-12" aria-hidden="true" tabindex="-1"></a>    longitude     <span class="dt">numeric</span>,</span>
+<span id="cb14-13"><a href="02_harjoitus_2.html#cb14-13" aria-hidden="true" tabindex="-1"></a>    altitude      <span class="dt">numeric</span>,</span>
+<span id="cb14-14"><a href="02_harjoitus_2.html#cb14-14" aria-hidden="true" tabindex="-1"></a>    timezone      text,</span>
+<span id="cb14-15"><a href="02_harjoitus_2.html#cb14-15" aria-hidden="true" tabindex="-1"></a>    dst           text,</span>
+<span id="cb14-16"><a href="02_harjoitus_2.html#cb14-16" aria-hidden="true" tabindex="-1"></a>    tz_zone       text,</span>
+<span id="cb14-17"><a href="02_harjoitus_2.html#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">type</span>          text,</span>
+<span id="cb14-18"><a href="02_harjoitus_2.html#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">source</span>        text</span>
+<span id="cb14-19"><a href="02_harjoitus_2.html#cb14-19" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
 </div>
 <p>Kyseinen aineisto on ladattu valmiiksi <a href="http://openflights.org/data.html">OpenFlights.org-sivustolta</a> päänäkymän data-kansioon.</p>
-<p>Tarkastele miltä kyseinen aineisto näyttää kansiossa.</p>
+<p>Tarkastele miltä kyseinen aineisto näyttää kansiossa. Voit avata tiedoston selaimeen <a href="/data/airports.dat">tästä linkistä</a>.</p>
 <p>Voit lukea CSV-tiedoston tiedot edellisessä vaiheessa luotuun tauluun seuravaalla komennolla:</p>
-<div class="todo">
-<p>polku, aineisto</p>
 <div class="code-box">
-<div class="sourceCode" id="cb17"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="02_harjoitus_2.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> airports</span>
-<span id="cb17-2"><a href="02_harjoitus_2.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">&#39;/home/oppilas/Harjoitukset/data/airports.dat&#39;</span></span>
-<span id="cb17-3"><a href="02_harjoitus_2.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> CSV;</span></code></pre></div>
-</div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="02_harjoitus_2.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> airports</span>
+<span id="cb15-2"><a href="02_harjoitus_2.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">&#39;/home/oppilas/data/airports.dat&#39;</span></span>
+<span id="cb15-3"><a href="02_harjoitus_2.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> CSV;</span></code></pre></div>
 </div>
 <p><strong>COPY</strong>-komento viittaa tiedostoon kovalevyllä ja lataa sen. <strong>COPY</strong> voi viitata CSV:n lisäksi myös esimerkiksi <a href="https://www.postgresql.org/docs/11/sql-copy.html">binääriformaatteihin tai tekstitiedostoihin.</a></p>
 <p>Tarkista lopuksi, että tietokantataulussa on dataa.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="02_harjoitus_2.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb18-2"><a href="02_harjoitus_2.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> airports</span>
-<span id="cb18-3"><a href="02_harjoitus_2.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="02_harjoitus_2.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb16-2"><a href="02_harjoitus_2.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> airports</span>
+<span id="cb16-3"><a href="02_harjoitus_2.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 </div>
 <p>Aineistoa tarkastelemalla nähdään, että taulussa on koordinaatteja, mutta ne on tallennettu vain numeroarvoina; ei paikkatietotyyppinä.</p>
 <p>Jotta PostGIS:n toiminnallisuuksia voisi hyödyntää aineiston kanssa, tulee kyseiseen tauluun lisätä geometriasarake. PostGIS:ssä on valmis <a href="https://postgis.net/docs/AddGeometryColumn.html">funktio</a> tähän tarkoitukseen. Tarkastele dokumentaatiosta miten kyseistä funktiota käytetään.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb19"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="02_harjoitus_2.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> AddGeometryColumn (<span class="st">&#39;airports&#39;</span>,<span class="st">&#39;geom&#39;</span>,<span class="dv">4326</span>,<span class="st">&#39;POINT&#39;</span>,<span class="dv">2</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="02_harjoitus_2.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> AddGeometryColumn (<span class="st">&#39;airports&#39;</span>,<span class="st">&#39;geom&#39;</span>,<span class="dv">4326</span>,<span class="st">&#39;POINT&#39;</span>,<span class="dv">2</span>);</span></code></pre></div>
 </div>
 <p>Tarkastele taulua uudelleen.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb20"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="02_harjoitus_2.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb20-2"><a href="02_harjoitus_2.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> airports</span>
-<span id="cb20-3"><a href="02_harjoitus_2.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="02_harjoitus_2.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb18-2"><a href="02_harjoitus_2.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> airports</span>
+<span id="cb18-3"><a href="02_harjoitus_2.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 </div>
 <p>Tauluun on ilmestynyt uusi sarake. Sarake ei kuitenkaan sisällä vielä mitään tietoa. Päivitetään taulun sisältö <strong>UPDATE</strong>-komennon avulla.</p>
 <p>Seuraavassa komennossa on ketjutettu useampi funktio sisäkkäin.</p>
@@ -271,18 +271,15 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li><a href="https://postgis.net/docs/ST_SetSRID.html">ST_SetSRID</a> asettaa kyseiselle tietokentälle EPSG-koodin avulla koordinaattijärjestelmän</li>
 </ul>
 <div class="code-box">
-<div class="sourceCode" id="cb21"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="02_harjoitus_2.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> airports</span>
-<span id="cb21-2"><a href="02_harjoitus_2.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> geom <span class="op">=</span> ST_SetSRID(ST_MakePoint(longitude, latitude),<span class="dv">4326</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="02_harjoitus_2.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> airports</span>
+<span id="cb19-2"><a href="02_harjoitus_2.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> geom <span class="op">=</span> ST_SetSRID(ST_MakePoint(longitude, latitude),<span class="dv">4326</span>);</span></code></pre></div>
 </div>
 <p>Tarkastele lopuksi aineistoa esimerkiksi pgAdminin karttatoiminnallisuuden avulla.</p>
 <p><img src="img/pgadmin_geom.png" /></p>
 </div>
 <div id="harjoitus-2.2-paikkatietoaineiston-lataaminen" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Harjoitus 2.2: Paikkatietoaineiston lataaminen</h2>
-<div class="todo">
-<p>kannattaako ohjata nettiselaimen tiedostonselaimeen?</p>
-<p>Maanmittauslaitoksen aineisto on ladattu valmiiksi päänäkymän <a href="/data">data-kansioon</a>.</p>
-</div>
+<p>Maanmittauslaitoksen aineisto on ladattu valmiiksi harjoitussivun <a href="/data">data-kansioon</a>.</p>
 <div id="vaihtoehto-1-qgisin-tietokannan-hallinnan-avulla" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Vaihtoehto 1: QGISin tietokannan hallinnan avulla</h3>
 <p>QGIS-työpöytäohjelmisto tarjoaa erittäin kätevän graafisen käyttöliittymän paikkatietoaineistojen lataamiseksi PostGIS-tietokantaan. Useat QGISin eri työkalut mahdollistavat joustavan latauksen ja mahdolliset muokkaukset aineistoon jo ennen latausta.</p>
@@ -298,59 +295,54 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </div>
 <p>Luo tässä vaiheessa harjoitustietokantaan uusi skeema, jonne Maanmittauslaitoksen aineistot tullaan lataamaan, ja anna skeemalle nimeksi “nlsfi”. Skeemojen avulla on helpompi pitää aineistot järjestyksessä. Uuden skeeman voi luoda pgAdminin graafisen käyttöliittymän kautta, QGISin kautta tai seuraavalla SQL-komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb22"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb22-1"><a href="02_harjoitus_2.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">SCHEMA</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> nlsfi;</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="02_harjoitus_2.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">SCHEMA</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> nlsfi;</span></code></pre></div>
 </div>
 <p>Jos et saa luomaasi skeemaa näkyviin QGISin puolella, aja seuraavat sql- komennot ja käynnistä QGIS-projekti uudelleen.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb23"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a href="02_harjoitus_2.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> nlsfi.example;</span>
-<span id="cb23-2"><a href="02_harjoitus_2.html#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="02_harjoitus_2.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> nlsfi.example</span>
-<span id="cb23-4"><a href="02_harjoitus_2.html#cb23-4" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb23-5"><a href="02_harjoitus_2.html#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span>            <span class="dt">integer</span>,</span>
-<span id="cb23-6"><a href="02_harjoitus_2.html#cb23-6" aria-hidden="true" tabindex="-1"></a>    name          text</span>
-<span id="cb23-7"><a href="02_harjoitus_2.html#cb23-7" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="02_harjoitus_2.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> nlsfi.example;</span>
+<span id="cb21-2"><a href="02_harjoitus_2.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="02_harjoitus_2.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> nlsfi.example</span>
+<span id="cb21-4"><a href="02_harjoitus_2.html#cb21-4" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb21-5"><a href="02_harjoitus_2.html#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span>            <span class="dt">integer</span>,</span>
+<span id="cb21-6"><a href="02_harjoitus_2.html#cb21-6" aria-hidden="true" tabindex="-1"></a>    name          text</span>
+<span id="cb21-7"><a href="02_harjoitus_2.html#cb21-7" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
 </div>
 <div class="code-box">
-<div class="sourceCode" id="cb24"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb24-1"><a href="02_harjoitus_2.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> nlsfi.example</span>
-<span id="cb24-2"><a href="02_harjoitus_2.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="dv">1</span>, <span class="st">&#39;testi&#39;</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb22-1"><a href="02_harjoitus_2.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> nlsfi.example</span>
+<span id="cb22-2"><a href="02_harjoitus_2.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="dv">1</span>, <span class="st">&#39;testi&#39;</span>);</span></code></pre></div>
 </div>
-<div class="todo">
-<p>aineiston lataaminen Lataa päänäkymän <a href="/data">data-kansio</a> omalle koneellesi. Lisää TieViiva.shp-aineisto tyhjään QGIS-projektiin. Aineiston voi lisätä navigoimalla Tasot &gt; Lisää taso &gt; Lisää vektoritaso, klikkaamalla Lisää vektoritaso -kuvaketta tasojen hallinnan työkalupalkista tai ihan vain raahaamalla tasoja suoraan Selain-ikkunasta Tasot-ikkunaan.</p>
-</div>
+<p>Lataa <a href="/data/1_milj_Shape_etrs_shape.zip">data-kansio</a> omalle koneellesi. Aineistoja voi lisätä navigoimalla Tasot &gt; Lisää taso &gt; Lisää vektoritaso, klikkaamalla Lisää vektoritaso -kuvaketta tasojen hallinnan työkalupalkista tai ihan vain raahaamalla tasoja suoraan Selain-ikkunasta Tasot-ikkunaan.</p>
+<p>Lataa projektiisi ja tietokantaasi (ainakin) seuraavat aineistot:</p>
+<ul>
+<li>TieViiva.shp</li>
+<li>HallintoAlue.shp</li>
+<li>KarttanimiPiste1000.shp</li>
+<li>SahkoLinja.shp</li>
+<li>LentokenttaPiste.shp</li>
+<li>RautatieViiva.shp</li>
+</ul>
 <div class="hint-box">
 <p>Tarkista, että Koodaus-kohdassa on valittu UTF-8. Mikäli aineisto koodataan jollakin toisella järjestelmällä, ääkköset puuttuvat metatiedoista.</p>
 </div>
-<p>QGIS-projektiin avautuu vektoriaineisto, johon on määritelty tietty koordinaattijärjestelmä. Tarkista, että koordinaattijärjestelmäksi on määritelty ETRS89 / TM35FIN(E,N) (EPSG: 3067) tai EPSG:3047. Tason koordinaattijärjestelmän voit tarkistaa ja muuttaa klikkaamalla hiiren oikeaa painiketta TieViiva-tasolla ja valitsemalla <strong>Ominaisuudet &gt; Lähde &gt; Aseta koordinaattijärjestelmä</strong>.</p>
+<p>QGIS-projektiin avautuu vektoriaineistoja, johon on määritelty tietty koordinaattijärjestelmä. Tarkista, että koordinaattijärjestelmäksi on määritelty ETRS89 / TM35FIN(E,N) (EPSG: 3067) tai EPSG:3047. Tason koordinaattijärjestelmän voit tarkistaa ja muuttaa klikkaamalla hiiren oikeaa painiketta tasolla ja valitsemalla <strong>Ominaisuudet &gt; Lähde &gt; Aseta koordinaattijärjestelmä</strong>.</p>
 <p><img src="img/qgistasot.png" /></p>
-<p>Lataa projektiisi ja tietokantaasi (ainakin) seuraavat aineistot:</p>
-<ul>
-<li>TieViiva</li>
-<li>HallintoAlue</li>
-<li>KarttanimiPiste1000</li>
-<li>SahkoLinja</li>
-<li>LentokenttaPiste</li>
-<li>RautatieViiva</li>
-</ul>
-<p>Avaa QGISin prosessointityökaluista työkalu nimeltä Export to PostgreSQL. Avaa työkalun alapalkista <strong>Run as Batch Process</strong>, joka mahdollistaa useamman taulun ajamiseen tietokantaan kerralla. Muuta parametreja niin, että aineistot tulee ladattua oikeaan skeemaan ja tietokantaan. <strong>Fill Down</strong> -toimintoa käyttämällä sinun ei tarvitse klikkailla jokaisen tason kohdalta arvoja kuntoon. Lisää geometriasarakkeen nimeksi “wkb_geometry” ja, varmistaaksesi taulujen nimien kirjaantumisen pienillä kirjaimilla, avaa taulun nimen määrittävässä kohdassa lausekkeenmuodostaja ja kopioi siihen komento:</p>
+<p>Avaa QGISin prosessointityökaluista työkalu nimeltä Export to PostgreSQL. Avaa työkalun alapalkista <strong>Aja eräajona</strong> (Run as Batch Process), joka mahdollistaa useamman taulun ajamiseen tietokantaan kerralla. Muuta parametreja niin, että aineistot tulee ladattua oikeaan skeemaan ja tietokantaan. <strong>Täytä</strong> (Fill Down) -toimintoa käyttämällä sinun ei tarvitse klikkailla jokaisen tason kohdalta arvoja kuntoon. Lisää geometriasarakkeen nimeksi “wkb_geometry” ja, varmistaaksesi taulujen nimien kirjaantumisen pienillä kirjaimilla, avaa taulun nimen määrittävässä kohdassa lausekkeenmuodostaja ja kopioi siihen komento:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb25"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb25-1"><a href="02_harjoitus_2.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lower</span>(layer_property( @INPUT, <span class="st">&#39;name&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a href="02_harjoitus_2.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lower</span>(layer_property( @INPUT, <span class="st">&#39;name&#39;</span>))</span></code></pre></div>
 </div>
 <p>Tarkista mitä muita parametrejä prosessi pitää sisällään. Voit kuitenkin jättää ne oletusarvoisiksi. Lopulta latausprosessisi pitäisi näyttää kutakuinkin tältä. Klikkaa <strong>Run</strong>!</p>
 <p><img src="img/batchrun.png" /> Tarkista latauksen jälkeen, että aineistot ovat latautuneet. Tarkista virheilmoitukset ja korjaa latausta tarvittaessa.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb26"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb26-1"><a href="02_harjoitus_2.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb26-2"><a href="02_harjoitus_2.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> nlsfi.tieviiva</span>
-<span id="cb26-3"><a href="02_harjoitus_2.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb24-1"><a href="02_harjoitus_2.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb24-2"><a href="02_harjoitus_2.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> nlsfi.tieviiva</span>
+<span id="cb24-3"><a href="02_harjoitus_2.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 </div>
 </div>
 <div id="vaihtoehto-2-komentorivin-avulla" class="section level3" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Vaihtoehto 2: Komentorivin avulla</h3>
 <p>Komentoriviltä tapahtuvaan lataamiseen käytetään <strong>shp2pgsql</strong>-ohjelmaa tai <strong>ogr2ogr</strong>-työkalua. Käynnistämällä ohjelman ilman parametrejä saat opasteen eri parametreistä. Tämän jälkeen voit ladata aineistoa äsken luotuun skeemaan <strong>ogr2ogr</strong>-työkalulla. Jos koneellasi on asennettu OSGeo4W-paketti (tulee QGIS:n asennuksen mukana), avaa käynnistysvalikosta <strong>OSGeo4W Shell</strong> ja anna seuraava komento:</p>
-<div class="todo">
-<p>yhteydet?</p>
 <div class="commandline-box">
-<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb27-1"><a href="02_harjoitus_2.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ogr2ogr</span> <span class="at">-f</span> “PostgreSQL” PG:”host=<span class="op">&lt;</span>hostname<span class="op">&gt;</span>  dbname=<span class="op">&lt;</span>dbname<span class="op">&gt;</span> user=<span class="op">&lt;</span>kayttaja<span class="op">&gt;</span> password=<span class="op">&lt;</span>salasana<span class="op">&gt;</span>” <span class="op">&lt;</span>dir<span class="op">&gt;</span><span class="dt">\t</span>iedostonimi.shp <span class="at">-lco</span> SCHEMA=nlsfi</span></code></pre></div>
-</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb25-1"><a href="02_harjoitus_2.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ogr2ogr</span> <span class="at">-f</span> <span class="st">&quot;PostgreSQL&quot;</span> PG:<span class="st">&quot;host=&lt;hostname&gt;  dbname=&lt;dbname&gt; user=&lt;kayttaja&gt; password=&lt;salasana&gt;&quot;</span> <span class="op">&lt;</span>dir<span class="op">&gt;</span><span class="dt">\t</span>iedostonimi.shp <span class="at">-lco</span> SCHEMA=nlsfi</span></code></pre></div>
 </div>
 <p>Muista tarkistaa, että aineiston hakemistopolku ja muut parametrit ovat kunnossa!</p>
 <p><strong>ogr2ogr</strong>-komennon käyttämät parametrit ovat:</p>
@@ -360,7 +352,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </div>
 <p>Muita parametreja voit tutkia suorittamalla <strong>ogr2ogr</strong>-komennon ilman parametrejä. PostGIS-asennuksen yhteydessä usein asennettavalla <strong>shp2pgsql</strong>-työkalulla on myös mahdollista luoda shp-tiedostoista SQL-muotoisia lataustiedostoja. Komentorivityökalut mahdollistavat useamman tiedoston lataamisen tietokantaan kätevästi yhdellä kertaa. Esimerkiksi Windows-ympäristössä on mahdollista ladata kansiollisen gml-tiedostoja kerralla tietokantaan seuraavalla komennolla:</p>
 <div class="commandline-box">
-<div class="sourceCode" id="cb29"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb29-1"><a href="02_harjoitus_2.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="ex">%i</span> in <span class="er">(</span><span class="ex">*.gml</span><span class="kw">)</span> <span class="cf">do</span> <span class="ex">ogr2ogr</span> <span class="at">-update</span> <span class="at">-append</span> <span class="at">-f</span> PostgreSQL PG:<span class="st">&quot;host=&lt;hostname&gt; port=5432 dbname=&lt;tietokantanimi&gt; user=&lt;kayttaja&gt; password=&lt;salasana&gt; schemas=gml&quot;</span> %i</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb27-1"><a href="02_harjoitus_2.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="ex">%i</span> in <span class="er">(</span><span class="ex">*.gml</span><span class="kw">)</span> <span class="cf">do</span> <span class="ex">ogr2ogr</span> <span class="at">-update</span> <span class="at">-append</span> <span class="at">-f</span> PostgreSQL PG:<span class="st">&quot;host=&lt;hostname&gt; port=5432 dbname=&lt;tietokantanimi&gt; user=&lt;kayttaja&gt; password=&lt;salasana&gt; schemas=gml&quot;</span> %i</span></code></pre></div>
 </div>
 
 </div>
@@ -379,7 +371,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 
 <div class="footer-info">
 <h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-05</span>
+<span class="footer-version">v2023-07-07</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 
@@ -399,6 +391,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 
 
 <script src="js/nav-script.js"></script>
+<script src="js/answer-key.js"></script>
 
 </body>
 </html>

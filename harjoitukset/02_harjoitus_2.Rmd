@@ -6,13 +6,9 @@
 
 ### Valmistautuminen
 
-QGIS tulee olla asennettuna, jotta paikkatietoaineistoja voidaan ladata. Avaa myös [pgAdmin](/pgadmin) selaimeen.
+QGIS tulee olla asennettuna, jotta paikkatietoaineistoja voidaan ladata. Avaa myös [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
 ## Harjoitus 2.1: Tekstitiedoston lataaminen
-
-::: todo
-kertaus query tooliin?
-:::
 
 Monia pistemäisiä paikkatietoaineistoja on tallennettu CSV-tiedostoihin, jossa ne eivät varsinaisesti ole paikkatietomuodossa. Ensimmäisessä harjoituksessa ladataan globaali lentokenttiä kuvaava aineisto PostgreSQL-tietokantaan. Luodaan ensin harjoitustietokantaan taulu seuraavasti:
 
@@ -42,21 +38,19 @@ CREATE TABLE airports
 
 Kyseinen aineisto on ladattu valmiiksi [OpenFlights.org-sivustolta](http://openflights.org/data.html) päänäkymän data-kansioon.
 
-Tarkastele miltä kyseinen aineisto näyttää kansiossa.
+Tarkastele miltä kyseinen aineisto näyttää kansiossa. Voit avata tiedoston selaimeen [tästä linkistä](/data/airports.dat).
 
 Voit lukea CSV-tiedoston tiedot edellisessä vaiheessa luotuun tauluun seuravaalla komennolla:
 
-::: todo
-polku, aineisto
 
 ::: code-box
 ``` sql
 COPY airports
-FROM '/home/oppilas/Harjoitukset/data/airports.dat'
+FROM '/home/oppilas/data/airports.dat'
 WITH CSV;
 ```
 :::
-:::
+
 
 **COPY**-komento viittaa tiedostoon kovalevyllä ja lataa sen. **COPY** voi viitata CSV:n lisäksi myös esimerkiksi [binääriformaatteihin tai tekstitiedostoihin.](https://www.postgresql.org/docs/11/sql-copy.html)
 
@@ -110,11 +104,7 @@ Tarkastele lopuksi aineistoa esimerkiksi pgAdminin karttatoiminnallisuuden avull
 
 ## Harjoitus 2.2: Paikkatietoaineiston lataaminen
 
-::: todo
-kannattaako ohjata nettiselaimen tiedostonselaimeen?
-
-Maanmittauslaitoksen aineisto on ladattu valmiiksi päänäkymän [data-kansioon](/data).
-:::
+Maanmittauslaitoksen aineisto on ladattu valmiiksi harjoitussivun [data-kansioon](/data).
 
 ### Vaihtoehto 1: QGISin tietokannan hallinnan avulla
 
@@ -165,28 +155,26 @@ VALUES (1, 'testi');
 ```
 :::
 
-::: todo
-aineiston lataaminen Lataa päänäkymän [data-kansio](/data) omalle koneellesi. Lisää TieViiva.shp-aineisto tyhjään QGIS-projektiin. Aineiston voi lisätä navigoimalla Tasot \> Lisää taso \> Lisää vektoritaso, klikkaamalla Lisää vektoritaso -kuvaketta tasojen hallinnan työkalupalkista tai ihan vain raahaamalla tasoja suoraan Selain-ikkunasta Tasot-ikkunaan.
-:::
+Lataa [data-kansio](/data/1_milj_Shape_etrs_shape.zip) omalle koneellesi. Aineistoja voi lisätä navigoimalla Tasot \> Lisää taso \> Lisää vektoritaso, klikkaamalla Lisää vektoritaso -kuvaketta tasojen hallinnan työkalupalkista tai ihan vain raahaamalla tasoja suoraan Selain-ikkunasta Tasot-ikkunaan.
+
+Lataa projektiisi ja tietokantaasi (ainakin) seuraavat aineistot:
+
+-   TieViiva.shp
+-   HallintoAlue.shp
+-   KarttanimiPiste1000.shp
+-   SahkoLinja.shp
+-   LentokenttaPiste.shp
+-   RautatieViiva.shp
 
 ::: hint-box
 Tarkista, että Koodaus-kohdassa on valittu UTF-8. Mikäli aineisto koodataan jollakin toisella järjestelmällä, ääkköset puuttuvat metatiedoista.
 :::
 
-QGIS-projektiin avautuu vektoriaineisto, johon on määritelty tietty koordinaattijärjestelmä. Tarkista, että koordinaattijärjestelmäksi on määritelty ETRS89 / TM35FIN(E,N) (EPSG: 3067) tai EPSG:3047. Tason koordinaattijärjestelmän voit tarkistaa ja muuttaa klikkaamalla hiiren oikeaa painiketta TieViiva-tasolla ja valitsemalla **Ominaisuudet \> Lähde \> Aseta koordinaattijärjestelmä**.
+QGIS-projektiin avautuu vektoriaineistoja, johon on määritelty tietty koordinaattijärjestelmä. Tarkista, että koordinaattijärjestelmäksi on määritelty ETRS89 / TM35FIN(E,N) (EPSG: 3067) tai EPSG:3047. Tason koordinaattijärjestelmän voit tarkistaa ja muuttaa klikkaamalla hiiren oikeaa painiketta tasolla ja valitsemalla **Ominaisuudet \> Lähde \> Aseta koordinaattijärjestelmä**.
 
 ![](img/qgistasot.png)
 
-Lataa projektiisi ja tietokantaasi (ainakin) seuraavat aineistot:
-
--   TieViiva
--   HallintoAlue
--   KarttanimiPiste1000
--   SahkoLinja
--   LentokenttaPiste
--   RautatieViiva
-
-Avaa QGISin prosessointityökaluista työkalu nimeltä Export to PostgreSQL. Avaa työkalun alapalkista **Run as Batch Process**, joka mahdollistaa useamman taulun ajamiseen tietokantaan kerralla. Muuta parametreja niin, että aineistot tulee ladattua oikeaan skeemaan ja tietokantaan. **Fill Down** -toimintoa käyttämällä sinun ei tarvitse klikkailla jokaisen tason kohdalta arvoja kuntoon. Lisää geometriasarakkeen nimeksi "wkb_geometry" ja, varmistaaksesi taulujen nimien kirjaantumisen pienillä kirjaimilla, avaa taulun nimen määrittävässä kohdassa lausekkeenmuodostaja ja kopioi siihen komento:
+Avaa QGISin prosessointityökaluista työkalu nimeltä Export to PostgreSQL. Avaa työkalun alapalkista **Aja eräajona** (Run as Batch Process), joka mahdollistaa useamman taulun ajamiseen tietokantaan kerralla. Muuta parametreja niin, että aineistot tulee ladattua oikeaan skeemaan ja tietokantaan. **Täytä** (Fill Down) -toimintoa käyttämällä sinun ei tarvitse klikkailla jokaisen tason kohdalta arvoja kuntoon. Lisää geometriasarakkeen nimeksi "wkb_geometry" ja, varmistaaksesi taulujen nimien kirjaantumisen pienillä kirjaimilla, avaa taulun nimen määrittävässä kohdassa lausekkeenmuodostaja ja kopioi siihen komento:
 
 ::: code-box
 ``` sql
@@ -210,14 +198,10 @@ LIMIT 10;
 
 Komentoriviltä tapahtuvaan lataamiseen käytetään **shp2pgsql**-ohjelmaa tai **ogr2ogr**-työkalua. Käynnistämällä ohjelman ilman parametrejä saat opasteen eri parametreistä. Tämän jälkeen voit ladata aineistoa äsken luotuun skeemaan **ogr2ogr**-työkalulla. Jos koneellasi on asennettu OSGeo4W-paketti (tulee QGIS:n asennuksen mukana), avaa käynnistysvalikosta **OSGeo4W Shell** ja anna seuraava komento:
 
-::: todo
-yhteydet?
-
 ::: commandline-box
 ``` sh
-ogr2ogr -f “PostgreSQL” PG:”host=<hostname>  dbname=<dbname> user=<kayttaja> password=<salasana>” <dir>\tiedostonimi.shp -lco SCHEMA=nlsfi
+ogr2ogr -f "PostgreSQL" PG:"host=<hostname>  dbname=<dbname> user=<kayttaja> password=<salasana>" <dir>\tiedostonimi.shp -lco SCHEMA=nlsfi
 ```
-:::
 :::
 
 Muista tarkistaa, että aineiston hakemistopolku ja muut parametrit ovat kunnossa!

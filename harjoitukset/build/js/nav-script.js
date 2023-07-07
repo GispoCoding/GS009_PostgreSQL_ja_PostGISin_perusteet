@@ -29,7 +29,6 @@ codeBoxes.forEach(box => {
 });
 
 const answerButtons = [...document.getElementsByClassName('answer_btn')];
-console.log("yees");
 answerButtons.forEach(button => {
   button.textContent = "Näytä " + button.textContent;
 });
@@ -42,14 +41,20 @@ function navToggle() {
 }
 
 function toggleAnswer(button) {
+  if (button.classList.contains('token')) {
+    const token = localStorage.getItem('token');
+    if (token == null) {
+      alert("You haven't entered the token correctly!");
+      return;
+    }
+  }
+  console.log(button)
   let buttons = document.getElementsByClassName('answer_btn');
   let buttonIndex = Array.from(buttons).indexOf(button) + 1;
-  
+
   let buttonTextInput = button.textContent;
   let words = buttonTextInput.split(" ");
   let originalButtonText = words.slice(1).join(' ');
-
-  console.log(originalButtonText);
 
   let boxId = "hidden-box-" + buttonIndex;
   let hiddenBox = document.getElementById(boxId);

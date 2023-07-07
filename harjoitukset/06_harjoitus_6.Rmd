@@ -6,32 +6,11 @@
 
 ### Valmistautuminen
 
-:::todo
-miksi lie tämä pitäisi tehä
-
-Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
-
-
-```python
-%load_ext sql
-from ipygis import get_connection_url
-
-c_url = get_connection_url(dbname="trainingdatabase")
-%sql $c_url
-```
-:::
-
-:::todo
-pittääköhän muuta lissäillä
-:::
-
+Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
 ### Käytettäviä funktioita
 
 Tässä harjoituksessa hyödynnetään ainakin näitä funktioita:
-
-:::todo
-taulu
 
 | <span style="color:purple"> **PostGIS-funktio** </span> | <span style="color:purple"> **Toiminta** </span> |
 |:--: | :---: |
@@ -45,7 +24,6 @@ taulu
 | **ST_Overlaps(geometry A, geometry B)** | Palauttaa "TOSI", jos A ja B ovat päällekkäin, mutteivät kuitenkaan toistensa sisäpuolella |
 | **ST_Touches(geometry A, geometry B)** | Palauttaa "TOSI", jos A:n reuna koskettaa B:tä |
 | **ST_Within(geometry A, geometry B)** | Palauttaa "TOSI", jos A on B:n sisäpuolella |
-:::
 
 ## Harjoitus 6.1
 
@@ -78,7 +56,7 @@ SELECT ...
 :::code-box
 ```sql
 SELECT
-count(ogc_fid)
+count(id)
 FROM
 nlsfi.lentokenttapiste;
 ```
@@ -167,18 +145,18 @@ a.kunta_ni1
 HAVING count(*) = 2;
 ```
 :::
-::
+:::
 
 Suorita ao. SQL-lause. Mitä sillä saadaan selville?
 
-::code-box
+:::code-box
 ```sql
 SELECT
-ST_ASText(a.wkb_geometry), a.ogc_fid
+ST_ASText(a.wkb_geometry), a.id
 FROM
 nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b
 WHERE
-ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.ogc_fid <> b.ogc_fid;
+ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.id <> b.id;
 ```
 :::
 
@@ -279,7 +257,7 @@ ST_Crosses(a.wkb_geometry, b.wkb_geometry);
 ```
 :::
 
-Tulosten visualisoimiseksi, voit muodostaa **uuden skeeman** (tmp). Voit luoda uuden taulun, johon viet tuloksen. Visualisointiin voit käyttää esimerkiksi QGIS-ohjelmistoa. Voit muodostaa tuloksesta myös näkymän (view), mutta muista kuitenkin lisätä mukaan **yksilöivä tunnus** (ogc_fid) sekä myös **DISTINCT**, jotta yksilöivät tunnukset pysyvät yksilöivinä.
+Tulosten visualisoimiseksi, voit muodostaa **uuden skeeman** (tmp). Voit luoda uuden taulun, johon viet tuloksen. Visualisointiin voit käyttää esimerkiksi QGIS-ohjelmistoa. Voit muodostaa tuloksesta myös näkymän (view), mutta muista kuitenkin lisätä mukaan **yksilöivä tunnus** (id) sekä myös **DISTINCT**, jotta yksilöivät tunnukset pysyvät yksilöivinä.
 
 :::code-box
 ```sql
@@ -310,7 +288,7 @@ DROP VIEW IF EXISTS tmp.view_crossroads;
 CREATE VIEW tmp.view_crossrods AS
 (
     SELECT DISTINCT
-    a.tienumero, a.wkb_geometry, a.ogc_fid
+    a.tienumero, a.wkb_geometry, a.id
     FROM
     nlsfi.tieviiva a, nlsfi.hallintoalue b
     WHERE
@@ -332,11 +310,11 @@ Lasketaan minimietäisyydet lentoasemilta lähimmälle rautatielle:
 :::code-box
 ```sql
 SELECT
-a.ogc_fid, MIN(ST_Distance(a.wkb_geometry, b.wkb_geometry)) as "dist"
+a.id, MIN(ST_Distance(a.wkb_geometry, b.wkb_geometry)) as "dist"
 FROM
 nlsfi.lentokenttapiste a, nlsfi.rautatieviiva b
 GROUP BY
-a.ogc_fid 
+a.id 
 ORDER BY
 dist;
 ```

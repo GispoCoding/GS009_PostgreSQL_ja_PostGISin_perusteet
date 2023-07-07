@@ -7,26 +7,7 @@
 ### Valmistautuminen
 
 
-:::todo
-miksi lie tämä pitäisi tehä
-
-Alusta notebook SQL-harjoituksia varten ([SQL-solujen ohje](Harjoitus%201.ipynb#SQL-solujen-ajaminen)). Kannattaa muutenkin pitää [ohje](Harjoitus%201.ipynb) mielessä, sillä sieltä voi tarkistaa esimerkiksi miten notebook-solu ajetaan.
-
-
-```python
-%load_ext sql
-from ipygis import get_connection_url
-
-c_url = get_connection_url(dbname="trainingdatabase")
-%sql $c_url
-```
-:::
-
-:::todo
-pittääköhän muuta lissäillä
-:::
-
-Käytössä tulee olla myös web-selain, joka mahdollistaa pääsyn Maanmittauslaitoksen koordinaattien muunnospalveluun.
+Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**). Käytössä tulee olla myös web-selain, joka mahdollistaa pääsyn Maanmittauslaitoksen koordinaattien muunnospalveluun.
 
 ### Koordinaattien konversiot ja muunnokset
 
@@ -125,9 +106,6 @@ POINT(2522091.99236457 6678507.76432921)
 ```
 :::
 
-:::todo
-SAIKO TÄTÄ KÄYTTÄÄKÄÄN, LISÄKSI TAULU
-
 Vertaa saatuja koordinaattiarvoja Maanmittauslaitoksen ylläpitämän [koordinaattimuunnospalvelun](https://kartta.paikkatietoikkuna.fi/) koordinaatteihin. Koordinaattimuunnostoiminto löytyy **Paikkatietoikkunan** vasemman reunan valikosta nimellä **Koordinaattimuunnos**.
 
 ![](img/paikkatietoikkuna.png)
@@ -136,12 +114,11 @@ Huomaa, että EPSG:4258- ja EPSG:3067-koordinaattijärjestelmien välillä tehti
 
 Tehdään koordinaattimuunnos EPSG:4258- ja EPSG:2392-koordinaattijärjestelmien välillä. Ero PostGISin ja Maanmittauslaitoksen laskemien koordinaattien välillä on merkittävämpi:
 
-| <span style="color:purple"> **PostGIS** </span> | <span style="color:purple"> **MML** </span> | <span style="color:purple"> **Erotus (m)** </span> |
+| PostGIS | MML | Erotus (m) |
 | :--: | :---: | :---: |
 | 6,678,  507.764333 | 6,678,  507.677300 | 0.087033 |
 | 2,522,  091.992365 | 2,522,  091.368400 | 0.623965 |
-
-:::
+\
 
 :::hint-box
 Mistä koordinaattimuunnoksen ero voi johtua?

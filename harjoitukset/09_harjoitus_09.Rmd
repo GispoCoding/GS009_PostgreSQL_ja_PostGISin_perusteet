@@ -6,9 +6,7 @@
 
 ### Valmistautuminen
 
-:::todo
-samat sanat
-:::
+Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
 ### Taulutilat
 
@@ -23,7 +21,7 @@ SHOW data_directory;
 ## Harjoitus 9.1: Uuden taulutilan luominen
 
 :::todo
-ei varmaan oo tuota kansijota
+KANSIO VALMIIKSI
 
 Uutta taulutilaa varten pitää luoda ensin palvelimelle kansio. Kansion tulee olla postgres-käyttäjän omistuksessa ja käyttöoikeudet vain postgres-käyttäjälle. Hakemisto on luotu valmiiksi palvelimelle komennoilla:
 
@@ -52,31 +50,13 @@ Koko tietokannan taulutilan voi muuttaa yhdellä komennolla.
 :::
 
 1. Sulje pgAdminin tietokantayhteys harjoitustietokantaasi klikkaamalla tietokantaa sivupaneelissa hiiren oikealla painikkeella ja valitsemalla **Disconnect Database**.
-2. Sulje myös tämän notebookin yhteys painamalla **Kernel** > **Restart Kernel**.
-3. Avaa tämän jälkeen sivupaneelista postgres-tietokanta ja avaa **Query tool** (voit tehdä tämän myös psql:n avulla). Anna komento:
+2. Avaa tämän jälkeen sivupaneelista postgres-tietokanta ja avaa **Query tool** (voit tehdä tämän myös psql:n avulla). Anna komento:
 
 :::code-box
 ```sql
 ALTER DATABASE trainingdatabase
 SET TABLESPACE tmp_tablespace;
 ```
-:::
-
-
-:::todo
-
-ei varmaan tarvi tehä?
-4. Yhdistä tällä notebookilla uudelleen tietokantaan:
-
-
-```python
-%load_ext sql
-from ipygis import get_connection_url
-
-c_url = get_connection_url(dbname="trainingdatabase")
-%sql $c_url
-```
-
 :::
 
 Voit tarkistaa tietokannan taulutilan sijainnin SQL-kyselyllä:
@@ -127,7 +107,7 @@ tmp_tablespace;
 ```
 :::
 
-Tarkista, että taulun taulutila on nyt muuttunut. Voit myös käyttää pgAdminia taulutilojen tarkastelemiseen.
+Tarkista, että taulun taulutila on nyt muuttunut. Voit myös käyttää pgAdminin käyttöliittymää taulutilojen tarkastamiseen.
 
 ### Indeksin taulutilan muuttaminen
 
@@ -154,7 +134,7 @@ tmp_tablespace;
 
 ## Harjoitus 9.2: Käyttäjäroolit
 
-Oletusarvoisesti PostgreSQL:ään luodaan postgres-niminen rooli ja samanniminen tietokanta. Aiemmin harjoituksissa on luotu koulutusta varten tietokanta (training). Voit luoda uuden käyttäjän tietokantapalvelimeen seuraavalla SQL-komennolla:
+Oletusarvoisesti PostgreSQL:ään luodaan postgres-niminen rooli ja samanniminen tietokanta. Aiemmin harjoituksissa on luotu koulutusta varten tietokanta (trainingdatabase). Voit luoda uuden käyttäjän tietokantapalvelimeen seuraavalla SQL-komennolla:
 
 :::code-box
 ```sql
@@ -251,4 +231,4 @@ Mikä on current_user ja session_user välinen ero?
 
 ![](img/pgadminrooli.png)
 
-Roolien hallinta on selkeämpää pgAdminissa. Lisää uusi käyttäjä, valitse salasana ja lisää hänet myös admins-ryhmärooliin, huomaa SQL-välilehdelle muodostuva SQL-lauseke. Roolien poistaminen tapahtuu **DROP ROLE < roolin nimi >** -komennolla.
+Roolien hallinta on selkeämpää pgAdminin käyttöliittymässä. Lisää uusi käyttäjä, valitse salasana ja lisää hänet myös admins-ryhmärooliin, huomaa SQL-välilehdelle muodostuva SQL-lauseke. Roolien poistaminen tapahtuu **DROP ROLE < roolin nimi >** -komennolla.

@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-05" />
+<meta name="date" content="2023-07-07" />
 
 
 <meta name="description" content="2 Harjoitus 1: Työkalujen käyttöönotto | Johdanto PostGISin käyttöön">
@@ -143,11 +143,17 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </ul></li>
 <li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-3-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 3: SQL:n perusteet</a>
 <ul>
-<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.1</span> Harjoitus 3.1</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.2</span> Harjoitus 3.2</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitukset-3---ratkaisuavain"><span class="toc-section-number">4.1</span> Harjoitukset 3 - ratkaisuavain</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.2</span> Harjoitus 3.1</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.3</span> Harjoitus 3.2</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.4</span> Harjoitus 3.3</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.5</span> Harjoitus 3.4</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.6</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#nykyinen-toteutus"><span class="toc-section-number">4.7</span> Nykyinen toteutus:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-1"><span class="toc-section-number">4.8</span> Vaihtoehto 1:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-2"><span class="toc-section-number">4.9</span> Vaihtoehto 2:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-3"><span class="toc-section-number">4.10</span> Vaihtoehto 3:</a></li>
+<li><a href="03_harjoitus_3.html#vaihtoehto-4"><span class="toc-section-number">4.11</span> Vaihtoehto 4:</a></li>
 </ul></li>
 <li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
@@ -206,13 +212,13 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <p><strong>Harjoituksen tavoite</strong> - Harjoituksen jälkeen opiskelija hallitsee pgAdmin 4 -käyttöliittymän ja psql:n perusteet.</p>
 <div id="harjoitus-1.1-pgadmin-4" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Harjoitus 1.1: pgAdmin 4</h2>
-<div class="todo">
 <p>Käynnistä pgAdmin 4 -ohjelmisto menemällä osoitteeseen
 <a href="/pgadmin">/pgadmin</a>. Pääset kirjautumaan etäpalvelimen pgAdminiin
-seuraavilla tunnuksilla: - Sähköpostiosoite:
-<a href="mailto:info+PG@gispo.fi" class="email">info+PG@gispo.fi</a> - Salasana:
-<strong>pgtraining</strong></p>
-</div>
+seuraavilla tunnuksilla:</p>
+<ul>
+<li><p>Sähköpostiosoite: <strong><a href="mailto:email@email.com" class="email">email@email.com</a></strong></p></li>
+<li><p>Salasana: <strong>pgtraining</strong></p></li>
+</ul>
 <div class="figure">
 <img src="img/pgadmin_splash.png" alt="" />
 <p class="caption">pgAdmin- kirjautuminen</p>
@@ -223,23 +229,21 @@ seuraavilla tunnuksilla: - Sähköpostiosoite:
 hiiren oikealla kohdasta <strong>Servers</strong> ja valitsemalla <strong>Create &gt;
 Server…</strong></p>
 <p>Syötä seuraavat tiedot:</p>
-<div class="todo">
 <ul>
 <li>General-välilehdellä
 <ul>
 <li>Name: yhteyden nimi (tyypillisesti &lt;käyttäjänimi&gt;@&lt;tietokanta&gt;)</li>
 <li>Connection-välilehdellä
 <ul>
-<li>Host: <strong>localhost</strong></li>
+<li>Host: <strong>dbhost</strong></li>
 <li>Port: <strong>5432</strong></li>
 <li>Maintenance database: <strong>postgres</strong></li>
 <li>Username: <strong>postgres</strong></li>
-<li>Password: <strong>pgtraining</strong></li>
+<li>Password: <strong>password</strong></li>
 </ul></li>
 </ul></li>
 <li>Valitse <strong>Save password</strong>, jos et halua kirjoittaa salasanaa uudelleen aina avatessasi yhteyden</li>
 </ul>
-</div>
 <p>Voit tarkastella asennettua tietokantaa pgAdmin:n avulla yläpalkin eri
 välilehdiltä:</p>
 <p><img src="img/pgadylapalkki.png" /></p>
@@ -255,33 +259,22 @@ Manager)</strong> -lisäosan kautta). Tältä tietokanta näyttää QGISin
 harjoitustietokanta. Tämän voi tehdä pgAdmin:n <strong>graafisen
 käyttöliittymän</strong> kautta:</p>
 <p><img src="img/pgadmindbluo.png" /></p>
-<p>Tietokannan voi luoda myös seuraavan SQL-lauseen avulla:</p>
-<div class="code-box">
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="01_harjoitus_1.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> trainingdatabase;</span></code></pre></div>
-</div>
-<p>Vastaavasti tietokannan voi poistaa seuraavalla SQL-lauseella:</p>
-<div class="code-box">
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="01_harjoitus_1.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">DATABASE</span> trainingdatabase;</span></code></pre></div>
-</div>
-<p>Nyt voidaan lisätä PostGIS-lisäosa <strong>trainingdatabase</strong>-tietokantaan
-seuraavalla SQL-komennolla:</p>
-<div class="code-box">
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="01_harjoitus_1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EXTENSION <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> postgis;</span></code></pre></div>
-</div>
 <div class="hint-box">
-<p>Mitä spatial_ref_sys-taulu sisältää?</p>
-<p>Mitä näkymiä (views) on tietokantaan muodostunut? Mitä tietoja ne
-sisältävät?</p>
+<p><strong>Huom!</strong> Tietokannan voi luoda ja poistaa myös seuraavien SQL-lauseiden avulla:</p>
+<p><strong>CREATE DATABASE</strong> trainingdatabase;<br />
+<strong>DROP DATABASE</strong> trainingdatabase;</p>
 </div>
 </div>
 <div id="sql-komentojen-suorittaminen" class="section level3" number="2.1.3">
 <h3><span class="header-section-number">2.1.3</span> SQL-komentojen suorittaminen</h3>
 <p>Koulutuksessa tullaan suorittamaan useita harjoituksia SQL-komentokielen
 avulla. pgAdmin:n <strong>Kysely-työkalun (Query Tool)</strong> avulla voit suorittaa
-SQL-kyselyitä ja lausekkeita. <strong>Query Tool</strong> käynnistetään seuraavasti:
-* Valitse <strong>Servers</strong>-osiosta oma tietokantaklusterisi * Valitse
-klusterin sisältä haluamasi tietokanta (<strong>trainingdatabase</strong>) * Valitse
-ylhäältä <strong>Tools &gt; Query Tool</strong></p>
+SQL-kyselyitä ja lausekkeita. <strong>Query Tool</strong> käynnistetään seuraavasti:</p>
+<ul>
+<li>Valitse <strong>Servers</strong>-osiosta oma tietokantaklusterisi</li>
+<li>Valitse klusterin sisältä haluamasi tietokanta (<strong>trainingdatabase</strong>)</li>
+<li>Valitse ylhäältä <strong>Tools &gt; Query Tool</strong></li>
+</ul>
 <p>Haluttu SQL-komento suoritetaan painamalla avautuvasta <strong>Query Tool</strong>
 -ikkunasta löytyvää kolmio-painiketta (<strong>Execute/Refresh</strong>) tai
 <strong>F5</strong>-näppäintä. Jos haluat suorittaa vain osan SQL-lausekkeesta,
@@ -289,15 +282,23 @@ väritä hiirellä mieleisesi osio ja paina <strong>F5</strong>. Näet alaikkuna
 komennon tuloksen. Voit myös tallentaa SQL-komentosi
 <strong>.sql</strong>-tiedostoon, josta ne voi myöhemmin ladata.</p>
 <p><img src="img/pgadmin_query_tool.gif" /></p>
-<p>Uusi taulu voidaan luoda joko kirjoittamalla seuraava SQL-komentojono
-<strong>Query Tool</strong>:n SQL-editoriin tai ajamalla ao. solu suoraan Jupyter
-Notebookista.</p>
+<p>Nyt voidaan lisätä PostGIS-lisäosa <strong>trainingdatabase</strong>-tietokantaan
+seuraavalla SQL-komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="01_harjoitus_1.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Johdanto PostGISin käyttöön</span></span>
-<span id="cb4-2"><a href="01_harjoitus_1.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> test_tmp(</span>
-<span id="cb4-3"><a href="01_harjoitus_1.html#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> serial,</span>
-<span id="cb4-4"><a href="01_harjoitus_1.html#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time</span> <span class="dt">time</span>,</span>
-<span id="cb4-5"><a href="01_harjoitus_1.html#cb4-5" aria-hidden="true" tabindex="-1"></a>    num <span class="dt">integer</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="01_harjoitus_1.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EXTENSION <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> postgis;</span></code></pre></div>
+</div>
+<div class="hint-box">
+<p>Mitä spatial_ref_sys-taulu sisältää?</p>
+<p>Mitä näkymiä (views) on tietokantaan muodostunut? Mitä tietoja ne
+sisältävät?</p>
+</div>
+<p>Uusi taulu voidaan luoda kirjoittamalla seuraava SQL-komentojono <strong>Query Tool</strong>:n SQL-editoriin.</p>
+<div class="code-box">
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="01_harjoitus_1.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Johdanto PostGISin käyttöön</span></span>
+<span id="cb2-2"><a href="01_harjoitus_1.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> test_tmp(</span>
+<span id="cb2-3"><a href="01_harjoitus_1.html#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> serial,</span>
+<span id="cb2-4"><a href="01_harjoitus_1.html#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time</span> <span class="dt">time</span>,</span>
+<span id="cb2-5"><a href="01_harjoitus_1.html#cb2-5" aria-hidden="true" tabindex="-1"></a>    num <span class="dt">integer</span>);</span></code></pre></div>
 </div>
 <div class="hint-box">
 <p>Huomaa, että kahdella viivalla “–” alkavat rivit ovat
@@ -307,20 +308,20 @@ suoritettaessa.</p>
 <p>Tauluja voi luoda myös SQL-kyselyiden tulosten perusteella.</p>
 <p>Lisätään yllä luotuun tauluun tietueita seuraavalla SQL-komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="01_harjoitus_1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> test_tmp (<span class="dt">time</span>,num)</span>
-<span id="cb5-2"><a href="01_harjoitus_1.html#cb5-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span> now(), generate_series(<span class="dv">1</span>,<span class="dv">5000</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="01_harjoitus_1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> test_tmp (<span class="dt">time</span>,num)</span>
+<span id="cb3-2"><a href="01_harjoitus_1.html#cb3-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SELECT</span> now(), generate_series(<span class="dv">1</span>,<span class="dv">5000</span>));</span></code></pre></div>
 </div>
 <p>Tietueita voi lisätä myös SQL-kyselyjen tulosten perusteella.</p>
 <p>Voit listata tauluusi tekemiä tietueita esimerkiksi seuraavalla
 komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="01_harjoitus_1.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb6-2"><a href="01_harjoitus_1.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> test_tmp</span>
-<span id="cb6-3"><a href="01_harjoitus_1.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="01_harjoitus_1.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb4-2"><a href="01_harjoitus_1.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> test_tmp</span>
+<span id="cb4-3"><a href="01_harjoitus_1.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
 </div>
 <p>Voit poistaa luodun taulun seuraavalla komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="01_harjoitus_1.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> test_tmp;</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="01_harjoitus_1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> test_tmp;</span></code></pre></div>
 </div>
 </div>
 <div id="tietokantayhteyden-sulkeminen" class="section level3" number="2.1.4">
@@ -343,18 +344,16 @@ Muun muassa pgAdmin käyttää näitä sisäisesti.</p>
 -lisäosan) lisäksi myös psql-komentorivin kautta. Avaa
 <a href="/wetty">komentorivi</a>, jotta pääset käyttämään
 psql-komentorivityökalua. Kirjaudu ensin sisään WeTTY- terminaaliemulaattoriin:</p>
-<div class="todo">
 <ul>
 <li>Username: <strong>student</strong></li>
-<li>Password: <strong>gispotraining</strong></li>
+<li>Password: <strong>pgtraining</strong></li>
 </ul>
 <p>Ota yhteys omaan tietokantaklusteriisi
 komennolla:</p>
 <div class="commandline-box">
-<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="01_harjoitus_1.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="01_harjoitus_1.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost</span></code></pre></div>
 </div>
 <p><img src="img/psql_start.png" /></p>
-</div>
 <div id="psqln-käyttäminen" class="section level3" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> psql:n käyttäminen</h3>
 <p>Kun psql on käynnistetty, komentoriville voi kirjoittaa sekä psql- että
@@ -377,7 +376,7 @@ automaatisointiin. Edellä mainitut yhteydenottokomennot ovat oivia
 esimerkkejä ei-interaktiivisista psql-komennoista. Kokeile ajaa seuraava
 komento komentorivillä:</p>
 <div class="commandline-box">
-<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="01_harjoitus_1.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost <span class="at">-c</span> <span class="st">&quot;select current_database();&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="01_harjoitus_1.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost <span class="at">-c</span> <span class="st">&quot;select current_database();&quot;</span></span></code></pre></div>
 </div>
 </div>
 <div id="tietokannan-luonti" class="section level3" number="2.2.2">
@@ -385,20 +384,16 @@ komento komentorivillä:</p>
 <p>createdb on komentorivityökalu helpottamaan tietokannan luomista.
 Helpoimmillaan uuden tietokannan luominen onnistuukin komennolla:</p>
 <div class="commandline-box">
-<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="01_harjoitus_1.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">createdb</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost uuden_tietokannan_nimi</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="01_harjoitus_1.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">createdb</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost uuden_tietokannan_nimi</span></code></pre></div>
 </div>
-<p><img src="img/createdb" /></p>
-<div class="todo">
-<p>psql:n tavoin myös createdb lukee tietokannan yhteysparametrit
-ympäristömuuttujista.</p>
-</div>
+<p><img src="img/createdb.png" /></p>
 </div>
 <div id="tietokannan-poistaminen" class="section level3" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Tietokannan poistaminen</h3>
 <p>dropdb samoin kuin createdb on komentorivityökalu. Helpoimmillaan
 tietokannan voi poistaa komennolla:</p>
 <div class="commandline-box">
-<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="01_harjoitus_1.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dropdb</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost poistettavan_tietokannan_nimi</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="01_harjoitus_1.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dropdb</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost poistettavan_tietokannan_nimi</span></code></pre></div>
 </div>
 </div>
 <div id="tietokantayhteyden-sulkeminen-1" class="section level3" number="2.2.4">
@@ -412,12 +407,12 @@ tietokannan voi poistaa komennolla:</p>
 <h3><span class="header-section-number">2.2.5</span> Tiedot asennuksista</h3>
 <p>PostgreSQL:n version voit kysyä SQL-komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="01_harjoitus_1.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> version();</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="01_harjoitus_1.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> version();</span></code></pre></div>
 </div>
 <p>Asennetut lisäosat voit tarkistaa SQL-lauseella:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="01_harjoitus_1.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb14-2"><a href="01_harjoitus_1.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_extension;</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="01_harjoitus_1.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb12-2"><a href="01_harjoitus_1.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_extension;</span></code></pre></div>
 </div>
 </div>
 <div id="muita-huomioita" class="section level3" number="2.2.6">
@@ -433,6 +428,7 @@ host   all     all        0.0.0.0/0       trust</code></pre>
 <div class="todo">
 <p>Muutokset on tehty koulutuksessa käytettävälle PostgreSQL-asennukselle
 jo valmiiksi.</p>
+<p>EI OLE -&gt; TEE SE</p>
 </div>
 <div class="hint-box">
 <p><strong>HUOM!</strong> Tämä muutos mahdollistaa yhteydenoton mistä tahansa tietokoneesta ja
@@ -457,7 +453,7 @@ suositellaan salattavaksi SSL:n avulla.</p>
 
 <div class="footer-info">
 <h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-05</span>
+<span class="footer-version">v2023-07-07</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 
@@ -477,6 +473,7 @@ suositellaan salattavaksi SSL:n avulla.</p>
 
 
 <script src="js/nav-script.js"></script>
+<script src="js/answer-key.js"></script>
 
 </body>
 </html>
