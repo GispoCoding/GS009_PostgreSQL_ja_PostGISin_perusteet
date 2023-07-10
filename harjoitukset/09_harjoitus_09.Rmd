@@ -20,9 +20,6 @@ SHOW data_directory;
 
 ## Harjoitus 9.1: Uuden taulutilan luominen
 
-:::todo
-KANSIO VALMIIKSI
-
 Uutta taulutilaa varten pitää luoda ensin palvelimelle kansio. Kansion tulee olla postgres-käyttäjän omistuksessa ja käyttöoikeudet vain postgres-käyttäjälle. Hakemisto on luotu valmiiksi palvelimelle komennoilla:
 
 ```
@@ -30,7 +27,6 @@ sudo mkdir /usr/local/tmp_tbls
 sudo chown -R postgres:postgres /usr/local/tmp_tbls/
 sudo chmod 700 /usr/local/tmp_tbls/
 ```
-:::
 
 Luo uusi taulutila SQL-komennolla psql:n tai pgAdminin avulla:
 
@@ -57,6 +53,10 @@ Koko tietokannan taulutilan voi muuttaa yhdellä komennolla.
 ALTER DATABASE trainingdatabase
 SET TABLESPACE tmp_tablespace;
 ```
+:::
+
+:::hint-box
+Mikäli tämä ei onnistu, ja pgAdmin4 kertoo, että tietokantaan on aktiivisia yhteyksiä, yritä kirjautua ulos ja takaisin sisään pgAdminiin.
 :::
 
 Voit tarkistaa tietokannan taulutilan sijainnin SQL-kyselyllä:

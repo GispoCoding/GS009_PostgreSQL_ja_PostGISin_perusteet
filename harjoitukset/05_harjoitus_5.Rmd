@@ -12,10 +12,6 @@ Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (V
 
 Luodaan aluksi tietokantaan uusi taulu, johon muodostetaan erilaisia geometrioita:
 
-:::todo
-vaihtoehto tehdä pgAdminin käyttöliittymän kautta?
-:::
-
 :::code-box
 ```sql
 DROP TABLE IF EXISTS geom_test;
@@ -51,19 +47,53 @@ geom_test;
 ```
 :::
 
+## Harjoitus 5 - ratkaisuavain
+
+Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
+
+<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
+
 ## Harjoitus 5.2
 
 Lisää vielä tauluun viiva ja monikulmio.
 
-Voit käyttää joko WKT-formaattia (LINESTRING(0 1, 2 3) ja POLYGON((4 5, 6 7, 8 9, 10 11, 4 5))
+Voit käyttää joko WKT-formaattia (LINESTRING(0 1, 2 3) ja POLYGON((4 5, 6 7, 8 9, 10 11, 4 5)), tai PostGIS:n funktioita ST_MakeLine, ST_MakePolygon ja ST_MakeEnvelope.
+
+Tarkista PostGISin ohjekirjasta funktioiden oikeat muodot: [8.4 Geometry Constructors](http://postgis.net/docs/reference.html#Geometry_Constructors).
+
+WKT- formaatti:
 
 :::code-box
 ```sql
-INSERT INTO ...
+INSERT INTO
+
+VALUES
+
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- viivageometria
+INSERT INTO
+geom_test(name, geom)
+VALUES
+(..., '...; ...'); -- täytä arvot. Ota mallia ylhäällä olevasta piste- esimerkistä.
+
+-- polygonigeometria (monikulmio, alue)
+INSERT INTO
+geom_test(name, geom)
+VALUES
+(..., '...; ...'); -- täytä arvot. Ota mallia ylhäällä olevasta piste- esimerkistä.
+
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -81,17 +111,43 @@ VALUES
 :::
 :::
 
-Tai PostGIS:n funktioita ST_MakeLine, ST_MakePolygon ja ST_MakeEnvelope.
-
-Tarkista PostGISin ohjekirjasta funktioiden oikeat muodot: [8.4 Geometry Constructors](http://postgis.net/docs/reference.html#Geometry_Constructors).
+PostGIS- funktiolla:
 
 :::code-box
 ```sql
-INSERT INTO ...
+INSERT INTO
+
+VALUES
+
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Tarkista dokumentaatiosta, miten funktioita käytetään ja täydennä arvot.
+INSERT INTO
+geom_test(name,geom)
+VALUES
+('Simple polygon using ST_MakeEnvelope', ST_MakeEnvelope());
+
+INSERT INTO
+geom_test(name,geom)
+VALUES
+('Single point using ST_MakePoint', ST_SetSRID(ST_MakePoint(),3067));
+
+INSERT INTO
+geom_test(name,geom)
+VALUES
+('Single linestring using ST_MakeLine',
+ ST_SetSRID(ST_MakeLine(ST_MakePoint(),ST_MakePoint()),3067));
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -139,11 +195,49 @@ Mikä on Uudenmaan maakunnan viidenneksi pienimmän kunnan pinta-ala neliökilom
 
 :::code-box
 ```sql
-SELECT ...
+SELECT
+...
+FROM
+...
+WHERE
+...
+ORDER BY
+...
+LIMIT ...
+OFFSET ...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- täydennä sarakkeet
+-- round() funktio pyöristää arvon. Parametri '2' tarkoittaa, että luku
+-- palautuu kahden desimaaliluvun tarkkuudella
+SELECT
+kunta_nimi_fi, maakunta
+round((pinta_ala_funktio(geometria)/ ... ::numeric, 2) as "Pinta-ala (km2)"
+-- selvitä, millä PostGIS- funktiolla voidaan laskea polygonin pinta-ala.
+-- funktio palauttaa arvon koordinaattijärjestelmän yksiköissä, 
+-- tässä tapauksessa neliömetreinä. Yksikkö tulee muuntaa neliökilometreiksi
+-- jakolaskulla. Täydennä oikea arvo.
+FROM
+nlsfi.hallintoalue
+WHERE
+maakunta = 'Uusimaa'
+ORDER BY
+pinta_ala_funktio(geometria) ... -- järjestä nousevaan järjestykseen
+LIMIT 1
+OFFSET ...;
+-- OFFSET- avainsana siirtää palautuvan tulosjoukon alkamaan tietueesta x.
+-- Millä arvolla saat viidenneksi pienimmän kunnan?
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -197,11 +291,33 @@ Mikä on suomalaisen tien nro 66 kokonaispituus?
 
 :::code-box
 ```sql
-SELECT ...
+SELECT
+...
+FROM
+...
+WHERE
+...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Millä PostGIS- funktiolla saat laskettua pituuden?
+-- käytä SUM- funktiota laskemaan tietueiden kokonaispituus
+SELECT
+round(SUM(pituus_funktio(wkb_geometry))::numeric,2) as "Reitin 66 kokonaispituus (m)"
+FROM
+nlsfi.tieviiva
+WHERE
+...; -- valitse tietueet tienumeron mukaan
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -293,11 +409,57 @@ LIMIT 10;
 
 :::code-box
 ```sql
-SELECT ...
+DROP TABLE IF EXISTS airports_geom
+
+CREATE TABLE airports_geom AS
+(
+    SELECT
+    ...
+    FROM
+    ...
+);
+
+SELECT
+...
+FROM
+...
+ORDER BY
+...
+LIMIT ...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Millä PostGIS- funktiolla voit määrittää koordinaattijärjestelmän?
+DROP TABLE IF EXISTS airports_geom;
+
+CREATE TABLE airports_geom AS
+(
+    SELECT
+    *, aseta_koordinaattijärjestelmä(CAST('...' as geometry),4326) as geometry
+    FROM
+    airports
+);
+-- täydennä funktio CAST() oikein. Katso ylhäältä mallia.
+
+-- tarkastele uutta taulua:
+
+SELECT
+name, longitude, latitude, geom
+FROM
+airports_geom
+ORDER BY
+name
+LIMIT 10;
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -312,6 +474,9 @@ CREATE TABLE airports_geom AS
     FROM
     airports
 );
+
+
+-- tarkastele uutta taulua:
 
 SELECT
 name, longitude, latitude, geom

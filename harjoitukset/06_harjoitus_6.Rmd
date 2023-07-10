@@ -12,18 +12,24 @@ Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (V
 
 Tässä harjoituksessa hyödynnetään ainakin näitä funktioita:
 
-| <span style="color:purple"> **PostGIS-funktio** </span> | <span style="color:purple"> **Toiminta** </span> |
+| PostGIS-funktio | Toiminta |
 |:--: | :---: |
-| **ST_Contains(geometry A, geometry B)** | Palauttaa "TOSI", jos A sisältää B:n |
-| **ST_Crosses(geometry A, geometry B)** | Palauttaa "TOSI", jos A leikkaa B:tä |
-| **ST_Disjoint(geometry A , geometry B)** | Palauttaa "TOSI", jos geometriat eivät leikkaa toisiaan |
-| **ST_Distance(geometry A, geometry B)** | Palauttaa geometrioiden välisen minimietäisyyden |
-| **ST_DWithin(geometry A, geometry B, radius)** | Palauttaa "TOSI", jos A on lähempänä B:tä kuin annettua etäisyyttä |
-| **ST_Equals(geometry A, geometry B)** | Palauttaa "TOSI", jos A on sama kuin B |
-| **ST_Intersects(geometry A, geometry B)** | Palauttaa "TOSI", jos A leikkaa B:tä |
-| **ST_Overlaps(geometry A, geometry B)** | Palauttaa "TOSI", jos A ja B ovat päällekkäin, mutteivät kuitenkaan toistensa sisäpuolella |
-| **ST_Touches(geometry A, geometry B)** | Palauttaa "TOSI", jos A:n reuna koskettaa B:tä |
-| **ST_Within(geometry A, geometry B)** | Palauttaa "TOSI", jos A on B:n sisäpuolella |
+| ST_Contains(geometry A, geometry B) | Palauttaa "TOSI", jos A sisältää B:n |
+| ST_Crosses(geometry A, geometry B) | Palauttaa "TOSI", jos A leikkaa B:tä |
+| ST_Disjoint(geometry A , geometry B) | Palauttaa "TOSI", jos geometriat eivät leikkaa toisiaan |
+| ST_Distance(geometry A, geometry B) | Palauttaa geometrioiden välisen minimietäisyyden |
+| ST_DWithin(geometry A, geometry B, radius) | Palauttaa "TOSI", jos A on lähempänä B:tä kuin annettua etäisyyttä |
+| ST_Equals(geometry A, geometry B) | Palauttaa "TOSI", jos A on sama kuin B |
+| ST_Intersects(geometry A, geometry B) | Palauttaa "TOSI", jos A leikkaa B:tä |
+| ST_Overlaps(geometry A, geometry B) | Palauttaa "TOSI", jos A ja B ovat päällekkäin, mutteivät kuitenkaan toistensa sisäpuolella |
+| ST_Touches(geometry A, geometry B) | Palauttaa "TOSI", jos A:n reuna koskettaa B:tä |
+| ST_Within(geometry A, geometry B) | Palauttaa "TOSI", jos A on B:n sisäpuolella |
+
+## Harjoitus 6 - ratkaisuavain
+
+Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
+
+<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
 
 ## Harjoitus 6.1
 
@@ -46,11 +52,29 @@ Montako lentokenttää Suomessa on?
 
 :::code-box
 ```sql
-SELECT ...
+SELECT
+...
+FROM
+...
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Millä funktiolla voit laskea tietueiden määrän?
+SELECT
+funktio(id)
+FROM
+nlsfi.taulu;
+-- Täydennä oikea taulu
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -67,11 +91,40 @@ Jos lisäät SELECT-komentoon parametrin DISTINCT, saat selville kuinka monta le
 
 :::code-box
 ```sql
-SELECT ...
+SELECT
+
+FROM
+(SELECT DISTINCT
+
+FROM
+
+WHERE
+ST_Contains(..., ...));
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- käytä sisäkkäistä kyselyä
+-- sisäkkäiselle kyselyllä annetaan alias
+SELECT
+funktio(kunta_distinct)
+FROM
+(SELECT DISTINCT
+a.kunta_ni1 as kunta_distinct
+FROM
+nlsfi.hallintoalue a, nlsfi.lentokenttapiste b
+WHERE
+sisältää(... , ... ));
+-- Millä PostGIS- funktiolla voit tarkastaa onko geometria b geometrian a sisällä?
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -99,9 +152,56 @@ SELECT ...
 ```
 :::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Vaihtoehto 1
+-- Käytä CTE:tä
+WITH apm AS (
+SELECT DISTINCT
+a.kunta_ni1, COUNT(...) OVER(PARTITION BY ...) AS CountAirports
+FROM
+nlsfi.hallintoalue a, nlsfi.lentokenttapiste b
+WHERE
+sisältää(a.wkb_geometry, b.wkb_geometry)
+ORDER BY
+CountAirports DESC
+)
+
+-- tarkastele tuloksia:
+
+SELECT
+kunta_ni1 as "Municipality", countairports AS "Count of Airports"
+FROM
+apm
+WHERE
+CountAirports = 2;
+```
+:::
+
+:::code-box
+```sql
+-- Vaihtoehto 2
+SELECT 
+a.kunta_ni1 as "Kunta", count(...) as "Lkm"
+FROM
+nlsfi.hallintoalue a, nlsfi.lentokenttapiste b
+WHERE
+sisältää(a.wkb_geometry, b.wkb_geometry)
+GROUP BY
+a.kunta_ni1
+HAVING count(...) = ...;
+
+-- täydennä tyhjät kohdat. Valitse oikea PostGIS- funktio
+```
+:::
+:::
+
 Perusteellinen ratkaisuvaihtoehto:
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -129,7 +229,7 @@ CountAirports = 2;
 
 Pelkistetympi ratkaisuvaihtoehto:
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -158,6 +258,12 @@ nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b
 WHERE
 ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.id <> b.id;
 ```
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+
+:::hidden-box
+SQL- kysely palauttaa ne tietueet, joiden geometria on identtinen, mutta id eri.
 :::
 
 ### Kunnat, joissa ei ole rautatietä

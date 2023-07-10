@@ -62,7 +62,9 @@ avg(char_length(kunta_ni1)) desc;
 ```
 :::
 
-## Harjoitukset 3 - ratkaisuavain
+## Harjoitus 3 - ratkaisuavain
+
+Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
 
 <button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
 
@@ -72,11 +74,40 @@ Missä maakunnassa on keskimäärin pisimmät kuntien nimet?
 
 ::: code-box
 ```sql
-SELECT ...
+SELECT
+...
+FROM
+...
+GROUP BY
+...
+ORDER BY
+... desc
+LIMIT ...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Täydennä tähän kyselyyn oikeat sarakkeet, skeema ja taulu. Tarkista millä funktiolla
+-- saat laskettua keskiarvon. Käytä char_length() funktiota, jolla saat palautettua
+-- merkkijonon pituuden.
+SELECT
+maakunta, keskiarvo_funktio(char_length(kunta))
+FROM
+skeema.taulu
+GROUP BY
+maakunta
+ORDER BY
+keskiarvo_funktio(char_length(kunta)) desc
+LIMIT 1;
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 ::: hidden-box
 :::code-box
@@ -100,11 +131,40 @@ Missä maakunnassa on keskimäärin lyhimmät kuntien nimet?
 
 :::code-box
 ```sql
-SELECT ...
+SELECT
+...
+FROM
+...
+GROUP BY
+...
+ORDER BY
+... asc
+LIMIT ...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Täydennä tähän kyselyyn oikeat sarakkeet, skeema ja taulu. Tarkista millä funktiolla
+-- saat laskettua keskiarvon. Käytä char_length() funktiota, jolla saat palautettua
+-- merkkijonon pituuden.
+SELECT
+maakunta, keskiarvo_funktio(char_length(kunta))
+FROM
+skeema.taulu
+GROUP BY
+maakunta
+ORDER BY
+keskiarvo_funktio(char_length(kunta)) asc
+LIMIT 1;
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -128,11 +188,35 @@ Mikä on Suomen pisin kunnan nimi?
 
 :::code-box
 ```sql
-SELECT ...
+SELECT
+...
+FROM
+...
+ORDER BY
+...
+LIMIT
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Täydennä tähän kyselyyn oikeat sarakkeet, skeema ja taulu. Valitse funktio,
+-- jolla saat tietoon merkkijonon pituuden.
+SELECT
+kunta, maakunta, merkkijonon_pituus(kunta)
+FROM
+skeema.taulu
+ORDER BY
+merkkijonon_pituus(kunta) desc
+LIMIT 1;
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -154,11 +238,58 @@ Montako 5 kirjaimista suomenkielistä kunnan nimeä Suomessa on?
 
 :::code-box
 ```sql
-SELECT ...
+WITH ... AS
+(
+    SELECT ...
+UNION
+    SELECT ...
+)
+
+SELECT
+...
+FROM
+...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- käytä CTE (Common Table Expression)- lauseketta
+WITH ltr5 AS
+(
+    -- Valitse kunnat, jossa kunnan ykköskieli (kieli_ni1) on 'Suomi' ja kunnan suomenkielinen nimi on
+    -- viisi merkkiä pitkä.
+    SELECT
+    ...
+    FROM
+    ...
+    WHERE
+    ... AND ...
+UNION -- yhdistä kyselyiden tulokset UNION- operaattorilla
+    -- valitse kunnat, jossa kunnan kakkoskieli (kieli_ni2) on 'Suomi' ja kunnan suomenkielinen nimi on
+    -- viisi merkkiä pitkä. 
+    -- Huomioi oikea kunnan nimen sarake (kunta_ni1 vai kunta_ni2)
+    SELECT
+    ...
+    FROM
+    ...
+    WHERE
+    ... AND ...
+)
+
+SELECT
+count() AS ... -- käytä count() funktiota (valitse yllä määritellystä CTE:stä sopiva sarake).
+               -- Voit myös määrittää sille aliaksen 'AS'- lausekkeen jälkeen.
+FROM
+...; -- viittaa aikaisemmin määriteltyyn CTE:hen
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -196,128 +327,39 @@ Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
 
 :::code-box
 ```sql
-SELECT ...
-```
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
-
-:::hidden-box
-:::code-box
-```sql
 SELECT
-kunta_ni1, kunta_ni2, char_length(kunta_ni1) AS "Pituus"
+...
 FROM
-nlsfi.hallintoalue
+...
 WHERE
-kunta_ni1 <> kunta_ni2 AND char_length(kunta_ni1) = char_length(kunta_ni2)
+...
 ORDER BY
-char_length(kunta_ni1) DESC;
-```
-:::
-:::
-
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-
-
-
-
-=========
-
-## Nykyinen toteutus:
-
-### Harjoitus 1:
-
-Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
-
-:::code-box
-```sql
-SELECT ...
-```
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT
-kunta_ni1, kunta_ni2, char_length(kunta_ni1) AS "Pituus"
-FROM
-nlsfi.hallintoalue
-WHERE
-kunta_ni1 <> kunta_ni2 AND char_length(kunta_ni1) = char_length(kunta_ni2)
-ORDER BY
-char_length(kunta_ni1) DESC;
-```
-:::
-:::
-
-## Vaihtoehto 1:
-
-### Harjoitus 1:
-
-Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
-
-:::code-box
-```sql
-SELECT ...
+... DESC;
 ```
 :::
 
 <button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
 
-:::hidden-box
+::: hidden-box
 :::code-box
 ```sql
+-- Täydennä oikeat sarakkeet
 SELECT
-
+kunnan_nimi_fi, kunnan_nimi_sv, char_length(kunnan_nimi_fi) AS "Pituus"
 FROM
-
+nlsfi.hallintoalue
 WHERE
-
+kunnan_nimi_fi ... kunnan_nimi_sv AND char_length(kunnan_nimi_fi) ... char_length(kunnan_nimi_sv)
+-- korvaa tyhjäksi jätetyt kohdat '...' oikeilla operaattoreilla
+-- kts. tarvittaessa linkki alhaalta dokumentaatioon
 ORDER BY
+char_length(kunnan_nimi_fi) DESC;
 ```
 :::
+[Operaattorit PostgreSQL:n dokumentaatiossa.](https://www.postgresql.org/docs/9.0/functions-comparison.html)
+:::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -333,154 +375,3 @@ char_length(kunta_ni1) DESC;
 ```
 :::
 :::
-
-:::
-
-
-## Vaihtoehto 2:
-
-### Harjoitus 1:
-
-Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
-
-:::code-box
-```sql
-SELECT
-
-FROM
-
-WHERE
-
-ORDER BY
-```
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT
-nimi_suomeksi, nimi_ruotsiksi, funktio(nimi_suomeksi) AS "Pituus"
-FROM
-skeema.taulu
-WHERE
-nimi_suomeksi <> nimi_ruotsiksi AND funktio(nimi_suomeksi) = funktio(nimi_ruotsiksi)
-ORDER BY
-funktio(nimi_suomeksi) DESC;
-```
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT
-kunta_ni1, kunta_ni2, char_length(kunta_ni1) AS "Pituus"
-FROM
-nlsfi.hallintoalue
-WHERE
-kunta_ni1 <> kunta_ni2 AND char_length(kunta_ni1) = char_length(kunta_ni2)
-ORDER BY
-char_length(kunta_ni1) DESC;
-```
-:::
-:::
-
-:::
-
-
-## Vaihtoehto 3:
-
-### Harjoitus 1:
-
-Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
-
-:::code-box
-```sql
-SELECT
-
-FROM
-
-WHERE
-
-ORDER BY
-```
-:::
-
-:::hint-box
-kunta_ni1 char_length() kunta_ni2 DESC <> = nlsfi tieviiva hallintoalue
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT
-nimi_suomeksi, nimi_ruotsiksi, funktio(nimi_suomeksi) AS "Pituus"
-FROM
-skeema.taulu
-WHERE
-nimi_suomeksi <> nimi_ruotsiksi AND funktio(nimi_suomeksi) = funktio(nimi_ruotsiksi)
-ORDER BY
-funktio(nimi_suomeksi) DESC;
-```
-:::
-:::
-
-## Vaihtoehto 4:
-
-### Harjoitus 1:
-
-Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
-
-:::code-box
-```sql
-SELECT
-
-FROM
-
-WHERE
-
-ORDER BY
-```
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT
-nimi_suomeksi, nimi_ruotsiksi, funktio(nimi_suomeksi) AS "Pituus"
-FROM
-skeema.taulu
-WHERE
-nimi_suomeksi <> nimi_ruotsiksi AND funktio(nimi_suomeksi) = funktio(nimi_ruotsiksi)
-ORDER BY
-funktio(nimi_suomeksi) DESC;
-```
-:::
-:::
-
-\
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu \<vaatii kouluttajan antaman koodin></button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT
-kunta_ni1, kunta_ni2, char_length(kunta_ni1) AS "Pituus"
-FROM
-nlsfi.hallintoalue
-WHERE
-kunta_ni1 <> kunta_ni2 AND char_length(kunta_ni1) = char_length(kunta_ni2)
-ORDER BY
-char_length(kunta_ni1) DESC;
-```
-:::
-:::
-

@@ -15,11 +15,7 @@ Tehdään varmistus koulutuskannasta pgAdmin-työkalun avulla. Valitse harjoitus
 Mikäli Backup-ikkuna ei avaudu vaan törmäät virheilmoitukseen, menettele seuraavasti: File > Preferences > vasemman reunan valikosta Paths alta Binary Paths ja kirjoita PostgreSQL Binary Path -kenttään **/usr/bin**
 :::
 
-Täytä avautuvaan **Backup**-ikkunaan tiedoston nimeksi **"trainingdatabase_backup"**, formaatiksi **Tar** ja koodaukseksi **UTF8**. Jos haluat tarkastella palautusta komentorivin avulla, se löytyy kansiosta **/home/jovyan/pgadmin/storage/info+PG_gispo.fi**
-
-:::todo
-Korjaa/poista polku
-:::
+Täytä avautuvaan **Backup**-ikkunaan tiedoston nimeksi **"trainingdatabase_backup"**, formaatiksi **Tar** ja koodaukseksi **UTF8**.
 
 ![](img/pgadminback2.png)
 

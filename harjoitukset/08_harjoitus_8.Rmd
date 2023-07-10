@@ -22,6 +22,12 @@ LIMIT 10;
 ```
 :::
 
+## Harjoitus 8 - ratkaisuavain
+
+Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
+
+<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
+
 ## Harjoitus 8.1
 
 Ovatko kaikki keskipisteet alueiden sisäpuolella? Kuinka monta pistettä jää ulkopuolelle?
@@ -32,9 +38,44 @@ SELECT ...
 ```
 :::
 
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- vaihtoehto 1 ST_Contains- funktiolla
+-- CTE:llä
+WITH notin AS(
+    SELECT
+    ...
+    FROM
+    ...
+    WHERE
+    NOT ...
+
+SELECT
+count(...)
+FROM
+notin;
+```
+:::
+
+:::code-box
+```sql
+-- vaihtoehto 2 - ST_Within- funktiolla
+SELECT
+...
+FROM
+...
+WHERE
+NOT ...;
+```
+:::
+:::
+
 Ratkaisuvaihtoehto 1 (käytetään **ST_Contains**-funktiota):
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -57,7 +98,7 @@ notin;
 
 Ratkaisuvaihtoehto 2 (käytetään **ST_Within**-funktiota):
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -80,11 +121,35 @@ Miten paljon harjoituksessa 8.1 löydettyjen kuntien painokeskipisteet eroavat *
 
 :::code-box
 ```sql
-SELECT ...
+SELECT
+...
+FROM
+...
+WHERE
+NOT ...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+-- Millä PostGIS- funktiolla voit laskea etäisyyden pisteiden välillä?
+SELECT
+kunta_ni1 as "Kunta",
+round(etäisyys(ST_PointOnSurface(wkb_geometry), ST_centroid(wkb_geometry)))
+as "Distance PntOnSurface and Centroid"
+FROM
+nlsfi.hallintoalue
+WHERE
+NOT ...;
+-- rajaa pois pisteet, jotka ei ole polygonin sisällä.
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -122,11 +187,55 @@ Muodosta vyöhykkeestä näkymä ja visualisoi se QGISissä. Voit myös muodosta
 
 :::code-box
 ```sql
-SELECT ...
+DROP VIEW IF EXISTS nlsfi.view_road_buffer;
+
+CREATE VIEW nlsfi.view_roadbuffed AS (
+    WITH buffers AS (
+        ...
+        UNION
+        ...
+    )
+    SELECT
+    row_number() OVER() AS vid, geom, buffer
+    FROM
+    buffers
+);
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
+
+::: hidden-box
+:::code-box
+```sql
+DROP VIEW IF EXISTS nlsfi.view_roadbuffer;
+
+CREATE VIEW nlsfi.view_roadbuffer AS (
+    WITH buffers AS (
+        SELECT
+        ..., 100 as buffer -- täydennä ST_Buffer funktio
+        FROM
+        nlsfi.tieviiva
+        WHERE
+        ... -- valitse tienumeron 66 mukaan
+        UNION
+        SELECT
+        ..., 250 as buffer -- täydennä ST_Buffer funktio
+        FROM
+        nlsfi.tieviiva
+        WHERE -- valitse tienumeron 66 mukaan
+        ...
+    )
+    SELECT
+    row_number() OVER() AS vid, geom, buffer
+    FROM
+    buffers
+);
+```
+:::
+:::
+
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 :::hidden-box
 :::code-box

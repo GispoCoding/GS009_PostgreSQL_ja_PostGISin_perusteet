@@ -65,6 +65,12 @@ kunta_ni1 = 'Hanko';
 ```
 :::
 
+## Harjoitus 4 - ratkaisuavain
+
+Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
+
+<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
+
 ## Harjoitus 4.2
 
 Kokeile myös seuraavia funktioita Hangon kunnan geometriatietoihin liittyen:
@@ -74,19 +80,30 @@ Kokeile myös seuraavia funktioita Hangon kunnan geometriatietoihin liittyen:
 ::: code-box
 ``` sql
 SELECT
-
+...
 FROM
-
+...
 WHERE
-
+...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
 
-ratkaisu
+::: hidden-box
+:::code-box
+```sql
+SELECT
+kunta_ni1, maaku_ni1, ST_Boundary() -- valitse funktioon geometria- sarake
+FROM
+skeema.taulu
+WHERE
+...; -- valitse Hangon kunta nimen perusteella.
+```
+:::
+:::
 
-</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 ::: hidden-box
 ::: code-box
@@ -106,19 +123,30 @@ kunta_ni1 = 'Hanko';
 ::: code-box
 ``` sql
 SELECT
-
+...
 FROM
-
+...
 WHERE
-
+...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
 
-ratkaisu
+::: hidden-box
+:::code-box
+```sql
+kunta_ni1, maaku_ni1, ST_Centroid() -- valitse funktioon geometria- sarake
+FROM
+skeema.taulu
+WHERE
+...; -- valitse Hangon kunta nimen perusteella.
+```
+:::
+:::
 
-</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+
 
 ::: hidden-box
 ::: code-box
@@ -138,19 +166,29 @@ kunta_ni1 = 'Hanko';
 ::: code-box
 ``` sql
 SELECT
-
+...
 FROM
-
+...
 WHERE
-
+...;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn">
+<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
 
-ratkaisu
+::: hidden-box
+:::code-box
+```sql
+kunta_ni1, maaku_ni1, ST_Envelope() -- valitse funktioon geometria- sarake
+FROM
+skeema.taulu
+WHERE
+...; -- valitse Hangon kunta nimen perusteella.
+```
+:::
+:::
 
-</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
 
 ::: hidden-box
 ::: code-box

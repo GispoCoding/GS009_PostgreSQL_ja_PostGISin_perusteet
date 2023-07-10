@@ -155,7 +155,7 @@ VALUES (1, 'testi');
 ```
 :::
 
-Lataa [data-kansio](/data/1_milj_Shape_etrs_shape.zip) omalle koneellesi. Aineistoja voi lisätä navigoimalla Tasot \> Lisää taso \> Lisää vektoritaso, klikkaamalla Lisää vektoritaso -kuvaketta tasojen hallinnan työkalupalkista tai ihan vain raahaamalla tasoja suoraan Selain-ikkunasta Tasot-ikkunaan.
+Lataa [data-kansio](/data/Maastokartta_1m.zip) omalle koneellesi. Aineistoja voi lisätä navigoimalla Tasot \> Lisää taso \> Lisää vektoritaso, klikkaamalla Lisää vektoritaso -kuvaketta tasojen hallinnan työkalupalkista tai ihan vain raahaamalla tasoja suoraan Selain-ikkunasta Tasot-ikkunaan.
 
 Lataa projektiisi ja tietokantaasi (ainakin) seuraavat aineistot:
 

@@ -9,6 +9,7 @@ services:
     volumes:
     - postgres_data:/var/lib/postgresql
     - ./data/dbhost:/home/oppilas/data
+    - ./docker/init_db:/docker-entrypoint-initdb.d
     ports:
       - "5439:5432"
     environment:
@@ -17,6 +18,7 @@ services:
       - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASS=${PG_PASS}
     restart: on-failure
+
 
   pgadmin:
     image: dpage/pgadmin4:${PGA_TAG}
