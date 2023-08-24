@@ -292,12 +292,8 @@ host   all     all        0.0.0.0/0       trust
 ```
 :::
 
-::: todo
 Muutokset on tehty koulutuksessa käytettävälle PostgreSQL-asennukselle
 jo valmiiksi.
-
-EI OLE -> TEE SE
-:::
 
 ::: hint-box
 **HUOM!** Tämä muutos mahdollistaa yhteydenoton mistä tahansa tietokoneesta ja
