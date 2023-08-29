@@ -9,7 +9,7 @@ RUN apk add --update --no-cache \
       postgresql-client \
     && echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config \
     && adduser -h /home/$LINUX_USER -s /bin/bash -D $LINUX_USER \
-    && ( echo -n $LINUX_USER:$LINUX_USER_PASSWORD | chpasswd )
+    && ( echo -n $LINUX_USER:$LINUX_USER_PASSWORD | /usr/sbin/chpasswd )
 
 COPY ./docker-entrypoint.sh /
 
