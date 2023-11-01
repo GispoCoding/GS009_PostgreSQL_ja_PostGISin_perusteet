@@ -192,6 +192,14 @@ LIMIT 10;
 
 ### Vaihtoehto 2: Komentorivin avulla
 
+Luo tässä vaiheessa harjoitustietokantaan uusi skeema, jonne Maanmittauslaitoksen aineistot tullaan lataamaan, ja anna skeemalle nimeksi "nlsfi". Skeemojen avulla on helpompi pitää aineistot järjestyksessä. Uuden skeeman voi luoda pgAdminin graafisen käyttöliittymän kautta tai seuraavalla SQL-komennolla:
+
+::: code-box
+``` sql
+CREATE SCHEMA IF NOT EXISTS nlsfi;
+```
+:::
+
 Komentoriviltä tapahtuvaan lataamiseen käytetään **shp2pgsql**-ohjelmaa tai **ogr2ogr**-työkalua. Käynnistämällä ohjelman ilman parametrejä saat opasteen eri parametreistä. Tämän jälkeen voit ladata aineistoa äsken luotuun skeemaan **ogr2ogr**-työkalulla. Jos koneellasi on asennettu OSGeo4W-paketti (tulee QGIS:n asennuksen mukana), avaa käynnistysvalikosta **OSGeo4W Shell** ja anna seuraava komento:
 
 ::: commandline-box
