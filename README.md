@@ -1,7 +1,7 @@
-PostgreSQL-kurssi
+PostgreSQL ja PostGISin perusteet -kurssi
 =================
 
-Tämä projekti on PostgreSQL-kurssin käytännön osuus
+Tämä projekti on PostgreSQL ja PostGISin perusteet -kurssin käytännön osuus
 
 ## Asennus
 
