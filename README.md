@@ -40,11 +40,11 @@ Materiaaleja voi muokata joko käyttäen RStudiota, jolloin päivityksiä on hel
 
 **RStudio**
 1. Asenna R ja RStudio
-2. Tee muokkaukset  `harkoitukset` kansiosta löytyviin `*.rmd` tiedostoihin
+2. Tee muokkaukset  `harjoitukset` kansiosta löytyviin `*.rmd` tiedostoihin
 3. Käännä kirja `Build book` napilla
 
 **Docker**
-1. Tee muokkaukset  `harkoitukset` kansiosta löytyviin `*.rmd` tiedostoihin
+1. Tee muokkaukset  `harjoitukset` kansiosta löytyviin `*.rmd` tiedostoihin
 2. Aja `docker compose up bookdown`
 3. Siirry kometorivillä `harjoitukset/build` kansioon ja käynnistä http-serveri `python -m http.server`
 4. Mene selaimella osoitteeseen `localhost:8000`
