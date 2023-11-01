@@ -391,10 +391,10 @@ CREATE TABLE tmp.crossroads AS
 ```sql
 DROP VIEW IF EXISTS tmp.view_crossroads;
 
-CREATE VIEW tmp.view_crossrods AS
+CREATE VIEW tmp.view_crossroads AS
 (
     SELECT DISTINCT
-    a.tienumero, a.wkb_geometry, a.id
+    a.tienumero, a.wkb_geometry, a.ogc_fid
     FROM
     nlsfi.tieviiva a, nlsfi.hallintoalue b
     WHERE

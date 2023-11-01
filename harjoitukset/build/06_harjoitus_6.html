@@ -575,10 +575,10 @@ ratkaisu
 <div class="code-box">
 <div class="sourceCode" id="cb108"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb108-1"><a href="06_harjoitus_6.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">VIEW</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> tmp.view_crossroads;</span>
 <span id="cb108-2"><a href="06_harjoitus_6.html#cb108-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb108-3"><a href="06_harjoitus_6.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> tmp.view_crossrods <span class="kw">AS</span></span>
+<span id="cb108-3"><a href="06_harjoitus_6.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> tmp.view_crossroads <span class="kw">AS</span></span>
 <span id="cb108-4"><a href="06_harjoitus_6.html#cb108-4" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb108-5"><a href="06_harjoitus_6.html#cb108-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">DISTINCT</span></span>
-<span id="cb108-6"><a href="06_harjoitus_6.html#cb108-6" aria-hidden="true" tabindex="-1"></a>    a.tienumero, a.wkb_geometry, a.<span class="kw">id</span></span>
+<span id="cb108-6"><a href="06_harjoitus_6.html#cb108-6" aria-hidden="true" tabindex="-1"></a>    a.tienumero, a.wkb_geometry, a.ogc_fid</span>
 <span id="cb108-7"><a href="06_harjoitus_6.html#cb108-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span></span>
 <span id="cb108-8"><a href="06_harjoitus_6.html#cb108-8" aria-hidden="true" tabindex="-1"></a>    nlsfi.tieviiva a, nlsfi.hallintoalue b</span>
 <span id="cb108-9"><a href="06_harjoitus_6.html#cb108-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span></span>
