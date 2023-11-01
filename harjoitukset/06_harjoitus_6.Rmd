@@ -80,7 +80,7 @@ nlsfi.taulu;
 :::code-box
 ```sql
 SELECT
-count(id)
+count(ogc_fid)
 FROM
 nlsfi.lentokenttapiste;
 ```
