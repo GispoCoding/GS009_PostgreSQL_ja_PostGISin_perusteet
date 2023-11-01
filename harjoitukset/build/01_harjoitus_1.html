@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-10" />
+<meta name="date" content="2023-11-01" />
 
 
 <meta name="description" content="2 Harjoitus 1: Työkalujen käyttöönotto | PostgreSQL ja PostGISin perusteet">
@@ -226,7 +226,7 @@ seuraavilla tunnuksilla:</p>
 <div id="tietokantayhteyden-lisääminen" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Tietokantayhteyden lisääminen</h3>
 <p>Liitä pgAdmin-ohjelmaan koulutusympäristön tietokanta klikkaamalla
-hiiren oikealla kohdasta <strong>Servers</strong> ja valitsemalla <strong>Create &gt;
+hiiren oikealla kohdasta <strong>Servers</strong> ja valitsemalla <strong>Register &gt;
 Server…</strong></p>
 <p>Syötä seuraavat tiedot:</p>
 <ul>
@@ -327,7 +327,7 @@ komennolla:</p>
 <div id="tietokantayhteyden-sulkeminen" class="section level3" number="2.1.4">
 <h3><span class="header-section-number">2.1.4</span> Tietokantayhteyden sulkeminen</h3>
 <p>Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse <strong>Disconnect
-Server</strong>.</p>
+from server</strong>.</p>
 </div>
 <div id="pg_dump-ja-pg_restore" class="section level3" number="2.1.5">
 <h3><span class="header-section-number">2.1.5</span> pg_dump ja pg_restore</h3>
@@ -425,11 +425,8 @@ tarvittavia muutoksia, esimerkiksi seuraavasti:</p>
 #host  all     all      127.0.0.1/32      md5
 host   all     all        0.0.0.0/0       trust</code></pre>
 </div>
-<div class="todo">
 <p>Muutokset on tehty koulutuksessa käytettävälle PostgreSQL-asennukselle
 jo valmiiksi.</p>
-<p>EI OLE -&gt; TEE SE</p>
-</div>
 <div class="hint-box">
 <p><strong>HUOM!</strong> Tämä muutos mahdollistaa yhteydenoton mistä tahansa tietokoneesta ja
 on turvallisuusriski tuotannollisissa tietojärjestelmissä.</p>
@@ -453,7 +450,7 @@ suositellaan salattavaksi SSL:n avulla.</p>
 
 <div class="footer-info">
 <h5 class="footer-title">PostgreSQL ja PostGISin perusteet</h5>
-<span class="footer-version">v2023-07-10</span>
+<span class="footer-version">v2023-11-01</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 

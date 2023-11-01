@@ -28,7 +28,7 @@ seuraavilla tunnuksilla:
 ### Tietokantayhteyden lisääminen
 
 Liitä pgAdmin-ohjelmaan koulutusympäristön tietokanta klikkaamalla
-hiiren oikealla kohdasta **Servers** ja valitsemalla **Create \>
+hiiren oikealla kohdasta **Servers** ja valitsemalla **Register \>
 Server...**
 
 Syötä seuraavat tiedot:
@@ -160,7 +160,7 @@ DROP TABLE test_tmp;
 ### Tietokantayhteyden sulkeminen
 
 Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse **Disconnect
-Server**.
+from server**.
 
 ### pg_dump ja pg_restore
 
