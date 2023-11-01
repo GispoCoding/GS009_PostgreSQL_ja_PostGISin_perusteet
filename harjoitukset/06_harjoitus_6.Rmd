@@ -416,11 +416,11 @@ Lasketaan minimietäisyydet lentoasemilta lähimmälle rautatielle:
 :::code-box
 ```sql
 SELECT
-a.id, MIN(ST_Distance(a.wkb_geometry, b.wkb_geometry)) as "dist"
+a.ogc_fid, MIN(ST_Distance(a.wkb_geometry, b.wkb_geometry)) as "dist"
 FROM
 nlsfi.lentokenttapiste a, nlsfi.rautatieviiva b
 GROUP BY
-a.id 
+a.ogc_fid 
 ORDER BY
 dist;
 ```

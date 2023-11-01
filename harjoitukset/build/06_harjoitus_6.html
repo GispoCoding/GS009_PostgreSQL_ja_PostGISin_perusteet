@@ -595,11 +595,11 @@ ratkaisu
 <p>Lasketaan minimietäisyydet lentoasemilta lähimmälle rautatielle:</p>
 <div class="code-box">
 <div class="sourceCode" id="cb109"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb109-1"><a href="06_harjoitus_6.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb109-2"><a href="06_harjoitus_6.html#cb109-2" aria-hidden="true" tabindex="-1"></a>a.<span class="kw">id</span>, <span class="fu">MIN</span>(ST_Distance(a.wkb_geometry, b.wkb_geometry)) <span class="kw">as</span> <span class="ot">&quot;dist&quot;</span></span>
+<span id="cb109-2"><a href="06_harjoitus_6.html#cb109-2" aria-hidden="true" tabindex="-1"></a>a.ogc_fid, <span class="fu">MIN</span>(ST_Distance(a.wkb_geometry, b.wkb_geometry)) <span class="kw">as</span> <span class="ot">&quot;dist&quot;</span></span>
 <span id="cb109-3"><a href="06_harjoitus_6.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
 <span id="cb109-4"><a href="06_harjoitus_6.html#cb109-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, nlsfi.rautatieviiva b</span>
 <span id="cb109-5"><a href="06_harjoitus_6.html#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
-<span id="cb109-6"><a href="06_harjoitus_6.html#cb109-6" aria-hidden="true" tabindex="-1"></a>a.<span class="kw">id</span> </span>
+<span id="cb109-6"><a href="06_harjoitus_6.html#cb109-6" aria-hidden="true" tabindex="-1"></a>a.ogc_fid </span>
 <span id="cb109-7"><a href="06_harjoitus_6.html#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
 <span id="cb109-8"><a href="06_harjoitus_6.html#cb109-8" aria-hidden="true" tabindex="-1"></a>dist;</span></code></pre></div>
 </div>
