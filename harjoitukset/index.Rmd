@@ -1,5 +1,5 @@
 ---
-title: "Johdanto PostGISin käyttöön"
+title: "PostgreSQL ja PostGISin perusteet"
 author: "Gispo Oy"   
 date: "`r Sys.Date()`"
 site: "bookdown::bookdown_site"

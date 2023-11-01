@@ -111,7 +111,7 @@ Uusi taulu voidaan luoda kirjoittamalla seuraava SQL-komentojono **Query Tool**:
 
 ::: code-box
 ``` sql
--- Johdanto PostGISin käyttöön
+-- PostgreSQL ja PostGISin perusteet
 CREATE TABLE test_tmp(
     id serial,
     time time,
