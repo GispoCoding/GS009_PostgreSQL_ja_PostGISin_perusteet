@@ -252,11 +252,11 @@ Suorita ao. SQL-lause. Mitä sillä saadaan selville?
 :::code-box
 ```sql
 SELECT
-ST_ASText(a.wkb_geometry), a.id
+ST_ASText(a.wkb_geometry), a.ogc_fid
 FROM
 nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b
 WHERE
-ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.id <> b.id;
+ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.ogc_fid <> b.ogc_fid;
 ```
 :::
 

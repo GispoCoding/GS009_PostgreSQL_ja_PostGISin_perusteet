@@ -463,11 +463,11 @@ ratkaisu
 <p>Suorita ao. SQL-lause. Mitä sillä saadaan selville?</p>
 <div class="code-box">
 <div class="sourceCode" id="cb100"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb100-1"><a href="06_harjoitus_6.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb100-2"><a href="06_harjoitus_6.html#cb100-2" aria-hidden="true" tabindex="-1"></a>ST_ASText(a.wkb_geometry), a.<span class="kw">id</span></span>
+<span id="cb100-2"><a href="06_harjoitus_6.html#cb100-2" aria-hidden="true" tabindex="-1"></a>ST_ASText(a.wkb_geometry), a.ogc_fid</span>
 <span id="cb100-3"><a href="06_harjoitus_6.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
 <span id="cb100-4"><a href="06_harjoitus_6.html#cb100-4" aria-hidden="true" tabindex="-1"></a>nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b</span>
 <span id="cb100-5"><a href="06_harjoitus_6.html#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb100-6"><a href="06_harjoitus_6.html#cb100-6" aria-hidden="true" tabindex="-1"></a>ST_Equals(a.wkb_geometry,b.wkb_geometry) <span class="kw">AND</span> a.<span class="kw">id</span> <span class="op">&lt;&gt;</span> b.<span class="kw">id</span>;</span></code></pre></div>
+<span id="cb100-6"><a href="06_harjoitus_6.html#cb100-6" aria-hidden="true" tabindex="-1"></a>ST_Equals(a.wkb_geometry,b.wkb_geometry) <span class="kw">AND</span> a.ogc_fid <span class="op">&lt;&gt;</span> b.ogc_fid;</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn token">
 ratkaisu
