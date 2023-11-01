@@ -52,7 +52,7 @@ WITH CSV;
 :::
 
 
-**COPY**-komento viittaa tiedostoon kovalevyllä ja lataa sen. **COPY** voi viitata CSV:n lisäksi myös esimerkiksi [binääriformaatteihin tai tekstitiedostoihin.](https://www.postgresql.org/docs/11/sql-copy.html)
+**COPY**-komento viittaa tiedostoon kovalevyllä ja lataa sen. **COPY** voi viitata CSV:n lisäksi myös esimerkiksi [binääriformaatteihin tai tekstitiedostoihin.](https://www.postgresql.org/docs/current/sql-copy.html)
 
 Tarkista lopuksi, että tietokantataulussa on dataa.
 
