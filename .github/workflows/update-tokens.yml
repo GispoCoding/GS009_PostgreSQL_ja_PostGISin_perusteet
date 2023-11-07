@@ -20,3 +20,9 @@ jobs:
     
     - name: Extract Answer Token
       run: ./replace_tokens.sh
+    
+    - name: Add, Commit & Push
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: "tokens.md"
+        message: "Automatic: Update tokens.md"
