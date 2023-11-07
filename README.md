@@ -51,7 +51,7 @@ Materiaaleja voi muokata joko käyttäen RStudiota, jolloin päivityksiä on hel
    
 ### Ratkaisuavaimet
 
-<iframe src="tokens.html"></iframe>
+Katso [/tokens.md](/tokens.md)
 
 ## Lisenssit
 Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on [Creative Commons Nimeä-EiMuutoksia 4.0](https://creativecommons.org/licenses/by-nd/4.0/deed.fi).
