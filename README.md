@@ -51,14 +51,7 @@ Materiaaleja voi muokata joko käyttäen RStudiota, jolloin päivityksiä on hel
    
 ### Ratkaisuavaimet
 
-```
-HARJOITUS 3: slprt13
-HARJOITUS 4: ailse11
-HARJOITUS 5: kteoh45
-HARJOITUS 6: aierl12
-HARJOITUS 7: atjes2
-HARJOITUS 8: onihd24
-```
+<iframe src="tokens.html"></iframe>
 
 ## Lisenssit
 Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on [Creative Commons Nimeä-EiMuutoksia 4.0](https://creativecommons.org/licenses/by-nd/4.0/deed.fi).
