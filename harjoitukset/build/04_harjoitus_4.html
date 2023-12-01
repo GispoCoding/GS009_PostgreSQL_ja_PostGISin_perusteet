@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="5 Harjoitus 4: Spatiaaliset SQL-haut | Johdanto PostGISin käyttöön" />
+<meta property="og:title" content="5 Harjoitus 4: Spatiaaliset SQL-haut | PostgreSQL ja PostGISin perusteet" />
 <meta property="og:type" content="book" />
 
 
@@ -16,12 +16,12 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-10" />
+<meta name="date" content="2023-11-02" />
 
 
-<meta name="description" content="5 Harjoitus 4: Spatiaaliset SQL-haut | Johdanto PostGISin käyttöön">
+<meta name="description" content="5 Harjoitus 4: Spatiaaliset SQL-haut | PostgreSQL ja PostGISin perusteet">
 
-<title>5 Harjoitus 4: Spatiaaliset SQL-haut | Johdanto PostGISin käyttöön</title>
+<title>5 Harjoitus 4: Spatiaaliset SQL-haut | PostgreSQL ja PostGISin perusteet</title>
 
 
 
@@ -120,7 +120,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 
 <div class="sidebar-title-wrapper">
 <img alt="Logo" width="100" src="img/gispo_white_sm.png" class="sidebar-logo">
-<div class="sidebar-title"><h1>Johdanto PostGISin käyttöön</h1></div>
+<div class="sidebar-title"><h1>PostgreSQL ja PostGISin perusteet</h1></div>
 <div class="abstract-sidebar"><p>Kurssi PostGISin yleisimpiin käyttötapauksiin.</p></div>
 </div>
 
@@ -246,9 +246,9 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <h2><span class="header-section-number">5.1</span> Harjoitus 4.1</h2>
 <p>Tutki geometry_columns-taulua. Mitä tietoja eri tietokentät sisältävät?</p>
 <div class="code-box">
-<div class="sourceCode" id="cb47"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb47-1"><a href="04_harjoitus_4.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb47-2"><a href="04_harjoitus_4.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb47-3"><a href="04_harjoitus_4.html#cb47-3" aria-hidden="true" tabindex="-1"></a>geometry_columns;</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb48-1"><a href="04_harjoitus_4.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb48-2"><a href="04_harjoitus_4.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb48-3"><a href="04_harjoitus_4.html#cb48-3" aria-hidden="true" tabindex="-1"></a>geometry_columns;</span></code></pre></div>
 </div>
 <div class="hint-box">
 <p>Onko geometry_columns taulu?</p>
@@ -257,22 +257,22 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <h3><span class="header-section-number">5.1.1</span> Geometrian esittäminen</h3>
 <p>Tarkastellaan ensin paikkatietojen tallennusmuotoa PostGIS-paikkatietokannassa. Suorita seuraava SQL-lause:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb48"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb48-1"><a href="04_harjoitus_4.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb48-2"><a href="04_harjoitus_4.html#cb48-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, wkb_geometry</span>
-<span id="cb48-3"><a href="04_harjoitus_4.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb48-4"><a href="04_harjoitus_4.html#cb48-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
-<span id="cb48-5"><a href="04_harjoitus_4.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb48-6"><a href="04_harjoitus_4.html#cb48-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
-</div>
-<p>Tuloksesta nähdään, että sarakkeen wkb_geometry sisältö on koneluettavassa binäärimuodossa. pgAdmin:ssa on kuitenkin mahdollista tarkastella geometrioita suoraan graafisessa käyttöliittymässä klikkaamalla pientä silmäikonia <img src="img/pgadmin_geom.png" /> geometriasarakkeen päällä. Mikäli aineistot ovat WGS84-koordinaattijärjestelmässä (EPSG: 4326), pgAdmin myös lisää niihin suoraan taustakartan OpenStreetMapista.</p>
-<p>Aineistojen koordinaatistot löytyvät SRID-sarakkeesta. Yhdessä SRID-sarakkeessa voi olla vain yhden koordinaatiston metatiedot. Koordinaatit voi muuntaa paremmin ihmisluettavaan tekstimuotoon seuraavalla hakulausekkeella:</p>
-<div class="code-box">
 <div class="sourceCode" id="cb49"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb49-1"><a href="04_harjoitus_4.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb49-2"><a href="04_harjoitus_4.html#cb49-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_AsText(wkb_geometry)</span>
+<span id="cb49-2"><a href="04_harjoitus_4.html#cb49-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, wkb_geometry</span>
 <span id="cb49-3"><a href="04_harjoitus_4.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
 <span id="cb49-4"><a href="04_harjoitus_4.html#cb49-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
 <span id="cb49-5"><a href="04_harjoitus_4.html#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
 <span id="cb49-6"><a href="04_harjoitus_4.html#cb49-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
+</div>
+<p>Tuloksesta nähdään, että sarakkeen wkb_geometry sisältö on koneluettavassa binäärimuodossa. pgAdmin:ssa on kuitenkin mahdollista tarkastella geometrioita suoraan graafisessa käyttöliittymässä klikkaamalla pientä silmäikonia <img src="img/pgadmin_geom.png" /> geometriasarakkeen päällä. Mikäli aineistot ovat WGS84-koordinaattijärjestelmässä (EPSG: 4326), pgAdmin myös lisää niihin suoraan taustakartan OpenStreetMapista.</p>
+<p>Aineistojen koordinaatistot löytyvät SRID-sarakkeesta. Yhdessä SRID-sarakkeessa voi olla vain yhden koordinaatiston metatiedot. Koordinaatit voi muuntaa paremmin ihmisluettavaan tekstimuotoon seuraavalla hakulausekkeella:</p>
+<div class="code-box">
+<div class="sourceCode" id="cb50"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb50-1"><a href="04_harjoitus_4.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb50-2"><a href="04_harjoitus_4.html#cb50-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_AsText(wkb_geometry)</span>
+<span id="cb50-3"><a href="04_harjoitus_4.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb50-4"><a href="04_harjoitus_4.html#cb50-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
+<span id="cb50-5"><a href="04_harjoitus_4.html#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb50-6"><a href="04_harjoitus_4.html#cb50-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -290,24 +290,24 @@ Syötä ratkaisuavain
 <li>ST_Boundary</li>
 </ul>
 <div class="code-box">
-<div class="sourceCode" id="cb50"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb50-1"><a href="04_harjoitus_4.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb50-2"><a href="04_harjoitus_4.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
-<span id="cb50-3"><a href="04_harjoitus_4.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb50-4"><a href="04_harjoitus_4.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
-<span id="cb50-5"><a href="04_harjoitus_4.html#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb50-6"><a href="04_harjoitus_4.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.;</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb51-1"><a href="04_harjoitus_4.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb51-2"><a href="04_harjoitus_4.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
+<span id="cb51-3"><a href="04_harjoitus_4.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb51-4"><a href="04_harjoitus_4.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
+<span id="cb51-5"><a href="04_harjoitus_4.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb51-6"><a href="04_harjoitus_4.html#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.;</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 vinkki
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb51"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb51-1"><a href="04_harjoitus_4.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb51-2"><a href="04_harjoitus_4.html#cb51-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Boundary() <span class="co">-- valitse funktioon geometria- sarake</span></span>
-<span id="cb51-3"><a href="04_harjoitus_4.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb51-4"><a href="04_harjoitus_4.html#cb51-4" aria-hidden="true" tabindex="-1"></a>skeema.taulu</span>
-<span id="cb51-5"><a href="04_harjoitus_4.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb51-6"><a href="04_harjoitus_4.html#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.; <span class="co">-- valitse Hangon kunta nimen perusteella.</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb52-1"><a href="04_harjoitus_4.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb52-2"><a href="04_harjoitus_4.html#cb52-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Boundary() <span class="co">-- valitse funktioon geometria- sarake</span></span>
+<span id="cb52-3"><a href="04_harjoitus_4.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb52-4"><a href="04_harjoitus_4.html#cb52-4" aria-hidden="true" tabindex="-1"></a>skeema.taulu</span>
+<span id="cb52-5"><a href="04_harjoitus_4.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb52-6"><a href="04_harjoitus_4.html#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.; <span class="co">-- valitse Hangon kunta nimen perusteella.</span></span></code></pre></div>
 </div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn token">
@@ -315,35 +315,35 @@ ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb52"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb52-1"><a href="04_harjoitus_4.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb52-2"><a href="04_harjoitus_4.html#cb52-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Boundary(wkb_geometry)</span>
-<span id="cb52-3"><a href="04_harjoitus_4.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb52-4"><a href="04_harjoitus_4.html#cb52-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
-<span id="cb52-5"><a href="04_harjoitus_4.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb52-6"><a href="04_harjoitus_4.html#cb52-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb53-1"><a href="04_harjoitus_4.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb53-2"><a href="04_harjoitus_4.html#cb53-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Boundary(wkb_geometry)</span>
+<span id="cb53-3"><a href="04_harjoitus_4.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb53-4"><a href="04_harjoitus_4.html#cb53-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
+<span id="cb53-5"><a href="04_harjoitus_4.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb53-6"><a href="04_harjoitus_4.html#cb53-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
 </div>
 </div>
 <ul>
 <li>ST_Centroid</li>
 </ul>
 <div class="code-box">
-<div class="sourceCode" id="cb53"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb53-1"><a href="04_harjoitus_4.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb53-2"><a href="04_harjoitus_4.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
-<span id="cb53-3"><a href="04_harjoitus_4.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb53-4"><a href="04_harjoitus_4.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
-<span id="cb53-5"><a href="04_harjoitus_4.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb53-6"><a href="04_harjoitus_4.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.;</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb54-1"><a href="04_harjoitus_4.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb54-2"><a href="04_harjoitus_4.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
+<span id="cb54-3"><a href="04_harjoitus_4.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb54-4"><a href="04_harjoitus_4.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
+<span id="cb54-5"><a href="04_harjoitus_4.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb54-6"><a href="04_harjoitus_4.html#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.;</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 vinkki
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb54"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb54-1"><a href="04_harjoitus_4.html#cb54-1" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Centroid() <span class="co">-- valitse funktioon geometria- sarake</span></span>
-<span id="cb54-2"><a href="04_harjoitus_4.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb54-3"><a href="04_harjoitus_4.html#cb54-3" aria-hidden="true" tabindex="-1"></a>skeema.taulu</span>
-<span id="cb54-4"><a href="04_harjoitus_4.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb54-5"><a href="04_harjoitus_4.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.; <span class="co">-- valitse Hangon kunta nimen perusteella.</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb55-1"><a href="04_harjoitus_4.html#cb55-1" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Centroid() <span class="co">-- valitse funktioon geometria- sarake</span></span>
+<span id="cb55-2"><a href="04_harjoitus_4.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb55-3"><a href="04_harjoitus_4.html#cb55-3" aria-hidden="true" tabindex="-1"></a>skeema.taulu</span>
+<span id="cb55-4"><a href="04_harjoitus_4.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb55-5"><a href="04_harjoitus_4.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.; <span class="co">-- valitse Hangon kunta nimen perusteella.</span></span></code></pre></div>
 </div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn token">
@@ -351,35 +351,35 @@ ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb55"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb55-1"><a href="04_harjoitus_4.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb55-2"><a href="04_harjoitus_4.html#cb55-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Centroid(wkb_geometry)</span>
-<span id="cb55-3"><a href="04_harjoitus_4.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb55-4"><a href="04_harjoitus_4.html#cb55-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
-<span id="cb55-5"><a href="04_harjoitus_4.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb55-6"><a href="04_harjoitus_4.html#cb55-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb56-1"><a href="04_harjoitus_4.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb56-2"><a href="04_harjoitus_4.html#cb56-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Centroid(wkb_geometry)</span>
+<span id="cb56-3"><a href="04_harjoitus_4.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb56-4"><a href="04_harjoitus_4.html#cb56-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
+<span id="cb56-5"><a href="04_harjoitus_4.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb56-6"><a href="04_harjoitus_4.html#cb56-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
 </div>
 </div>
 <ul>
 <li>ST_Envelope</li>
 </ul>
 <div class="code-box">
-<div class="sourceCode" id="cb56"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb56-1"><a href="04_harjoitus_4.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb56-2"><a href="04_harjoitus_4.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
-<span id="cb56-3"><a href="04_harjoitus_4.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb56-4"><a href="04_harjoitus_4.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
-<span id="cb56-5"><a href="04_harjoitus_4.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb56-6"><a href="04_harjoitus_4.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.;</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb57-1"><a href="04_harjoitus_4.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb57-2"><a href="04_harjoitus_4.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
+<span id="cb57-3"><a href="04_harjoitus_4.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb57-4"><a href="04_harjoitus_4.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
+<span id="cb57-5"><a href="04_harjoitus_4.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb57-6"><a href="04_harjoitus_4.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.;</span></code></pre></div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn">
 vinkki
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb57"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb57-1"><a href="04_harjoitus_4.html#cb57-1" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Envelope() <span class="co">-- valitse funktioon geometria- sarake</span></span>
-<span id="cb57-2"><a href="04_harjoitus_4.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb57-3"><a href="04_harjoitus_4.html#cb57-3" aria-hidden="true" tabindex="-1"></a>skeema.taulu</span>
-<span id="cb57-4"><a href="04_harjoitus_4.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb57-5"><a href="04_harjoitus_4.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.; <span class="co">-- valitse Hangon kunta nimen perusteella.</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb58-1"><a href="04_harjoitus_4.html#cb58-1" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Envelope() <span class="co">-- valitse funktioon geometria- sarake</span></span>
+<span id="cb58-2"><a href="04_harjoitus_4.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb58-3"><a href="04_harjoitus_4.html#cb58-3" aria-hidden="true" tabindex="-1"></a>skeema.taulu</span>
+<span id="cb58-4"><a href="04_harjoitus_4.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb58-5"><a href="04_harjoitus_4.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.; <span class="co">-- valitse Hangon kunta nimen perusteella.</span></span></code></pre></div>
 </div>
 </div>
 <button onclick="toggleAnswer(this)" class="btn answer_btn token">
@@ -387,12 +387,12 @@ ratkaisu
 </button>
 <div class="hidden-box">
 <div class="code-box">
-<div class="sourceCode" id="cb58"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb58-1"><a href="04_harjoitus_4.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb58-2"><a href="04_harjoitus_4.html#cb58-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Envelope(wkb_geometry)</span>
-<span id="cb58-3"><a href="04_harjoitus_4.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb58-4"><a href="04_harjoitus_4.html#cb58-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
-<span id="cb58-5"><a href="04_harjoitus_4.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb58-6"><a href="04_harjoitus_4.html#cb58-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb59-1"><a href="04_harjoitus_4.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb59-2"><a href="04_harjoitus_4.html#cb59-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1, maaku_ni1, ST_Envelope(wkb_geometry)</span>
+<span id="cb59-3"><a href="04_harjoitus_4.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb59-4"><a href="04_harjoitus_4.html#cb59-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
+<span id="cb59-5"><a href="04_harjoitus_4.html#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb59-6"><a href="04_harjoitus_4.html#cb59-6" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="op">=</span> <span class="st">&#39;Hanko&#39;</span>;</span></code></pre></div>
 </div>
 </div>
 <p>Huomaa, miten vastauksena tuleva geometrian tyyppi vaihtelee eri funktioiden kohdalla.</p>
@@ -406,9 +406,9 @@ ratkaisu
 <p>Indeksejä voi tarkastella sekä <strong>pgAdmin</strong>in tai QGIS <strong>DB Manager</strong>in avulla että luomalla tarkoitukseen sopivan SQL-kyselyn.</p>
 <p>Luodaan spatiaalinen indeksi taululle tieviiva:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb59"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb59-1"><a href="04_harjoitus_4.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> tieviiva_wkb_geometry</span>
-<span id="cb59-2"><a href="04_harjoitus_4.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> nlsfi.tieviiva</span>
-<span id="cb59-3"><a href="04_harjoitus_4.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> GIST(wkb_geometry);</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb60-1"><a href="04_harjoitus_4.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> tieviiva_wkb_geometry</span>
+<span id="cb60-2"><a href="04_harjoitus_4.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> nlsfi.tieviiva</span>
+<span id="cb60-3"><a href="04_harjoitus_4.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> GIST(wkb_geometry);</span></code></pre></div>
 </div>
 <p>pgAdminissa löydät indeksit valitsemalla Schemas &gt; Tables &gt; Indexes.</p>
 <p>Jos käytät psql-komentoriviohjelmaa, voit tarkastella indeksejä seuraavilla psql-komennoilla:</p>
@@ -433,8 +433,8 @@ ratkaisu
 <div class="footer-container text-center">
 
 <div class="footer-info">
-<h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-10</span>
+<h5 class="footer-title">PostgreSQL ja PostGISin perusteet</h5>
+<span class="footer-version">v2023-11-02</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 

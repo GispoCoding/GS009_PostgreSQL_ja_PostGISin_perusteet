@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="2 Harjoitus 1: Työkalujen käyttöönotto | Johdanto PostGISin käyttöön" />
+<meta property="og:title" content="2 Harjoitus 1: Työkalujen käyttöönotto | PostgreSQL ja PostGISin perusteet" />
 <meta property="og:type" content="book" />
 
 
@@ -16,12 +16,12 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-10" />
+<meta name="date" content="2023-11-02" />
 
 
-<meta name="description" content="2 Harjoitus 1: Työkalujen käyttöönotto | Johdanto PostGISin käyttöön">
+<meta name="description" content="2 Harjoitus 1: Työkalujen käyttöönotto | PostgreSQL ja PostGISin perusteet">
 
-<title>2 Harjoitus 1: Työkalujen käyttöönotto | Johdanto PostGISin käyttöön</title>
+<title>2 Harjoitus 1: Työkalujen käyttöönotto | PostgreSQL ja PostGISin perusteet</title>
 
 
 
@@ -120,7 +120,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 
 <div class="sidebar-title-wrapper">
 <img alt="Logo" width="100" src="img/gispo_white_sm.png" class="sidebar-logo">
-<div class="sidebar-title"><h1>Johdanto PostGISin käyttöön</h1></div>
+<div class="sidebar-title"><h1>PostgreSQL ja PostGISin perusteet</h1></div>
 <div class="abstract-sidebar"><p>Kurssi PostGISin yleisimpiin käyttötapauksiin.</p></div>
 </div>
 
@@ -226,7 +226,7 @@ seuraavilla tunnuksilla:</p>
 <div id="tietokantayhteyden-lisääminen" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Tietokantayhteyden lisääminen</h3>
 <p>Liitä pgAdmin-ohjelmaan koulutusympäristön tietokanta klikkaamalla
-hiiren oikealla kohdasta <strong>Servers</strong> ja valitsemalla <strong>Create &gt;
+hiiren oikealla kohdasta <strong>Servers</strong> ja valitsemalla <strong>Register &gt;
 Server…</strong></p>
 <p>Syötä seuraavat tiedot:</p>
 <ul>
@@ -294,7 +294,7 @@ sisältävät?</p>
 </div>
 <p>Uusi taulu voidaan luoda kirjoittamalla seuraava SQL-komentojono <strong>Query Tool</strong>:n SQL-editoriin.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="01_harjoitus_1.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Johdanto PostGISin käyttöön</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="01_harjoitus_1.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- PostgreSQL ja PostGISin perusteet</span></span>
 <span id="cb2-2"><a href="01_harjoitus_1.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> test_tmp(</span>
 <span id="cb2-3"><a href="01_harjoitus_1.html#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> serial,</span>
 <span id="cb2-4"><a href="01_harjoitus_1.html#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time</span> <span class="dt">time</span>,</span>
@@ -327,7 +327,7 @@ komennolla:</p>
 <div id="tietokantayhteyden-sulkeminen" class="section level3" number="2.1.4">
 <h3><span class="header-section-number">2.1.4</span> Tietokantayhteyden sulkeminen</h3>
 <p>Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse <strong>Disconnect
-Server</strong>.</p>
+from server</strong>.</p>
 </div>
 <div id="pg_dump-ja-pg_restore" class="section level3" number="2.1.5">
 <h3><span class="header-section-number">2.1.5</span> pg_dump ja pg_restore</h3>
@@ -425,11 +425,8 @@ tarvittavia muutoksia, esimerkiksi seuraavasti:</p>
 #host  all     all      127.0.0.1/32      md5
 host   all     all        0.0.0.0/0       trust</code></pre>
 </div>
-<div class="todo">
 <p>Muutokset on tehty koulutuksessa käytettävälle PostgreSQL-asennukselle
 jo valmiiksi.</p>
-<p>EI OLE -&gt; TEE SE</p>
-</div>
 <div class="hint-box">
 <p><strong>HUOM!</strong> Tämä muutos mahdollistaa yhteydenoton mistä tahansa tietokoneesta ja
 on turvallisuusriski tuotannollisissa tietojärjestelmissä.</p>
@@ -452,8 +449,8 @@ suositellaan salattavaksi SSL:n avulla.</p>
 <div class="footer-container text-center">
 
 <div class="footer-info">
-<h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-10</span>
+<h5 class="footer-title">PostgreSQL ja PostGISin perusteet</h5>
+<span class="footer-version">v2023-11-02</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 

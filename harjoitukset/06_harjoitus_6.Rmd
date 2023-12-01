@@ -80,7 +80,7 @@ nlsfi.taulu;
 :::code-box
 ```sql
 SELECT
-count(id)
+count(ogc_fid)
 FROM
 nlsfi.lentokenttapiste;
 ```
@@ -252,11 +252,11 @@ Suorita ao. SQL-lause. Mitä sillä saadaan selville?
 :::code-box
 ```sql
 SELECT
-ST_ASText(a.wkb_geometry), a.id
+ST_ASText(a.wkb_geometry), a.ogc_fid
 FROM
 nlsfi.lentokenttapiste a, nlsfi.lentokenttapiste b
 WHERE
-ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.id <> b.id;
+ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.ogc_fid <> b.ogc_fid;
 ```
 :::
 
@@ -391,10 +391,10 @@ CREATE TABLE tmp.crossroads AS
 ```sql
 DROP VIEW IF EXISTS tmp.view_crossroads;
 
-CREATE VIEW tmp.view_crossrods AS
+CREATE VIEW tmp.view_crossroads AS
 (
     SELECT DISTINCT
-    a.tienumero, a.wkb_geometry, a.id
+    a.tienumero, a.wkb_geometry, a.ogc_fid
     FROM
     nlsfi.tieviiva a, nlsfi.hallintoalue b
     WHERE
@@ -416,11 +416,11 @@ Lasketaan minimietäisyydet lentoasemilta lähimmälle rautatielle:
 :::code-box
 ```sql
 SELECT
-a.id, MIN(ST_Distance(a.wkb_geometry, b.wkb_geometry)) as "dist"
+a.ogc_fid, MIN(ST_Distance(a.wkb_geometry, b.wkb_geometry)) as "dist"
 FROM
 nlsfi.lentokenttapiste a, nlsfi.rautatieviiva b
 GROUP BY
-a.id 
+a.ogc_fid 
 ORDER BY
 dist;
 ```

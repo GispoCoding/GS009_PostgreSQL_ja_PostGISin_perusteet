@@ -164,11 +164,11 @@ LOGIN PASSWORD
 '1234'
 SUPERUSER
 VALID UNTIL
-'2021-1-1 00:00';
+'2024-1-1 00:00';
 ```
 :::
 
-Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 1. tammikuuta 2020 asti.
+Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 1. tammikuuta 2024 asti.
 Voit tarkastella käyttäjien tietoja pgAdminin puuhierarkian kohdassa **Login/Group Roles**.
 
 ### Ryhmäroolit

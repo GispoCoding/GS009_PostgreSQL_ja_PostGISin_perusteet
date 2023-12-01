@@ -1,5 +1,5 @@
 ---
-title: "Johdanto PostGISin käyttöön"
+title: "PostgreSQL ja PostGISin perusteet"
 author: "Gispo Oy"   
 date: "`r Sys.Date()`"
 site: "bookdown::bookdown_site"
@@ -22,7 +22,7 @@ documentclass: book
 
 Tervetuloa kurssin harjoitusten pariin!
 
-Näiden harjoitusten avulla voit tutustua itsenäisesti PostGIS- lisäosaan PostgreSQL- tietokantajärjestelmään. Valitse vasemmalta haluamasi aihe.
+Näiden harjoitusten avulla voit tutustua itsenäisesti PostgreSQL-tietokantajärjestelmän PostGIS-lisäosaan. Valitse vasemmalta haluamasi aihe.
 
 ## 1.1 Harjoitusmateriaalin lisenssi
 

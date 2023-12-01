@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="10 Harjoitus 9: PostgreSQL:n ylläpito | Johdanto PostGISin käyttöön" />
+<meta property="og:title" content="10 Harjoitus 9: PostgreSQL:n ylläpito | PostgreSQL ja PostGISin perusteet" />
 <meta property="og:type" content="book" />
 
 
@@ -16,12 +16,12 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2023-07-10" />
+<meta name="date" content="2023-11-02" />
 
 
-<meta name="description" content="10 Harjoitus 9: PostgreSQL:n ylläpito | Johdanto PostGISin käyttöön">
+<meta name="description" content="10 Harjoitus 9: PostgreSQL:n ylläpito | PostgreSQL ja PostGISin perusteet">
 
-<title>10 Harjoitus 9: PostgreSQL:n ylläpito | Johdanto PostGISin käyttöön</title>
+<title>10 Harjoitus 9: PostgreSQL:n ylläpito | PostgreSQL ja PostGISin perusteet</title>
 
 
 
@@ -120,82 +120,82 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 
 <div class="sidebar-title-wrapper">
 <img alt="Logo" width="100" src="img/gispo_white_sm.png" class="sidebar-logo">
-<div class="sidebar-title"><h1>Johdanto PostGISin käyttöön</h1></div>
+<div class="sidebar-title"><h1>PostgreSQL ja PostGISin perusteet</h1></div>
 <div class="abstract-sidebar"><p>Kurssi PostGISin yleisimpiin käyttötapauksiin.</p></div>
 </div>
 
 <nav class="sidebar-nav">
 <div id="TOC" class="toc">
 <ul>
-<li class="has-sub"><a href="index.html#johdanto" id="toc-johdanto"><span class="toc-section-number">1</span> 1. Johdanto</a>
+<li class="has-sub"><a href="index.html#johdanto"><span class="toc-section-number">1</span> 1. Johdanto</a>
 <ul>
-<li><a href="index.html#harjoitusmateriaalin-lisenssi" id="toc-harjoitusmateriaalin-lisenssi"><span class="toc-section-number">1.1</span> 1.1 Harjoitusmateriaalin lisenssi</a></li>
+<li><a href="index.html#harjoitusmateriaalin-lisenssi"><span class="toc-section-number">1.1</span> 1.1 Harjoitusmateriaalin lisenssi</a></li>
 </ul></li>
-<li class="has-sub"><a href="01_harjoitus_1.html#harjoitus-1-työkalujen-käyttöönotto" id="toc-harjoitus-1-työkalujen-käyttöönotto"><span class="toc-section-number">2</span> Harjoitus 1: Työkalujen käyttöönotto</a>
+<li class="has-sub"><a href="01_harjoitus_1.html#harjoitus-1-työkalujen-käyttöönotto"><span class="toc-section-number">2</span> Harjoitus 1: Työkalujen käyttöönotto</a>
 <ul>
-<li><a href="01_harjoitus_1.html#harjoitus-1.1-pgadmin-4" id="toc-harjoitus-1.1-pgadmin-4"><span class="toc-section-number">2.1</span> Harjoitus 1.1: pgAdmin 4</a></li>
-<li><a href="01_harjoitus_1.html#harjoitus-1.2-psql" id="toc-harjoitus-1.2-psql"><span class="toc-section-number">2.2</span> Harjoitus 1.2: psql</a></li>
+<li><a href="01_harjoitus_1.html#harjoitus-1.1-pgadmin-4"><span class="toc-section-number">2.1</span> Harjoitus 1.1: pgAdmin 4</a></li>
+<li><a href="01_harjoitus_1.html#harjoitus-1.2-psql"><span class="toc-section-number">2.2</span> Harjoitus 1.2: psql</a></li>
 </ul></li>
-<li class="has-sub"><a href="02_harjoitus_2.html#harjoitus-2-aineistojen-lataaminen" id="toc-harjoitus-2-aineistojen-lataaminen"><span class="toc-section-number">3</span> Harjoitus 2: Aineistojen lataaminen</a>
+<li class="has-sub"><a href="02_harjoitus_2.html#harjoitus-2-aineistojen-lataaminen"><span class="toc-section-number">3</span> Harjoitus 2: Aineistojen lataaminen</a>
 <ul>
-<li><a href="02_harjoitus_2.html#harjoitus-2.1-tekstitiedoston-lataaminen" id="toc-harjoitus-2.1-tekstitiedoston-lataaminen"><span class="toc-section-number">3.1</span> Harjoitus 2.1: Tekstitiedoston lataaminen</a></li>
-<li><a href="02_harjoitus_2.html#harjoitus-2.2-paikkatietoaineiston-lataaminen" id="toc-harjoitus-2.2-paikkatietoaineiston-lataaminen"><span class="toc-section-number">3.2</span> Harjoitus 2.2: Paikkatietoaineiston lataaminen</a></li>
+<li><a href="02_harjoitus_2.html#harjoitus-2.1-tekstitiedoston-lataaminen"><span class="toc-section-number">3.1</span> Harjoitus 2.1: Tekstitiedoston lataaminen</a></li>
+<li><a href="02_harjoitus_2.html#harjoitus-2.2-paikkatietoaineiston-lataaminen"><span class="toc-section-number">3.2</span> Harjoitus 2.2: Paikkatietoaineiston lataaminen</a></li>
 </ul></li>
-<li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-3-sqln-perusteet" id="toc-harjoitus-3-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 3: SQL:n perusteet</a>
+<li class="has-sub"><a href="03_harjoitus_3.html#harjoitus-3-sqln-perusteet"><span class="toc-section-number">4</span> Harjoitus 3: SQL:n perusteet</a>
 <ul>
-<li><a href="03_harjoitus_3.html#harjoitus-3---ratkaisuavain" id="toc-harjoitus-3---ratkaisuavain"><span class="toc-section-number">4.1</span> Harjoitus 3 - ratkaisuavain</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.1" id="toc-harjoitus-3.1"><span class="toc-section-number">4.2</span> Harjoitus 3.1</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.2" id="toc-harjoitus-3.2"><span class="toc-section-number">4.3</span> Harjoitus 3.2</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.3" id="toc-harjoitus-3.3"><span class="toc-section-number">4.4</span> Harjoitus 3.3</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.4" id="toc-harjoitus-3.4"><span class="toc-section-number">4.5</span> Harjoitus 3.4</a></li>
-<li><a href="03_harjoitus_3.html#harjoitus-3.5" id="toc-harjoitus-3.5"><span class="toc-section-number">4.6</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3---ratkaisuavain"><span class="toc-section-number">4.1</span> Harjoitus 3 - ratkaisuavain</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.1"><span class="toc-section-number">4.2</span> Harjoitus 3.1</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.2"><span class="toc-section-number">4.3</span> Harjoitus 3.2</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.4</span> Harjoitus 3.3</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.5</span> Harjoitus 3.4</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.6</span> Harjoitus 3.5</a></li>
 </ul></li>
-<li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut" id="toc-harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
+<li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
-<li><a href="04_harjoitus_4.html#harjoitus-4.1" id="toc-harjoitus-4.1"><span class="toc-section-number">5.1</span> Harjoitus 4.1</a></li>
-<li><a href="04_harjoitus_4.html#harjoitus-4---ratkaisuavain" id="toc-harjoitus-4---ratkaisuavain"><span class="toc-section-number">5.2</span> Harjoitus 4 - ratkaisuavain</a></li>
-<li><a href="04_harjoitus_4.html#harjoitus-4.2" id="toc-harjoitus-4.2"><span class="toc-section-number">5.3</span> Harjoitus 4.2</a></li>
+<li><a href="04_harjoitus_4.html#harjoitus-4.1"><span class="toc-section-number">5.1</span> Harjoitus 4.1</a></li>
+<li><a href="04_harjoitus_4.html#harjoitus-4---ratkaisuavain"><span class="toc-section-number">5.2</span> Harjoitus 4 - ratkaisuavain</a></li>
+<li><a href="04_harjoitus_4.html#harjoitus-4.2"><span class="toc-section-number">5.3</span> Harjoitus 4.2</a></li>
 </ul></li>
-<li class="has-sub"><a href="05_harjoitus_5.html#harjoitus-5-paikkatietokohteiden-geometria" id="toc-harjoitus-5-paikkatietokohteiden-geometria"><span class="toc-section-number">6</span> Harjoitus 5: Paikkatietokohteiden geometria</a>
+<li class="has-sub"><a href="05_harjoitus_5.html#harjoitus-5-paikkatietokohteiden-geometria"><span class="toc-section-number">6</span> Harjoitus 5: Paikkatietokohteiden geometria</a>
 <ul>
-<li><a href="05_harjoitus_5.html#harjoitus-5.1-geometrioiden-luonti" id="toc-harjoitus-5.1-geometrioiden-luonti"><span class="toc-section-number">6.1</span> Harjoitus 5.1: Geometrioiden luonti</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-5---ratkaisuavain" id="toc-harjoitus-5---ratkaisuavain"><span class="toc-section-number">6.2</span> Harjoitus 5 - ratkaisuavain</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-5.2" id="toc-harjoitus-5.2"><span class="toc-section-number">6.3</span> Harjoitus 5.2</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-5.3" id="toc-harjoitus-5.3"><span class="toc-section-number">6.4</span> Harjoitus 5.3</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-5.4" id="toc-harjoitus-5.4"><span class="toc-section-number">6.5</span> Harjoitus 5.4</a></li>
-<li><a href="05_harjoitus_5.html#harjoitus-5.5" id="toc-harjoitus-5.5"><span class="toc-section-number">6.6</span> Harjoitus 5.5</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.1-geometrioiden-luonti"><span class="toc-section-number">6.1</span> Harjoitus 5.1: Geometrioiden luonti</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5---ratkaisuavain"><span class="toc-section-number">6.2</span> Harjoitus 5 - ratkaisuavain</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.2"><span class="toc-section-number">6.3</span> Harjoitus 5.2</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.3"><span class="toc-section-number">6.4</span> Harjoitus 5.3</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.4"><span class="toc-section-number">6.5</span> Harjoitus 5.4</a></li>
+<li><a href="05_harjoitus_5.html#harjoitus-5.5"><span class="toc-section-number">6.6</span> Harjoitus 5.5</a></li>
 </ul></li>
-<li class="has-sub"><a href="06_harjoitus_6.html#harjoitus-6-spatiaaliset-relaatiot" id="toc-harjoitus-6-spatiaaliset-relaatiot"><span class="toc-section-number">7</span> Harjoitus 6: Spatiaaliset relaatiot</a>
+<li class="has-sub"><a href="06_harjoitus_6.html#harjoitus-6-spatiaaliset-relaatiot"><span class="toc-section-number">7</span> Harjoitus 6: Spatiaaliset relaatiot</a>
 <ul>
-<li><a href="06_harjoitus_6.html#harjoitus-6---ratkaisuavain" id="toc-harjoitus-6---ratkaisuavain"><span class="toc-section-number">7.1</span> Harjoitus 6 - ratkaisuavain</a></li>
-<li><a href="06_harjoitus_6.html#harjoitus-6.1" id="toc-harjoitus-6.1"><span class="toc-section-number">7.2</span> Harjoitus 6.1</a></li>
-<li><a href="06_harjoitus_6.html#harjoitus-6.2" id="toc-harjoitus-6.2"><span class="toc-section-number">7.3</span> <strong>Harjoitus 6.2</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6---ratkaisuavain"><span class="toc-section-number">7.1</span> Harjoitus 6 - ratkaisuavain</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.1"><span class="toc-section-number">7.2</span> Harjoitus 6.1</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.2"><span class="toc-section-number">7.3</span> <strong>Harjoitus 6.2</strong></a></li>
 </ul></li>
-<li class="has-sub"><a href="07_harjoitus_7.html#harjoitus-7-koordinaattijärjestelmät" id="toc-harjoitus-7-koordinaattijärjestelmät"><span class="toc-section-number">8</span> Harjoitus 7: Koordinaattijärjestelmät</a>
+<li class="has-sub"><a href="07_harjoitus_7.html#harjoitus-7-koordinaattijärjestelmät"><span class="toc-section-number">8</span> Harjoitus 7: Koordinaattijärjestelmät</a>
 <ul>
-<li><a href="07_harjoitus_7.html#harjoitus-7---ratkaisuavain" id="toc-harjoitus-7---ratkaisuavain"><span class="toc-section-number">8.1</span> Harjoitus 7 - ratkaisuavain</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-7.1" id="toc-harjoitus-7.1"><span class="toc-section-number">8.2</span> Harjoitus 7.1</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-7.2" id="toc-harjoitus-7.2"><span class="toc-section-number">8.3</span> Harjoitus 7.2</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-7.3" id="toc-harjoitus-7.3"><span class="toc-section-number">8.4</span> Harjoitus 7.3</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-7.4" id="toc-harjoitus-7.4"><span class="toc-section-number">8.5</span> Harjoitus 7.4</a></li>
-<li><a href="07_harjoitus_7.html#harjoitus-7.5" id="toc-harjoitus-7.5"><span class="toc-section-number">8.6</span> Harjoitus 7.5</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7---ratkaisuavain"><span class="toc-section-number">8.1</span> Harjoitus 7 - ratkaisuavain</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.1"><span class="toc-section-number">8.2</span> Harjoitus 7.1</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.2"><span class="toc-section-number">8.3</span> Harjoitus 7.2</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.3"><span class="toc-section-number">8.4</span> Harjoitus 7.3</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.4"><span class="toc-section-number">8.5</span> Harjoitus 7.4</a></li>
+<li><a href="07_harjoitus_7.html#harjoitus-7.5"><span class="toc-section-number">8.6</span> Harjoitus 7.5</a></li>
 </ul></li>
-<li class="has-sub"><a href="08_harjoitus_8.html#harjoitus-8-geoprosessointi" id="toc-harjoitus-8-geoprosessointi"><span class="toc-section-number">9</span> Harjoitus 8: Geoprosessointi</a>
+<li class="has-sub"><a href="08_harjoitus_8.html#harjoitus-8-geoprosessointi"><span class="toc-section-number">9</span> Harjoitus 8: Geoprosessointi</a>
 <ul>
-<li><a href="08_harjoitus_8.html#harjoitus-8---ratkaisuavain" id="toc-harjoitus-8---ratkaisuavain"><span class="toc-section-number">9.1</span> Harjoitus 8 - ratkaisuavain</a></li>
-<li><a href="08_harjoitus_8.html#harjoitus-8.1" id="toc-harjoitus-8.1"><span class="toc-section-number">9.2</span> Harjoitus 8.1</a></li>
-<li><a href="08_harjoitus_8.html#harjoitus-8.2" id="toc-harjoitus-8.2"><span class="toc-section-number">9.3</span> Harjoitus 8.2</a></li>
-<li><a href="08_harjoitus_8.html#harjoitus-8.3" id="toc-harjoitus-8.3"><span class="toc-section-number">9.4</span> Harjoitus 8.3</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8---ratkaisuavain"><span class="toc-section-number">9.1</span> Harjoitus 8 - ratkaisuavain</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.1"><span class="toc-section-number">9.2</span> Harjoitus 8.1</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.2"><span class="toc-section-number">9.3</span> Harjoitus 8.2</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.3"><span class="toc-section-number">9.4</span> Harjoitus 8.3</a></li>
 </ul></li>
-<li class="has-sub"><a href="09_harjoitus_09.html#harjoitus-9-postgresqln-ylläpito" id="toc-harjoitus-9-postgresqln-ylläpito"><span class="toc-section-number">10</span> Harjoitus 9: PostgreSQL:n ylläpito</a>
+<li class="has-sub"><a href="09_harjoitus_09.html#harjoitus-9-postgresqln-ylläpito"><span class="toc-section-number">10</span> Harjoitus 9: PostgreSQL:n ylläpito</a>
 <ul>
-<li><a href="09_harjoitus_09.html#harjoitus-9.1-uuden-taulutilan-luominen" id="toc-harjoitus-9.1-uuden-taulutilan-luominen"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Uuden taulutilan luominen</a></li>
-<li><a href="09_harjoitus_09.html#harjoitus-9.2-käyttäjäroolit" id="toc-harjoitus-9.2-käyttäjäroolit"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.1-uuden-taulutilan-luominen"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Uuden taulutilan luominen</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.2-käyttäjäroolit"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Käyttäjäroolit</a></li>
 </ul></li>
-<li class="has-sub"><a href="10_harjoitus_10.html#harjoitus-10-varmistus-ja-palautus" id="toc-harjoitus-10-varmistus-ja-palautus"><span class="toc-section-number">11</span> Harjoitus 10: Varmistus ja palautus</a>
+<li class="has-sub"><a href="10_harjoitus_10.html#harjoitus-10-varmistus-ja-palautus"><span class="toc-section-number">11</span> Harjoitus 10: Varmistus ja palautus</a>
 <ul>
-<li><a href="10_harjoitus_10.html#harjoitus-10.1-luodaan-varmistus" id="toc-harjoitus-10.1-luodaan-varmistus"><span class="toc-section-number">11.1</span> Harjoitus 10.1: Luodaan varmistus</a></li>
-<li><a href="10_harjoitus_10.html#harjoitus-10.2-tehdään-palautus" id="toc-harjoitus-10.2-tehdään-palautus"><span class="toc-section-number">11.2</span> Harjoitus 10.2: Tehdään palautus</a></li>
+<li><a href="10_harjoitus_10.html#harjoitus-10.1-luodaan-varmistus"><span class="toc-section-number">11.1</span> Harjoitus 10.1: Luodaan varmistus</a></li>
+<li><a href="10_harjoitus_10.html#harjoitus-10.2-tehdään-palautus"><span class="toc-section-number">11.2</span> Harjoitus 10.2: Tehdään palautus</a></li>
 </ul></li>
 </ul>
 </div>
@@ -218,7 +218,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <h3><span class="header-section-number">10.0.2</span> Taulutilat</h3>
 <p>Tarkista koulutuspalvelimen oletustaulutilojen sijainti. Käyttäjien tiedot sijaitsevat <strong>pg_default</strong>-taulutilassa, joka on data_directoryn base-hakemistossa. Järjestelmän yleiset tiedot sijaitsevat <strong>pg_global</strong>-taulutilassa, joka on data_directoryn global-hakemistossa. Datahakemiston sijainnin voit tarkistaa komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="09_harjoitus_09.html#cb1-1" aria-hidden="true" tabindex="-1"></a>SHOW data_directory;</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb154-1"><a href="09_harjoitus_09.html#cb154-1" aria-hidden="true" tabindex="-1"></a>SHOW data_directory;</span></code></pre></div>
 </div>
 </div>
 <div id="harjoitus-9.1-uuden-taulutilan-luominen" class="section level2" number="10.1">
@@ -229,8 +229,8 @@ sudo chown -R postgres:postgres /usr/local/tmp_tbls/
 sudo chmod 700 /usr/local/tmp_tbls/</code></pre>
 <p>Luo uusi taulutila SQL-komennolla psql:n tai pgAdminin avulla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="09_harjoitus_09.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLESPACE</span> tmp_tablespace</span>
-<span id="cb3-2"><a href="09_harjoitus_09.html#cb3-2" aria-hidden="true" tabindex="-1"></a>LOCATION <span class="st">&#39;/usr/local/tmp_tbls&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb156-1"><a href="09_harjoitus_09.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLESPACE</span> tmp_tablespace</span>
+<span id="cb156-2"><a href="09_harjoitus_09.html#cb156-2" aria-hidden="true" tabindex="-1"></a>LOCATION <span class="st">&#39;/usr/local/tmp_tbls&#39;</span>;</span></code></pre></div>
 </div>
 <div id="tietokannan-ja-taulun-taulutilan-muuttaminen" class="section level3" number="10.1.1">
 <h3><span class="header-section-number">10.1.1</span> Tietokannan ja taulun taulutilan muuttaminen</h3>
@@ -243,43 +243,43 @@ sudo chmod 700 /usr/local/tmp_tbls/</code></pre>
 <li>Avaa tämän jälkeen sivupaneelista postgres-tietokanta ja avaa <strong>Query tool</strong> (voit tehdä tämän myös psql:n avulla). Anna komento:</li>
 </ol>
 <div class="code-box">
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="09_harjoitus_09.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">DATABASE</span> trainingdatabase</span>
-<span id="cb4-2"><a href="09_harjoitus_09.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">TABLESPACE</span> tmp_tablespace;</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb157-1"><a href="09_harjoitus_09.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">DATABASE</span> trainingdatabase</span>
+<span id="cb157-2"><a href="09_harjoitus_09.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">TABLESPACE</span> tmp_tablespace;</span></code></pre></div>
 </div>
 <div class="hint-box">
-<p>Mikäli tämä ei onnistu, ja pgAdmin4 kertoo, että tietokantaan on aktiivisia yhteyksiä, voit yrittää kirjautua ulos ja takaisin sisään pgAdminiin.</p>
+<p>Mikäli tämä ei onnistu, ja pgAdmin4 kertoo, että tietokantaan on aktiivisia yhteyksiä, yritä kirjautua ulos ja takaisin sisään pgAdminiin.</p>
 </div>
 <p>Voit tarkistaa tietokannan taulutilan sijainnin SQL-kyselyllä:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="09_harjoitus_09.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb5-2"><a href="09_harjoitus_09.html#cb5-2" aria-hidden="true" tabindex="-1"></a>spcname, pg_tablespace_location(<span class="kw">oid</span>)</span>
-<span id="cb5-3"><a href="09_harjoitus_09.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb5-4"><a href="09_harjoitus_09.html#cb5-4" aria-hidden="true" tabindex="-1"></a>pg_tablespace;</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb158-1"><a href="09_harjoitus_09.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb158-2"><a href="09_harjoitus_09.html#cb158-2" aria-hidden="true" tabindex="-1"></a>spcname, pg_tablespace_location(<span class="kw">oid</span>)</span>
+<span id="cb158-3"><a href="09_harjoitus_09.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb158-4"><a href="09_harjoitus_09.html#cb158-4" aria-hidden="true" tabindex="-1"></a>pg_tablespace;</span></code></pre></div>
 </div>
 <p>Luo testausta varten tilapäinen taulu:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="09_harjoitus_09.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> tmp_table;</span>
-<span id="cb6-2"><a href="09_harjoitus_09.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="09_harjoitus_09.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> tmp_table <span class="kw">AS</span></span>
-<span id="cb6-4"><a href="09_harjoitus_09.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> x</span>
-<span id="cb6-5"><a href="09_harjoitus_09.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb6-6"><a href="09_harjoitus_09.html#cb6-6" aria-hidden="true" tabindex="-1"></a>generate_series(<span class="dv">2</span>,<span class="dv">5000</span>,<span class="dv">2</span>) <span class="kw">AS</span> x;</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb159-1"><a href="09_harjoitus_09.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> tmp_table;</span>
+<span id="cb159-2"><a href="09_harjoitus_09.html#cb159-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-3"><a href="09_harjoitus_09.html#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> tmp_table <span class="kw">AS</span></span>
+<span id="cb159-4"><a href="09_harjoitus_09.html#cb159-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> x</span>
+<span id="cb159-5"><a href="09_harjoitus_09.html#cb159-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb159-6"><a href="09_harjoitus_09.html#cb159-6" aria-hidden="true" tabindex="-1"></a>generate_series(<span class="dv">2</span>,<span class="dv">5000</span>,<span class="dv">2</span>) <span class="kw">AS</span> x;</span></code></pre></div>
 </div>
 <p>Taulun käyttämän taulutilan voit tarkistaa seuraavalla komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="09_harjoitus_09.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb7-2"><a href="09_harjoitus_09.html#cb7-2" aria-hidden="true" tabindex="-1"></a>tablename, <span class="kw">tablespace</span></span>
-<span id="cb7-3"><a href="09_harjoitus_09.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb7-4"><a href="09_harjoitus_09.html#cb7-4" aria-hidden="true" tabindex="-1"></a>pg_tables</span>
-<span id="cb7-5"><a href="09_harjoitus_09.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb7-6"><a href="09_harjoitus_09.html#cb7-6" aria-hidden="true" tabindex="-1"></a>tablename <span class="op">=</span> <span class="st">&#39;tmp_table&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb160-1"><a href="09_harjoitus_09.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb160-2"><a href="09_harjoitus_09.html#cb160-2" aria-hidden="true" tabindex="-1"></a>tablename, <span class="kw">tablespace</span></span>
+<span id="cb160-3"><a href="09_harjoitus_09.html#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb160-4"><a href="09_harjoitus_09.html#cb160-4" aria-hidden="true" tabindex="-1"></a>pg_tables</span>
+<span id="cb160-5"><a href="09_harjoitus_09.html#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb160-6"><a href="09_harjoitus_09.html#cb160-6" aria-hidden="true" tabindex="-1"></a>tablename <span class="op">=</span> <span class="st">&#39;tmp_table&#39;</span>;</span></code></pre></div>
 </div>
 <p>Muuta taulun taulutilaa seuraavalla komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="09_harjoitus_09.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span></span>
-<span id="cb8-2"><a href="09_harjoitus_09.html#cb8-2" aria-hidden="true" tabindex="-1"></a>tmp_table</span>
-<span id="cb8-3"><a href="09_harjoitus_09.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">TABLESPACE</span></span>
-<span id="cb8-4"><a href="09_harjoitus_09.html#cb8-4" aria-hidden="true" tabindex="-1"></a>tmp_tablespace;</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb161-1"><a href="09_harjoitus_09.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span></span>
+<span id="cb161-2"><a href="09_harjoitus_09.html#cb161-2" aria-hidden="true" tabindex="-1"></a>tmp_table</span>
+<span id="cb161-3"><a href="09_harjoitus_09.html#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">TABLESPACE</span></span>
+<span id="cb161-4"><a href="09_harjoitus_09.html#cb161-4" aria-hidden="true" tabindex="-1"></a>tmp_tablespace;</span></code></pre></div>
 </div>
 <p>Tarkista, että taulun taulutila on nyt muuttunut. Voit myös käyttää pgAdminin käyttöliittymää taulutilojen tarkastamiseen.</p>
 </div>
@@ -287,16 +287,16 @@ sudo chmod 700 /usr/local/tmp_tbls/</code></pre>
 <h3><span class="header-section-number">10.1.2</span> Indeksin taulutilan muuttaminen</h3>
 <p>Voit luoda indeksin tauluun komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="09_harjoitus_09.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span></span>
-<span id="cb9-2"><a href="09_harjoitus_09.html#cb9-2" aria-hidden="true" tabindex="-1"></a>idx_tmp_x</span>
-<span id="cb9-3"><a href="09_harjoitus_09.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> tmp_table(x);</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb162-1"><a href="09_harjoitus_09.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span></span>
+<span id="cb162-2"><a href="09_harjoitus_09.html#cb162-2" aria-hidden="true" tabindex="-1"></a>idx_tmp_x</span>
+<span id="cb162-3"><a href="09_harjoitus_09.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> tmp_table(x);</span></code></pre></div>
 </div>
 <p>Indeksit luodaan oletusarvoisesti <strong>pg_default</strong>-taulutilaan. Usein käytetyt indeksit voi olla tarpeen tallentaa sellaiseen taulutilaan, joka käyttää palvelimessa olevaa nopeinta levyä (esimerkiksi SSD-levyt). Indeksien taulutilan muuttaminen onnistuu seuraavasti:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb10"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="09_harjoitus_09.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">INDEX</span></span>
-<span id="cb10-2"><a href="09_harjoitus_09.html#cb10-2" aria-hidden="true" tabindex="-1"></a>idx_tmp_x</span>
-<span id="cb10-3"><a href="09_harjoitus_09.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">TABLESPACE</span></span>
-<span id="cb10-4"><a href="09_harjoitus_09.html#cb10-4" aria-hidden="true" tabindex="-1"></a>tmp_tablespace;</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb163-1"><a href="09_harjoitus_09.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">INDEX</span></span>
+<span id="cb163-2"><a href="09_harjoitus_09.html#cb163-2" aria-hidden="true" tabindex="-1"></a>idx_tmp_x</span>
+<span id="cb163-3"><a href="09_harjoitus_09.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">TABLESPACE</span></span>
+<span id="cb163-4"><a href="09_harjoitus_09.html#cb163-4" aria-hidden="true" tabindex="-1"></a>tmp_tablespace;</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -304,61 +304,61 @@ sudo chmod 700 /usr/local/tmp_tbls/</code></pre>
 <h2><span class="header-section-number">10.2</span> Harjoitus 9.2: Käyttäjäroolit</h2>
 <p>Oletusarvoisesti PostgreSQL:ään luodaan postgres-niminen rooli ja samanniminen tietokanta. Aiemmin harjoituksissa on luotu koulutusta varten tietokanta (trainingdatabase). Voit luoda uuden käyttäjän tietokantapalvelimeen seuraavalla SQL-komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb11"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="09_harjoitus_09.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">ROLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> matti;</span>
-<span id="cb11-2"><a href="09_harjoitus_09.html#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="09_harjoitus_09.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span></span>
-<span id="cb11-4"><a href="09_harjoitus_09.html#cb11-4" aria-hidden="true" tabindex="-1"></a>matti</span>
-<span id="cb11-5"><a href="09_harjoitus_09.html#cb11-5" aria-hidden="true" tabindex="-1"></a>LOGIN <span class="kw">PASSWORD</span></span>
-<span id="cb11-6"><a href="09_harjoitus_09.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;1234&#39;</span></span>
-<span id="cb11-7"><a href="09_harjoitus_09.html#cb11-7" aria-hidden="true" tabindex="-1"></a>CREATEDB</span>
-<span id="cb11-8"><a href="09_harjoitus_09.html#cb11-8" aria-hidden="true" tabindex="-1"></a>VALID <span class="kw">UNTIL</span></span>
-<span id="cb11-9"><a href="09_harjoitus_09.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;infinity&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb164-1"><a href="09_harjoitus_09.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">ROLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> matti;</span>
+<span id="cb164-2"><a href="09_harjoitus_09.html#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="09_harjoitus_09.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span></span>
+<span id="cb164-4"><a href="09_harjoitus_09.html#cb164-4" aria-hidden="true" tabindex="-1"></a>matti</span>
+<span id="cb164-5"><a href="09_harjoitus_09.html#cb164-5" aria-hidden="true" tabindex="-1"></a>LOGIN <span class="kw">PASSWORD</span></span>
+<span id="cb164-6"><a href="09_harjoitus_09.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;1234&#39;</span></span>
+<span id="cb164-7"><a href="09_harjoitus_09.html#cb164-7" aria-hidden="true" tabindex="-1"></a>CREATEDB</span>
+<span id="cb164-8"><a href="09_harjoitus_09.html#cb164-8" aria-hidden="true" tabindex="-1"></a>VALID <span class="kw">UNTIL</span></span>
+<span id="cb164-9"><a href="09_harjoitus_09.html#cb164-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;infinity&#39;</span>;</span></code></pre></div>
 </div>
 <p><strong>CREATEDB</strong>-parametri määrittää roolille oikeudet tietokantojen luomiseen. VALID-parametri määrittää roolin voimassaolon ajan (tässä tapauksessa ikuisesti).</p>
 <p>Luo uusi ylläpitäjän rooli seuraavalla SQL-komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="09_harjoitus_09.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">ROLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> <span class="kw">dba</span>;</span>
-<span id="cb12-2"><a href="09_harjoitus_09.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="09_harjoitus_09.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span></span>
-<span id="cb12-4"><a href="09_harjoitus_09.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">dba</span></span>
-<span id="cb12-5"><a href="09_harjoitus_09.html#cb12-5" aria-hidden="true" tabindex="-1"></a>LOGIN <span class="kw">PASSWORD</span></span>
-<span id="cb12-6"><a href="09_harjoitus_09.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;1234&#39;</span></span>
-<span id="cb12-7"><a href="09_harjoitus_09.html#cb12-7" aria-hidden="true" tabindex="-1"></a>SUPERUSER</span>
-<span id="cb12-8"><a href="09_harjoitus_09.html#cb12-8" aria-hidden="true" tabindex="-1"></a>VALID <span class="kw">UNTIL</span></span>
-<span id="cb12-9"><a href="09_harjoitus_09.html#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;2021-1-1 00:00&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb165-1"><a href="09_harjoitus_09.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">ROLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> <span class="kw">dba</span>;</span>
+<span id="cb165-2"><a href="09_harjoitus_09.html#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="09_harjoitus_09.html#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span></span>
+<span id="cb165-4"><a href="09_harjoitus_09.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="kw">dba</span></span>
+<span id="cb165-5"><a href="09_harjoitus_09.html#cb165-5" aria-hidden="true" tabindex="-1"></a>LOGIN <span class="kw">PASSWORD</span></span>
+<span id="cb165-6"><a href="09_harjoitus_09.html#cb165-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;1234&#39;</span></span>
+<span id="cb165-7"><a href="09_harjoitus_09.html#cb165-7" aria-hidden="true" tabindex="-1"></a>SUPERUSER</span>
+<span id="cb165-8"><a href="09_harjoitus_09.html#cb165-8" aria-hidden="true" tabindex="-1"></a>VALID <span class="kw">UNTIL</span></span>
+<span id="cb165-9"><a href="09_harjoitus_09.html#cb165-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;2024-1-1 00:00&#39;</span>;</span></code></pre></div>
 </div>
-<p>Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 1. tammikuuta 2020 asti.
+<p>Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 1. tammikuuta 2024 asti.
 Voit tarkastella käyttäjien tietoja pgAdminin puuhierarkian kohdassa <strong>Login/Group Roles</strong>.</p>
 <div id="ryhmäroolit" class="section level3" number="10.2.1">
 <h3><span class="header-section-number">10.2.1</span> Ryhmäroolit</h3>
 <p>Ryhmäroolit (group roles) luodaan seuraavalla SQL-komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="09_harjoitus_09.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">ROLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> admins;</span>
-<span id="cb13-2"><a href="09_harjoitus_09.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="09_harjoitus_09.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span></span>
-<span id="cb13-4"><a href="09_harjoitus_09.html#cb13-4" aria-hidden="true" tabindex="-1"></a>admins</span>
-<span id="cb13-5"><a href="09_harjoitus_09.html#cb13-5" aria-hidden="true" tabindex="-1"></a>INHERIT;</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb166-1"><a href="09_harjoitus_09.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">ROLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> admins;</span>
+<span id="cb166-2"><a href="09_harjoitus_09.html#cb166-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-3"><a href="09_harjoitus_09.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span></span>
+<span id="cb166-4"><a href="09_harjoitus_09.html#cb166-4" aria-hidden="true" tabindex="-1"></a>admins</span>
+<span id="cb166-5"><a href="09_harjoitus_09.html#cb166-5" aria-hidden="true" tabindex="-1"></a>INHERIT;</span></code></pre></div>
 </div>
 <p>INHERIT-parametri tarkoittaa sitä, että kaikki <strong>our_admins</strong>-ryhmän sisällä olevat roolit perivät ryhmän oikeudet. Poikkeuksena, <strong>superuser</strong>-oikeus ei koskaan periydy PostgreSQL:ssä.</p>
 <p>Lisää roolit matti ja dpa ryhmään admins seuraavasti:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="09_harjoitus_09.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span></span>
-<span id="cb14-2"><a href="09_harjoitus_09.html#cb14-2" aria-hidden="true" tabindex="-1"></a>admins</span>
-<span id="cb14-3"><a href="09_harjoitus_09.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">TO</span></span>
-<span id="cb14-4"><a href="09_harjoitus_09.html#cb14-4" aria-hidden="true" tabindex="-1"></a>matti, <span class="kw">dba</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb167-1"><a href="09_harjoitus_09.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span></span>
+<span id="cb167-2"><a href="09_harjoitus_09.html#cb167-2" aria-hidden="true" tabindex="-1"></a>admins</span>
+<span id="cb167-3"><a href="09_harjoitus_09.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="kw">TO</span></span>
+<span id="cb167-4"><a href="09_harjoitus_09.html#cb167-4" aria-hidden="true" tabindex="-1"></a>matti, <span class="kw">dba</span>;</span></code></pre></div>
 </div>
 <p>Voit vaihtaa rooleja komennolla <strong>SET ROLE</strong>:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb15"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="09_harjoitus_09.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">ROLE</span></span>
-<span id="cb15-2"><a href="09_harjoitus_09.html#cb15-2" aria-hidden="true" tabindex="-1"></a>matti;</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb168-1"><a href="09_harjoitus_09.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">ROLE</span></span>
+<span id="cb168-2"><a href="09_harjoitus_09.html#cb168-2" aria-hidden="true" tabindex="-1"></a>matti;</span></code></pre></div>
 </div>
 <p>Käytössä olevan roolin voi tarkistaa komennolla:</p>
 <div class="code-box">
-<div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="09_harjoitus_09.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> current_user;</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb169-1"><a href="09_harjoitus_09.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> current_user;</span></code></pre></div>
 </div>
 <p>Kokeile komentoa SELECT session_user.</p>
 <div class="code-box">
-<div class="sourceCode" id="cb17"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="09_harjoitus_09.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb170-1"><a href="09_harjoitus_09.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">..</span>.</span></code></pre></div>
 </div>
 <div class="hint-box">
 <p>Mikä on current_user ja session_user välinen ero?</p>
@@ -384,8 +384,8 @@ Voit tarkastella käyttäjien tietoja pgAdminin puuhierarkian kohdassa <strong>L
 <div class="footer-container text-center">
 
 <div class="footer-info">
-<h5 class="footer-title">Johdanto PostGISin käyttöön</h5>
-<span class="footer-version">v2023-07-10</span>
+<h5 class="footer-title">PostgreSQL ja PostGISin perusteet</h5>
+<span class="footer-version">v2023-11-02</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 
