@@ -11,7 +11,7 @@ services:
     - ./data/dbhost:/home/oppilas/data
     - ./docker/init_db:/docker-entrypoint-initdb.d
     ports:
-      - "5432:5432"
+      - "5439:5432"
     environment:
       - ALLOW_IP_RANGE=0.0.0.0/0
       - POSTGRES_DB=${PG_DB}
