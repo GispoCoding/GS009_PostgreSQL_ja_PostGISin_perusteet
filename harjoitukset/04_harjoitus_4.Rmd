@@ -225,7 +225,7 @@ USING GIST(wkb_geometry);
 ```
 :::
 
-pgAdminissa löydät indeksit valitsemalla Schemas \> Tables \> Indexes.
+pgAdminissa löydät indeksit valitsemalla Schemas \> [valitse skeema] \> Tables \> [valitse taulu] \> Indexes.
 
 Jos käytät psql-komentoriviohjelmaa, voit tarkastella indeksejä seuraavilla psql-komennoilla:
 
