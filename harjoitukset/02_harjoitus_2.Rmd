@@ -46,7 +46,7 @@ Voit lukea CSV-tiedoston tiedot edellisessä vaiheessa luotuun tauluun seuravaal
 ::: code-box
 ``` sql
 COPY airports
-FROM '/home/oppilas/data/airports.dat'
+FROM '/home/student/data/airports.dat'
 WITH CSV;
 ```
 :::

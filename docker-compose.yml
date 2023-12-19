@@ -8,7 +8,7 @@ services:
     image: kartoza/postgis:${PG_TAG}
     volumes:
     - postgres_data:/var/lib/postgresql
-    - ./data/dbhost:/home/oppilas/data
+    - ./data/dbhost:/home/${LINUX_USER}/data
     - ./docker/init_db:/docker-entrypoint-initdb.d
     ports:
       - "5439:5432"
