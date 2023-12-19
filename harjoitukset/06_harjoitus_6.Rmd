@@ -142,7 +142,7 @@ ST_Contains(a.wkb_geometry, b.wkb_geometry)) as DistincKunta;
 :::
 :::
 
-## **Harjoitus 6.2**
+## Harjoitus 6.2
 
 Missä Suomen kunnissa on kaksi lentokenttää?
 
