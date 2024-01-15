@@ -62,12 +62,6 @@ avg(char_length(kunta_ni1)) desc;
 ```
 :::
 
-## Harjoitus 3 - ratkaisuavain
-
-Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
-
-<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
-
 ## Harjoitus 3.1
 
 Missä maakunnassa on keskimäärin pisimmät kuntien nimet?
@@ -107,7 +101,7 @@ LIMIT 1;
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 ::: hidden-box
 :::code-box
@@ -164,7 +158,7 @@ LIMIT 1;
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -216,7 +210,7 @@ LIMIT 1;
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -289,7 +283,7 @@ FROM
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -359,7 +353,7 @@ char_length(kunnan_nimi_fi) DESC;
 [Operaattorit PostgreSQL:n dokumentaatiossa.](https://www.postgresql.org/docs/9.0/functions-comparison.html)
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box

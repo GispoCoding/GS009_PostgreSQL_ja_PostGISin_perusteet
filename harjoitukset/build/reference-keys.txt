@@ -23,7 +23,6 @@ vaihtoehto-2-komentorivin-avulla
 harjoitus-3-sqln-perusteet
 valmistautuminen-1
 yksinkertaisia-sql-hakuja
-harjoitus-3---ratkaisuavain
 harjoitus-3.1
 harjoitus-3.2
 harjoitus-3.3
@@ -34,13 +33,11 @@ valmistautuminen-2
 paikkatietojen-metatiedot
 harjoitus-4.1
 geometrian-esittäminen
-harjoitus-4---ratkaisuavain
 harjoitus-4.2
 spatiaaliset-indeksit
 harjoitus-5-paikkatietokohteiden-geometria
 valmistautuminen-3
 harjoitus-5.1-geometrioiden-luonti
-harjoitus-5---ratkaisuavain
 harjoitus-5.2
 pinta-alat
 harjoitus-5.3
@@ -54,7 +51,6 @@ harjoitus-5.5
 harjoitus-6-spatiaaliset-relaatiot
 valmistautuminen-4
 käytettäviä-funktioita
-harjoitus-6---ratkaisuavain
 harjoitus-6.1
 harjoitus-6.2
 kunnat-joissa-ei-ole-rautatietä
@@ -65,7 +61,6 @@ lentoasemien-etäisyys-rautateistä
 harjoitus-7-koordinaattijärjestelmät
 valmistautuminen-5
 koordinaattien-konversiot-ja-muunnokset
-harjoitus-7---ratkaisuavain
 harjoitus-7.1
 harjoitus-7.2
 koordinaattijärjestelmien-määritykset
@@ -78,7 +73,6 @@ harjoitus-7.5
 harjoitus-8-geoprosessointi
 valmistautuminen-6
 keskipisteet
-harjoitus-8---ratkaisuavain
 harjoitus-8.1
 harjoitus-8.2
 vyöhykkeet

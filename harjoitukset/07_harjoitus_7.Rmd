@@ -41,12 +41,6 @@ geometry ST_Transform(geometry geom, text from_proj, integer to_srid);
 ```
 :::
 
-## Harjoitus 7 - ratkaisuavain
-
-Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
-
-<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
-
 ## Harjoitus 7.1
 
 Tee Kallion kirkon koordinaatteille konversio ETRS-TM35FIN koordinaattijärjestelmään hyödyntämällä **ST_Transform**-funktiota.
@@ -71,7 +65,7 @@ geometria_tekstinä(koordinaattimuunnos(luo_geometria_tekstistä('POINT(24.39531
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -121,7 +115,7 @@ geometria_tekstinä(koordinaattimuunnos(luo_geometria_tekstistä('POINT(24.39531
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -214,7 +208,7 @@ WHERE
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -260,7 +254,7 @@ WHERE
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -366,7 +360,7 @@ y-koordinaatti(geom) < ...;
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -403,7 +397,7 @@ WHERE ...;
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box

@@ -25,12 +25,6 @@ Tässä harjoituksessa hyödynnetään ainakin näitä funktioita:
 | ST_Touches(geometry A, geometry B) | Palauttaa "TOSI", jos A:n reuna koskettaa B:tä |
 | ST_Within(geometry A, geometry B) | Palauttaa "TOSI", jos A on B:n sisäpuolella |
 
-## Harjoitus 6 - ratkaisuavain
-
-Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
-
-<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
-
 ## Harjoitus 6.1
 
 Etsitään ne kunnat, joissa on lentokenttä:
@@ -74,7 +68,7 @@ nlsfi.taulu;
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -124,7 +118,7 @@ sisältää(... , ... ));
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -201,7 +195,7 @@ HAVING count(...) = ...;
 
 Perusteellinen ratkaisuvaihtoehto:
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -229,7 +223,7 @@ CountAirports = 2;
 
 Pelkistetympi ratkaisuvaihtoehto:
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -260,7 +254,7 @@ ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.ogc_fid <> b.ogc_fid;
 ```
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 SQL- kysely palauttaa ne tietueet, joiden geometria on identtinen, mutta id eri.

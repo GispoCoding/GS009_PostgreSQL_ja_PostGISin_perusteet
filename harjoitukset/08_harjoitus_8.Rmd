@@ -22,12 +22,6 @@ LIMIT 10;
 ```
 :::
 
-## Harjoitus 8 - ratkaisuavain
-
-Vastaa alla oleviin harjoituksiin kirjoittamalla ja syöttämällä SQL- kyselyjä pgAdminissa. Saat apua harjoituksiin kouluttajalta tai painamalla 'Näytä vinkki'- painikkeesta. Kouluttaja antaa lopuksi harjoituksiin ratkaisuavaimen, joka pitää syöttää painamalla alla olevaa painiketta (tai painamalla alla olevia 'Näytä ratkaisu'- painikkeita). Kun avain on syötetty, voit katsoa mallivastaukset harjoituksiin.
-
-<button onclick="enterToken()" class="btn">Syötä ratkaisuavain</button>
-
 ## Harjoitus 8.1
 
 Ovatko kaikki keskipisteet alueiden sisäpuolella? Kuinka monta pistettä jää ulkopuolelle?
@@ -75,7 +69,7 @@ NOT ...;
 
 Ratkaisuvaihtoehto 1 (käytetään **ST_Contains**-funktiota):
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -98,7 +92,7 @@ notin;
 
 Ratkaisuvaihtoehto 2 (käytetään **ST_Within**-funktiota):
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -149,7 +143,7 @@ NOT ...;
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
@@ -235,7 +229,7 @@ CREATE VIEW nlsfi.view_roadbuffer AS (
 :::
 :::
 
-<button onclick="toggleAnswer(this)" class="btn answer_btn token">ratkaisu</button>
+<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
 
 :::hidden-box
 :::code-box
