@@ -157,11 +157,6 @@ DROP TABLE test_tmp;
 ```
 :::
 
-### Tietokantayhteyden sulkeminen
-
-Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse **Disconnect
-from server**.
-
 ### pg_dump ja pg_restore
 
 Tietokannan tai yksittäisten taulujen varmuuskopioiden luomiseen ja
@@ -277,6 +272,10 @@ SELECT *
 FROM pg_extension;
 ```
 :::
+### Tietokantayhteyden sulkeminen
+
+Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse **Disconnect
+from server**.
 
 ### Muita huomioita
 

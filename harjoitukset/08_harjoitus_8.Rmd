@@ -10,7 +10,7 @@ Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (V
 
 ### Keskipisteet
 
-Kirjoita **SQL-terminaaliin** seuraava komento:
+Kirjoitetaan yhdessä **SQL-terminaaliin** seuraava komento:
 
 :::code-box
 ```sql
@@ -31,6 +31,8 @@ Ovatko kaikki keskipisteet alueiden sisäpuolella? Kuinka monta pistettä jää 
 SELECT ...
 ```
 :::
+
+Huomaa, että saat selville vastauksen myös tulostamalla kaikkien sellaisten kuntien nimet, joiden keskipiste jää alueen ulkopuolelle ja laskemalla tulostaulukon rivien lukumäärän.
 
 <button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
 
@@ -107,8 +109,6 @@ NOT ST_Within(ST_Centroid(wkb_geometry), wkb_geometry);
 :::
 :::
 
-Huomaa, että saat selville vastauksen myös tulostamalla kaikkien sellaisten kuntien nimet, joiden keskipiste jää alueen ulkopuolelle ja laskemalla tulostaulukon rivien lukumäärän.
-
 ## Harjoitus 8.2
 
 Miten paljon harjoituksessa 8.1 löydettyjen kuntien painokeskipisteet eroavat **ST_PointOnSurface**–funktion pisteistä?
@@ -160,6 +160,7 @@ NOT ST_Within(ST_Centroid(wkb_geometry), wkb_geometry);
 :::
 :::
 
+## Harjoitus 8.3
 ### Vyöhykkeet
 
 Muodostetaan tiestölle vyöhyke:
@@ -174,8 +175,6 @@ WHERE
 tienumero = 66;
 ```
 :::
-
-## Harjoitus 8.3
 
 Muodosta vyöhykkeestä näkymä ja visualisoi se QGISissä. Voit myös muodostaa useamman vyöhykkeen eri etäisyyksille.
 
@@ -263,9 +262,9 @@ CREATE VIEW nlsfi.view_roadbuffer AS (
 
 > Editoi alkuperäistä tieviivaa QGIS:ssä.
 
-### Yhdistäminen
+## Harjoitus 8.4
 
-Muodosta hallintoalueista maakuntien raja -aineisto:
+Muodosta (yhdistä) hallintoalueista maakuntien raja -aineisto:
 
 :::code-box
 ```sql
