@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2024-01-11" />
+<meta name="date" content="2024-01-29" />
 
 
 <meta name="description" content="2 Harjoitus 1: Työkalujen käyttöönotto | PostgreSQL ja PostGISin perusteet">
@@ -148,6 +148,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
 <li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
 <li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.6"><span class="toc-section-number">4.6</span> Harjoitus 3.6</a></li>
 </ul></li>
 <li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
@@ -166,6 +167,11 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <ul>
 <li><a href="06_harjoitus_6.html#harjoitus-6.1"><span class="toc-section-number">7.1</span> Harjoitus 6.1</a></li>
 <li><a href="06_harjoitus_6.html#harjoitus-6.2"><span class="toc-section-number">7.2</span> <strong>Harjoitus 6.2</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.3"><span class="toc-section-number">7.3</span> <strong>Harjoitus 6.3</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.4"><span class="toc-section-number">7.4</span> <strong>Harjoitus 6.4</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.5"><span class="toc-section-number">7.5</span> <strong>Harjoitus 6.5</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.6"><span class="toc-section-number">7.6</span> <strong>Harjoitus 6.6</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.7"><span class="toc-section-number">7.7</span> <strong>Harjoitus 6.7</strong></a></li>
 </ul></li>
 <li class="has-sub"><a href="07_harjoitus_7.html#harjoitus-7-koordinaattijärjestelmät"><span class="toc-section-number">8</span> Harjoitus 7: Koordinaattijärjestelmät</a>
 <ul>
@@ -180,11 +186,12 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li><a href="08_harjoitus_8.html#harjoitus-8.1"><span class="toc-section-number">9.1</span> Harjoitus 8.1</a></li>
 <li><a href="08_harjoitus_8.html#harjoitus-8.2"><span class="toc-section-number">9.2</span> Harjoitus 8.2</a></li>
 <li><a href="08_harjoitus_8.html#harjoitus-8.3"><span class="toc-section-number">9.3</span> Harjoitus 8.3</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.4"><span class="toc-section-number">9.4</span> Harjoitus 8.4</a></li>
 </ul></li>
 <li class="has-sub"><a href="09_harjoitus_09.html#harjoitus-9-postgresqln-ylläpito"><span class="toc-section-number">10</span> Harjoitus 9: PostgreSQL:n ylläpito</a>
 <ul>
-<li><a href="09_harjoitus_09.html#harjoitus-9.1-uuden-taulutilan-luominen"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Uuden taulutilan luominen</a></li>
-<li><a href="09_harjoitus_09.html#harjoitus-9.2-käyttäjäroolit"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.1-käyttäjäroolit"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.2-uuden-taulutilan-luominen"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Uuden taulutilan luominen</a></li>
 </ul></li>
 <li class="has-sub"><a href="10_harjoitus_10.html#harjoitus-10-varmistus-ja-palautus"><span class="toc-section-number">11</span> Harjoitus 10: Varmistus ja palautus</a>
 <ul>
@@ -318,13 +325,8 @@ komennolla:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="01_harjoitus_1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> test_tmp;</span></code></pre></div>
 </div>
 </div>
-<div id="tietokantayhteyden-sulkeminen" class="section level3" number="2.1.4">
-<h3><span class="header-section-number">2.1.4</span> Tietokantayhteyden sulkeminen</h3>
-<p>Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse <strong>Disconnect
-from server</strong>.</p>
-</div>
-<div id="pg_dump-ja-pg_restore" class="section level3" number="2.1.5">
-<h3><span class="header-section-number">2.1.5</span> pg_dump ja pg_restore</h3>
+<div id="pg_dump-ja-pg_restore" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> pg_dump ja pg_restore</h3>
 <p>Tietokannan tai yksittäisten taulujen varmuuskopioiden luomiseen ja
 palauttamiseen on omat komentoriviohjelmansa:
 <a href="https://www.postgresql.org/docs/13/app-pgdump.html">pg_dump</a> ja
@@ -390,7 +392,7 @@ tietokannan voi poistaa komennolla:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="01_harjoitus_1.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dropdb</span> <span class="at">-U</span> postgres <span class="at">-h</span> dbhost poistettavan_tietokannan_nimi</span></code></pre></div>
 </div>
 </div>
-<div id="tietokantayhteyden-sulkeminen-1" class="section level3" number="2.2.4">
+<div id="tietokantayhteyden-sulkeminen" class="section level3" number="2.2.4">
 <h3><span class="header-section-number">2.2.4</span> Tietokantayhteyden sulkeminen</h3>
 <p>Kun haluat sulkea tietokantayhteyden, anna psql-ohjelmassa komento:</p>
 <div class="commandline-box">
@@ -409,8 +411,13 @@ tietokannan voi poistaa komennolla:</p>
 <span id="cb12-2"><a href="01_harjoitus_1.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_extension;</span></code></pre></div>
 </div>
 </div>
-<div id="muita-huomioita" class="section level3" number="2.2.6">
-<h3><span class="header-section-number">2.2.6</span> Muita huomioita</h3>
+<div id="tietokantayhteyden-sulkeminen-1" class="section level3" number="2.2.6">
+<h3><span class="header-section-number">2.2.6</span> Tietokantayhteyden sulkeminen</h3>
+<p>Klikkaa hiiren oikealla luomasi yhteyden päällä ja valitse <strong>Disconnect
+from server</strong>.</p>
+</div>
+<div id="muita-huomioita" class="section level3" number="2.2.7">
+<h3><span class="header-section-number">2.2.7</span> Muita huomioita</h3>
 <p>Jos haluat käyttää PostGIS-tietokantaa muilta tietokoneilta, tulee
 PostgreSQL:n määrittelytiedostoon (pg_hba.conf) tehdä muutamia
 tarvittavia muutoksia, esimerkiksi seuraavasti:</p>
@@ -444,7 +451,7 @@ suositellaan salattavaksi SSL:n avulla.</p>
 
 <div class="footer-info">
 <h5 class="footer-title">PostgreSQL ja PostGISin perusteet</h5>
-<span class="footer-version">v2024-01-11</span>
+<span class="footer-version">v2024-01-29</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 

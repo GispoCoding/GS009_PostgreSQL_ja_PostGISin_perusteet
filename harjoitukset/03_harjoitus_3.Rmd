@@ -10,6 +10,8 @@ Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (V
 
 ### Yksinkertaisia SQL-hakuja
 
+## Harjoitus 3.1
+
 Seuraavaksi tutkitaan hiukan edellisessä harjoituksessa ladattuja paikkatietoaineistoja:
 
 :::code-box
@@ -62,7 +64,7 @@ avg(char_length(kunta_ni1)) desc;
 ```
 :::
 
-## Harjoitus 3.1
+## Harjoitus 3.2
 
 Missä maakunnassa on keskimäärin pisimmät kuntien nimet?
 
@@ -119,7 +121,7 @@ LIMIT 1;
 :::
 :::
 
-## Harjoitus 3.2
+## Harjoitus 3.3
 
 Missä maakunnassa on keskimäärin lyhimmät kuntien nimet?
 
@@ -176,7 +178,7 @@ LIMIT 1;
 :::
 :::
 
-## Harjoitus 3.3
+## Harjoitus 3.4
 
 Mikä on Suomen pisin kunnan nimi?
 
@@ -200,7 +202,7 @@ LIMIT
 -- Täydennä tähän kyselyyn oikeat sarakkeet, skeema ja taulu. Valitse funktio,
 -- jolla saat tietoon merkkijonon pituuden.
 SELECT
-kunta, maakunta, merkkijonon_pituus(kunta)
+kunta
 FROM
 skeema.taulu
 ORDER BY
@@ -216,7 +218,7 @@ LIMIT 1;
 :::code-box
 ```sql
 SELECT
-kunta_ni1 as "Kunta", maaku_ni1 as "Maakunta", char_length(kunta_ni1) as "Pituus"
+kunta_ni1 as "Kunta"
 FROM
 nlsfi.hallintoalue
 ORDER BY
@@ -226,7 +228,7 @@ LIMIT 1;
 :::
 :::
 
-## Harjoitus 3.4
+## Harjoitus 3.5
 
 Montako 5 kirjaimista suomenkielistä kunnan nimeä Suomessa on?
 
@@ -315,9 +317,9 @@ ltr5;
 :::
 :::
 
-## Harjoitus 3.5
+## Harjoitus 3.6
 
-Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?
+Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen? Järjestä tulokset kunnan nimen pituuden mukaan laskevasti.
 
 :::code-box
 ```sql
