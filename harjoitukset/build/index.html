@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2024-01-11" />
+<meta name="date" content="2024-04-03" />
 
 
 <meta name="description" content="PostgreSQL ja PostGISin perusteet">
@@ -148,6 +148,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
 <li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
 <li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.6"><span class="toc-section-number">4.6</span> Harjoitus 3.6</a></li>
 </ul></li>
 <li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
@@ -165,7 +166,12 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li class="has-sub"><a href="06_harjoitus_6.html#harjoitus-6-spatiaaliset-relaatiot"><span class="toc-section-number">7</span> Harjoitus 6: Spatiaaliset relaatiot</a>
 <ul>
 <li><a href="06_harjoitus_6.html#harjoitus-6.1"><span class="toc-section-number">7.1</span> Harjoitus 6.1</a></li>
-<li><a href="06_harjoitus_6.html#harjoitus-6.2"><span class="toc-section-number">7.2</span> <strong>Harjoitus 6.2</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.2"><span class="toc-section-number">7.2</span> Harjoitus 6.2</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.3"><span class="toc-section-number">7.3</span> Harjoitus 6.3</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.4"><span class="toc-section-number">7.4</span> Harjoitus 6.4</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.5"><span class="toc-section-number">7.5</span> Harjoitus 6.5</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.6"><span class="toc-section-number">7.6</span> Harjoitus 6.6</a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.7"><span class="toc-section-number">7.7</span> Harjoitus 6.7</a></li>
 </ul></li>
 <li class="has-sub"><a href="07_harjoitus_7.html#harjoitus-7-koordinaattijärjestelmät"><span class="toc-section-number">8</span> Harjoitus 7: Koordinaattijärjestelmät</a>
 <ul>
@@ -180,11 +186,12 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li><a href="08_harjoitus_8.html#harjoitus-8.1"><span class="toc-section-number">9.1</span> Harjoitus 8.1</a></li>
 <li><a href="08_harjoitus_8.html#harjoitus-8.2"><span class="toc-section-number">9.2</span> Harjoitus 8.2</a></li>
 <li><a href="08_harjoitus_8.html#harjoitus-8.3"><span class="toc-section-number">9.3</span> Harjoitus 8.3</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.4"><span class="toc-section-number">9.4</span> Harjoitus 8.4</a></li>
 </ul></li>
 <li class="has-sub"><a href="09_harjoitus_09.html#harjoitus-9-postgresqln-ylläpito"><span class="toc-section-number">10</span> Harjoitus 9: PostgreSQL:n ylläpito</a>
 <ul>
-<li><a href="09_harjoitus_09.html#harjoitus-9.1-uuden-taulutilan-luominen"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Uuden taulutilan luominen</a></li>
-<li><a href="09_harjoitus_09.html#harjoitus-9.2-käyttäjäroolit"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.1-käyttäjäroolit"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.2-uuden-taulutilan-luominen"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Uuden taulutilan luominen</a></li>
 </ul></li>
 <li class="has-sub"><a href="10_harjoitus_10.html#harjoitus-10-varmistus-ja-palautus"><span class="toc-section-number">11</span> Harjoitus 10: Varmistus ja palautus</a>
 <ul>
@@ -207,7 +214,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 
 <h4 class="author">Gispo Oy</h4>
 
-<h4 id="build-date">Version: 2024-01-11</h4>
+<h4 id="build-date">Version: 2024-04-03</h4>
 
 <div class="abstract"><p>Kurssi PostGISin yleisimpiin käyttötapauksiin.</p></div>
 
@@ -241,7 +248,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 
 <div class="footer-info">
 <h5 class="footer-title">PostgreSQL ja PostGISin perusteet</h5>
-<span class="footer-version">v2024-01-11</span>
+<span class="footer-version">v2024-04-03</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 
