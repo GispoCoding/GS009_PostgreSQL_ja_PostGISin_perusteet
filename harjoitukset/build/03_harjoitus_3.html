@@ -16,7 +16,7 @@
 
 <meta name="author" content="Gispo Oy" />
 
-<meta name="date" content="2024-01-11" />
+<meta name="date" content="2024-01-29" />
 
 
 <meta name="description" content="4 Harjoitus 3: SQL:n perusteet | PostgreSQL ja PostGISin perusteet">
@@ -148,6 +148,7 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li><a href="03_harjoitus_3.html#harjoitus-3.3"><span class="toc-section-number">4.3</span> Harjoitus 3.3</a></li>
 <li><a href="03_harjoitus_3.html#harjoitus-3.4"><span class="toc-section-number">4.4</span> Harjoitus 3.4</a></li>
 <li><a href="03_harjoitus_3.html#harjoitus-3.5"><span class="toc-section-number">4.5</span> Harjoitus 3.5</a></li>
+<li><a href="03_harjoitus_3.html#harjoitus-3.6"><span class="toc-section-number">4.6</span> Harjoitus 3.6</a></li>
 </ul></li>
 <li class="has-sub"><a href="04_harjoitus_4.html#harjoitus-4-spatiaaliset-sql-haut"><span class="toc-section-number">5</span> Harjoitus 4: Spatiaaliset SQL-haut</a>
 <ul>
@@ -166,6 +167,11 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <ul>
 <li><a href="06_harjoitus_6.html#harjoitus-6.1"><span class="toc-section-number">7.1</span> Harjoitus 6.1</a></li>
 <li><a href="06_harjoitus_6.html#harjoitus-6.2"><span class="toc-section-number">7.2</span> <strong>Harjoitus 6.2</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.3"><span class="toc-section-number">7.3</span> <strong>Harjoitus 6.3</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.4"><span class="toc-section-number">7.4</span> <strong>Harjoitus 6.4</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.5"><span class="toc-section-number">7.5</span> <strong>Harjoitus 6.5</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.6"><span class="toc-section-number">7.6</span> <strong>Harjoitus 6.6</strong></a></li>
+<li><a href="06_harjoitus_6.html#harjoitus-6.7"><span class="toc-section-number">7.7</span> <strong>Harjoitus 6.7</strong></a></li>
 </ul></li>
 <li class="has-sub"><a href="07_harjoitus_7.html#harjoitus-7-koordinaattijärjestelmät"><span class="toc-section-number">8</span> Harjoitus 7: Koordinaattijärjestelmät</a>
 <ul>
@@ -180,11 +186,12 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <li><a href="08_harjoitus_8.html#harjoitus-8.1"><span class="toc-section-number">9.1</span> Harjoitus 8.1</a></li>
 <li><a href="08_harjoitus_8.html#harjoitus-8.2"><span class="toc-section-number">9.2</span> Harjoitus 8.2</a></li>
 <li><a href="08_harjoitus_8.html#harjoitus-8.3"><span class="toc-section-number">9.3</span> Harjoitus 8.3</a></li>
+<li><a href="08_harjoitus_8.html#harjoitus-8.4"><span class="toc-section-number">9.4</span> Harjoitus 8.4</a></li>
 </ul></li>
 <li class="has-sub"><a href="09_harjoitus_09.html#harjoitus-9-postgresqln-ylläpito"><span class="toc-section-number">10</span> Harjoitus 9: PostgreSQL:n ylläpito</a>
 <ul>
-<li><a href="09_harjoitus_09.html#harjoitus-9.1-uuden-taulutilan-luominen"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Uuden taulutilan luominen</a></li>
-<li><a href="09_harjoitus_09.html#harjoitus-9.2-käyttäjäroolit"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.1-käyttäjäroolit"><span class="toc-section-number">10.1</span> Harjoitus 9.1: Käyttäjäroolit</a></li>
+<li><a href="09_harjoitus_09.html#harjoitus-9.2-uuden-taulutilan-luominen"><span class="toc-section-number">10.2</span> Harjoitus 9.2: Uuden taulutilan luominen</a></li>
 </ul></li>
 <li class="has-sub"><a href="10_harjoitus_10.html#harjoitus-10-varmistus-ja-palautus"><span class="toc-section-number">11</span> Harjoitus 10: Varmistus ja palautus</a>
 <ul>
@@ -210,6 +217,9 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 </div>
 <div id="yksinkertaisia-sql-hakuja" class="section level3" number="4.0.2">
 <h3><span class="header-section-number">4.0.2</span> Yksinkertaisia SQL-hakuja</h3>
+</div>
+<div id="harjoitus-3.1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Harjoitus 3.1</h2>
 <p>Seuraavaksi tutkitaan hiukan edellisessä harjoituksessa ladattuja paikkatietoaineistoja:</p>
 <div class="code-box">
 <div class="sourceCode" id="cb29"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb29-1"><a href="03_harjoitus_3.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
@@ -247,8 +257,8 @@ type="button" onclick="navToggle()" aria-label="Toggle navigation">
 <span id="cb32-8"><a href="03_harjoitus_3.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">avg</span>(char_length(kunta_ni1)) <span class="kw">desc</span>;</span></code></pre></div>
 </div>
 </div>
-<div id="harjoitus-3.1" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Harjoitus 3.1</h2>
+<div id="harjoitus-3.2" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Harjoitus 3.2</h2>
 <p>Missä maakunnassa on keskimäärin pisimmät kuntien nimet?</p>
 <div class="code-box">
 <div class="sourceCode" id="cb33"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb33-1"><a href="03_harjoitus_3.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
@@ -297,8 +307,8 @@ ratkaisu
 </div>
 </div>
 </div>
-<div id="harjoitus-3.2" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Harjoitus 3.2</h2>
+<div id="harjoitus-3.3" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Harjoitus 3.3</h2>
 <p>Missä maakunnassa on keskimäärin lyhimmät kuntien nimet?</p>
 <div class="code-box">
 <div class="sourceCode" id="cb36"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb36-1"><a href="03_harjoitus_3.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
@@ -347,8 +357,8 @@ ratkaisu
 </div>
 </div>
 </div>
-<div id="harjoitus-3.3" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Harjoitus 3.3</h2>
+<div id="harjoitus-3.4" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Harjoitus 3.4</h2>
 <p>Mikä on Suomen pisin kunnan nimi?</p>
 <div class="code-box">
 <div class="sourceCode" id="cb39"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb39-1"><a href="03_harjoitus_3.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
@@ -367,7 +377,7 @@ vinkki
 <div class="sourceCode" id="cb40"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb40-1"><a href="03_harjoitus_3.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Täydennä tähän kyselyyn oikeat sarakkeet, skeema ja taulu. Valitse funktio,</span></span>
 <span id="cb40-2"><a href="03_harjoitus_3.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- jolla saat tietoon merkkijonon pituuden.</span></span>
 <span id="cb40-3"><a href="03_harjoitus_3.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb40-4"><a href="03_harjoitus_3.html#cb40-4" aria-hidden="true" tabindex="-1"></a>kunta, maakunta, merkkijonon_pituus(kunta)</span>
+<span id="cb40-4"><a href="03_harjoitus_3.html#cb40-4" aria-hidden="true" tabindex="-1"></a>kunta</span>
 <span id="cb40-5"><a href="03_harjoitus_3.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
 <span id="cb40-6"><a href="03_harjoitus_3.html#cb40-6" aria-hidden="true" tabindex="-1"></a>skeema.taulu</span>
 <span id="cb40-7"><a href="03_harjoitus_3.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
@@ -381,7 +391,7 @@ ratkaisu
 <div class="hidden-box">
 <div class="code-box">
 <div class="sourceCode" id="cb41"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb41-1"><a href="03_harjoitus_3.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb41-2"><a href="03_harjoitus_3.html#cb41-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="kw">as</span> <span class="ot">&quot;Kunta&quot;</span>, maaku_ni1 <span class="kw">as</span> <span class="ot">&quot;Maakunta&quot;</span>, char_length(kunta_ni1) <span class="kw">as</span> <span class="ot">&quot;Pituus&quot;</span></span>
+<span id="cb41-2"><a href="03_harjoitus_3.html#cb41-2" aria-hidden="true" tabindex="-1"></a>kunta_ni1 <span class="kw">as</span> <span class="ot">&quot;Kunta&quot;</span></span>
 <span id="cb41-3"><a href="03_harjoitus_3.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
 <span id="cb41-4"><a href="03_harjoitus_3.html#cb41-4" aria-hidden="true" tabindex="-1"></a>nlsfi.hallintoalue</span>
 <span id="cb41-5"><a href="03_harjoitus_3.html#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
@@ -390,8 +400,8 @@ ratkaisu
 </div>
 </div>
 </div>
-<div id="harjoitus-3.4" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Harjoitus 3.4</h2>
+<div id="harjoitus-3.5" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Harjoitus 3.5</h2>
 <p>Montako 5 kirjaimista suomenkielistä kunnan nimeä Suomessa on?</p>
 <div class="code-box">
 <div class="sourceCode" id="cb42"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb42-1"><a href="03_harjoitus_3.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> <span class="op">..</span>. <span class="kw">AS</span></span>
@@ -472,9 +482,9 @@ ratkaisu
 </div>
 </div>
 </div>
-<div id="harjoitus-3.5" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Harjoitus 3.5</h2>
-<p>Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen?</p>
+<div id="harjoitus-3.6" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Harjoitus 3.6</h2>
+<p>Missä kunnissa suomen- ja ruotsinkielinen nimi on eri, mutta samanpituinen? Järjestä tulokset kunnan nimen pituuden mukaan laskevasti.</p>
 <div class="code-box">
 <div class="sourceCode" id="cb45"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb45-1"><a href="03_harjoitus_3.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
 <span id="cb45-2"><a href="03_harjoitus_3.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">..</span>.</span>
@@ -535,7 +545,7 @@ ratkaisu
 
 <div class="footer-info">
 <h5 class="footer-title">PostgreSQL ja PostGISin perusteet</h5>
-<span class="footer-version">v2024-01-11</span>
+<span class="footer-version">v2024-01-29</span>
 <div class="license"><img src="img/by-nd.svg" width="80px" alt="CC-BY-ND"></div>
 </div>
 

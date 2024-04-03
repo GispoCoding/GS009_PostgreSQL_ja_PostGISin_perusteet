@@ -136,7 +136,7 @@ ST_Contains(a.wkb_geometry, b.wkb_geometry)) as DistincKunta;
 :::
 :::
 
-## **Harjoitus 6.2**
+## Harjoitus 6.2
 
 Missä Suomen kunnissa on kaksi lentokenttää?
 
@@ -260,7 +260,7 @@ ST_Equals(a.wkb_geometry,b.wkb_geometry) AND a.ogc_fid <> b.ogc_fid;
 SQL- kysely palauttaa ne tietueet, joiden geometria on identtinen, mutta id eri.
 :::
 
-### Kunnat, joissa ei ole rautatietä
+## Harjoitus 6.3
 Etsitään ne kunnat, joissa ei ole rautatietä:
 
 :::code-box
@@ -276,8 +276,8 @@ WHERE
 ST_Disjoint(a.wkb_geometry, b.wkb_geometry);
 ```
 :::
-
-### Kolme lähintä lentokenttää
+## Harjoitus 6.4
+Etsitään kolme lähintä lentokenttää.
 
 K Nearest Neighbours -menetelmällä (KNN) voidaan hakea kolme lähimpänä jonkin kunnan keskustaa sijaitsevaa lentokenttää.
 
@@ -322,8 +322,7 @@ LIMIT 3;
 
 Miksi saadut tulokset poikkeavat toisistaan?
 
-### Naapurikunnat
-
+## Harjoitus 6.5
 Mitkä ovat Kuopion naapurikunnat?
 
 :::code-box
@@ -342,9 +341,8 @@ ST_Touches(a.wkb_geometry, b.wkb_geometry);
 ```
 :::
 
-### Tiet, jotka leikkaavat kuntarajoja
-
-Ne tieviivat, jotka leikkaavat kuntarajoja:
+## Harjoitus 6.6
+Etsitään ne tieviivat, jotka leikkaavat kuntarajoja:
 
 :::code-box
 ```sql
@@ -403,8 +401,7 @@ Kumman luominen oli nopeampaa: taulun vai näkymän?
 Entä käyttö QGISissä? Miksi?
 :::
 
-### Lentoasemien etäisyys rautateistä
-
+## Harjoitus 6.7
 Lasketaan minimietäisyydet lentoasemilta lähimmälle rautatielle:
 
 :::code-box
