@@ -300,4 +300,4 @@ on turvallisuusriski tuotannollisissa tietojärjestelmissä.
 :::
 
 Oletuksena yhteys tietokantaan on suojaamaton. Tietokantayhteys
-suositellaan salattavaksi SSL:n avulla.
+suositellaan salattavaksi TLS:n avulla.
