@@ -8,7 +8,7 @@
 
 Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
-### Taulutilat
+## Harjoitus 9.1: Taulutilat
 
 Tarkista koulutuspalvelimen oletustaulutilojen sijainti. Käyttäjien tiedot sijaitsevat **pg_default**-taulutilassa, joka on data_directoryn base-hakemistossa. Järjestelmän yleiset tiedot sijaitsevat **pg_global**-taulutilassa, joka on data_directoryn global-hakemistossa. Datahakemiston sijainnin voit tarkistaa komennolla:
 
@@ -18,7 +18,7 @@ SHOW data_directory;
 ```
 :::
 
-## Harjoitus 9.1: Käyttäjäroolit
+## Harjoitus 9.2: Käyttäjäroolit
 
 Oletusarvoisesti PostgreSQL:ään luodaan postgres-niminen rooli ja samanniminen tietokanta. Aiemmin harjoituksissa on luotu koulutusta varten tietokanta (trainingdatabase). Voit luoda uuden käyttäjän tietokantapalvelimeen seuraavalla SQL-komennolla:
 
@@ -57,7 +57,7 @@ VALID UNTIL
 Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 1. tammikuuta 2024 asti.
 Voit tarkastella käyttäjien tietoja pgAdminin puuhierarkian kohdassa **Login/Group Roles**.
 
-### Ryhmäroolit
+## Harjoitus 9.3: Ryhmäroolit
 
 Ryhmäroolit (group roles) luodaan seuraavalla SQL-komennolla:
 
@@ -113,13 +113,13 @@ SELECT ...
 Mikä on current_user ja session_user välinen ero?
 :::
 
-### Roolien lisääminen käyttöliittymässä
+## Harjoitus 9.4: Roolien lisääminen käyttöliittymässä
 
 ![](img/pgadminrooli.png)
 
 Roolien hallinta on selkeämpää pgAdminin käyttöliittymässä. Lisää uusi käyttäjä, valitse salasana ja lisää hänet myös admins-ryhmärooliin, huomaa SQL-välilehdelle muodostuva SQL-lauseke. Roolien poistaminen tapahtuu **DROP ROLE < roolin nimi >** -komennolla.
 
-## Harjoitus 9.2: Uuden taulutilan luominen
+## Harjoitus 9.5: Uuden taulutilan luominen
 
 Uutta taulutilaa varten pitää luoda ensin palvelimelle kansio. Kansion tulee olla postgres-käyttäjän omistuksessa ja käyttöoikeudet vain postgres-käyttäjälle. Hakemisto on luotu valmiiksi palvelimelle komennoilla:
 
@@ -138,7 +138,7 @@ LOCATION '/usr/local/tmp_tbls';
 ```
 :::
 
-### Tietokannan ja taulun taulutilan muuttaminen
+## Harjoitus 9.6: Tietokannan ja taulun taulutilan muuttaminen
 
 Koko tietokannan taulutilan voi muuttaa yhdellä komennolla.
 
@@ -210,7 +210,7 @@ tmp_tablespace;
 
 Tarkista, että taulun taulutila on nyt muuttunut. Voit myös käyttää pgAdminin käyttöliittymää taulutilojen tarkastamiseen.
 
-### Indeksin taulutilan muuttaminen
+## Harjoitus 9.7: Indeksin taulutilan muuttaminen
 
 Voit luoda indeksin tauluun komennolla:
 
