@@ -8,7 +8,7 @@
 
 Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
-### Keskipisteet
+## Harjoitus 8.1: Keskipisteet
 
 Kirjoitetaan yhdessä **SQL-terminaaliin** seuraava komento:
 
@@ -22,7 +22,9 @@ LIMIT 10;
 ```
 :::
 
-## Harjoitus 8.1
+Komento tuottaa kymmenen ensimmäisen alueen keskipisteet.
+
+## Harjoitus 8.2
 
 Ovatko kaikki keskipisteet alueiden sisäpuolella? Kuinka monta pistettä jää ulkopuolelle?
 
@@ -109,9 +111,9 @@ NOT ST_Within(ST_Centroid(wkb_geometry), wkb_geometry);
 :::
 :::
 
-## Harjoitus 8.2
+## Harjoitus 8.3
 
-Miten paljon harjoituksessa 8.1 löydettyjen kuntien painokeskipisteet eroavat **ST_PointOnSurface**–funktion pisteistä?
+Miten paljon harjoituksessa 8.2 löydettyjen kuntien painokeskipisteet eroavat **ST_PointOnSurface**–funktion pisteistä?
 
 :::code-box
 ```sql
@@ -160,8 +162,7 @@ NOT ST_Within(ST_Centroid(wkb_geometry), wkb_geometry);
 :::
 :::
 
-## Harjoitus 8.3
-### Vyöhykkeet
+## Harjoitus 8.4: Vyöhykkeet
 
 Muodostetaan tiestölle vyöhyke:
 
@@ -262,7 +263,7 @@ CREATE VIEW nlsfi.view_roadbuffer AS (
 
 > Editoi alkuperäistä tieviivaa QGIS:ssä.
 
-## Harjoitus 8.4
+## Harjoitus 8.5
 
 Muodosta (yhdistä) hallintoalueista maakuntien raja -aineisto:
 
