@@ -8,7 +8,7 @@
 
 Avaa [pgAdmin](/pgadmin) selaimeen ja kirjaudu sisään.  Avaa **Query Tool** (Valitse _trainingdatabase_ **->** Ylhäältä **Tools** **->** **Query Tool**).
 
-## Harjoitus 5.1: Geometrioiden luonti
+## Harjoitus 5.1
 
 Luodaan aluksi tietokantaan uusi taulu, johon muodostetaan erilaisia geometrioita:
 

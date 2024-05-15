@@ -24,7 +24,7 @@ LIMIT 10;
 
 Komento tuottaa kymmenen ensimmäisen alueen keskipisteet.
 
-## Harjoitus 8.2
+## Harjoitus 8.2: Keskipisteiden määritys
 
 Ovatko kaikki keskipisteet alueiden sisäpuolella? Kuinka monta pistettä jää ulkopuolelle?
 
@@ -111,7 +111,7 @@ NOT ST_Within(ST_Centroid(wkb_geometry), wkb_geometry);
 :::
 :::
 
-## Harjoitus 8.3
+## Harjoitus 8.3: Etäisyydet
 
 Miten paljon harjoituksessa 8.2 löydettyjen kuntien painokeskipisteet eroavat **ST_PointOnSurface**–funktion pisteistä?
 
@@ -263,7 +263,7 @@ CREATE VIEW nlsfi.view_roadbuffer AS (
 
 > Editoi alkuperäistä tieviivaa QGIS:ssä.
 
-## Harjoitus 8.5
+## Harjoitus 8.5: Geometrioiden yhdistäminen
 
 Muodosta (yhdistä) hallintoalueista maakuntien raja -aineisto:
 

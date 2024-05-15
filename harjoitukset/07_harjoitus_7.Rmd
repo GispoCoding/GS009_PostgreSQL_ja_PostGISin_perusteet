@@ -21,7 +21,7 @@ Tässä harjoituksessa koordinaattien konversioihin ja muunnoksiin voidaan käyt
 | ST_Transform(geometry geom, text from_proj, text to_proj) | Palauttaa geometrian muunnettuna PROJ.4-muodossa annetuista järjestelmistä toiseen |
 | ST_Transform(geometry geom, text from_proj, integer to_srid) | Palauttaa geometrian muunnettuna PROJ.4-muodossa annetusta järjestelmästä annetun EPSG:n mukaiseen koordinaattijärjestelmään |
 
-## Harjoitus 7.1: Koordinaattien konversiot ja muunnokset
+## Harjoitus 7.1: Koordinaattipisteen konversio
 
 Muodosta maantieteellisistä ETRS89-koordinaateista (EPSG:4258) 24.3953148 (pituusaste) ja 60.2174696 (leveysaste) Kallion kirkkoa vastaava PostGISin koordinaattipiste:
 
@@ -32,7 +32,7 @@ ST_GeomFromText('POINT(24.3953148 60.2174696)', 4258);
 ```
 :::
 
-## Harjoitus 7.2
+## Harjoitus 7.2: Koordinaattimuunnos
 
 Tee Kallion kirkon koordinaatteille konversio ETRS-TM35FIN-koordinaattijärjestelmään (EPSG:3067) hyödyntämällä **ST_Transform**-funktiota.
 
@@ -82,7 +82,7 @@ POINT(355696.432352181 6678478.22506072)
 ```
 :::
 
-## Harjoitus 7.3
+## Harjoitus 7.3: Koordinaattimuunnosten vertailu
 
 Tee seuraavaksi Kallion kirkon koordinaateille muunnos **KKJ2**-koordinaattijärjestelmään (EPSG:2392).
 
@@ -167,7 +167,7 @@ Tallennetut muunnosparametrit EUREF-FIN-datumin ja KKJ-datumin välillä antavat
 
 EUREF-FIN -pohjaisten koordinaattijärjestelmien käyttöönotossa on EPSG-tietokantaan tuotettu erilaisia versioita ns. GK-koordinaattijärjestelmistä.
 
-## Harjoitus 7.4
+## Harjoitus 7.4: Koordinaattijärjestelmien määrittelyt
 
 Tarkista mitkä määrittelyt koulutuksessa käytettävässä tietokannassa on ETRS-GK24FIN -koordinaattijärjestelmälle.
 
@@ -213,7 +213,7 @@ WHERE
 :::
 :::
 
-## Harjoitus 7.5
+## Harjoitus 7.5: Koordinaattijärjestelmien vertailu
 
 Mitä eroja on EPSG:3131- ja EPSG:3879-koordinaattijärjestelmillä?
 
@@ -307,7 +307,7 @@ geom3857 geometry(Point,3857);
 ```
 :::
 
-## Harjoitus 7.8
+## Harjoitus 7.8: Muunnoksen tallennus geometriakenttään
 
 Luodaan uuteen geometria-kenttään uudet koordinaattipisteet airports-taulusta:
 
