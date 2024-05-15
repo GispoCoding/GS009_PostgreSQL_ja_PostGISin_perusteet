@@ -19,7 +19,7 @@ Kaikki PostGIS-tietokannassa olevat paikkatietotaulut on rekisteröity metatieto
 |  [**raster_columns**]{style="color:purple"}   |         Rasteritietoa sisältävät paikkatietotaulut          |
 | [**raster_overviews**]{style="color:purple"}  | Yleistettyjä rasteriaineistoja sisältävät paikkatietotaulut |
 
-## Harjoitus 4.1
+## Harjoitus 4.1: Geometrioiden metatiedot
 
 Tutki geometry_columns-taulua. Mitä tietoja eri tietokentät sisältävät?
 
@@ -35,7 +35,7 @@ geometry_columns;
 Onko geometry_columns taulu?
 :::
 
-### Geometrian esittäminen
+## Harjoitus 4.2: Geometrian esittäminen
 
 Tarkastellaan ensin paikkatietojen tallennusmuotoa PostGIS-paikkatietokannassa. Suorita seuraava SQL-lause:
 
@@ -69,7 +69,7 @@ kunta_ni1 = 'Hanko';
 ```
 :::
 
-## Harjoitus 4.2
+## Harjoitus 4.3: Funktiot
 
 Kokeile myös seuraavia funktioita Hangon kunnan geometriatietoihin liittyen:
 
@@ -203,7 +203,7 @@ kunta_ni1 = 'Hanko';
 
 Huomaa, miten vastauksena tuleva geometrian tyyppi vaihtelee eri funktioiden kohdalla.
 
-### Spatiaaliset indeksit
+## Harjoitus 4.4: Spatiaaliset indeksit
 
 Tarkastele nlsfi.hallintoalue-taulun indeksejä. 
 
