@@ -1,7 +1,7 @@
 PostgreSQL ja PostGISin perusteet -kurssi
 =================
 
-Tämä projekti on PostgreSQL ja PostGISin perusteet -kurssin käytännön osuus
+Tämä projekti on PostgreSQL ja PostGISin perusteet -kurssin käytännön osuus.
 
 ## Asennus
 
@@ -9,30 +9,20 @@ Asenna aluksi seuraavat ohjelmat:
 * [docker](https://docs.docker.com/engine/install/ubuntu/)
 * [docker-compose](https://docs.docker.com/compose/install/)
 
+<a name="lokaali-asennus"></a>
 ### Lokaali asennus
-1. Luo `.env`-tiedosto ottamalla mallia `.env.template` -tiedostosta projektin juureen ja laita siihen seuraavat muuttujat ja niille halutut arvot:
-    ```properties
-        #PostGIS
-        PG_TAG=latest
-        PG_DB=training
-        PG_USER=
-        PG_PASS=
+1. Muokkaa halutessasi `.env`-tiedoston muuttujia (malli tiedostossa `.env.template`) projektin juuressa.
 
-        # PGAdmin
-        PGA_TAG=latest
-        PGADMIN_DEFAULT_EMAIL=
-        PGADMIN_DEFAULT_PASSWORD=
-    ```
 1. Käynnistä tietokanta, pgadmin4 ja nginx komennolla `docker-compose up -d`.
 Tässä kestää jonkin aikaa jos joudutaan hakemaan docker-imaget ja rakentamaan ne.
 
-1. Nyt harjoitukset tulisi näkyä juuriosoitteessa [/](/) ja pgadmin osoiitteesa [/pgadmin](/pgadmin)
+1. Nyt harjoitukset tulisi näkyä juuriosoitteessa [/](/) ja pgadmin osoitteessa [/pgadmin](/pgadmin)
 1. Avaa selain ja testaa
 
 ### Asennus tuotantoympäristöön (Testattu Ubuntu 18.04)
 1. Varmistu, että instanssilla on tarpeeksi vapaata kiintolevytilaa (~20 Gt)
 1. Kloonaa tämä repositorio esimerkiksi kansioon */home/ubuntu/pg-training*
-1. Jatka [Lokaaline asennuksen](#-Lokaali-asennus) kohtien mukaan
+1. Jatka [lokaalin asennuksen](#lokaali-asennus) kohtien mukaan
 1. Avaa instanssin ip- tai CNAME-osoite ja testaa toimivuutta
 
 ### Koulutusmateriaalin muokkaus
