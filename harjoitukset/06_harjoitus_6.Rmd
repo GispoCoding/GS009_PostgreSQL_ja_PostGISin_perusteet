@@ -112,7 +112,7 @@ a.kunta_ni1 as kunta_distinct
 FROM
 nlsfi.hallintoalue a, nlsfi.lentokenttapiste b
 WHERE
-sisältää(... , ... ));
+sisältää(... , ... )) as ...;
 -- Millä PostGIS- funktiolla voit tarkastaa onko geometria b geometrian a sisällä?
 ```
 :::
