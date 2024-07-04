@@ -53,7 +53,7 @@ kunta_ni1 = 'Hanko';
 Tuloksesta nähdään, että sarakkeen wkb_geometry sisältö on koneluettavassa binäärimuodossa. 
 
 ::: hint-box
-Vinkki: On mahdollista tarkastella geometrioita suoraan graafisessa käyttöliittymässä klikkaamalla pientä silmäikonia ![](img/pgadmin_geom.png) geometriasarakkeen päällä. Mikäli aineistot ovat WGS84-koordinaattijärjestelmässä (EPSG: 4326), pgAdmin myös lisää niihin suoraan taustakartan OpenStreetMapista.
+Vinkki: On mahdollista tarkastella geometrioita suoraan graafisessa käyttöliittymässä klikkaamalla pientä karttaikonia ![](img/pgadmin_geom.png) geometriasarakkeen päällä. Mikäli aineistot ovat WGS84-koordinaattijärjestelmässä (EPSG: 4326), pgAdmin myös lisää niihin suoraan taustakartan OpenStreetMapista.
 :::
 
 Aineistojen koordinaatistot löytyvät SRID-sarakkeesta. Yhdessä SRID-sarakkeessa voi olla vain yhden koordinaatiston metatiedot. Koordinaatit voi muuntaa paremmin ihmisluettavaan tekstimuotoon seuraavalla hakulausekkeella:
