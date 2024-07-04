@@ -26,7 +26,7 @@ Näiden harjoitusten avulla voit tutustua itsenäisesti PostgreSQL-tietokantajä
 
 ## 1.1 Harjoitusmateriaalin lisenssi
 
-- Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on [Creative Commons Nimeä-EiMuutoksia 4.0](https://creativecommons.org/licenses/by-nd/2.0/deed.fi).
+- Harjoitusmateriaalit on julkaistu avoimella lisenssillä. Käytettävä lisenssi on [Creative Commons Nimeä-EiMuutoksia 4.0](https://creativecommons.org/licenses/by-nd/4.0/deed.fi).
 
 Harjoituksissa käytettävät aineistot:
 
