@@ -120,7 +120,7 @@ CREATE TABLE test_tmp(
 :::
 
 ::: hint-box
-Huomaa, että kahdella viivalla "--" alkavat rivit ovat
+Huomaa, että kahdella viivalla "\-\-" alkavat rivit ovat
 kommenttirivejä, eikä niitä oteta huomioon SQL-komentoa
 suoritettaessa.
 :::
