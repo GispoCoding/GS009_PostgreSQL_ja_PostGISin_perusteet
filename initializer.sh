@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export PGHOST=dbhost
-export PGUSER=postgres
+export PGUSER=${PG_USER:-postgres}
 export PGPASSWORD=$POSTGRES_PASS
 
 until pg_isready -h $PGHOST
