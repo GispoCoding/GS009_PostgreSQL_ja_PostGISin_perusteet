@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+echo $PGUSER " - " $PGPASSWORD " - " $PG_USER
+echo $POSTGRES_USER " + " $POSTGRES_PASS 
 export PGHOST=dbhost
-export PGUSER=${PG_USER:-postgres}
+export PGUSER=${POSTGRES_USER:-postgres}
 export PGPASSWORD=$POSTGRES_PASS
 
 echo $PGUSER " - " $PGPASSWORD
