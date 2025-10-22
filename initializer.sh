@@ -4,6 +4,8 @@ export PGHOST=dbhost
 export PGUSER=${PG_USER:-postgres}
 export PGPASSWORD=$POSTGRES_PASS
 
+echo $PGUSER " - " $PGPASSWORD
+
 until pg_isready -h $PGHOST
 do 
     echo "Waiting database to start"
