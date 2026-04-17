@@ -168,7 +168,7 @@ Lataa projektiisi ja tietokantaasi (ainakin) seuraavat aineistot:
 Tarkista, että Koodaus-kohdassa on valittu UTF-8. Mikäli aineisto koodataan jollakin toisella järjestelmällä, ääkköset puuttuvat metatiedoista.
 :::
 
-QGIS-projektiin avautuu vektoriaineistoja, johon on määritelty tietty koordinaattijärjestelmä. Tarkista, että koordinaattijärjestelmäksi on määritelty ETRS89 / TM35FIN(E,N) (EPSG: 3067) tai EPSG:3047. Tason koordinaattijärjestelmän voit tarkistaa ja muuttaa klikkaamalla hiiren oikeaa painiketta tasolla ja valitsemalla **Ominaisuudet \> Lähde \> Aseta koordinaattijärjestelmä**.
+QGIS-projektiin avautuu vektoriaineistoja, johon on määritelty tietty koordinaattijärjestelmä. Tarkista, että koordinaattijärjestelmäksi on määritelty ETRS89 / TM35FIN(E,N) (EPSG:3067) tai EPSG:3047. Tason koordinaattijärjestelmän voit tarkistaa ja muuttaa klikkaamalla hiiren oikeaa painiketta tasolla ja valitsemalla **Ominaisuudet \> Lähde \> Aseta koordinaattijärjestelmä**. Kannattaa myös asettaa EPSG:3067 QGIS-projektin koordinaattijärjestelmäksi. Asettaminen tapahatuu QGIS ikkunan oikeassa alakulmassa.
 
 ![](img/qgistasot.png)
 
