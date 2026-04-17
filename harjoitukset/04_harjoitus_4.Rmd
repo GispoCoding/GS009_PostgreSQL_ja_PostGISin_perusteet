@@ -225,12 +225,21 @@ USING GIST(wkb_geometry);
 
 pgAdminissa löydät indeksit valitsemalla Schemas \> [valitse skeema] \> Tables \> [valitse taulu] \> Indexes.
 
-Jos käytät psql-komentoriviohjelmaa, voit tarkastella indeksejä seuraavilla psql-komennoilla:
+Jos käytät psql-komentoriviohjelmaa, voit tarkastella kaikki nlsfi-skeeman indeksejä seuraavalla psql-komennolla (huomaa että *-symboli löytää kaiken, mutta jos haluat tarkastella vain tiettyä indeksiä niin voit kirjoittaa sen *-symbolin tilalle):
 
 ::: commandline-box
 ```         
-\dt+ nlsfi.tieviiva
-\di+ nlsfi.tieviiva
+\di+ nlsfi.*
+```
+:::
+
+Yllä olevalla komennolla voit nähdä kaikki nlsfi-skeeman indeksit lisätietoineen. Psql:n \d-komento tulee sanasta describe ja lisäämällä i-kirjain niin se kertoo ainoastaan indekseistä. Plussa taas antaa enemmän tietoja kuin pelkkä \di.  Voit kokeilla seuraavia komentoja ja vertailla ne aiempaan:
+
+::: commandline-box
+```         
+\d nlsfi.*
+\di nlsfi.*
+
 ```
 :::
 
