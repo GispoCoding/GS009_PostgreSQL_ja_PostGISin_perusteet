@@ -225,12 +225,11 @@ USING GIST(wkb_geometry);
 
 pgAdminissa löydät indeksit valitsemalla Schemas \> [valitse skeema] \> Tables \> [valitse taulu] \> Indexes.
 
-Jos käytät psql-komentoriviohjelmaa, voit tarkastella indeksejä seuraavilla psql-komennoilla:
+Jos käytät psql-komentoriviohjelmaa, voit tarkastella indeksejä seuraavalla psql-komennolla:
 
 ::: commandline-box
 ```         
-\dt+ nlsfi.tieviiva
-\di+ nlsfi.tieviiva
+\di+ nlsfi.*
 ```
 :::
 
