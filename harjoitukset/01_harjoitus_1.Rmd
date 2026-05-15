@@ -90,7 +90,7 @@ komennon tuloksen. Voit myös tallentaa SQL-komentosi
 
 ![](img/pgadmin_query_tool.gif)
 
-Nyt voidaan lisätä PostGIS-lisäosa **trainingdatabase**-tietokantaan
+Nyt lisätään PostGIS-lisäosa **trainingdatabase**-tietokantaan
 seuraavalla SQL-komennolla:
 
 ::: code-box
@@ -98,6 +98,8 @@ seuraavalla SQL-komennolla:
 CREATE EXTENSION IF NOT EXISTS postgis;
 ```
 :::
+
+Hienoa! Olet asentanut PostGIS-lisäosan joka mahdollistaa muun muassa paikkatietojen tallennuksen ja analysoinnin tietokantaan.
 
 ::: hint-box
 Mitä spatial_ref_sys-taulu sisältää?
