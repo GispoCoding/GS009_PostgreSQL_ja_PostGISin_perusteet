@@ -206,6 +206,14 @@ Alla muutama esimerkki interaktiivisista psql-komennoista:
 ```
 :::
 
+Voit nyt ottaa yhteyttä trainingdatabse-tietokantaan:
+
+::: commandline-box
+``` psql
+\c trainingdatabse
+```
+:::
+
 Komennolla `help` ja erityisesti komennolla `\?` saat tietoa ohjelman
 eri komennoista. Pääset pois listauksesta painamalla `q`.
 
