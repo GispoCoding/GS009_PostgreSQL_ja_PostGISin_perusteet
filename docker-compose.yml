@@ -42,7 +42,7 @@ services:
     - ./initializer.sh:/initializer.sh
 
   wetty:
-    image: wettyoss/wetty
+    image: wettyoss/wetty:2
     depends_on:
       - client
     environment:
