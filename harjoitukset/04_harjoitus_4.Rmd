@@ -207,13 +207,11 @@ Huomaa, miten vastauksena tuleva geometrian tyyppi vaihtelee eri funktioiden koh
 
 Tarkastele nlsfi.hallintoalue-taulun indeksejä. 
 
-- Mitä indeksejä taululle on muodostunut? 
-
-- Kuinka taulu eroaa tieviiva-taulun indekseistä? Mistä ero johtuu?
+- Mitä indeksiä taululle on muodostunut? 
 
 Indeksejä voi tarkastella sekä **pgAdmin**in tai QGIS **DB Manager**in avulla että luomalla tarkoitukseen sopivan SQL-kyselyn.
 
-Luodaan spatiaalinen indeksi taululle tieviiva:
+Spatiaaliset indeksit on luotu silloin kun latasit aineistot QGISillä tietokantaan. Jos silloin valitsit, että indeksiä ei luoda niin indeksejä ei ole. Jos haluat luoda niitä jälkikäteen niin se onnistuu seuraavalla tavall (esimerkki ainoastaan tieviiva-tasolle):
 
 ::: code-box
 ``` sql
