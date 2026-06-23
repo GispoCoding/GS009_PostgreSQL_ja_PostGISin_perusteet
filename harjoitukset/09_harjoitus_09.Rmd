@@ -50,11 +50,11 @@ LOGIN PASSWORD
 '1234'
 SUPERUSER
 VALID UNTIL
-'2024-1-1 00:00';
+'2050-12-31 00:00';
 ```
 :::
 
-Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 1. tammikuuta 2024 asti.
+Uudella roolilla on ylläpitäjän oikeudet (SUPERUSER) ja se on voimassa 31. joulukuuta 2050 asti.
 Voit tarkastella käyttäjien tietoja pgAdminin puuhierarkian kohdassa **Login/Group Roles**.
 
 ## Harjoitus 9.3: Ryhmäroolit
@@ -160,6 +160,21 @@ SET TABLESPACE tmp_tablespace;
 Mikäli tämä ei onnistu, ja pgAdmin4 kertoo, että tietokantaan on aktiivisia yhteyksiä, yritä kirjautua ulos ja takaisin sisään pgAdminiin.
 :::
 
+
+:::hint-box
+Jos uloskirjautuminen ei auta, niin voit sulkea kaikki sessiot, paitsi se joka sinulla on auki, seuraavalla komennolla:
+
+:::code-box
+```sql
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE datname = 'trainingdatabase'
+  AND pid <> pg_backend_pid();
+```
+:::
+
+
+:::
 Voit tarkistaa tietokannan taulutilan sijainnin SQL-kyselyllä:
 
 :::code-box
@@ -170,6 +185,8 @@ FROM
 pg_tablespace;
 ```
 :::
+
+Huomaat, että **pg_tablespace_location**-kenttä on tyhjä. Tämä tarkoittaa, että kyseiset taulutilat sijaitsevat kotihakemistossa. 
 
 Luo testausta varten tilapäinen taulu:
 
