@@ -116,7 +116,7 @@ Syötä Yhteyden tiedot -ikkunaan seuraavat tiedot tietokantayhteyden määritt�
 
 ![](img/yhteyspg.png)
 
-Huomaa, että Name-kenttä kuvaa vain QGISiin tallennettavan yhteyden nimeä eikä itse tietokannan nimeä. Yhteyden valinnaisista toiminnallisuuksista kannattaa oletuksena valita kaikki. Esimerkiksi arvioidun metadatan käyttäminen nopeuttaa hakuja huomattavasti.
+Huomaa, että Name-kenttä kuvaa vain QGISiin tallennettavan yhteyden nimeä eikä itse tietokannan nimeä. Yhteyden valinnaisista toiminnallisuuksista kannattaa oletuksena valita kaikki, paitsi "Älä ratkaise rajoittamattomien sarakkeidein tyyppiä (GEOMETRIA)". Jos se on päällä niin emme näe näkymää jota luodaan harjoituksessa 8. Esimerkiksi arvioidun metadatan käyttäminen nopeuttaa hakuja huomattavasti.
 
 Paina **Testaa yhteyttä** -painiketta varmistaaksesi tietokantayhteyden toiminnan ja paina **OK**. QGISin sisällä voi myös ajaa SQL-komentoja esimerkiksi **DB Manager**in avulla.
 
