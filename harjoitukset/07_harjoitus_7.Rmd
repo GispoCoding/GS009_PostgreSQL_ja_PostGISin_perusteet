@@ -215,7 +215,7 @@ WHERE
 
 ## Harjoitus 7.5: Koordinaattijärjestelmien vertailu
 
-Mitä eroja on EPSG:3131- ja EPSG:3879-koordinaattijärjestelmillä?
+Mitä eroja on EPSG:3132- ja EPSG:3879-koordinaattijärjestelmillä?
 
 :::code-box
 ```sql
@@ -256,6 +256,8 @@ FROM
 spatial_ref_sys
 WHERE
 srid in (3132, 3879);
+
+-- Huomaat vastauksessa yhden eron. Tämä liitty ns. valeitään (False Easting) joka eroaa koordinaattijärjeselmien välillä.
 ```
 :::
 :::
