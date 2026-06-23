@@ -211,7 +211,7 @@ Tarkastele nlsfi.hallintoalue-taulun indeksejä.
 
 Indeksejä voi tarkastella sekä **pgAdmin**in tai QGIS **DB Manager**in avulla että luomalla tarkoitukseen sopivan SQL-kyselyn.
 
-Spatiaaliset indeksit on luotu silloin kun latasit aineistot QGISillä tietokantaan. Jos silloin valitsit, että indeksiä ei luoda niin indeksejä ei ole. Jos haluat luoda niitä jälkikäteen niin se onnistuu seuraavalla tavall (esimerkki ainoastaan tieviiva-tasolle):
+Spatiaaliset indeksit on luotu silloin kun latasit aineistot QGISillä tietokantaan. Jos silloin valitsit, että indeksiä ei luoda niin indeksejä ei ole. Jos haluat luoda niitä jälkikäteen niin se onnistuu seuraavalla tavalla (esimerkki ainoastaan tieviiva-tasolle):
 
 ::: code-box
 ``` sql
