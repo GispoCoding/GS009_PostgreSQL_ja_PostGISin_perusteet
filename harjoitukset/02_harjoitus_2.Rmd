@@ -116,13 +116,9 @@ Syötä Yhteyden tiedot -ikkunaan seuraavat tiedot tietokantayhteyden määritt�
 
 ![](img/yhteyspg.png)
 
-Huomaa, että Name-kenttä kuvaa vain QGISiin tallennettavan yhteyden nimeä eikä itse tietokannan nimeä. Yhteyden valinnaisista toiminnallisuuksista kannattaa oletuksena valita kaikki. Esimerkiksi arvioidun metadatan käyttäminen nopeuttaa hakuja huomattavasti.
+Huomaa, että Name-kenttä kuvaa vain QGISiin tallennettavan yhteyden nimeä eikä itse tietokannan nimeä. Yhteyden valinnaisista toiminnallisuuksista kannattaa oletuksena valita kaikki, paitsi "Älä ratkaise rajoittamattomien sarakkeidein tyyppiä (GEOMETRIA)". Jos se on päällä niin emme näe näkymää jota luodaan harjoituksessa 8. Esimerkiksi arvioidun metadatan käyttäminen nopeuttaa hakuja huomattavasti.
 
 Paina **Testaa yhteyttä** -painiketta varmistaaksesi tietokantayhteyden toiminnan ja paina **OK**. QGISin sisällä voi myös ajaa SQL-komentoja esimerkiksi **DB Manager**in avulla.
-
-Ota seuraavaksi yhteys QGISista postgres-nimisen tietokannan lisäksi **trainingdatabase**-nimiseen tietokantaan, jossa tulemme operoimaan loppukurssin ajan. Tietokantayhteyden muodostaminen tapahtuu hyvin pitkälti samoin kuin yllä on kuvattu. Ainoastaan Name-kohtaan tulee syöttää jokin muu arvo (esim. gispo_trainingdatabase) ja Database-kohtaan tietokannan nimen (trainingdatabase).
-
-**Huom!** Ladataan datat trainingdatabase-tietokantaan EIKÄ postgres-tietokantaan!
 
 Luo tässä vaiheessa trainingdatabase-tietokantaan uusi skeema, jonne Maanmittauslaitoksen aineistot tullaan lataamaan, ja anna skeemalle nimeksi "nlsfi". Skeemojen avulla on helpompi pitää aineistot järjestyksessä. Uuden skeeman voi luoda pgAdminin graafisen käyttöliittymän kautta, QGISin kautta tai seuraavalla SQL-komennolla:
 
