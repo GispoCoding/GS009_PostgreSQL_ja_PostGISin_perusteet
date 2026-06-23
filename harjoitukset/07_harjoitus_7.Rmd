@@ -125,23 +125,11 @@ POINT(6678507.76432921 2522091.992364572)
 ```
 :::
 
-Vertaa saatuja koordinaattiarvoja Maanmittauslaitoksen ylläpitämän [koordinaattimuunnospalvelun](https://kartta.paikkatietoikkuna.fi/) koordinaatteihin. Koordinaattimuunnostoiminto löytyy **Paikkatietoikkunan** vasemman reunan valikosta nimellä **Koordinaattimuunnos**.
+Suomessa yleisin koordinaattijärjestelmä lienee **ETRS-TM35FIN** (epsg:3067), joka kattaa koko Suomen. Kunta- ja aluekohtaisesti käytössä on eri GK-kaistat **ETRS-GK19** - **ETRS-GK31**. Laajempi lista koordinaattijärjestelmistä Suomesta löydät [Maanmittauslaitoksen sivuilta](https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/koordinaatit-ja-paikannus/epsg-koodit-ja-proj-muunnosohjelma). 
+
+Välillä pitää tehdä muunnoksia koordinaattijärjestelmien välillä. Silloin kannattaa aina tarkistaa koordinaatit jälkikäteen. Koordinaattiarvojen muunnoksia voi silmämääräisen tarkastuksen lisäksi tehdä myös Maanmittauslaitoksen ylläpitämän [koordinaattimuunnospalvelulla](https://kartta.paikkatietoikkuna.fi/) Paikkatietoikkunassa. Koordinaattimuunnostoiminto löytyy **Paikkatietoikkunan** vasemman reunan valikosta nimellä **Koordinaattimuunnos**.
 
 ![](img/paikkatietoikkuna.png)
-
-Huomaa, että EPSG:4258- ja EPSG:3067-koordinaattijärjestelmien välillä tehtiin koordinaattikonversio, eikä PostGIS:n ja MML:n laskennassa ole oleellista eroa.
-
-Tehdään koordinaattimuunnos EPSG:4258- ja EPSG:2392-koordinaattijärjestelmien välillä. Ero PostGISin ja Maanmittauslaitoksen laskemien koordinaattien välillä on merkittävämpi:
-
-| PostGIS | MML | Erotus (m) |
-| :--: | :---: | :---: |
-| 6,678,  507.764333 | 6,678,  507.677300 | 0.087033 |
-| 2,522,  091.992365 | 2,522,  091.368400 | 0.623965 |
-\
-
-:::hint-box
-Mistä koordinaattimuunnoksen ero voi johtua?
-:::
 
 ### Koordinaattijärjestelmien määritykset
 
@@ -295,118 +283,3 @@ airports;
 :::
 
 Kahdella putkimerkillä ```||``` yhdistetään tekstiä.
-
-## Harjoitus 7.7: Toisen geometriakentän lisääminen
-
-Lisätään vielä tehtyyn tauluun toinen geometria-kenttä, jonka koordinaattijärjestelmä on EPSG:3857:
-
-:::code-box
-```sql
-ALTER TABLE
-air_geom
-ADD COLUMN
-geom3857 geometry(Point,3857);
-```
-:::
-
-## Harjoitus 7.8: Muunnoksen tallennus geometriakenttään
-
-Luodaan uuteen geometria-kenttään uudet koordinaattipisteet airports-taulusta:
-
-:::code-box
-```sql
-UPDATE
-air_geom
-SET
-geom3857 = ST_Transform(geom, 3857);
-```
-:::
-
-Jos komennon ajo ei mene läpi, kuinka ratkaisisit ongelman?
-
-
-Tutustu lentokenttäaineistoon ja etsi virheilmoituksen tuottavat tietue. Kannattaa tutkia minkä alueen kuvaamiseen EPSG:3857-koordinaattijärjestelmä on suunnattu esimerkiksi [täältä](https://epsg.io/3857).
-
-:::code-box
-```sql
-SELECT ...
-FROM
-...
-WHERE
-...
-```
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
-
-::: hidden-box
-:::code-box
-```sql
-SELECT *
-FROM
-air_geom
-WHERE
-y-koordinaatti(geom) < ...;
--- Millä PostGIS- funktiolla saat palautettua y- koordinaatin?
--- täydennä sopiva arvo '...'- kohtaan.
-```
-:::
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT *
-FROM
-air_geom
-WHERE
-ST_Y(geom) < -85.06;
-```
-:::
-:::
-
-Paikannattuasi ongelman, korjaa se (jätä ongelman aiheuttava lentokenttä air_geom-taulun kentän päivityskomennon ulkopuolelle).
-
-:::code-box
-```sql
-SELECT gid,name,icao,ST_asText(geom)
-FROM air_geom
-WHERE ST_Y(geom) = -90;
-```
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">vinkki</button>
-
-::: hidden-box
-:::code-box
-```sql
-UPDATE air_geom
-SET geom3857 = ST_Transform(geom,3857)
-WHERE ...;
--- karsi ongelman aiheuttava tietue pois
-```
-:::
-:::
-
-<button onclick="toggleAnswer(this)" class="btn answer_btn">ratkaisu</button>
-
-:::hidden-box
-:::code-box
-```sql
-SELECT gid,name,icao,ST_asText(geom)
-FROM air_geom
-WHERE ST_Y(geom) = -90;
-```
-:::
-:::code-box
-```sql
-UPDATE air_geom
-SET geom3857 = ST_Transform(geom,3857)
-WHERE icao != 'NZSP';
-```
-:::
-:::
-
-Ratkaistuasi ongelman, tarkista tulos QGIS-ohjelmiston avulla.
