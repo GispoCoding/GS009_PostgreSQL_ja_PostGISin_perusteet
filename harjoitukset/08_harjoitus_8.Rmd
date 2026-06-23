@@ -169,7 +169,7 @@ Muodostetaan tiestölle vyöhyke:
 :::code-box
 ```sql
 SELECT
-ogc_fid, ST_Buffer(wkb_geometry, 100) as geom
+id, ST_Buffer(wkb_geometry, 100) as geom
 FROM
 nlsfi.tieviiva
 WHERE
@@ -183,7 +183,7 @@ Muodosta vyöhykkeestä näkymä ja visualisoi se QGISissä. Voit myös muodosta
 ```sql
 DROP VIEW IF EXISTS nlsfi.view_road_buffer;
 
-CREATE VIEW nlsfi.view_roadbuffed AS (
+CREATE VIEW nlsfi.view_road_buffer AS (
     WITH buffers AS (
         ...
         UNION
@@ -202,9 +202,9 @@ CREATE VIEW nlsfi.view_roadbuffed AS (
 ::: hidden-box
 :::code-box
 ```sql
-DROP VIEW IF EXISTS nlsfi.view_roadbuffer;
+DROP VIEW IF EXISTS nlsfi.view_road_buffer;
 
-CREATE VIEW nlsfi.view_roadbuffer AS (
+CREATE VIEW nlsfi.view_road_buffer AS (
     WITH buffers AS (
         SELECT
         ..., 100 as buffer -- täydennä ST_Buffer funktio
@@ -234,9 +234,9 @@ CREATE VIEW nlsfi.view_roadbuffer AS (
 :::hidden-box
 :::code-box
 ```sql
-DROP VIEW IF EXISTS nlsfi.view_roadbuffer;
+DROP VIEW IF EXISTS nlsfi.view_road_buffer;
 
-CREATE VIEW nlsfi.view_roadbuffer AS (
+CREATE VIEW nlsfi.view_road_buffer AS (
     WITH buffers AS (
         SELECT
         ST_Buffer(wkb_geometry, 100) as geom, 100 as buffer
