@@ -160,6 +160,18 @@ SET TABLESPACE tmp_tablespace;
 Mikäli tämä ei onnistu, ja pgAdmin4 kertoo, että tietokantaan on aktiivisia yhteyksiä, yritä kirjautua ulos ja takaisin sisään pgAdminiin.
 :::
 
+
+Jos joki yhteys jää auki niin voit tarvittaessa sulkea kaikki muut yhteyder käyttmällä seuraavaa kyselyä:
+
+:::code-box
+```sql
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE datname = 'trainingdatabase'
+  AND pid <> pg_backend_pid();
+```
+:::
+
 Voit tarkistaa tietokannan taulutilan sijainnin SQL-kyselyllä:
 
 :::code-box
@@ -170,6 +182,8 @@ FROM
 pg_tablespace;
 ```
 :::
+
+Huomaat, että taulutilan sijainnin kohdassa on tyhjää. Tämä tarkoittaa, että taulutila sijaitsee kotihakemistossa.
 
 Luo testausta varten tilapäinen taulu:
 
