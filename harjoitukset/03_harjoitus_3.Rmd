@@ -230,7 +230,7 @@ LIMIT 1;
 
 ## Harjoitus 3.5
 
-Montako 5 kirjaimista suomenkielistä kunnan nimeä Suomessa on?
+Montako 5 kirjaimista suomenkielistä kunnan nimeä Suomessa on? Huomioi myös kunnat missä suomi on kakkoskieli(kieli_ni2). 
 
 :::code-box
 ```sql
@@ -293,7 +293,7 @@ FROM
 WITH ltr5 AS
 (
     SELECT
-    kunta_ni1 as "Kunta", maaku_ni1 as "Maakunta", char_length(kunta_ni1) as "Pituus",
+    kunta_ni1 as "Kunta", char_length(kunta_ni1) as "Pituus",
     kieli_ni1, 'Ykköskieli' as "Kielisyys"
     FROM
     nlsfi.hallintoalue
@@ -301,7 +301,7 @@ WITH ltr5 AS
     char_length(kunta_ni1) = 5 AND kieli_ni1 = 'Suomi'
 UNION
     SELECT
-    kunta_ni2 as "Kunta", maaku_ni2 as "Maakunta", char_length(kunta_ni2) as "Pituus",
+    kunta_ni2 as "Kunta", char_length(kunta_ni2) as "Pituus",
     kieli_ni2, 'Kakkoskieli' as "Kielisyys"
     FROM
     nlsfi.hallintoalue
